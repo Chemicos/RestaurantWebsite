@@ -48,9 +48,15 @@
     .bg-custom-gray {
         background-color: #66635B;
     }
+    .bg-custom-black {
+        background-color: #04020D;
+    }
 
     .border-custom-gray {
         border-color: #66635B;
+    }
+    .border-custom-red {
+        border-color: #E7272C;
     }
     
     .text-custom-white {

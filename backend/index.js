@@ -23,8 +23,8 @@ app.get('/api/menus', async (req, res) => {
     const result = await pool.query('SELECT * FROM menu');
     res.json(result.rows);
   } catch (err) {
-    console.error(err);
-    res.status(500).send('Error querying database');
+    console.error('Error fetching menu:', err);
+    res.status(500).json({err: 'Internal Server Error'});
   }
 });
 

@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { ClockIcon } from '@phosphor-icons/react'
-import img1 from "../../assets/cartofi_condimentati.jpg"
-import img2 from "../../assets/pizza_casei.jpg"
-import img3 from "../../assets/pizza_ton.png"
-import img4 from "../../assets/spaghete_bolognese.jpg"
 
-const images = [img1, img2, img3, img4]
+const images = [
+  "/assets/cartofi_condimentati.jpg",
+  "/assets/pizza_casei.jpg",
+  "/assets/pizza_ton.png",
+  "/assets/spaghete_bolognese.jpg"
+]
 
 export default function MainSection() {
   const [currentIndex, setCurrentIndex] = useState(0)

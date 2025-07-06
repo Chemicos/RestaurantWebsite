@@ -1,6 +1,6 @@
 import {DotIcon, IconContext, ShoppingCartSimpleIcon, User} from "@phosphor-icons/react"
-import logo from '../assets/logoPizzerie.png'
-import { useState } from "react"
+// import logo from '../assets/logoPizzerie.png'
+import { useEffect, useState } from "react"
 import Login from "./Authentication/Login"
 import Register from "./Authentication/Register"
 
@@ -8,14 +8,24 @@ export default function Navigation() {
 const [selected, setSelected] = useState("Acasa")
 const [showLogin, setShowLogin] = useState(false)
 const [showRegister, setShowRegister] = useState(false)
+const [hasShadow, setHasShadow] = useState(false)
+
+useEffect(() => {
+    const handleScroll = () => {
+        setHasShadow(window.scrollY > 10)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+}, [])
 
 const cartItemCount = 0
 const navItems = ["Acasa", "Meniuri", "Contact", "Informatii"]
   return (
-    <div>
-        <div className='flex p-4 justify-between items-center relative'>
+    <div className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${hasShadow ? 'shadow-lg bg-custom-yellow' : ''}`}>
+        <div className='flex p-4 justify-between items-center'>
             <img 
-                src={logo} 
+                src={`/assets/logoPizzerie.png`} 
                 alt="logo pizzerie" 
                 className='h-16' 
             />
@@ -49,7 +59,7 @@ const navItems = ["Acasa", "Meniuri", "Contact", "Informatii"]
                         weight="bold"
                         className="text-[#66635B] hover:text-black transition-colors duration-200"
                     />
-                    <span className="absolute -top-2 -right-2 bg-custom-yellow text-xs w-5 h-5 rounded-full flex items-center justify-center">
+                    <span className="absolute -top-2 -right-2 bg-custom-red text-xs text-white w-5 h-5 rounded-full flex items-center justify-center">
                         {cartItemCount}
                     </span>
                 </div>
