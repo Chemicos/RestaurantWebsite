@@ -1,10 +1,19 @@
-import React from 'react'
+import React, { useState } from 'react'
 // import logo from '../../assets/logoPizzerie.png'
 import { EnvelopeIcon, FacebookLogoIcon, InstagramLogoIcon, MapPinIcon, PhoneIcon } from '@phosphor-icons/react'
 
 export default function Footer() {
+    const [activeIcon, setActiveIcon] = useState(null)
+
+    const hoverEffectText = `transition-colors duration-300 hover:text-red-500`
+    const handleClick = (icon) => {
+        setActiveIcon(icon)
+        setTimeout(() => {
+            setActiveIcon(null)
+        }, 200)
+    }
   return (
-    <footer className='w-full bg-custom-black mt-14 px-8 lg:px-0 py-12'>
+    <footer className='w-full bg-custom-black mt-14 px-0 lg:px-4 py-12'>
         <div className='flex flex-col lg:flex-row justify-center items-center gap-4 lg:gap-20 flex-wrap'>
             <div className='flex-shrink-0'>
                 <img 
@@ -15,12 +24,12 @@ export default function Footer() {
             </div>
 
             <div className='flex flex-col lg:flex-row flex-wrap gap-2 lg:gap-10'>
-                <div className='flex flex-col items-start gap-1'>
+                <div className='flex flex-col items-start gap-2 md:gap-1'>
                     <h3 className='text-white mb-4 font-semibold text-2xl'>Contact</h3>
 
                     <div className='flex items-center gap-2'>
                         <MapPinIcon size={20} color='white' weight='fill' />
-                        <a className='text-white' href="https://www.google.com/maps/">Str principala nr.204</a>
+                        <a className={`text-white ${hoverEffectText}`} href="https://www.google.com/maps/">Str principala nr.204</a>
                     </div>
 
                     <div className='flex items-center gap-2'>
@@ -34,28 +43,35 @@ export default function Footer() {
                     </div>
 
                     <div className='flex gap-3'>
-                        <a href="#" className='text-white hover:text-red-600 transition-color duration-300 cursor-pointer'>
+                        <a 
+                            onClick={() => handleClick('instagram')} 
+                            className={`hover:text-red-600 transition-color duration-300 cursor-pointer
+                            ${activeIcon === 'instagram' ? 'text-red-600' : 'text-white'}`}
+                        >
                             <InstagramLogoIcon size={30} weight='fill' />
                         </a>
-                        <a href="#" className='text-white hover:text-red-600 transition-color duration-300 cursor-pointer'>
+                        <a 
+                            onClick={() => handleClick('facebook')} 
+                            className={`hover:text-red-600 transition-color duration-300 cursor-pointer
+                            ${activeIcon === 'facebook' ? 'text-red-600' : 'text-white'}`}>
                             <FacebookLogoIcon size={30} weight='fill' />
                         </a>
                     </div>
                 </div>
 
-                <div className='lg:h-full w-[1px] bg-custom-gray'></div>
+                <div className='h-[1px] lg:h-auto w-auto lg:w-[1px] bg-custom-gray'></div>
 
-                <div className='flex flex-col items-start gap-1'>
+                <div className='flex flex-col items-start gap-2 md:gap-1'>
                     <h3 className='text-white mb-4 font-semibold text-2xl'>Informatii</h3>
-                    <a className='text-white block' href="">Cum comand</a>
-                    <a className='text-white block' href="">Detalii plata</a>
-                    <a className='text-white block' href="">Detalii livrare</a>
-                    <a className='text-white block' href="">Politica retur</a>
+                    <a className={`text-white block ${hoverEffectText}`} href="">Cum comand</a>
+                    <a className={`text-white block ${hoverEffectText}`} href="">Detalii plata</a>
+                    <a className={`text-white block ${hoverEffectText}`} href="">Detalii livrare</a>
+                    <a className={`text-white block ${hoverEffectText}`} href="">Politica retur</a>
                 </div>
 
-                <div className='lg:h-full w-[1px] bg-custom-gray'></div>
+                <div className='h-[1px] lg:h-auto w-auto lg:w-[1px] bg-custom-gray'></div>
 
-                <div className='flex flex-col items-start gap-1'>
+                <div className='flex flex-col items-start gap-2 md:gap-1'>
                     <h3 className='text-white mb-4 font-semibold text-2xl'>Date Comerciale</h3>
                     <p className='text-white'>SC & SRL</p>
                     <p className='text-white'>CUI RO: 02045SOMETHING</p>

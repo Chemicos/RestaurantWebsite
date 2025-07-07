@@ -19,7 +19,7 @@ export default function MainSection() {
   }, [])
 
   return (
-    <div className='mt-10 flex justify-center items-center px-6 lg:px-24'>
+    <div className='mt-14 flex justify-center items-center px-6 lg:px-24'>
       <div className='max-w-[1440px] w-full flex flex-col lg:flex-row justify-between items-center gap-5'>
         <div className='flex flex-col gap-8'>
           <div>
