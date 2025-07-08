@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { ClockIcon } from '@phosphor-icons/react'
+import { Skeleton } from '@mui/material'
 
 const images = [
   "/assets/cartofi_condimentati.jpg",
@@ -10,6 +11,12 @@ const images = [
 
 export default function MainSection() {
   const [currentIndex, setCurrentIndex] = useState(0)
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    const timeout = setTimeout(() => setIsLoading(false), 300)
+    return () => clearTimeout(timeout)
+  }, [])
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -55,20 +62,31 @@ export default function MainSection() {
         </div>
 
         <div className='w-full max-w-[750px] h-[480px] rounded-2xl overflow-hidden shadow-2xl relative'>
-          {images.map((src, index) => (
-            <img key={index} src={src} alt={`slide-${index}`}
-            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${index === currentIndex ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
+          {isLoading ? (
+            <Skeleton 
+              variant="rectangular" 
+              width="100%" 
+              height="100%" 
+              sx={{bgcolor: '#66635B'}}
             />
-          ))}
-          <div className='w-full h-full bg-black opacity-20 absolute inset-y-0 z-10'></div>
-
-          <div className='absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-4 z-20'>
-            {images.map((_, index) => (
-              <div key={index} 
-                className={`w-8 h-2 rounded-full transition-colors duration-300 ${index === currentIndex ? "bg-custom-red": "bg-white"}`}
-              ></div>
+          ) : (
+            <>
+            {images.map((src, index) => (
+              <img key={index} src={src} alt={`slide-${index}`}
+              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${index === currentIndex ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
+              />
             ))}
-          </div>
+            <div className='w-full h-full bg-black opacity-20 absolute inset-y-0 z-10'></div>
+
+            <div className='absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-4 z-20'>
+              {images.map((_, index) => (
+                <div key={index} 
+                  className={`w-8 h-2 rounded-full transition-colors duration-300 ${index === currentIndex ? "bg-custom-red": "bg-white"}`}
+                ></div>
+              ))}
+            </div>
+            </>
+          )}
         </div>
       </div>
     </div>

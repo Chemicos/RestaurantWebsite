@@ -8,6 +8,7 @@ export default function MenuList() {
     const [startIndex, setStartIndex] = useState(0)
     const [isFading, setIsFading] = useState(false)
     const [isCustomizing, setIsCustomizing] = useState(false)
+    const [selectedItem, setSelectedItem] = useState(null)
 
     const API_URL = import.meta.env.VITE_API_URL
     const itemsPerPage = 4
@@ -86,7 +87,10 @@ export default function MenuList() {
                         </p>
 
                         <button 
-                            onClick={() => setIsCustomizing(true)}
+                            onClick={() => {
+                                    setSelectedItem(item)
+                                    setIsCustomizing(true)
+                                }}
                             className='mt-4 px-4 py-2 text-md font-bold text-custom-red border border-custom-red cursor-pointer rounded-lg
                         hover:text-white hover:bg-red-600 transition-colors duration-300'
                         >
@@ -98,7 +102,13 @@ export default function MenuList() {
             ))}
 
             {isCustomizing && (
-                <MenuCustomizer onClose={() => setIsCustomizing(false)} />
+                <MenuCustomizer 
+                    onClose={() => setIsCustomizing(false)} 
+                    imageUrl={selectedItem.image_url}
+                    name={selectedItem.name}
+                    price={selectedItem.price}
+                    ingredients={selectedItem.ingredients}
+                />
             )}
         </div>
     </div>

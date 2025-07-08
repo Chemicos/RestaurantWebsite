@@ -1,17 +1,33 @@
 import { XIcon } from "@phosphor-icons/react";
 import MenuCustomizerForm from "./MenuCustomizerForm";
 import MenuPreviewPanel from "./MenuPreviewPanel";
+import { useState } from "react";
 
-export default function MenuCustomizer({ onClose }) {
+export default function MenuCustomizer({ 
+  onClose,
+  imageUrl,
+  name,
+  price,
+  ingredients
+}) {
+  const [quantity, setQuantity] = useState(1)
+
   return (
     <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
       <div className="relative bg-[#FEF7EA] rounded-xl w-full max-w-5xl h-[85vh] flex overflow-hidden">
-        <div className="w-1/2 p-6 overflow-y-auto border-r">
+        <div className="w-1/2 p-12 overflow-y-auto border-r border-[#FEF7EA] shadow-xl">
             <MenuCustomizerForm />
         </div>
 
-        <div className="w-1/2 p-6 flex flex-col items-center justify-between">
-            <MenuPreviewPanel />
+        <div className="w-1/2 p-12">
+            <MenuPreviewPanel
+              imageUrl={imageUrl}
+              name={name}
+              price={price}
+              ingredients={ingredients}
+              quantity={quantity}
+              setQuantity={setQuantity}
+            />
         </div>
         <button
             onClick={onClose} 
