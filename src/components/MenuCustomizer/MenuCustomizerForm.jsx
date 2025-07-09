@@ -1,17 +1,47 @@
 import { CheckIcon, PlusIcon } from '@phosphor-icons/react'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
-export default function MenuCustomizerForm() {
-  const [selectedGarnish, setSelectedGarnish] = useState('Cartofi Frantuzesti')
-  const garnituri = ['Cartofi Frantuzesti', 'Piure de Cartofi', 'Cartofi Natur']
+export default function MenuCustomizerForm({ menuId, onBauturaSelect }) {
+  const [garnituri, setGarnituri] = useState([])
+  const [salate, setSalate] = useState([])
+  const [bauturi, setBauturi] = useState([])
 
-  const [selectedSalad, setSelectedSalad] = useState([])
-  const salate = ['Salata de vara', 'Salata verde', 'Salata de rosii']
+  const [selectedGarnitura, setSelectedGarnitura] = useState(null)
+  const [selectedSalata, setSelectedSalata] = useState([])
+  const [selectedBautura, setSelectedBautura] = useState(null)
+
+  const API_URL = import.meta.env.VITE_API_URL
+
+  useEffect(() => {
+    const fetchCustomizeOptions = async () => {
+      try {
+        const [garnituriRes, salateRes, bauturiRes] = await Promise.all([
+          fetch(`${API_URL}/api/garnituri`),
+          fetch(`${API_URL}/api/salate`),
+          fetch(`${API_URL}/api/bauturi`)
+        ])
+
+        const [garnituriData, salateData, bauturiData] = await Promise.all([
+          garnituriRes.json(),
+          salateRes.json(),
+          bauturiRes.json()
+        ])
+
+        setGarnituri(garnituriData.filter(g => g.menu_id === menuId))
+        setSalate(salateData.filter(s => s.menu_id === menuId))
+        setBauturi(bauturiData.filter(b => b.menu_id === menuId))
+      } catch (err) {
+        console.error('Eroare la incarcarea optiunilor:', err)
+      }
+    }
+    if (menuId) fetchCustomizeOptions()
+  }, [menuId])
 
   const toggleSalata = (salata) => {
-    setSelectedSalad(prev => prev.includes(salata) ? prev.filter(s => s !== salata) : [...prev, salata])
+    setSelectedSalata(prev => prev.includes(salata)
+      ? prev.filter(s => s !== salata)
+      : [...prev, salata])
   }
-
 
   return (
     <div className='w-full space-y-6'>
@@ -20,22 +50,21 @@ export default function MenuCustomizerForm() {
           <h3 className=' font-semibold text-xl'>
             Alege o Garnitura
           </h3>
-          <span className='ml-2 text-xs font-light bg-[#FFD980] px-2 py-0.5 rounded-full'>optional</span>
         </div>
         
         <div>
-          {garnituri.map((garnitura) => (
+          {garnituri.map(({ id, name }) => (
             <button
-              key={garnitura}
-              onClick={() => setSelectedGarnish(garnitura)}
+              key={id}
+              onClick={() => setSelectedGarnitura(name)}
               className={`w-full border rounded-lg px-4 py-4 flex justify-between items-center mb-3 cursor-pointer
-                ${selectedGarnish === garnitura ? 'border-red-500 bg-red-50' : 'border-gray-300 bg-gray-50'}`}
+                ${selectedGarnitura === name ? 'border-red-500 bg-red-50' : 'border-gray-300 bg-gray-50'}`}
             >
-              {garnitura}
+              {name}
               
-              {selectedGarnish === garnitura ? (
+              {selectedGarnitura === name ? (
                 <CheckIcon size={25} weight='bold' className='text-white bg-custom-red rounded-full p-1' />
-              ): (
+              ) : (
                 <PlusIcon size={25} weight='bold' className='text-black bg-gray-300 rounded-full p-1' />
               )}
             </button>
@@ -50,15 +79,47 @@ export default function MenuCustomizerForm() {
         </div>
 
         <div>
-          {salate.map((salata) => (
+          {salate.map(({ id, name }) => (
             <button
-              key={salata}
-              onClick={() => toggleSalata(salata)}
+              key={id}
+              onClick={() => toggleSalata(name)}
               className={`w-full border rounded-lg px-4 py-4 flex justify-between items-center mb-3 cursor-pointer
-                ${selectedSalad.includes(salata) ? 'border-red-500 bg-red-50' : 'border-gray-300 bg-gray-50'}`}
+                ${selectedSalata.includes(name) ? 'border-red-500 bg-red-50' : 'border-gray-300 bg-gray-50'}`}
             >
-              {salata}
-              {selectedSalad.includes(salata) ? (
+              {name}
+              {selectedSalata.includes(name) ? (
+                <CheckIcon size={25} weight='bold' className='text-white bg-custom-red rounded-full p-1' />
+              ): (
+                <PlusIcon size={25} weight='bold' className='text-black bg-gray-300 rounded-full p-1' />
+              )}
+            </button>
+          ))}
+        </div>
+
+        <div className='flex items-center'>
+          <h3 className=' font-semibold text-xl'>
+            Alege Bautura
+          </h3>
+          <span className='ml-2 text-xs font-light bg-[#FFD980] px-2 py-0.5 rounded-full'>optional</span>
+        </div>
+
+        <div>
+          {bauturi.map(({ id, name, price }) => (
+            <button
+              key={id}
+              onClick={() => {
+                setSelectedBautura(name)
+                onBauturaSelect({ name, price: Number(price) })
+              }}
+              className={`w-full border rounded-lg px-4 py-4 flex justify-between items-center mb-3 cursor-pointer
+                ${selectedBautura === name ? 'border-red-500 bg-red-50' : 'border-gray-300 bg-gray-50'}`}
+            >
+              <div>
+                {name} 
+                <span className='text-sm text-custom-red'> + {price} RON</span>
+              </div>
+              
+              {selectedBautura === name ? (
                 <CheckIcon size={25} weight='bold' className='text-white bg-custom-red rounded-full p-1' />
               ): (
                 <PlusIcon size={25} weight='bold' className='text-black bg-gray-300 rounded-full p-1' />

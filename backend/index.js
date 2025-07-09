@@ -28,6 +28,36 @@ app.get('/api/menus', async (req, res) => {
   }
 });
 
+app.get('/api/garnituri', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM garnituri');
+    res.json(result.rows)
+  } catch (err) {
+    console.log('Error fetching garnituri:', err);
+    res.status(500).json({err: 'Internal Server Error'});
+  }
+});
+
+app.get('/api/salate', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM salate');
+    res.json(result.rows);
+  } catch (err) {
+    console.error('Error fetching salate:', err);
+    res.status(500).json({ err: 'Internal Server Error' });
+  }
+});
+
+app.get('/api/bauturi', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM bauturi');
+    res.json(result.rows);
+  } catch (err) {
+    console.error('Error fetching bauturi:', err);
+    res.status(500).json({ err: 'Internal Server Error' });
+  }
+});
+
 app.listen(5000, () => {
   console.log('Server is running on port 5000');
 });

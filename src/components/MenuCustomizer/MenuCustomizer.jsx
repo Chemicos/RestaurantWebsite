@@ -5,18 +5,23 @@ import { useState } from "react";
 
 export default function MenuCustomizer({ 
   onClose,
+  menuId,
   imageUrl,
   name,
   price,
   ingredients
 }) {
   const [quantity, setQuantity] = useState(1)
+  const [selectedBautura, setSelectedBautura] = useState(null)
 
   return (
     <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
       <div className="relative bg-[#FEF7EA] rounded-xl w-full max-w-5xl h-[85vh] flex overflow-hidden">
         <div className="w-1/2 p-12 overflow-y-auto border-r border-[#FEF7EA] shadow-xl">
-            <MenuCustomizerForm />
+            <MenuCustomizerForm
+              onBauturaSelect={setSelectedBautura}
+              menuId={menuId}
+            />
         </div>
 
         <div className="w-1/2 p-12">
@@ -27,6 +32,7 @@ export default function MenuCustomizer({
               ingredients={ingredients}
               quantity={quantity}
               setQuantity={setQuantity}
+              selectedBautura={selectedBautura}
             />
         </div>
         <button

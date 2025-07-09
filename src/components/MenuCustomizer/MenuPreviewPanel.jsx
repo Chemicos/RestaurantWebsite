@@ -6,8 +6,14 @@ export default function MenuPreviewPanel({
    price,
    ingredients,
    quantity,
-   setQuantity
+   setQuantity,
+   selectedBautura
   }) {
+
+    const bauturaPrice = selectedBautura?.price || 0
+    const basePrice = Number(price)
+    const totalPrice = (basePrice + bauturaPrice) * quantity
+
   return (
     <div className="w-full h-full flex flex-col items-center justify-between gap-6">
       <div className="flex flex-col items-center gap-4">
@@ -49,7 +55,7 @@ export default function MenuPreviewPanel({
           className="w-full mt-4 py-3 rounded-full text-white font-semibold bg-custom-red shadow-sm
           hover:bg-red-700 transition-colors duration-300"
         >
-          Adauga {quantity} pentru {quantity * price} RON
+          Adauga {quantity} pentru {totalPrice.toFixed(2)} RON
         </button>
       </div>
     </div>
