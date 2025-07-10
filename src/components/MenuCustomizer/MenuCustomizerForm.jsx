@@ -1,4 +1,4 @@
-import { CheckIcon, PlusIcon } from '@phosphor-icons/react'
+import { CheckIcon, MinusIcon, PlusIcon } from '@phosphor-icons/react'
 import React, { useEffect, useState } from 'react'
 
 export default function MenuCustomizerForm({ menuId, onBauturaSelect }) {
@@ -7,8 +7,8 @@ export default function MenuCustomizerForm({ menuId, onBauturaSelect }) {
   const [bauturi, setBauturi] = useState([])
 
   const [selectedGarnitura, setSelectedGarnitura] = useState(null)
-  const [selectedSalata, setSelectedSalata] = useState([])
-  const [selectedBautura, setSelectedBautura] = useState(null)
+  const [selectedSalate, setSelectedSalate] = useState({})
+  const [selectedBauturi, setSelectedBauturi] = useState({})
 
   const API_URL = import.meta.env.VITE_API_URL
 
@@ -37,10 +37,59 @@ export default function MenuCustomizerForm({ menuId, onBauturaSelect }) {
     if (menuId) fetchCustomizeOptions()
   }, [menuId])
 
-  const toggleSalata = (salata) => {
-    setSelectedSalata(prev => prev.includes(salata)
-      ? prev.filter(s => s !== salata)
-      : [...prev, salata])
+  const updateSalataQuantity = (salataId, delta) => {
+    setSelectedSalate(prev => {
+      const newQty = (prev[salataId] || 0) + delta
+      if (newQty <= 0) {
+        const { [salataId]: _, ...rest } = prev
+        return rest
+      }
+      return { ...prev, [salataId]: newQty}
+    })
+  }
+
+  const updateBauturaQuantity = (id, delta) => {
+    setSelectedBauturi(prev => {
+      const newQty = (prev[id] || 0) + delta
+      if (newQty <= 0) {
+        const { [id]: _, ...rest } = prev
+        return rest
+      }
+      return { ...prev, [id]: newQty}
+    })
+  }
+
+  useEffect(() => {
+  const bauturiArray = Object.entries(selectedBauturi).map(([id, qty]) => {
+    const bautura = bauturi.find(b => b.id === Number(id))
+    return {
+      id: Number(id),
+      name: bautura?.name || '',
+      price: Number(bautura?.price), 
+      quantity: Number(qty) 
+    }
+  })
+  onBauturaSelect(bauturiArray)
+  }, [selectedBauturi, bauturi, onBauturaSelect])
+
+  const toggleSalata = (id) => {
+    setSelectedSalate(prev => {
+      if (prev[id]) {
+        const { [id]: _, ...rest} = prev
+        return rest
+      }
+      return {...prev, [id]: 1}
+    })
+  }
+
+  const toggleBautura = (id) => {
+    setSelectedBauturi(prev => {
+      if (prev[id]) {
+        const { [id]: _, ...rest} = prev
+        return rest
+      }
+      return { ...prev, [id]: 1}
+    })
   }
 
   return (
@@ -48,7 +97,7 @@ export default function MenuCustomizerForm({ menuId, onBauturaSelect }) {
       <div className='flex flex-col gap-6'>
         <div className='flex flex-row items-center'>
           <h3 className=' font-semibold text-xl'>
-            Alege o Garnitura
+            Alege Garnitura
           </h3>
         </div>
         
@@ -80,19 +129,36 @@ export default function MenuCustomizerForm({ menuId, onBauturaSelect }) {
 
         <div>
           {salate.map(({ id, name }) => (
-            <button
+            <div
               key={id}
-              onClick={() => toggleSalata(name)}
+              onClick={() => toggleSalata(id)}
               className={`w-full border rounded-lg px-4 py-4 flex justify-between items-center mb-3 cursor-pointer
-                ${selectedSalata.includes(name) ? 'border-red-500 bg-red-50' : 'border-gray-300 bg-gray-50'}`}
+                ${selectedSalate[id] ? 'border-red-500 bg-red-50' : 'border-gray-300 bg-gray-50'}`}
             >
-              {name}
-              {selectedSalata.includes(name) ? (
-                <CheckIcon size={25} weight='bold' className='text-white bg-custom-red rounded-full p-1' />
-              ): (
-                <PlusIcon size={25} weight='bold' className='text-black bg-gray-300 rounded-full p-1' />
+              <span>{name}</span>
+
+              {selectedSalate[id] ? (
+                <div className='flex items-center gap-2' onClick={(e) => e.stopPropagation()}>
+                  <button onClick={() => updateSalataQuantity(id, -1)}>
+                    <MinusIcon 
+                      size={25} 
+                      weight='bold' 
+                      className='text-black bg-[#66635B]/30 rounded-full p-1 cursor-pointer transition-all duration-100 active:scale-90 hover:bg-[#66635B]/60' 
+                    />
+                  </button>
+                  <span>{selectedSalate[id]}</span>
+                  <button onClick={() => updateSalataQuantity(id, 1)}>
+                    <PlusIcon size={25} weight='bold' className='text-white bg-custom-red rounded-full p-1 cursor-pointer transition-all duration-100 active:scale-90 hover:bg-red-700' />
+                  </button>
+                </div>
+              ) : (
+                  <PlusIcon 
+                    size={25} 
+                    weight='bold' 
+                    className='text-black bg-gray-300 rounded-full p-1 pointer-events-none' 
+                  />
               )}
-            </button>
+            </div>
           ))}
         </div>
 
@@ -105,26 +171,41 @@ export default function MenuCustomizerForm({ menuId, onBauturaSelect }) {
 
         <div>
           {bauturi.map(({ id, name, price }) => (
-            <button
+            <div
               key={id}
-              onClick={() => {
-                setSelectedBautura(name)
-                onBauturaSelect({ name, price: Number(price) })
-              }}
+              onClick={() => toggleBautura(id, price, name)}
               className={`w-full border rounded-lg px-4 py-4 flex justify-between items-center mb-3 cursor-pointer
-                ${selectedBautura === name ? 'border-red-500 bg-red-50' : 'border-gray-300 bg-gray-50'}`}
+                ${selectedBauturi[id] ? 'border-red-500 bg-red-50' : 'border-gray-300 bg-gray-50'}`}
             >
               <div>
-                {name} 
+                {name}
                 <span className='text-sm text-custom-red'> + {price} RON</span>
               </div>
               
-              {selectedBautura === name ? (
-                <CheckIcon size={25} weight='bold' className='text-white bg-custom-red rounded-full p-1' />
-              ): (
-                <PlusIcon size={25} weight='bold' className='text-black bg-gray-300 rounded-full p-1' />
+              {selectedBauturi[id] ? (
+                <div className='flex items-center gap-2' onClick={(e) => e.stopPropagation()}>
+                  <button onClick={() => updateBauturaQuantity(id, -1)}>
+                    <MinusIcon 
+                      size={25} 
+                      weight='bold' 
+                      className='text-black bg-[#66635B]/30 rounded-full p-1 cursor-pointer transition-all duration-100 active:scale-90 hover:bg-[#66635B]/60'  
+                    />
+                  </button>
+
+                  <span>{selectedBauturi[id]}</span>
+
+                  <button onClick={() => updateBauturaQuantity(id, 1)}>
+                    <PlusIcon 
+                      size={25} 
+                      weight='bold' 
+                      className='text-white bg-custom-red rounded-full p-1 cursor-pointer transition-all duration-100 active:scale-90 hover:bg-red-700' 
+                    />
+                  </button>
+                </div>
+              ) : (
+                  <PlusIcon size={25} weight='bold' className='text-black bg-gray-300 rounded-full p-1 pointer-events-none' />
               )}
-            </button>
+            </div>
           ))}
         </div>
       </div>

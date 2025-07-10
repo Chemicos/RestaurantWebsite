@@ -7,12 +7,18 @@ export default function MenuPreviewPanel({
    ingredients,
    quantity,
    setQuantity,
-   selectedBautura
+   selectedBauturi = {}
   }) {
 
-    const bauturaPrice = selectedBautura?.price || 0
-    const basePrice = Number(price)
-    const totalPrice = (basePrice + bauturaPrice) * quantity
+    const basePrice = Number(price) * quantity
+    const bauturaTotal = Array.isArray(selectedBauturi) 
+    ? selectedBauturi.reduce((acc, bautura) => {
+      const price = Number(bautura?.price || 0)
+      const qty = Number(bautura?.quantity || 0)
+      return acc + price * qty
+      }, 0)
+    : 0
+    const totalPrice = basePrice + bauturaTotal
 
   return (
     <div className="w-full h-full flex flex-col items-center justify-between gap-6">
