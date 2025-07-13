@@ -2,6 +2,9 @@ import { CircularProgress } from '@mui/material'
 import { CaretLeftIcon, CaretRightIcon } from '@phosphor-icons/react'
 import React, { useEffect, useState } from 'react'
 import MenuCustomizer from '../MenuCustomizer/MenuCustomizer'
+// eslint-disable-next-line no-unused-vars
+import { motion } from 'framer-motion'
+import { useInView } from 'react-intersection-observer'
 
 export default function MenuList() {
     const [menuItems, setMenuItems] = useState([])
@@ -12,6 +15,8 @@ export default function MenuList() {
 
     const API_URL = import.meta.env.VITE_API_URL
     const itemsPerPage = 4
+
+    const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.2 })
 
     useEffect(() => {
         fetch(`${API_URL}/api/menus`)
@@ -43,7 +48,7 @@ export default function MenuList() {
   return (
     <div className='max-w-[1440px] mx-auto mt-14 px-6 lg:px-4'>
         <div className='flex w-full justify-between items-center mb-8'>
-            <h2 className='text-3xl font-bold'>Ce mancam astazi?</h2>
+            <h2 className='text-3xl font-thin'>Ce mancam astazi?</h2>
             
             <div className='flex gap-4'>
                 <button 
@@ -65,8 +70,14 @@ export default function MenuList() {
                 </button>
             </div>
         </div>
-        <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8
-            transition-opacity duration-500 ${isFading ? 'opacity-0' : 'opacity-100'}`}>
+        <motion.div 
+            ref={ref}
+            initial={{ opacity: 0, y: 80 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.5, ease: 'easeOut' }}
+            className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8
+            ${isFading ? 'opacity-0' : 'opacity-100'}`}
+        >
             {visibleItems.map(item => (
                 <div key={item.id} className='flex flex-col items-center'>
                     <img 
@@ -111,7 +122,7 @@ export default function MenuList() {
                     ingredients={selectedItem.ingredients}
                 />
             )}
-        </div>
+        </motion.div>
     </div>
   )
 }

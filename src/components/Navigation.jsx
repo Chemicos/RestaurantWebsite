@@ -3,12 +3,29 @@ import {DotIcon, IconContext, ShoppingCartSimpleIcon, User} from "@phosphor-icon
 import { useEffect, useState } from "react"
 import Login from "./Authentication/Login"
 import Register from "./Authentication/Register"
+import { useNavigate } from "react-router-dom"
 
 export default function Navigation() {
 const [selected, setSelected] = useState("Acasa")
 const [showLogin, setShowLogin] = useState(false)
 const [showRegister, setShowRegister] = useState(false)
 const [hasShadow, setHasShadow] = useState(false)
+const navItems = ["Acasa", "Meniuri", "Contact", "Informatii"]
+
+const routeMap = {
+    Acasa: '/',
+    Meniuri: '/meniu',
+    Contact: '/contact',
+    Informatii: '/informatii'
+}
+
+let navigate = useNavigate()
+
+const handleNavigation = (item) => {
+    setSelected(item)
+    const route = routeMap[item]
+    if (route) navigate(route)
+}
 
 useEffect(() => {
     const handleScroll = () => {
@@ -20,7 +37,6 @@ useEffect(() => {
 }, [])
 
 const cartItemCount = 0
-const navItems = ["Acasa", "Meniuri", "Contact", "Informatii"]
   return (
     <div className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${hasShadow ? 'shadow-lg bg-custom-yellow' : ''}`}>
         <div className='flex p-4 justify-between items-center'>
@@ -34,7 +50,7 @@ const navItems = ["Acasa", "Meniuri", "Contact", "Informatii"]
                 {navItems.map(item => (
                     <button
                         key={item}
-                        onClick={() => setSelected(item)}
+                        onClick={() => handleNavigation(item)}
                         className={`relative flex flex-col items-center text-lg cursor-pointer transition-opacity duration-200
                             hover:opacity-100
                           ${selected === item ? 'opacity-100 font-semibold' : 'opacity-50'}  

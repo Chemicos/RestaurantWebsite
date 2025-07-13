@@ -1,5 +1,8 @@
 import { ChefHatIcon, CreditCardIcon, PhoneIcon, HamburgerIcon, TruckIcon } from '@phosphor-icons/react'
 import React from 'react'
+// eslint-disable-next-line no-unused-vars
+import { motion } from 'framer-motion'
+import { useInView } from 'react-intersection-observer'
 
 const features = [
     {
@@ -30,9 +33,17 @@ const features = [
 ]
 
 export default function WhyChooseUs() {
+    const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.2 })
+
   return (
     <div className='flex justify-center px-4 py-10 md:py-16'>
-        <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 md:gap-12 w-full max-w-[1440px]'>
+        <motion.div 
+            ref={ref}
+            initial={{ opacity: 0, y: 80}}
+            animate={inView ? {opacity: 1, y: 0} : {}}
+            transition={{duration: 1, ease: 'easeOut'}}
+            className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 md:gap-12 w-full max-w-[1440px]'
+        >
             {features.map((feature, index) => (
                 <div 
                     key={index} 
@@ -47,7 +58,7 @@ export default function WhyChooseUs() {
                     <p className='text-sm text-custom-gray'>{feature.desc}</p>
                 </div>
             ))}
-        </div>
+        </motion.div>
     </div>
   )
 }

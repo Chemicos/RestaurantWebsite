@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { ClockIcon } from '@phosphor-icons/react'
 import { Skeleton } from '@mui/material'
+import { useInView } from 'react-intersection-observer'
+// eslint-disable-next-line no-unused-vars
+import { motion } from 'framer-motion'
 
 const images = [
   "/assets/cartofi_condimentati.jpg",
@@ -12,6 +15,8 @@ const images = [
 export default function MainSection() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isLoading, setIsLoading] = useState(true)
+
+  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.2 })
 
   useEffect(() => {
     const timeout = setTimeout(() => setIsLoading(false), 300)
@@ -28,7 +33,13 @@ export default function MainSection() {
   return (
     <div className='mt-14 flex justify-center items-center px-6 lg:px-24'>
       <div className='max-w-[1440px] w-full flex flex-col lg:flex-row justify-between items-center gap-5'>
-        <div className='flex flex-col gap-8'>
+        <motion.div 
+          className='flex flex-col gap-8'
+          ref={ref}
+          initial={{ opacity: 0, x: -80}}
+          animate={inView ? {opacity: 1, x: 0} : {}}
+          transition={{duration: 1, ease: 'easeOut'}}
+        >
           <div>
             <span className='text-custom-red font-bold text-2xl'>Bine ai venit la</span>
             <h1 className='text-5xl font-extrabold leading-tight'>
@@ -59,9 +70,15 @@ export default function MainSection() {
               <p>Weekend: 12:00 - 21:00</p>
             </div>
           </div>
-        </div>
+        </motion.div>
 
-        <div className='w-full max-w-[750px] h-[480px] rounded-2xl overflow-hidden shadow-2xl relative'>
+        <motion.div 
+          ref={ref}
+          initial={{opacity: 0, x: 80}}
+          animate={inView ? {opacity: 1, x: 0} : {}}
+          transition={{ duration: 1, ease: 'easeOut'}}
+          className='w-full max-w-[750px] h-[480px] rounded-2xl overflow-hidden shadow-2xl relative'
+        >
           {isLoading ? (
             <Skeleton 
               variant="rectangular" 
@@ -87,7 +104,7 @@ export default function MainSection() {
             </div>
             </>
           )}
-        </div>
+        </motion.div>
       </div>
     </div>
   )

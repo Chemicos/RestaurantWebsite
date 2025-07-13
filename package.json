@@ -15,8 +15,11 @@
     "@mui/material": "^7.1.1",
     "@phosphor-icons/react": "^2.1.10",
     "@tailwindcss/vite": "^4.1.9",
+    "framer-motion": "^12.23.3",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "react-intersection-observer": "^9.16.0",
+    "react-router-dom": "^7.6.3",
     "react-slideshow-image": "^4.3.2"
   },
   "devDependencies": {
