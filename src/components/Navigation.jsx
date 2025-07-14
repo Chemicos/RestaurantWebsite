@@ -14,7 +14,7 @@ const navItems = ["Acasa", "Meniuri", "Contact", "Informatii"]
 
 const routeMap = {
     Acasa: '/',
-    Meniuri: '/meniu',
+    Meniuri: '/meniuri',
     Contact: '/contact',
     Informatii: '/informatii'
 }

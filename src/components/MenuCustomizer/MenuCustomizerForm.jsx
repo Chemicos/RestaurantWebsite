@@ -1,41 +1,10 @@
 import { CheckIcon, MinusIcon, PlusIcon } from '@phosphor-icons/react'
 import React, { useEffect, useState } from 'react'
 
-export default function MenuCustomizerForm({ menuId, onBauturaSelect }) {
-  const [garnituri, setGarnituri] = useState([])
-  const [salate, setSalate] = useState([])
-  const [bauturi, setBauturi] = useState([])
-
+export default function MenuCustomizerForm({ onBauturaSelect, garnituri, salate, bauturi }) {
   const [selectedGarnitura, setSelectedGarnitura] = useState(null)
   const [selectedSalate, setSelectedSalate] = useState({})
   const [selectedBauturi, setSelectedBauturi] = useState({})
-
-  const API_URL = import.meta.env.VITE_API_URL
-
-  useEffect(() => {
-    const fetchCustomizeOptions = async () => {
-      try {
-        const [garnituriRes, salateRes, bauturiRes] = await Promise.all([
-          fetch(`${API_URL}/api/garnituri`),
-          fetch(`${API_URL}/api/salate`),
-          fetch(`${API_URL}/api/bauturi`)
-        ])
-
-        const [garnituriData, salateData, bauturiData] = await Promise.all([
-          garnituriRes.json(),
-          salateRes.json(),
-          bauturiRes.json()
-        ])
-
-        setGarnituri(garnituriData.filter(g => g.menu_id === menuId))
-        setSalate(salateData.filter(s => s.menu_id === menuId))
-        setBauturi(bauturiData.filter(b => b.menu_id === menuId))
-      } catch (err) {
-        console.error('Eroare la incarcarea optiunilor:', err)
-      }
-    }
-    if (menuId) fetchCustomizeOptions()
-  }, [menuId])
 
   const updateSalataQuantity = (salataId, delta) => {
     setSelectedSalate(prev => {
@@ -95,19 +64,25 @@ export default function MenuCustomizerForm({ menuId, onBauturaSelect }) {
   return (
     <div className='w-full space-y-6'>
       <div className='flex flex-col gap-6'>
-        <div className='flex flex-row items-center'>
+        <div className='flex flex-col'>
           <h3 className=' font-semibold text-xl'>
             Alege Garnitura
           </h3>
+          <p className='text-custom-gray text-sm font-semibold'>Alege 1</p>
         </div>
         
         <div>
-          {garnituri.map(({ id, name }) => (
+          {garnituri.map(({ id, name }) => {
+            const isSelected = selectedGarnitura === name
+            const shouldDim = selectedGarnitura && !isSelected
+
+            return (
             <button
               key={id}
               onClick={() => setSelectedGarnitura(name)}
               className={`w-full border rounded-lg px-4 py-4 flex justify-between items-center mb-3 cursor-pointer
-                ${selectedGarnitura === name ? 'border-red-500 bg-red-50' : 'border-gray-300 bg-gray-50'}`}
+                ${isSelected ? 'border-red-500 bg-red-50' : 'border-gray-300 bg-gray-50'}
+                ${shouldDim ? 'opacity-50' : 'opacity-100'} transition-opacity duration-300`}
             >
               {name}
               
@@ -117,7 +92,8 @@ export default function MenuCustomizerForm({ menuId, onBauturaSelect }) {
                 <PlusIcon size={25} weight='bold' className='text-black bg-gray-300 rounded-full p-1' />
               )}
             </button>
-          ))}
+            )
+          })}
         </div>
 
         <div className='flex items-center'>
