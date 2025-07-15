@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 // import logo from '../../assets/logoPizzerie.png'
 import { EnvelopeIcon, FacebookLogoIcon, InstagramLogoIcon, MapPinIcon, PhoneIcon } from '@phosphor-icons/react'
+import { useInView } from 'react-intersection-observer'
+// eslint-disable-next-line no-unused-vars
+import { motion } from 'framer-motion'
 
 export default function Footer() {
     const [activeIcon, setActiveIcon] = useState(null)
@@ -12,6 +15,9 @@ export default function Footer() {
             setActiveIcon(null)
         }, 200)
     }
+
+    const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.2 })
+
   return (
     <footer className='w-full bg-custom-black mt-14 px-0 lg:px-4 py-12'>
         <div className='flex flex-col lg:flex-row justify-center items-center gap-4 lg:gap-20 flex-wrap'>
@@ -23,7 +29,13 @@ export default function Footer() {
                 />
             </div>
 
-            <div className='flex flex-col lg:flex-row flex-wrap gap-2 lg:gap-10'>
+            <motion.div 
+                ref={ref}
+                initial={{opacity: 0, y: 80}}
+                animate={inView ? {opacity: 1, y: 0} : {}}
+                transition={{ duration: 0.5, ease: 'easeOut'}}
+                className='flex flex-col lg:flex-row flex-wrap gap-2 lg:gap-10'
+            >
                 <div className='flex flex-col items-start gap-2 md:gap-1'>
                     <h3 className='text-white mb-4 font-semibold text-2xl'>Contact</h3>
 
@@ -78,7 +90,7 @@ export default function Footer() {
                     <p className='text-white'>Punct de lucru: ceva strada</p>
                     <p className='text-white'>Com. Clinceni, Jud. Ilfov</p>
                 </div>
-            </div>
+            </motion.div>
         </div>
 
         <div className='text-white max-w-[1440px] mx-auto text-center mt-4 lg:text-right text-sm'>@ Copyright 2016 - 2025 Pizeria Clinceni</div>

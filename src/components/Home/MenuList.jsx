@@ -13,6 +13,12 @@ export default function MenuList() {
     const [isCustomizing, setIsCustomizing] = useState(false)
     const [selectedItem, setSelectedItem] = useState(null)
 
+    const fadeVariants = {
+        hidden: { opacity: 0, y: 80 },
+        fadeOut: {opacity: 0},
+        visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } }
+    }
+
     const API_URL = import.meta.env.VITE_API_URL
     const itemsPerPage = 4
 
@@ -72,11 +78,11 @@ export default function MenuList() {
         </div>
         <motion.div 
             ref={ref}
-            initial={{ opacity: 0, y: 80 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5, ease: 'easeOut' }}
-            className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8
-            ${isFading ? 'opacity-0' : 'opacity-100'}`}
+            variants={fadeVariants}
+            initial="hidden"
+            animate={inView ? (isFading ? "fadeOut" : "visible") : "hidden"}
+    
+            className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8`}
         >
             {visibleItems.map(item => (
                 <div key={item.id} className='flex flex-col items-center'>
