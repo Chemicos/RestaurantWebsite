@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
-import { PizzaIcon, BowlFoodIcon, CookieIcon, MartiniIcon } from "@phosphor-icons/react"
-import { Box, FormControl, InputLabel, MenuItem, Select } from '@mui/material'
-
+import { PizzaIcon, BowlFoodIcon, CookieIcon, MartiniIcon, MagnifyingGlassIcon } from "@phosphor-icons/react"
+import { Box, FormControl, InputAdornment, InputLabel, MenuItem, Select, TextField } from '@mui/material'
 
 const filterOptions = [
   { value: 'Pizza', label: 'Pizza', icon: <PizzaIcon size={20} /> },
@@ -12,6 +11,7 @@ const filterOptions = [
 ]
 export default function SearchOptions({ selectedCategory, setSelectedCategory }) {
   const [category, setCategory] = useState(selectedCategory || '')
+  const countOfMenus = 16
 
   const handleChange = (event) => {
     setCategory(event.target.value)
@@ -19,26 +19,88 @@ export default function SearchOptions({ selectedCategory, setSelectedCategory })
   }
 
   return (
-    <Box sx={{minWidth: 200}}>
-      <FormControl fullWidth size='small'>
-        <InputLabel id='filter-label'>Categorie</InputLabel>
-        <Select
-          labelId='filter-label'
-          id='category-select'
-          value={category}
-          label='Categorie'
-          onChange={handleChange}
+    <Box sx={{
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'flex-end',
+      flexWrap: 'wrap',
+    }}>
+      <Box sx={{ 
+        display: 'flex', 
+        gap: 4, 
+        alignItems: 'flex-end',
+        flexDirection: {xs: 'column', sm: 'row'}
+      }}>
+        <FormControl size='small' sx={{
+            width: { xs: "100%", sm: 200}, 
+            '& .MuiOutlinedInput-root': {
+              '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                borderColor: '#000',
+              },
+            },
+            '& .MuiInputLabel-root.Mui-focused': {
+              color: '#000',
+            }
+          }}
         >
-          {filterOptions.map(opt => (
-            <MenuItem key={opt.value} value={opt.value}>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1}}>
-                {opt.icon}
-                {opt.label}
-              </Box>
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
+          <InputLabel id='filter-label'>Categorie</InputLabel>
+          <Select
+            labelId='filter-label'
+            id='category-select'
+            value={category}
+            label='Categorie'
+            onChange={handleChange}
+            MenuProps={{
+              PaperProps: {
+                sx: {
+                  backgroundColor: '#f9f9f9'
+                }
+              }
+            }}
+          >
+            {filterOptions.map(opt => (
+              <MenuItem key={opt.value} value={opt.value} 
+                sx={{ 
+                  '&.Mui-selected': {
+                    backgroundColor: '#FFE2E2',
+                  },
+                  '&.Mui-selected:hover': {
+                    backgroundColor: '#FFE2E2',
+                  }
+                }}
+              >
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1}}>
+                  {opt.icon}
+                  {opt.label}
+                </Box>
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+
+        <Box sx={{display: 'flex', alignItems: 'flex-end'}}>
+          <MagnifyingGlassIcon size={22} style={{marginRight: 8, marginBottom: 4}} />
+
+          <TextField
+            variant='standard'
+            label='Cauta'
+            sx={{
+              width: {xs: '100%', sm: 200},
+              '& .MuiInput-underline:after': {
+                borderBottomColor: '#000',
+              },
+              '& .MuiInputLabel-root.Mui-focused': {
+                color: '#000',
+              },
+            }}
+          />
+        </Box>
+      </Box>
+      
+      <span style={{fontSize: 14, fontWeight: 500, color: '#66635B'}}>
+        {countOfMenus} produse
+      </span>
     </Box>
+
   )
 }
