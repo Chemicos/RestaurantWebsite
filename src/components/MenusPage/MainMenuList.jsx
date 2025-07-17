@@ -28,7 +28,7 @@ export default function MainMenuList() {
 
   return (
     <div className='grid grid-cols-1 sm:grid-cols-2 gap-6 mt-10'>
-      {menuItems.map(({id, name, description, price, image_url, ingredients}) => (
+      {menuItems.map(({id, name, price, image_url, ingredients}) => (
         <div
           key={id}
           className='flex gap-4 border-b border-dashed pb-4'
@@ -45,7 +45,7 @@ export default function MainMenuList() {
                 {name}
               </h3>
               <p className='text-xs sm:text-sm italic text-custom-gray'>
-                {description}
+                {ingredients}
               </p>
             </div>
 

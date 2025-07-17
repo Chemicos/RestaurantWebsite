@@ -5,6 +5,7 @@ import MenuCustomizer from '../MenuCustomizer/MenuCustomizer'
 // eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
+// import { supabase } from '../../supabase'
 
 export default function MenuList() {
     const [menuItems, setMenuItems] = useState([])
@@ -100,7 +101,7 @@ export default function MenuList() {
                             {item.price} RON
                         </p>
                         <p className='text-sm text-center text-custom-gray'>
-                            {item.description}
+                            {item.ingredients}
                         </p>
 
                         <button 

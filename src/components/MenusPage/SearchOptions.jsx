@@ -1,12 +1,11 @@
 import React, { useState } from 'react'
-import { PizzaIcon, BowlFoodIcon, CookieIcon, MartiniIcon, MagnifyingGlassIcon } from "@phosphor-icons/react"
-import { Box, FormControl, InputAdornment, InputLabel, MenuItem, Select, TextField } from '@mui/material'
+import { PizzaIcon, BowlFoodIcon, CookieIcon, MagnifyingGlassIcon } from "@phosphor-icons/react"
+import { Box, FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material'
 
 const filterOptions = [
   { value: 'Pizza', label: 'Pizza', icon: <PizzaIcon size={20} /> },
   { value: 'Paste', label: 'Paste', icon: <BowlFoodIcon size={20} /> },
   { value: 'Desert', label: 'Desert', icon: <CookieIcon size={20} /> },
-  { value: 'Bauturi', label: 'Bauturi', icon: <MartiniIcon size={20} /> },
   { value: 'Altele', label: 'Altele'}
 ]
 export default function SearchOptions({ selectedCategory, setSelectedCategory }) {
