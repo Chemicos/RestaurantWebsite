@@ -5,7 +5,6 @@ import MenuCustomizer from '../MenuCustomizer/MenuCustomizer'
 // eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
-// import { supabase } from '../../supabase'
 
 export default function MenuList() {
     const [menuItems, setMenuItems] = useState([])
