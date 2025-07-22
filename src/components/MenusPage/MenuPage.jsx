@@ -30,7 +30,7 @@ export default function MenuPage() {
       <div className='relative'>
         <div className={`
           sticky top-20 h-screen
-          transition-all duration-500 ease-out hidden md:block
+          transition-all duration-500 ease-out hidden lg:block
           ${scrolled ? 'translate-y-[40px]' : 'translate-y-0'}`
         }>
           <OrderSummary />        

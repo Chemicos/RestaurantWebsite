@@ -7,7 +7,9 @@ export default function MenuPreviewPanel({
    ingredients,
    quantity,
    setQuantity,
-   selectedBauturi = {}
+   selectedBauturi = {},
+   selectedSosuri = {},
+   selectedGarnitura = null
   }) {
 
     const basePrice = Number(price) * quantity
@@ -18,7 +20,15 @@ export default function MenuPreviewPanel({
       return acc + price * qty
       }, 0)
     : 0
-    const totalPrice = basePrice + bauturaTotal
+
+    const sosuriTotal = Array.isArray(selectedSosuri)
+    ? selectedSosuri.reduce((acc, sos) => {
+      const price = Number(sos?.price || 0)
+      const qty = Number(sos?.quantity || 0)
+      return acc + price * qty
+    }, 0)
+    : 0
+    const totalPrice = basePrice + bauturaTotal + sosuriTotal
 
   return (
     <div className="w-full h-full flex flex-col items-center justify-between gap-6">
@@ -33,6 +43,12 @@ export default function MenuPreviewPanel({
           <p className="text-sm text-center text-custom-gray italic">
             {ingredients}
           </p>
+
+          {selectedGarnitura && (
+            <p className="text-sm text-start text-black font-semibold">
+              Garnitura: {selectedGarnitura}
+            </p>
+          )}
         </div>
       </div>
 

@@ -36,7 +36,7 @@ export default function MainMenuList() {
           <img
             src={image_url}
             alt={name}
-            className='w-36 h-36 object-cover rounded-md'
+            className='w-24 h-24 lg:w-36 lg:h-36 object-cover rounded-md'
           />
 
           <div className='flex flex-col justify-between flex-1'>

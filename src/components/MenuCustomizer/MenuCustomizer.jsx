@@ -14,11 +14,14 @@ export default function MenuCustomizer({
   ingredients
 }) {
   const [quantity, setQuantity] = useState(1)
+  const [selectedGarnitura, setSelectedGarnitura] = useState(null)
   const [selectedBauturi, setSelectedBauturi] = useState({})
+  const [selectedSosuri, setSelectedSosuri] = useState({})
   const [isLoading, setIsLoading] = useState(true)
   const [garnituri, setGarnituri] = useState([])
   const [salate, setSalate] = useState([])
   const [bauturi, setBauturi] = useState([])
+  const [sosuri, setSosuri] = useState([])
 
   const API_URL = import.meta.env.VITE_API_URL
 
@@ -29,21 +32,24 @@ export default function MenuCustomizer({
       try {
         setIsLoading(true)
 
-        const [garnituriRes, salateRes, bauturiRes] = await Promise.all([
+        const [garnituriRes, salateRes, bauturiRes, sosuriRes] = await Promise.all([
           fetch(`${API_URL}/api/garnituri`),
           fetch(`${API_URL}/api/salate`),
-          fetch(`${API_URL}/api/bauturi`)
+          fetch(`${API_URL}/api/bauturi`),
+          fetch(`${API_URL}/api/sosuri`)
         ])
 
-        const [garnituriData, salateData, bauturiData] = await Promise.all([
+        const [garnituriData, salateData, bauturiData, sosuriData] = await Promise.all([
           garnituriRes.json(),
           salateRes.json(),
-          bauturiRes.json()
+          bauturiRes.json(),
+          sosuriRes.json()
         ])
 
         setGarnituri(garnituriData.filter(g => g.menu_id === menuId))
         setSalate(salateData.filter(s => s.menu_id === menuId))
         setBauturi(bauturiData.filter(b => b.menu_id === menuId))
+        setSosuri(sosuriData.filter(ss => ss.menu_id === menuId))
 
       } catch (err) {
         console.error('Eroare la incarcarea optiunilor:', err)
@@ -78,10 +84,13 @@ export default function MenuCustomizer({
               <>
                 <div className="w-1/2 p-12 overflow-y-auto border-r border-[#FEF7EA] shadow-xl">
                     <MenuCustomizerForm
+                      onGarnituraSelect={setSelectedGarnitura}
                       onBauturaSelect={setSelectedBauturi}
+                      onSosSelect={setSelectedSosuri}
                       garnituri={garnituri}
                       salate={salate}
                       bauturi={bauturi}
+                      sosuri={sosuri}
                     />
                 </div>
 
@@ -94,6 +103,8 @@ export default function MenuCustomizer({
                       quantity={quantity}
                       setQuantity={setQuantity}
                       selectedBauturi={selectedBauturi}
+                      selectedSosuri={selectedSosuri}
+                      selectedGarnitura={selectedGarnitura}
                     />
                 </div>
               </>
