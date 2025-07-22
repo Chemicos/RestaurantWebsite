@@ -9,7 +9,8 @@ export default function MenuPreviewPanel({
    setQuantity,
    selectedBauturi = {},
    selectedSosuri = {},
-   selectedGarnitura = null
+   selectedGarnitura = null,
+   selectedSalate = []
   }) {
 
     const basePrice = Number(price) * quantity
@@ -32,23 +33,56 @@ export default function MenuPreviewPanel({
 
   return (
     <div className="w-full h-full flex flex-col items-center justify-between gap-6">
-      <div className="flex flex-col items-center gap-4">
+      <div className="flex flex-col items-center gap-4 w-full">
         <div className="w-40 h-40 md:w-60 md:h-60 rounded-lg overflow-hidden">
           <img src={imageUrl} alt={name} className="w-full h-full object-cover" />
         </div>
 
-        <div className="flex flex-col items-center gap-2">
-          <h3 className="text-xl font-semibold">{name}</h3>
-          <p className="text-xl">{price} RON</p>
-          <p className="text-sm text-center text-custom-gray italic">
-            {ingredients}
-          </p>
+        <div className="flex flex-col gap-2 w-full">
+          <div className="flex flex-col items-center gap-2">
+            <h3 className="text-2xl font-semibold">{name}</h3>
+            <p className="text-xl">{price} RON</p>
+          </div>
 
-          {selectedGarnitura && (
-            <p className="text-sm text-start text-black font-semibold">
-              Garnitura: {selectedGarnitura}
+          <div className="flex flex-col items-start gap-2">
+            <p className="text-black">
+              Ingrediente: 
+              <span className="text-custom-gray"> {ingredients}</span>
             </p>
-          )}
+
+            {selectedGarnitura && (
+              <p className="text-md text-start text-black">
+                Garnitura:
+                <span className="text-custom-gray"> {selectedGarnitura}</span>
+              </p>
+            )}
+
+            {Object.keys(selectedSalate).length > 0 && (
+              <div className="text-black">
+                Salate:
+                <ul className="mt-1">
+                  {selectedSalate.map(({id, name, quantity}) => (
+                    <li className="text-custom-gray" key={id}>
+                      {name} x {quantity}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {Array.isArray(selectedSosuri) && selectedSosuri.length > 0 && (
+              <div className="text-black">
+                Sosuri:
+                <ul className="mt-1">
+                  {selectedSosuri.map(({id, name, quantity}) => (
+                    <li className="text-custom-gray" key={id}>
+                      {name} x {quantity}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
         </div>
       </div>
 

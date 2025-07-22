@@ -6,6 +6,7 @@ import DrinksSection from './OptionSections/DrinksSection'
 
 export default function MenuCustomizerForm({ 
   onGarnituraSelect,
+  onSalataSelect,
   onBauturaSelect,
   onSosSelect,
   garnituri,
@@ -88,6 +89,18 @@ export default function MenuCustomizerForm({
       onGarnituraSelect(selectedGarnitura)
     }
   }, [selectedGarnitura, onGarnituraSelect])
+
+  useEffect(() => {
+    const salateArray = Object.entries(selectedSalate).map(([id, qty]) => {
+      const salata = salate.find(s => s.id === Number(id))
+      return {
+        id: Number(id),
+        name: salata?.name || '',
+        quantity: qty
+      }
+    })
+    onSalataSelect(salateArray)
+  }, [selectedSalate, salate, onSalataSelect])
 
   useEffect(() => {
   const bauturiArray = Object.entries(selectedBauturi).map(([id, qty]) => {

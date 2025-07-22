@@ -24,7 +24,7 @@ export default function SauceSection({
               className={`w-full border rounded-lg px-4 py-4 flex justify-between items-center mb-3 cursor-pointer
                 ${selectedSosuri[id] ? 'border-red-500 bg-red-50' : 'border-gray-300 bg-gray-50'}`}
             >
-              <div>
+              <div className='capitalize'>
                 {name}
                 <span className='text-sm text-custom-red'> + {price} RON</span>
               </div>

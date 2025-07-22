@@ -15,6 +15,7 @@ export default function MenuCustomizer({
 }) {
   const [quantity, setQuantity] = useState(1)
   const [selectedGarnitura, setSelectedGarnitura] = useState(null)
+  const [selectedSalate, setSelectedSalate] = useState([])
   const [selectedBauturi, setSelectedBauturi] = useState({})
   const [selectedSosuri, setSelectedSosuri] = useState({})
   const [isLoading, setIsLoading] = useState(true)
@@ -85,6 +86,7 @@ export default function MenuCustomizer({
                 <div className="w-1/2 p-12 overflow-y-auto border-r border-[#FEF7EA] shadow-xl">
                     <MenuCustomizerForm
                       onGarnituraSelect={setSelectedGarnitura}
+                      onSalataSelect={setSelectedSalate}
                       onBauturaSelect={setSelectedBauturi}
                       onSosSelect={setSelectedSosuri}
                       garnituri={garnituri}
@@ -105,6 +107,7 @@ export default function MenuCustomizer({
                       selectedBauturi={selectedBauturi}
                       selectedSosuri={selectedSosuri}
                       selectedGarnitura={selectedGarnitura}
+                      selectedSalate={selectedSalate}
                     />
                 </div>
               </>
