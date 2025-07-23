@@ -4,6 +4,7 @@ import { Skeleton } from '@mui/material'
 import { useInView } from 'react-intersection-observer'
 // eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion'
+import { NavLink } from 'react-router-dom'
 
 const images = [
   "/assets/cartofi_condimentati.jpg",
@@ -51,11 +52,14 @@ export default function MainSection() {
           <p className='text-gray-700 text-lg leading-relaxed max-w-lg'>
             La Pizzeria Restaurant, pasiunea pentru gust autentic prinde viață în fiecare felie. Fie că vii pentru o pizza crocantă, o porție generoasă de paste sau doar pentru vibe-ul cald și prietenos, te așteptăm cu drag la o masă pe gustul tău.
           </p>
-          <button className='w-fit bg-custom-red hover:bg-red-700 text-white font-semibold 
-            py-4 px-8 text-lg rounded-xl transition-colors cursor-pointer shadow-md'
-          >
-            Comanda Online
-          </button>
+          
+          <NavLink className='w-fit' to='/meniuri'>          
+            <button className='w-fit bg-custom-red hover:bg-red-700 text-white font-semibold 
+              py-4 px-8 text-lg rounded-xl transition-colors cursor-pointer shadow-md'
+            >
+              Comanda Online
+            </button>
+          </NavLink>
 
           <div className='flex items-center gap-4 text-md text-gray-700'>
             <ClockIcon 

@@ -3,38 +3,28 @@ import {DotIcon, IconContext, ShoppingCartSimpleIcon, User} from "@phosphor-icon
 import { useEffect, useState } from "react"
 import Login from "./Authentication/Login"
 import Register from "./Authentication/Register"
-import { useNavigate } from "react-router-dom"
+import { NavLink } from "react-router-dom"
+
+const navItems = [
+    {name: 'Acasa', path: '/'},
+    {name: 'Meniuri', path: '/meniuri'},
+    {name: 'Contact', path: '/contact'},
+    {name: 'Informatii', path: '/informatii'}
+]
 
 export default function Navigation() {
-const [selected, setSelected] = useState("Acasa")
-const [showLogin, setShowLogin] = useState(false)
-const [showRegister, setShowRegister] = useState(false)
-const [hasShadow, setHasShadow] = useState(false)
-const navItems = ["Acasa", "Meniuri", "Contact", "Informatii"]
+    const [showLogin, setShowLogin] = useState(false)
+    const [showRegister, setShowRegister] = useState(false)
+    const [hasShadow, setHasShadow] = useState(false)
 
-const routeMap = {
-    Acasa: '/',
-    Meniuri: '/meniuri',
-    Contact: '/contact',
-    Informatii: '/informatii'
-}
+    useEffect(() => {
+        const handleScroll = () => {
+            setHasShadow(window.scrollY > 10)
+        }
 
-let navigate = useNavigate()
-
-const handleNavigation = (item) => {
-    setSelected(item)
-    const route = routeMap[item]
-    if (route) navigate(route)
-}
-
-useEffect(() => {
-    const handleScroll = () => {
-        setHasShadow(window.scrollY > 10)
-    }
-
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-}, [])
+        window.addEventListener('scroll', handleScroll)
+        return () => window.removeEventListener('scroll', handleScroll)
+    }, [])
 
 const cartItemCount = 0
   return (
@@ -47,25 +37,29 @@ const cartItemCount = 0
             />
 
             <div className='flex gap-8'>
-                {navItems.map(item => (
-                    <button
-                        key={item}
-                        onClick={() => handleNavigation(item)}
-                        className={`relative flex flex-col items-center text-lg cursor-pointer transition-opacity duration-200
-                            hover:opacity-100
-                          ${selected === item ? 'opacity-100 font-semibold' : 'opacity-50'}  
-                        `}
-                    >
-                        {item}
-                        {selected === item && (
-                            <DotIcon 
-                                size={20} 
-                                weight="fill" 
-                                className="absolute -bottom-4 animate-fade-in"
-                            />
-                        )}
-                    </button>
-                ))} 
+                 {navItems.map(({ name, path }) => (
+            <NavLink
+              key={name}
+              to={path}
+              className={({ isActive }) => `
+                relative flex flex-col items-center text-lg cursor-pointer transition-opacity duration-200
+                ${isActive ? "opacity-100 font-semibold" : "opacity-50 hover:opacity-100"}
+              `}
+            >
+            {({ isActive }) => (
+                <>
+                    {name}
+                    {isActive && (
+                    <DotIcon
+                        size={20}
+                        weight="fill"
+                        className="absolute -bottom-4 animate-fade-in"
+                    />
+                    )}
+                </>
+            )}
+            </NavLink>
+          ))}
             </div>
 
             <div className="flex gap-6">

@@ -44,11 +44,13 @@ export default function MenuPreviewPanel({
             <p className="text-xl">{price} RON</p>
           </div>
 
-          <div className="flex flex-col items-start gap-2">
-            <p className="text-black">
-              Ingrediente: 
-              <span className="text-custom-gray"> {ingredients}</span>
-            </p>
+          <div className="flex flex-col items-start max-h-60 gap-2 overflow-y-auto">
+            {ingredients && (
+              <p className="text-black">
+                Ingrediente: 
+                <span className="text-custom-gray">{ingredients}</span>
+              </p>
+            )}
 
             {selectedGarnitura && (
               <p className="text-md text-start text-black">
@@ -58,29 +60,30 @@ export default function MenuPreviewPanel({
             )}
 
             {Object.keys(selectedSalate).length > 0 && (
-              <div className="text-black">
+              <p className="text-black">
                 Salate:
-                <ul className="mt-1">
-                  {selectedSalate.map(({id, name, quantity}) => (
-                    <li className="text-custom-gray" key={id}>
-                      {name} x {quantity}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+                <span className="text-custom-gray">
+                  {' '}{selectedSalate.map(s => `${s.name} x${s.quantity}`).join(', ')}
+                </span>
+              </p>
             )}
 
             {Array.isArray(selectedSosuri) && selectedSosuri.length > 0 && (
-              <div className="text-black">
+              <p className="text-black">
                 Sosuri:
-                <ul className="mt-1">
-                  {selectedSosuri.map(({id, name, quantity}) => (
-                    <li className="text-custom-gray" key={id}>
-                      {name} x {quantity}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+                <span className="text-custom-gray">
+                  {' '}{selectedSosuri.map(ss => `${ss.name} x${ss.quantity}`).join(', ')}
+                </span>
+              </p>
+            )}
+
+            {Array.isArray(selectedBauturi) && selectedBauturi.length > 0 && (
+              <p className="text-black">
+                Bauturi:
+                <span className="text-custom-gray">
+                  {' '}{selectedBauturi.map(b => `${b.name} x${b.quantity}`).join(', ')}
+                </span>
+              </p>
             )}
           </div>
         </div>
@@ -109,7 +112,7 @@ export default function MenuPreviewPanel({
 
         <button 
           className="w-full mt-4 py-3 rounded-full text-white font-semibold bg-custom-red shadow-sm
-          hover:bg-red-700 transition-colors duration-300"
+          hover:bg-red-700 transition-colors duration-300 cursor-pointer"
         >
           Adauga {quantity} pentru {totalPrice.toFixed(2)} RON
         </button>

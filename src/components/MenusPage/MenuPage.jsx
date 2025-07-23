@@ -6,6 +6,34 @@ import OrderSummary from './OrderSummary'
 export default function MenuPage() {
   const [selectedCategory, setSelectedCategory] = useState('')
   const [scrolled, setScrolled] = useState(false)
+  const [menuItems, setMenuItems] = useState([])
+  const [searchTerm, setSearchTerm] = useState('')
+
+  const API_URL = import.meta.env.VITE_API_URL
+
+  useEffect(() => {
+    const fetchMenus = async () => {
+      try {
+        const res = await fetch(`${API_URL}/api/menus`)
+        const data = await res.json()
+        setMenuItems(data)
+      } catch (error) {
+        console.error("Eroare la preluarea meniurilor", error)
+      }
+    }
+    fetchMenus()
+  }, [])
+
+  const filteredMenus = menuItems.filter(menu => {
+    const matchesCategory = selectedCategory ? menu.category === selectedCategory : true
+    const matchesSearch = menu.name.toLowerCase().includes(searchTerm.toLowerCase())
+    return matchesCategory && matchesSearch
+  })
+
+  const handleResetFilters = () => {
+    setSelectedCategory('')
+    setSearchTerm('')
+  }
 
   useEffect(() => {
     const handleScroll = () => {
@@ -23,8 +51,14 @@ export default function MenuPage() {
         <SearchOptions
           selectedCategory={selectedCategory}
           setSelectedCategory={setSelectedCategory}
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+          countOfMenus={menuItems.length}
+          onResetFilters={handleResetFilters}
         />
-        <MainMenuList />
+        <MainMenuList 
+          menuItems={filteredMenus} 
+        />
       </div>
 
       <div className='relative'>

@@ -63,6 +63,14 @@ export default function MenuCustomizer({
     if (menuId) fetchCustomizeOptions()
   }, [menuId])
 
+  useEffect(() => {
+    document.body.style.overflow = 'hidden'
+
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [])
+
   return (
     <AnimatePresence>
       <motion.div 

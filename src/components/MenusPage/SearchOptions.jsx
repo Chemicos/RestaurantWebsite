@@ -8,12 +8,16 @@ const filterOptions = [
   { value: 'Desert', label: 'Desert', icon: <CookieIcon size={20} /> },
   { value: 'Altele', label: 'Altele'}
 ]
-export default function SearchOptions({ selectedCategory, setSelectedCategory }) {
-  const [category, setCategory] = useState(selectedCategory || '')
-  const countOfMenus = 16
+export default function SearchOptions({ 
+  selectedCategory, 
+  setSelectedCategory, 
+  countOfMenus,
+  searchTerm,
+  setSearchTerm,
+  onResetFilters
+}) {
 
   const handleChange = (event) => {
-    setCategory(event.target.value)
     setSelectedCategory(event.target.value)
   }
 
@@ -46,7 +50,7 @@ export default function SearchOptions({ selectedCategory, setSelectedCategory })
           <Select
             labelId='filter-label'
             id='category-select'
-            value={category}
+            value={selectedCategory}
             label='Categorie'
             onChange={handleChange}
             MenuProps={{
@@ -56,7 +60,19 @@ export default function SearchOptions({ selectedCategory, setSelectedCategory })
                 }
               }
             }}
-          >
+            >
+            <MenuItem value="" sx={{ 
+                  '&.Mui-selected': {
+                    backgroundColor: '#FFE2E2',
+                  },
+                  '&.Mui-selected:hover': {
+                    backgroundColor: '#FFE2E2',
+                  }
+              }}
+            > 
+              <em>Toate</em>  
+            </MenuItem>
+
             {filterOptions.map(opt => (
               <MenuItem key={opt.value} value={opt.value} 
                 sx={{ 
@@ -68,7 +84,7 @@ export default function SearchOptions({ selectedCategory, setSelectedCategory })
                   }
                 }}
               >
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1}}>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, fontStyle: 'italic'}}>
                   {opt.icon}
                   {opt.label}
                 </Box>
@@ -83,6 +99,8 @@ export default function SearchOptions({ selectedCategory, setSelectedCategory })
           <TextField
             variant='standard'
             label='Cauta'
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
             sx={{
               width: {xs: '100%', sm: 200},
               '& .MuiInput-underline:after': {
@@ -94,12 +112,19 @@ export default function SearchOptions({ selectedCategory, setSelectedCategory })
             }}
           />
         </Box>
+
+        <button
+          onClick={onResetFilters}
+          className='hover:bg-red-600 hover:border-red-600 active:scale-90 hover:text-white text-sm font-semibold border border-custom-gray px-3 py-2 rounded transition-all cursor-pointer'
+        >
+          Reseteaza
+        </button>
       </Box>
       
+
       <span style={{fontSize: 14, fontWeight: 500, color: '#66635B'}}>
-        {countOfMenus} produse
+        {countOfMenus} Meniuri
       </span>
     </Box>
-
   )
 }

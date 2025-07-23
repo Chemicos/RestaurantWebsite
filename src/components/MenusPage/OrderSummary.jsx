@@ -10,7 +10,7 @@ const orders = [
 ]
 export default function OrderSummary() {
   return (
-    <div className='shadow rounded-xl p-6 w-[auto] h-auto overflow-y-auto'>
+    <div className='shadow bg-custom-white rounded-xl p-6 w-[auto] h-auto overflow-y-auto'>
       <h2 className='font-bold text-xl mb-6 text-center'>Comanda ta</h2>
 
       <div className='flex flex-col gap-4 h-[400px] overflow-y-auto'>

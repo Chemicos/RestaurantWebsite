@@ -1,25 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import MenuCustomizer from '../MenuCustomizer/MenuCustomizer'
 
-export default function MainMenuList() {
-  const [menuItems, setMenuItems] = useState([])
+export default function MainMenuList({menuItems}) {
   const [isCustomizing, setIsCustomizing] = useState(false)
-  const [selectedItem, setSelectedItem] = useState(null)
-
-  const API_URL = import.meta.env.VITE_API_URL
-
-  useEffect(() => {
-    const fetchMenus = async () => {
-      try {
-        const res = await fetch(`${API_URL}/api/menus`)
-        const data = await res.json()
-        setMenuItems(data)
-      } catch (error) {
-        console.error("Eroare la preluarea meniurilor", error)
-      }
-    }
-    fetchMenus()
-  }, [])
+  const [selectedItem, setSelectedItem] = useState(null) 
 
   const handleCustomize = (item) => {
     setSelectedItem(item)
