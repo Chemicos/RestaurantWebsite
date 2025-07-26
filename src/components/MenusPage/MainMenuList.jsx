@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import MenuCustomizer from '../MenuCustomizer/MenuCustomizer'
 
-export default function MainMenuList({menuItems}) {
+export default function MainMenuList({menuItems, refreshOrders}) {
   const [isCustomizing, setIsCustomizing] = useState(false)
   const [selectedItem, setSelectedItem] = useState(null) 
 
@@ -36,8 +36,8 @@ export default function MainMenuList({menuItems}) {
             <div className='flex justify-between items-center mt-2'>
               <button
                 onClick={() => handleCustomize({id, name, price, image_url, ingredients})} 
-                className='bg-custom-red text-white px-2 rounded text-2xl hover:bg-red-700
-                cursor-pointer'
+                className='bg-custom-red text-white px-2 rounded text-2xl hover:bg-red-800
+                cursor-pointer transition-all'
               >
               +
               </button>
@@ -56,6 +56,7 @@ export default function MainMenuList({menuItems}) {
           name={selectedItem.name}
           price={selectedItem.price}
           ingredients={selectedItem.ingredients}
+          refreshOrders={refreshOrders}
         />
       )}
     </div>

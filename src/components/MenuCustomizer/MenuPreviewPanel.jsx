@@ -10,7 +10,9 @@ export default function MenuPreviewPanel({
    selectedBauturi = {},
    selectedSosuri = {},
    selectedGarnitura = null,
-   selectedSalate = []
+   selectedSalate = [],
+   onClose,
+   refreshOrders
   }) {
 
     const basePrice = Number(price) * quantity
@@ -30,6 +32,41 @@ export default function MenuPreviewPanel({
     }, 0)
     : 0
     const totalPrice = basePrice + bauturaTotal + sosuriTotal
+
+    const handleAddOrder = async () => {
+      const orderPayload = {
+        session_id: sessionStorage.getItem("session_id") || crypto.randomUUID(),
+        menu: {
+          name,
+          price: totalPrice,
+          quantity,
+          details: [
+            selectedGarnitura,
+            ...selectedSalate.map(s => `${s.name} x${s.quantity}`),
+            ...selectedBauturi.map(b => `${b.name} x${b.quantity}`),
+            ...selectedSosuri.map(ss => `${ss.name} x${ss.quantity}`)
+          ].filter(Boolean).join(', ')
+        }        
+      }
+
+      sessionStorage.setItem("session_id", orderPayload.session_id)
+
+      try {
+        await fetch(`${import.meta.env.VITE_API_URL}/api/comenzi_temporare`, {
+          method: "POST",
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify(orderPayload)
+        })
+
+        if (typeof refreshOrders === 'function') {
+          refreshOrders()
+        }
+
+        onClose()
+      } catch (error) {
+        console.error("Eroare la salvarea comenzii:", error)
+      }
+    }
 
   return (
     <div className="w-full h-full flex flex-col items-center justify-between gap-6">
@@ -113,6 +150,7 @@ export default function MenuPreviewPanel({
         <button 
           className="w-full mt-4 py-3 rounded-full text-white font-semibold bg-custom-red shadow-sm
           hover:bg-red-700 transition-colors duration-300 cursor-pointer"
+          onClick={handleAddOrder}
         >
           Adauga {quantity} pentru {totalPrice.toFixed(2)} RON
         </button>

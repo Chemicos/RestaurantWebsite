@@ -8,6 +8,7 @@ export default function MenuPage() {
   const [scrolled, setScrolled] = useState(false)
   const [menuItems, setMenuItems] = useState([])
   const [searchTerm, setSearchTerm] = useState('')
+  const [orders, setOrders] = useState([])
 
   const API_URL = import.meta.env.VITE_API_URL
 
@@ -23,6 +24,24 @@ export default function MenuPage() {
     }
     fetchMenus()
   }, [])
+
+  useEffect(() => {
+    fetchOrders()
+  }, [])
+
+  const fetchOrders = async () => {
+    const session_id = sessionStorage.getItem("session_id")
+    if (!session_id) return
+
+    try {
+      const res = await fetch(`${API_URL}/api/comenzi_temporare?session_id=${session_id}`)
+      const data = await res.json()
+      const allItems = data.map(entry => entry.items)
+      setOrders(allItems.flat())
+    } catch (err) {
+      console.error("Eroare la preluarea comenzilor:", err)
+    }
+  }
 
   const filteredMenus = menuItems.filter(menu => {
     const matchesCategory = selectedCategory ? menu.category === selectedCategory : true
@@ -58,6 +77,7 @@ export default function MenuPage() {
         />
         <MainMenuList 
           menuItems={filteredMenus} 
+          refreshOrders={fetchOrders}
         />
       </div>
 
@@ -67,7 +87,9 @@ export default function MenuPage() {
           transition-all duration-500 ease-out hidden lg:block
           ${scrolled ? 'translate-y-[40px]' : 'translate-y-0'}`
         }>
-          <OrderSummary />        
+          <OrderSummary
+            orders={orders}
+          />        
         </div>
       </div>
     </div>

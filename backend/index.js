@@ -68,6 +68,49 @@ app.get('/api/sosuri', async (req, res) => {
   }
 })
 
+app.get('/api/comenzi_temporare', async (req, res) => {
+  const {session_id} = req.query
+  if (!session_id) return res.status(400).json({ error: "Lipseste session_id" })
+
+  const client = await pool.connect()
+  try {
+    const result = await client.query(`
+      SELECT items FROM comenzi_temporare WHERE session_id = $1
+    `, [session_id])
+
+    res.json(result.rows)
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({error: "Eroare DB"})
+  } finally {
+    client.release()
+  }
+})
+
+app.post('/api/comenzi_temporare', async (req, res) => {
+  const { session_id, menu } = req.body
+  if(!session_id || !menu) return res.status(400).json({error: 'Date incomplete'})
+
+  const client = await pool.connect()
+  try {
+    await client.query(`
+      INSERT INTO comenzi_temporare (session_id, items, total_partial)
+      VALUES ($1, $2, $3)
+      `, [
+        session_id,
+        JSON.stringify(menu),
+        menu.price
+      ])
+      
+      res.status(201).json({succes: true})
+  } catch (error) {
+    console.error('Eroare DB:', error)
+    res.status(500).json({error: "Eroare DB"})
+  } finally {
+    client.release()
+  }
+})
+
 app.listen(5000, () => {
   console.log('Server is running on port 5000');
 });

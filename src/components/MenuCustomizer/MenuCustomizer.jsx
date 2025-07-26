@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { XIcon } from "@phosphor-icons/react";
 import MenuCustomizerForm from "./MenuCustomizerForm";
 import MenuPreviewPanel from "./MenuPreviewPanel";
@@ -11,7 +12,8 @@ export default function MenuCustomizer({
   imageUrl,
   name,
   price,
-  ingredients
+  ingredients,
+  refreshOrders
 }) {
   const [quantity, setQuantity] = useState(1)
   const [selectedGarnitura, setSelectedGarnitura] = useState(null)
@@ -116,6 +118,8 @@ export default function MenuCustomizer({
                       selectedSosuri={selectedSosuri}
                       selectedGarnitura={selectedGarnitura}
                       selectedSalate={selectedSalate}
+                      onClose={onClose}
+                      refreshOrders={refreshOrders}
                     />
                 </div>
               </>
