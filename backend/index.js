@@ -111,6 +111,40 @@ app.post('/api/comenzi_temporare', async (req, res) => {
   }
 })
 
+app.delete('/api/comenzi_temporare', async (req, res) => {
+  const {session_id, item_name} = req.body
+
+  if (!session_id || !item_name) {
+    return res.status(400).json({error: 'session_id si item_name sunt necesare'})
+  }
+
+  const client = await pool.connect()
+
+  try {
+    const {rows} = await client.query(`
+      SELECT ctid FROM comenzi_temporare
+      WHERE session_id = $1 AND items->>'name' = $2
+      LIMIT 1
+    `, [session_id, item_name])
+
+    if(rows.length === 0) {
+      return res.status(404).json({error: 'Comanda nu a fost gasita'})
+    }
+
+    const ctid = rows[0].ctid
+    
+    await client.query(`
+      DELETE FROM comenzi_temporare WHERE ctid = $1  
+    `, [ctid])
+    res.json({success: true})
+  } catch (error) {
+    console.error('Eroare la stergere:', error)
+    res.status(500).json({error: 'Eroare DB la stergere'})
+  } finally {
+    client.release()
+  }
+})
+
 app.listen(5000, () => {
   console.log('Server is running on port 5000');
 });

@@ -1,6 +1,7 @@
 import { MinusIcon, PlusIcon } from '@phosphor-icons/react'
+import ConfirmDelete from './ConfirmDelete'
 
-export default function OrderSummary({orders}) {
+export default function OrderSummary({orders, onRequestDelete}) {
 
   const totalPrice = orders.reduce((acc, order) => acc + Number(order.price), 0)
   
@@ -15,32 +16,33 @@ export default function OrderSummary({orders}) {
           <div className='flex flex-col gap-4 h-[400px] w-[300px] overflow-y-auto pr-1'>
             {orders.map((order, index) => (
               <div key={index} className='flex justify-between border-b border-black/20 pb-4'>
-                <div className='flex flex-col items-start w-full'>
-                  <p>{order.name}</p>
-                  <p className='text-sm text-custom-gray'>{order.details}</p>
-                  <button className='text-sm text-custom-red font-medium hover:underline cursor-pointer'>
-                    Editare
-                  </button>
-                </div>
-
-                <div className='flex flex-col items-end w-full justify-between'>
-                  <p className='text-lg'>{order.price} RON</p>
+                <div className='flex flex-col items-start w-[200px]'>
+                  <div className='flex gap-1'>
+                    <span>x{order.quantity}</span> 
+                    <p>{order.name}</p>
+                  </div>
                   
-                  <div className='flex items-center gap-2'>
-                    <button>
-                      <MinusIcon size={25} weight='bold' className='text-black bg-[#66635B]/30 rounded-full p-1 cursor-pointer transition-all duration-100 active:scale-90 hover:bg-[#66635B]/60' />
+                  <p className='text-sm text-custom-gray leading-relaxed'>{order.details}</p>
+
+                  <div className='flex flex-row gap-2'>
+                    <button className='text-sm text-custom-red font-medium hover:underline cursor-pointer'>
+                      Editeaza
                     </button>
-                    <span>{order.quantity}</span>
-                    <button>
-                      <PlusIcon size={25} weight='bold' className='text-white bg-custom-red rounded-full p-1 cursor-pointer transition-all duration-100 active:scale-90 hover:bg-red-700' />
+                    <button 
+                    className='text-sm text-custom-red font-medium hover:underline cursor-pointer'
+                    onClick={() => onRequestDelete(order.name)}
+                    >
+                      Sterge
                     </button>
                   </div>
                 </div>
+          
+                <p className='text-lg'>{order.price} RON</p>
               </div>
             ))}
           </div>
 
-          <button className='mt-6 bg-custom-red hover:bg-red-700 text-white py-2 px-4 w-full rounded-full font-semibold cursor-pointer'>
+          <button className='mt-6 bg-custom-red hover:bg-red-700 text-white py-2 px-4 w-full rounded-full font-semibold cursor-pointer transition-all'>
             Finalizeaza pentru {totalPrice.toFixed(2)} RON
           </button>
         </>

@@ -85,7 +85,7 @@ export default function MenuPreviewPanel({
             {ingredients && (
               <p className="text-black">
                 Ingrediente: 
-                <span className="text-custom-gray">{ingredients}</span>
+                <span className="text-custom-gray"> {ingredients}</span>
               </p>
             )}
 

@@ -2,13 +2,19 @@ import React, { useEffect, useState } from 'react'
 import SearchOptions from './SearchOptions'
 import MainMenuList from './MainMenuList'
 import OrderSummary from './OrderSummary'
+import ConfirmDelete from './ConfirmDelete'
+import { Alert, Snackbar } from '@mui/material'
 
 export default function MenuPage() {
   const [selectedCategory, setSelectedCategory] = useState('')
   const [scrolled, setScrolled] = useState(false)
   const [menuItems, setMenuItems] = useState([])
+  // const [editingMenu, setEditingMenu] = useState(null)
+  // const [isCustomizerOpen, setIsCustomizerOpen] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
   const [orders, setOrders] = useState([])
+  const [menuToDelete, setMenuToDelete] = useState(null)
+  const [toastOpen, setToastOpen] = useState(false)
 
   const API_URL = import.meta.env.VITE_API_URL
 
@@ -48,6 +54,29 @@ export default function MenuPage() {
     const matchesSearch = menu.name.toLowerCase().includes(searchTerm.toLowerCase())
     return matchesCategory && matchesSearch
   })
+
+  const handleDeleteOrder = async (menuName) => {
+    const session_id = sessionStorage.getItem("session_id")
+    if (!session_id) return
+
+    try {
+      await fetch(`${API_URL}/api/comenzi_temporare`, {
+        method: 'DELETE',
+        headers: {'Content-Type' : 'application/json'},
+        body: JSON.stringify({session_id, item_name: menuName})
+      })
+      fetchOrders()
+      setMenuToDelete(null)
+      setToastOpen(true)
+    } catch (error) {
+      console.error('Eroare la stergerea comenzii', error)
+    }
+  }
+
+  const handleCloseToast = (_, reason) => {
+    if (reason === 'clickaway') return
+    setToastOpen(false)
+  }
 
   const handleResetFilters = () => {
     setSelectedCategory('')
@@ -89,9 +118,34 @@ export default function MenuPage() {
         }>
           <OrderSummary
             orders={orders}
+            onRequestDelete={(menuName) => setMenuToDelete(menuName)}
+            
           />        
         </div>
+
+        <ConfirmDelete 
+          visible={!!menuToDelete}
+          onCancel={() => setMenuToDelete(null)}
+          onConfirm={() => handleDeleteOrder(menuToDelete)}
+          menuName={menuToDelete}
+        />
       </div>
+
+      <Snackbar
+        open={toastOpen}
+        autoHideDuration={4000}
+        onClose={handleCloseToast}
+        anchorOrigin={{vertical: 'bottom', horizontal: 'center'}}
+      >
+        <Alert
+          onClose={handleCloseToast}
+          severity='success'
+          variant='filled'
+          sx={{width: '100%'}}
+        >
+          Meniul a fost sters cu succes!
+        </Alert>
+      </Snackbar>
     </div>
   )
 }
