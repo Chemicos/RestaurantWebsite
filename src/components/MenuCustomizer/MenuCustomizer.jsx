@@ -8,11 +8,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 export default function MenuCustomizer({ 
   onClose,
-  menuId,
-  imageUrl,
-  name,
-  price,
-  ingredients,
+  menu,
   refreshOrders
 }) {
   const [quantity, setQuantity] = useState(1)
@@ -25,6 +21,8 @@ export default function MenuCustomizer({
   const [salate, setSalate] = useState([])
   const [bauturi, setBauturi] = useState([])
   const [sosuri, setSosuri] = useState([])
+
+  const { id: menuId, image_url: imageUrl, name, price, ingredients } = menu || {}
 
   const API_URL = import.meta.env.VITE_API_URL
 

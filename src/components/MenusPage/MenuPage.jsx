@@ -4,17 +4,19 @@ import MainMenuList from './MainMenuList'
 import OrderSummary from './OrderSummary'
 import ConfirmDelete from './ConfirmDelete'
 import { Alert, Snackbar } from '@mui/material'
+import MenuCustomizer from '../MenuCustomizer/MenuCustomizer'
 
 export default function MenuPage() {
   const [selectedCategory, setSelectedCategory] = useState('')
   const [scrolled, setScrolled] = useState(false)
   const [menuItems, setMenuItems] = useState([])
-  // const [editingMenu, setEditingMenu] = useState(null)
-  // const [isCustomizerOpen, setIsCustomizerOpen] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
   const [orders, setOrders] = useState([])
   const [menuToDelete, setMenuToDelete] = useState(null)
   const [toastOpen, setToastOpen] = useState(false)
+
+  const [isCustomizerOpen, setIsCustomizerOpen] = useState(false)
+  const [selectedItem, setSelectedItem] = useState(null) 
 
   const API_URL = import.meta.env.VITE_API_URL
 
@@ -34,6 +36,11 @@ export default function MenuPage() {
   useEffect(() => {
     fetchOrders()
   }, [])
+
+  const handleCustomizeMenu = (item) => {
+    setSelectedItem(item)
+    setIsCustomizerOpen(true)
+  }
 
   const fetchOrders = async () => {
     const session_id = sessionStorage.getItem("session_id")
@@ -107,6 +114,7 @@ export default function MenuPage() {
         <MainMenuList 
           menuItems={filteredMenus} 
           refreshOrders={fetchOrders}
+          onCustomize={handleCustomizeMenu}
         />
       </div>
 
@@ -146,6 +154,17 @@ export default function MenuPage() {
           Meniul a fost sters cu succes!
         </Alert>
       </Snackbar>
+
+      {isCustomizerOpen && selectedItem && (
+        <MenuCustomizer
+          menu={selectedItem}
+          onClose={() => {
+            setIsCustomizerOpen(false)
+            setSelectedItem(null)
+          }}
+          refreshOrders={fetchOrders}
+        />
+      )}
     </div>
   )
 }

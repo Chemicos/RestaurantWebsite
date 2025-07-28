@@ -15,7 +15,7 @@ export default function MenuPreviewPanel({
    refreshOrders
   }) {
 
-    const basePrice = Number(price) * quantity
+    const basePrice = Number(price)
     const bauturaTotal = Array.isArray(selectedBauturi) 
     ? selectedBauturi.reduce((acc, bautura) => {
       const price = Number(bautura?.price || 0)
@@ -31,7 +31,8 @@ export default function MenuPreviewPanel({
       return acc + price * qty
     }, 0)
     : 0
-    const totalPrice = basePrice + bauturaTotal + sosuriTotal
+    const totalBeforeQty = basePrice + bauturaTotal + sosuriTotal
+    const totalPrice = totalBeforeQty * quantity
 
     const handleAddOrder = async () => {
       const orderPayload = {

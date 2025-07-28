@@ -1,15 +1,4 @@
-import React, { useState } from 'react'
-import MenuCustomizer from '../MenuCustomizer/MenuCustomizer'
-
-export default function MainMenuList({menuItems, refreshOrders}) {
-  const [isCustomizing, setIsCustomizing] = useState(false)
-  const [selectedItem, setSelectedItem] = useState(null) 
-
-  const handleCustomize = (item) => {
-    setSelectedItem(item)
-    setIsCustomizing(true)
-  }
-
+export default function MainMenuList({menuItems, onCustomize}) {
   return (
     <div className='grid grid-cols-1 lg:grid-cols-2 gap-6 mt-10'>
       {menuItems.map(({id, name, price, image_url, ingredients}) => (
@@ -35,7 +24,7 @@ export default function MainMenuList({menuItems, refreshOrders}) {
 
             <div className='flex justify-between items-center mt-2'>
               <button
-                onClick={() => handleCustomize({id, name, price, image_url, ingredients})} 
+                onClick={() => onCustomize({id, name, price, image_url, ingredients})} 
                 className='bg-custom-red text-white px-2 rounded text-2xl hover:bg-red-800
                 cursor-pointer transition-all'
               >
@@ -47,18 +36,6 @@ export default function MainMenuList({menuItems, refreshOrders}) {
           </div>
         </div>
       ))}
-  
-      {isCustomizing && selectedItem && (
-        <MenuCustomizer 
-          onClose={() => setIsCustomizing(false)}
-          menuId={selectedItem.id}
-          imageUrl={selectedItem.image_url}
-          name={selectedItem.name}
-          price={selectedItem.price}
-          ingredients={selectedItem.ingredients}
-          refreshOrders={refreshOrders}
-        />
-      )}
     </div>
   )
 }

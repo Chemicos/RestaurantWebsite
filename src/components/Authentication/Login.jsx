@@ -1,3 +1,4 @@
+import { TextField } from '@mui/material'
 import React, { useEffect, useRef, useState } from 'react'
 
 export default function Login({ setShowRegister, onClose }) {
@@ -25,16 +26,42 @@ export default function Login({ setShowRegister, onClose }) {
     >
       <form className='flex flex-col gap-5'>
         <h2 className='text-md font-semibold'>Contul meu</h2>
-        <input 
-            type="email" 
-            placeholder='Adresa de email' 
-            className='w-full px-3 py-2 border border-custom-gray rounded-lg outline-none focus:ring-2 duration-300' 
+        <TextField
+          InputProps={{
+            sx: {
+              py: 0.5,
+              borderRadius: '10px' 
+            }
+          }}
+          InputLabelProps={{
+            sx: {
+              top: '3px',
+            }
+          }}
+          variant='outlined'
+          label='email'
+          type='email'
+          size='small'
+          fullWidth
         />
 
-        <input 
-            type="password" 
-            placeholder='Parola' 
-            className='w-full px-3 py-2 border border-custom-gray rounded-lg outline-none focus:ring-2 duration-300'
+        <TextField
+         InputProps={{
+            sx: {
+              py: 0.5,
+              borderRadius: '10px' 
+            } 
+          }}
+           InputLabelProps={{
+            sx: {
+              top: '3px',
+            }
+          }}
+          variant="outlined"
+          label="parola"
+          type="password"
+          size="small"
+          fullWidth
         />
         
         <button 

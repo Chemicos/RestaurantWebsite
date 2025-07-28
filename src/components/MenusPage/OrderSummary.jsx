@@ -37,7 +37,7 @@ export default function OrderSummary({orders, onRequestDelete}) {
                   </div>
                 </div>
           
-                <p className='text-lg'>{order.price} RON</p>
+                <p className='text-md'>{Number(order.price).toFixed(2)} RON</p>
               </div>
             ))}
           </div>
