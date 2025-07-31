@@ -35,18 +35,18 @@ export default function MenuPreviewPanel({
     const totalPrice = totalBeforeQty * quantity
 
     const handleAddOrder = async () => {
+       const session_id = sessionStorage.getItem("session_id") || crypto.randomUUID()
+       
       const orderPayload = {
-        session_id: sessionStorage.getItem("session_id") || crypto.randomUUID(),
+        session_id,
         menu: {
           name,
           price: totalPrice,
           quantity,
-          details: [
-            selectedGarnitura,
-            ...selectedSalate.map(s => `${s.name} x${s.quantity}`),
-            ...selectedBauturi.map(b => `${b.name} x${b.quantity}`),
-            ...selectedSosuri.map(ss => `${ss.name} x${ss.quantity}`)
-          ].filter(Boolean).join(', ')
+          garnitura: selectedGarnitura,
+          salate: selectedSalate,
+          bauturi: selectedBauturi,
+          sosuri: selectedSosuri
         }        
       }
 

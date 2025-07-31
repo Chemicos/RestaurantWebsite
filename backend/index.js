@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import pkg from 'pg';
 import dotenv from 'dotenv';
+import bcrypt from 'bcrypt';
 
 dotenv.config();
 const { Pool } = pkg;
@@ -106,6 +107,74 @@ app.post('/api/comenzi_temporare', async (req, res) => {
   } catch (error) {
     console.error('Eroare DB:', error)
     res.status(500).json({error: "Eroare DB"})
+  } finally {
+    client.release()
+  }
+})
+
+app.post('/api/register', async (req, res) => {
+  const {nume, prenume, email, telefon, parola, tip_persoana, acceptat_termeni} = req.body
+
+  if (!nume || !prenume || !email || !parola || !tip_persoana) {
+    return res.status(400).json({error: 'Datele sunt incomplete'})
+  }
+
+  const client = await pool.connect()
+
+  try {
+    const hashedPassword = await bcrypt.hash(parola, 10)
+
+    const insertResult = await client.query(`
+        INSERT INTO utilizatori (nume, prenume, email, telefon, parola, tip_persoana, acceptat_termeni)
+        VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id, prenume
+      `, [nume, prenume, email, telefon, hashedPassword, tip_persoana, acceptat_termeni])
+
+      const newUser = insertResult.rows[0]
+
+      res.status(201).json({ success: true, user: {id: newUser.id, prenume: newUser.prenume} })
+  } catch (error) {
+    console.error('Eroare la inregistrare:', error)
+    if(error.code === '23505') {
+      res.status(409).json({error: 'Email deja inregistrat'})
+    } else {
+      res.status(500).json({error: 'Eroare interna DB'})
+    }
+  } finally {
+    client.release()
+  }
+})
+
+app.post('/api/login', async (req, res) => {
+  const {email, parola} = req.body
+
+  if(!email || !parola) {
+    return res.status(400).json({error: 'Email si parola sunt necesare'})
+  }
+
+  const client = await pool.connect()
+  try {
+    const result = await client.query(`
+      SELECT id, prenume, parola FROM utilizatori WHERE email = $1 
+    `, [email])
+
+    if(result.rows.length === 0) {
+      return res.status(401).json({error: 'Credentiale invalide'})
+    }
+
+    const user = result.rows[0]
+    const parolaMatch = await bcrypt.compare(parola, user.parola)
+
+    if(!parolaMatch) {
+      return res.status(401).json({error: 'Credentiale invalide'})
+    }
+
+    res.json({
+      success: true, 
+      user: {id: user.id, prenume: user.prenume}
+    })
+  } catch (error) {
+    console.error('Eroare la autentificare:', error)
+    res.status(500).json({ error: 'Eroare interna DB' })
   } finally {
     client.release()
   }

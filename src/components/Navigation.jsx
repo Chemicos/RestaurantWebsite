@@ -1,9 +1,9 @@
 import {DotIcon, IconContext, ShoppingCartSimpleIcon, User} from "@phosphor-icons/react"
-// import logo from '../assets/logoPizzerie.png'
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import Login from "./Authentication/Login"
 import Register from "./Authentication/Register"
 import { NavLink } from "react-router-dom"
+import { AuthContext } from "../contexts/AuthContext"
 
 const navItems = [
     {name: 'Acasa', path: '/'},
@@ -16,6 +16,7 @@ export default function Navigation() {
     const [showLogin, setShowLogin] = useState(false)
     const [showRegister, setShowRegister] = useState(false)
     const [hasShadow, setHasShadow] = useState(false)
+    const {user, logout} = useContext(AuthContext)
 
     useEffect(() => {
         const handleScroll = () => {
@@ -73,12 +74,26 @@ const cartItemCount = 0
                         {cartItemCount}
                     </span>
                 </div>
-                <User 
-                    size={30}
-                    weight="bold"
-                    onClick={() => setShowLogin(prev => !prev)}
-                    className="text-[#66635B] hover:text-black transition-colors duration-200 cursor-pointer"
-                />
+
+                {user ? (
+                    <div className="flex items-center gap-2">
+                        <span className="text-[#66635B] capitalize">{user.prenume}</span>
+                        <button 
+                            className="text-sm text-red-600" 
+                            onClick={logout}
+                        >
+                            Logout
+                        </button>
+                    </div>
+                ) : (
+                    <User 
+                        size={30}
+                        weight="bold"
+                        onClick={() => setShowLogin(prev => !prev)}
+                        className="text-[#66635B] hover:text-black transition-colors duration-200 cursor-pointer"
+                    />
+                )}
+                
                 {showLogin && (
                     showRegister ? (
                         <Register 

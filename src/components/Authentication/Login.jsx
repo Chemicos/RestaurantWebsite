@@ -1,9 +1,62 @@
-import { TextField } from '@mui/material'
-import React, { useEffect, useRef, useState } from 'react'
+import { Alert, Box, CircularProgress, TextField } from '@mui/material'
+import React, { useContext, useEffect, useRef, useState } from 'react'
+import { SnackbarContext } from '../../contexts/SnackbarContext'
+import { AuthContext } from '../../contexts/AuthContext'
 
 export default function Login({ setShowRegister, onClose }) {
   const ref = useRef()
   const [isClosing, setIsClosing] = useState(false)
+  const [email, setEmail] = useState('')
+  const [parola, setParola] = useState('')
+  const [error, setError] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
+
+  const {triggerSnackbar} = useContext(SnackbarContext)
+  const { login } = useContext(AuthContext)
+
+  const API_URL = import.meta.env.VITE_API_URL
+  
+  
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setError('')
+
+    if(!email || !parola) {
+      setError('Completeaza toate campurile')
+      return
+    }
+
+    setIsLoading(true)
+
+    try {
+      const res = await fetch(`${API_URL}/api/login`,  {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({email, parola})
+      })
+
+      const result = await res.json()
+
+      if(res.ok) {
+        const expiry = new Date().getTime() + 24 * 60 * 60 * 1000
+        const data = {prenume: result.user.prenume, expiry}
+        login(data)
+
+        // localStorage.setItem('user', JSON.stringify(data))
+        setTimeout(() => {
+          setIsLoading(false)
+          triggerSnackbar('Autentificare cu succes!')
+          onClose()
+        }, 1000)
+      } else {
+        setError(result.error || 'Autentificare esuata')
+      }
+    } catch (error) {
+      console.error('Eroare:', error)
+      setError('Eroare server. Incearca din nou.')
+      setIsLoading(false)
+    }
+  }
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -24,7 +77,7 @@ export default function Login({ setShowRegister, onClose }) {
       ref={ref}
       className={`absolute right-8 top-16 w-80 bg-custom-white rounded-xl shadow-lg p-6 z-50 ${isClosing ? 'animate-fade-out' : 'animate-fade-in'}`}
     >
-      <form className='flex flex-col gap-5'>
+      <form className='flex flex-col gap-5' onSubmit={handleSubmit}>
         <h2 className='text-md font-semibold'>Contul meu</h2>
         <TextField
           InputProps={{
@@ -39,9 +92,11 @@ export default function Login({ setShowRegister, onClose }) {
             }
           }}
           variant='outlined'
-          label='email'
+          value={email}
+          label='E-mail'
           type='email'
           size='small'
+          onChange={(e) => setEmail(e.target.value)}
           fullWidth
         />
 
@@ -58,17 +113,31 @@ export default function Login({ setShowRegister, onClose }) {
             }
           }}
           variant="outlined"
+          value={parola}
           label="parola"
           type="password"
           size="small"
+          onChange={(e) => setParola(e.target.value)}
           fullWidth
         />
+
+        {error && (
+          <Alert severity='error'>{error}</Alert>
+        )}
         
         <button 
             type="submit"
-            className='w-fit bg-custom-red hover:bg-red-700 text-custom-white font-semibold py-2 px-3 rounded-lg transition-colors cursor-pointer'
+            className='w-[140px] bg-custom-red h-[40px] hover:bg-red-700 text-custom-white font-semibold py-2 px-3 rounded-lg transition-colors cursor-pointer'
+            onClick={handleSubmit}
         >
-            Conecteaza-ma
+
+          {isLoading ? (
+            <Box>
+              <CircularProgress size={20} color='inherit' />
+            </Box>
+          ) : (
+            <span>Conecteaza-ma</span>
+          )}
         </button>
       </form>
 

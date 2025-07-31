@@ -127,7 +127,6 @@ export default function MenuPage() {
           <OrderSummary
             orders={orders}
             onRequestDelete={(menuName) => setMenuToDelete(menuName)}
-            
           />        
         </div>
 

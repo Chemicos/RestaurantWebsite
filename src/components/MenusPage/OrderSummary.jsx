@@ -1,5 +1,6 @@
 import { MinusIcon, PlusIcon } from '@phosphor-icons/react'
 import ConfirmDelete from './ConfirmDelete'
+import { generateOrderDetailsText } from './utils/formatOrderDetails'
 
 export default function OrderSummary({orders, onRequestDelete}) {
 
@@ -22,19 +23,14 @@ export default function OrderSummary({orders, onRequestDelete}) {
                     <p>{order.name}</p>
                   </div>
                   
-                  <p className='text-sm text-custom-gray leading-relaxed'>{order.details}</p>
+                  <p className='text-sm text-custom-gray leading-relaxed'>{generateOrderDetailsText(order)}</p>
 
-                  <div className='flex flex-row gap-2'>
-                    <button className='text-sm text-custom-red font-medium hover:underline cursor-pointer'>
-                      Editeaza
-                    </button>
-                    <button 
-                    className='text-sm text-custom-red font-medium hover:underline cursor-pointer'
-                    onClick={() => onRequestDelete(order.name)}
-                    >
-                      Sterge
-                    </button>
-                  </div>
+                  <button 
+                  className='text-sm text-custom-red font-medium hover:underline cursor-pointer'
+                  onClick={() => onRequestDelete(order.name)}
+                  >
+                    Sterge
+                  </button>
                 </div>
           
                 <p className='text-md'>{Number(order.price).toFixed(2)} RON</p>

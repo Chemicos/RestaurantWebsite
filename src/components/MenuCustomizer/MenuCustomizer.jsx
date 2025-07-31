@@ -9,7 +9,7 @@ import { motion, AnimatePresence } from "framer-motion";
 export default function MenuCustomizer({ 
   onClose,
   menu,
-  refreshOrders
+  refreshOrders,
 }) {
   const [quantity, setQuantity] = useState(1)
   const [selectedGarnitura, setSelectedGarnitura] = useState(null)

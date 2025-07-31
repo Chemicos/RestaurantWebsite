@@ -12,7 +12,7 @@ export default function MenuCustomizerForm({
   garnituri,
   salate, 
   bauturi, 
-  sosuri 
+  sosuri
 }) {
   const [selectedGarnitura, setSelectedGarnitura] = useState(null)
   const [selectedSalate, setSelectedSalate] = useState({})
@@ -116,18 +116,18 @@ export default function MenuCustomizerForm({
   }, [selectedBauturi, bauturi, onBauturaSelect])
 
   useEffect(() => {
-  const sosuriArray = Object.entries(selectedSosuri).map(([id, qty]) => {
-    const sos = sosuri.find(s => s.id === Number(id))
-    return {
-      id: Number(id),
-      name: sos?.name || '',
-      price: Number(sos?.price),
-      quantity: Number(qty)
-    }
-  })
-  onSosSelect(sosuriArray)
-}, [selectedSosuri, sosuri, onSosSelect])
-
+    const sosuriArray = Object.entries(selectedSosuri).map(([id, qty]) => {
+      const sos = sosuri.find(s => s.id === Number(id))
+      return {
+        id: Number(id),
+        name: sos?.name || '',
+        price: Number(sos?.price),
+        quantity: Number(qty)
+      }
+    })
+    onSosSelect(sosuriArray)
+  }, [selectedSosuri, sosuri, onSosSelect])
+  
   return (
     <div className='w-full space-y-6'>
       <div className='flex flex-col gap-6'>
