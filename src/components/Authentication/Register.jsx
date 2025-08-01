@@ -1,4 +1,4 @@
-import { alpha, Box, CircularProgress, IconButton, InputAdornment, Switch, TextField } from '@mui/material'
+import { Alert, alpha, Box, CircularProgress, IconButton, InputAdornment, Switch, TextField } from '@mui/material'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import PassDifficulty from './PassDifficulty'
@@ -11,7 +11,6 @@ export default function Register({ setShowRegister, onClose }) {
   const [prenume, setPrenume] = useState('')
   const [email, setEmail] = useState('')
   const [telefon, setTelefon] = useState('')
-  const [termeni, setTermeni] = useState(false)
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [activeInput, setActiveInput] = useState(null)
@@ -22,6 +21,12 @@ export default function Register({ setShowRegister, onClose }) {
   const [isClosing, setIsClosing] = useState(false)
 
   const [passwordMatch, setPasswordMatch] = useState(true)
+  const [fieldErrors, setFieldErrors] = useState({
+    nume: false,
+    prenume: false,
+    email: false,
+    password: false
+  })
   const [error, setError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 
@@ -30,11 +35,22 @@ export default function Register({ setShowRegister, onClose }) {
 
   const API_URL = import.meta.env.VITE_API_URL
 
+  const isValidEmail = (email) => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    return regex.test(email)
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     if(password !== confirmPass) return
-    if(!nume || !prenume || !email || !password || !termeni) {
-      setError('Completeaza toate campurile obligatorii.')
+    if(!nume || !prenume || !email || !password) {
+      setFieldErrors({
+        nume: !nume,
+        prenume: !prenume,
+        email: !email || !isValidEmail(email),
+        password: !password
+      })
+      setError(!isValidEmail(email) ? 'Email invalid' : 'Completeaza toate campurile obligatorii.')
       return
     }
 
@@ -46,8 +62,7 @@ export default function Register({ setShowRegister, onClose }) {
       email,
       telefon,
       parola: password,
-      tip_persoana: perJuridica ? 'juridica' : 'fizica',
-      acceptat_termeni: termeni
+      tip_persoana: perJuridica ? 'juridica' : 'fizica'
     }
 
     try {
@@ -62,12 +77,14 @@ export default function Register({ setShowRegister, onClose }) {
         const loginData = { prenume: result.user.prenume, expiry }
         login(loginData)
         setTimeout(() => {
+          triggerSnackbar('Cont creat cu succes!')
           setIsLoading(false)
           setShowRegister(false)
-          triggerSnackbar('Cont creat cu succes!')
+          onClose()
         }, 1000)
       } else {
         setError(result.error || 'Eroare la inregistrare')
+        setIsLoading(false)
       }
     } catch (error) {
       console.error('Eroare fetch:', error)
@@ -90,7 +107,7 @@ export default function Register({ setShowRegister, onClose }) {
         setIsClosing(true)
         setTimeout(() => {
           onClose()
-        }, 400);
+        }, 400)
       }
     }
 
@@ -133,9 +150,14 @@ export default function Register({ setShowRegister, onClose }) {
           variant='outlined'
           value={nume}
           label='Nume*'
+          error={fieldErrors.nume}
           type='text'
           size='small'
-          onChange={(e) => setNume(e.target.value)}
+          onChange={(e) => {
+            setNume(e.target.value)
+            setFieldErrors(prev => ({...prev, nume: false}))
+            setError('')
+          }}
           fullWidth
         />
 
@@ -154,9 +176,14 @@ export default function Register({ setShowRegister, onClose }) {
           variant='outlined'
           value={prenume}
           label='Prenume*'
+          error={fieldErrors.prenume}
           type='text'
           size='small'
-          onChange={(e) => setPrenume(e.target.value)}
+          onChange={(e) => {
+            setPrenume(e.target.value)
+            setFieldErrors(prev => ({...prev, prenume: false}))
+            setError('')
+          }}
           fullWidth
         />
 
@@ -175,9 +202,14 @@ export default function Register({ setShowRegister, onClose }) {
           variant='outlined'
           value={email}
           label='E-mail*'
+          error={fieldErrors.email}
           type='email'
           size='small'
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => {
+            setEmail(e.target.value)
+            setFieldErrors(prev => ({...prev, email: false}))
+            setError('')
+          }}
           fullWidth
         />
 
@@ -204,10 +236,15 @@ export default function Register({ setShowRegister, onClose }) {
 
         <TextField
           label="Parola*"
+          error={fieldErrors.password}
           type={showPassword ? 'text' : 'password'}
           variant="outlined"
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e) => {
+            setPassword(e.target.value)
+            setFieldErrors(prev => ({...prev, password: false}))
+            setError('')
+          }}
           fullWidth
           onFocus={() => setActiveInput("password")}
           onBlur={() => setActiveInput(null)}
@@ -304,17 +341,9 @@ export default function Register({ setShowRegister, onClose }) {
           </span>
         </div>
 
-        <div className='flex gap-4'>
-            <input 
-              type="checkbox" 
-              checked={termeni}
-              className='accent-red-600 cursor-pointer' 
-              onChange={(e) => setTermeni(e.target.checked)}
-            /> 
-            <p className='text-md'>
-              Am citit si sunt de acord cu <span className='text-red-600'>Termeni si conditii</span>
-            </p>
-        </div>
+        {error && (
+          <Alert severity='error'>{error}</Alert>
+        )}
 
         <button 
           type="submit"

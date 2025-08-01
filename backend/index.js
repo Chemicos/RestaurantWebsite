@@ -113,7 +113,7 @@ app.post('/api/comenzi_temporare', async (req, res) => {
 })
 
 app.post('/api/register', async (req, res) => {
-  const {nume, prenume, email, telefon, parola, tip_persoana, acceptat_termeni} = req.body
+  const {nume, prenume, email, telefon, parola, tip_persoana} = req.body
 
   if (!nume || !prenume || !email || !parola || !tip_persoana) {
     return res.status(400).json({error: 'Datele sunt incomplete'})
@@ -125,9 +125,9 @@ app.post('/api/register', async (req, res) => {
     const hashedPassword = await bcrypt.hash(parola, 10)
 
     const insertResult = await client.query(`
-        INSERT INTO utilizatori (nume, prenume, email, telefon, parola, tip_persoana, acceptat_termeni)
-        VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id, prenume
-      `, [nume, prenume, email, telefon, hashedPassword, tip_persoana, acceptat_termeni])
+        INSERT INTO utilizatori (nume, prenume, email, telefon, parola, tip_persoana)
+        VALUES ($1, $2, $3, $4, $5, $6) RETURNING id, prenume
+      `, [nume, prenume, email, telefon, hashedPassword, tip_persoana])
 
       const newUser = insertResult.rows[0]
 

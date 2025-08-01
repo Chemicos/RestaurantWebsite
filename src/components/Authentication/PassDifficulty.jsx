@@ -27,24 +27,26 @@ export default function PassDifficulty({ password, isVisible = true }) {
   return (
     <div className='relative animate-fade-in'>
         {isVisible && (
-            <ul className='absolute -left-56 top-2 w-52 bg-custom-white border border-gray-300 shadow-md rounded-b-xl rounded-tl-xl p-3 space-y-1 z-10'>
+           <div className='absolute -left-56 top-2 w-52 bg-custom-white border border-gray-300 shadow-md rounded-b-xl rounded-tl-xl p-4 space-y-1 z-10'>
+                <ul className='space-y-1'>
                 {criteria.map(c => (
                     <li
-                        key={c.id}
-                        className={`flex items-center text-sm gap-2 ${c.isValid ? "text-emerald-500" : "text-custom-red"}`}
+                    key={c.id}
+                    className={`flex items-center text-sm gap-2 ${c.isValid ? "text-emerald-500" : "text-custom-red"}`}
                     >
-                        {c.text}
+                    {c.text}
                     </li>
                 ))}
-            </ul>
-        )}
+                </ul>
 
-      <div className='w-full bg-gray-300 rounded-full h-2.5 mb-2'>
-        <div
-            className={`h-2.5 rounded-full transition-all duration-300 ${progressColor}`}
-            style={{width: `${progressWidth}%`}}
-        />
-      </div>
+                <div className='w-full bg-gray-300 rounded-full h-2.5 mt-3'>
+                <div
+                    className={`h-2.5 rounded-full transition-all duration-300 ${progressColor}`}
+                    style={{ width: `${progressWidth}%` }}
+                />
+                </div>
+            </div>
+        )}
     </div>
   )
 }

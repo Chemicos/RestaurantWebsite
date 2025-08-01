@@ -50,6 +50,7 @@ export default function Login({ setShowRegister, onClose }) {
         }, 1000)
       } else {
         setError(result.error || 'Autentificare esuata')
+        setIsLoading(false)
       }
     } catch (error) {
       console.error('Eroare:', error)
@@ -94,9 +95,13 @@ export default function Login({ setShowRegister, onClose }) {
           variant='outlined'
           value={email}
           label='E-mail'
+          error={error}
           type='email'
           size='small'
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => {
+            setEmail(e.target.value)
+            setError('')
+          }}
           fullWidth
         />
 
@@ -114,10 +119,14 @@ export default function Login({ setShowRegister, onClose }) {
           }}
           variant="outlined"
           value={parola}
-          label="parola"
+          label="Parola"
+          error={error}
           type="password"
           size="small"
-          onChange={(e) => setParola(e.target.value)}
+          onChange={(e) => {
+            setParola(e.target.value)
+            setError('')
+          }}
           fullWidth
         />
 
