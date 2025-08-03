@@ -121,11 +121,7 @@ export default function MenuList() {
             {isCustomizing && (
                 <MenuCustomizer 
                     onClose={() => setIsCustomizing(false)} 
-                    menuId={selectedItem.id}
-                    imageUrl={selectedItem.image_url}
-                    name={selectedItem.name}
-                    price={selectedItem.price}
-                    ingredients={selectedItem.ingredients}
+                    menu={selectedItem}
                 />
             )}
         </motion.div>

@@ -115,7 +115,7 @@ export default function SearchOptions({
 
         <button
           onClick={onResetFilters}
-          className='hover:bg-red-600 hover:border-red-600 active:scale-90 hover:text-white text-sm font-semibold border border-custom-gray px-3 py-2 rounded transition-all cursor-pointer'
+          className='hover:bg-red-600 hover:border-red-600 active:scale-90 text-custom-gray hover:text-white text-sm border border-custom-gray px-3 py-2 rounded transition-all cursor-pointer'
         >
           Reseteaza
         </button>

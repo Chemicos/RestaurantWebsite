@@ -25,7 +25,8 @@ export default function Register({ setShowRegister, onClose }) {
     nume: false,
     prenume: false,
     email: false,
-    password: false
+    password: false,
+    confirmPass: false
   })
   const [error, setError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
@@ -43,12 +44,13 @@ export default function Register({ setShowRegister, onClose }) {
   const handleSubmit = async (e) => {
     e.preventDefault()
     if(password !== confirmPass) return
-    if(!nume || !prenume || !email || !password) {
+    if(!nume || !prenume || !email || !isValidEmail(email) || !password || !confirmPass) {
       setFieldErrors({
         nume: !nume,
         prenume: !prenume,
         email: !email || !isValidEmail(email),
-        password: !password
+        password: !password,
+        confirmPass: !confirmPass
       })
       setError(!isValidEmail(email) ? 'Email invalid' : 'Completeaza toate campurile obligatorii.')
       return
@@ -280,12 +282,16 @@ export default function Register({ setShowRegister, onClose }) {
           type={showConfirmPassword ? 'text' : 'password'}
           variant="outlined"
           value={confirmPass}
-          onChange={(e) => setConfirmPass(e.target.value)}
+          onChange={(e) => {
+            setConfirmPass(e.target.value)
+            setFieldErrors(prev => ({...prev, confirmPass: false}))
+            setError('')
+          }}
           fullWidth
           onFocus={() => setActiveInput("confirmPass")}
           onBlur={() => setActiveInput(null)}
           size="small"
-          error={!passwordMatch}
+          error={!passwordMatch || fieldErrors.confirmPass}
           helperText={!passwordMatch ? 'Parolele nu coincid' : ''}
           InputProps={{
             sx: {

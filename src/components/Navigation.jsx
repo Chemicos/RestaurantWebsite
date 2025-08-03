@@ -4,6 +4,8 @@ import Login from "./Authentication/Login"
 import Register from "./Authentication/Register"
 import { NavLink } from "react-router-dom"
 import { AuthContext } from "../contexts/AuthContext"
+import { IconButton, ListItemIcon, ListItemText, Menu, MenuItem } from "@mui/material"
+import { ExpandMore, Logout } from "@mui/icons-material"
 
 const navItems = [
     {name: 'Acasa', path: '/'},
@@ -17,6 +19,17 @@ export default function Navigation() {
     const [showRegister, setShowRegister] = useState(false)
     const [hasShadow, setHasShadow] = useState(false)
     const {user, logout} = useContext(AuthContext)
+
+    const [anchorEl, setAnchorEl] = useState(null)
+    const openMenu = Boolean(anchorEl)
+
+    const handleMenuClick = (event) => {
+        setAnchorEl(event.currentTarget)
+    }
+
+    const handleMenuClose = () => {
+        setAnchorEl(null)
+    }
 
     useEffect(() => {
         const handleScroll = () => {
@@ -77,13 +90,47 @@ const cartItemCount = 0
 
                 {user ? (
                     <div className="flex items-center gap-2">
-                        <span className="text-[#66635B] capitalize">{user.prenume}</span>
-                        <button 
-                            className="text-sm text-red-600" 
-                            onClick={logout}
+                        <IconButton
+                            onClick={handleMenuClick}
+                            size="small"
+                            sx={{ml: 1}}
+                            aria-controls={openMenu ? 'account-menu' : undefined}
+                            aria-haspopup="true"
+                            aria-expanded={openMenu ? 'true' : undefined}
                         >
-                            Logout
-                        </button>
+                            <span className="text-[#66635B] capitalize">{user.prenume}</span>
+                            <ExpandMore />
+                        </IconButton>
+                        <Menu
+                            anchorEl={anchorEl}
+                            id="account-menu"
+                            open={openMenu}
+                            onClose={handleMenuClose}
+                            onClick={handleMenuClose}
+                            PaperProps={{
+                                elevation: 3,
+                                sx: {
+                                    overflow: 'visible',
+                                    mt: 1.5,
+                                    minWidth: 150,
+                                    '& .MuiAvatar-root': {
+                                        width: 32,
+                                        height: 32,
+                                        ml: -0.5,
+                                        mr: 1,
+                                    }
+                                }
+                            }}
+                            transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+                            anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+                        >
+                           <MenuItem onClick={logout}>
+                            <ListItemIcon>
+                                <Logout></Logout>
+                            </ListItemIcon>
+                            <ListItemText sx={{color: '#66635B'}}>Logout</ListItemText>
+                           </MenuItem>
+                        </Menu>    
                     </div>
                 ) : (
                     <User 

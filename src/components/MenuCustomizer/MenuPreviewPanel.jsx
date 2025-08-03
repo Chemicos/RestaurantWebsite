@@ -12,7 +12,9 @@ export default function MenuPreviewPanel({
    selectedGarnitura = null,
    selectedSalate = [],
    onClose,
-   refreshOrders
+   refreshOrders,
+   navigate,
+   currentPath
   }) {
 
     const basePrice = Number(price)
@@ -64,6 +66,8 @@ export default function MenuPreviewPanel({
         }
 
         onClose()
+        if (currentPath !== '/meniuri') navigate('/meniuri')
+
       } catch (error) {
         console.error("Eroare la salvarea comenzii:", error)
       }

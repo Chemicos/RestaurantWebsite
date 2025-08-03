@@ -22,7 +22,7 @@ export default function ConfirmDelete({visible, onCancel, onConfirm, menuName}) 
                 <div className="flex justify-end gap-3">
                 <button
                     onClick={onCancel}
-                    className="px-4 py-2 text-black rounded hover:bg-gray-200 cursor-pointer transition-all"
+                    className="px-4 py-2 text-custom-gray rounded hover:bg-gray-200 hover:text-black cursor-pointer transition-all"
                 >
                     Anulează
                 </button>

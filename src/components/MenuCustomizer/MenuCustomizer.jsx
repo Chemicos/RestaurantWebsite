@@ -5,6 +5,7 @@ import MenuPreviewPanel from "./MenuPreviewPanel";
 import { useEffect, useState } from "react";
 import { CircularProgress } from "@mui/material";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function MenuCustomizer({ 
   onClose,
@@ -21,6 +22,9 @@ export default function MenuCustomizer({
   const [salate, setSalate] = useState([])
   const [bauturi, setBauturi] = useState([])
   const [sosuri, setSosuri] = useState([])
+
+  const navigate = useNavigate()
+  const location = useLocation()
 
   const { id: menuId, image_url: imageUrl, name, price, ingredients } = menu || {}
 
@@ -118,6 +122,8 @@ export default function MenuCustomizer({
                       selectedSalate={selectedSalate}
                       onClose={onClose}
                       refreshOrders={refreshOrders}
+                      navigate={navigate}
+                      currentPath={location.pathname}
                     />
                 </div>
               </>
