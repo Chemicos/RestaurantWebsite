@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import express from 'express';
 import cors from 'cors';
 import pkg from 'pg';
@@ -70,15 +71,18 @@ app.get('/api/sosuri', async (req, res) => {
 })
 
 app.get('/api/comenzi_temporare', async (req, res) => {
-  const {session_id} = req.query
-  if (!session_id) return res.status(400).json({ error: "Lipseste session_id" })
+  const {session_id, user_id} = req.query
+  if (!session_id && !user_id) return res.status(400).json({ error: "Lipseste session_id sau user_id" })
 
   const client = await pool.connect()
   try {
-    const result = await client.query(`
-      SELECT items FROM comenzi_temporare WHERE session_id = $1
-    `, [session_id])
+    const query = `
+      SELECT items FROM comenzi_temporare 
+      WHERE ${user_id ? 'user_id = $1' : 'session_id = $1'}
+    `
+    const value = user_id || session_id
 
+    const result = await client.query(query, [value])
     res.json(result.rows)
   } catch (error) {
     console.error(error)
@@ -89,16 +93,19 @@ app.get('/api/comenzi_temporare', async (req, res) => {
 })
 
 app.post('/api/comenzi_temporare', async (req, res) => {
-  const { session_id, menu } = req.body
-  if(!session_id || !menu) return res.status(400).json({error: 'Date incomplete'})
+  const { session_id, user_id, menu } = req.body
+
+  if(!user_id && !session_id) return res.status(400).json({error: 'Trebuie session_id sau user_id'})
+  if(!menu) return res.status(400).json({error: 'Date incomplete'})
 
   const client = await pool.connect()
   try {
     await client.query(`
-      INSERT INTO comenzi_temporare (session_id, items, total_partial)
-      VALUES ($1, $2, $3)
+      INSERT INTO comenzi_temporare (session_id, user_id, items, total_partial)
+      VALUES ($1, $2, $3, $4)
       `, [
         session_id,
+        user_id || null,
         JSON.stringify(menu),
         menu.price
       ])
@@ -107,6 +114,42 @@ app.post('/api/comenzi_temporare', async (req, res) => {
   } catch (error) {
     console.error('Eroare DB:', error)
     res.status(500).json({error: "Eroare DB"})
+  } finally {
+    client.release()
+  }
+})
+
+app.delete('/api/comenzi_temporare', async (req, res) => {
+  const {session_id, user_id, item_name} = req.body
+
+  if (!item_name || (!session_id && !user_id)) {
+    return res.status(400).json({error: 'Lipseste item_name si identificator (user_id sau session_id)'})
+  }
+
+  const client = await pool.connect()
+  const identifierColumn = user_id ? 'user_id' : 'session_id'
+  const identifierValue = user_id || session_id
+
+  try {
+    const {rows} = await client.query(`
+      SELECT ctid FROM comenzi_temporare
+      WHERE ${identifierColumn} = $1 AND items->>'name' = $2
+      LIMIT 1
+    `, [identifierValue, item_name])
+
+    if(rows.length === 0) {
+      return res.status(404).json({error: 'Comanda nu a fost gasita'})
+    }
+
+    const ctid = rows[0].ctid
+    
+    await client.query(`
+      DELETE FROM comenzi_temporare WHERE ctid = $1  
+    `, [ctid])
+    res.json({success: true})
+  } catch (error) {
+    console.error('Eroare la stergere:', error)
+    res.status(500).json({error: 'Eroare DB la stergere'})
   } finally {
     client.release()
   }
@@ -175,40 +218,6 @@ app.post('/api/login', async (req, res) => {
   } catch (error) {
     console.error('Eroare la autentificare:', error)
     res.status(500).json({ error: 'Eroare interna DB' })
-  } finally {
-    client.release()
-  }
-})
-
-app.delete('/api/comenzi_temporare', async (req, res) => {
-  const {session_id, item_name} = req.body
-
-  if (!session_id || !item_name) {
-    return res.status(400).json({error: 'session_id si item_name sunt necesare'})
-  }
-
-  const client = await pool.connect()
-
-  try {
-    const {rows} = await client.query(`
-      SELECT ctid FROM comenzi_temporare
-      WHERE session_id = $1 AND items->>'name' = $2
-      LIMIT 1
-    `, [session_id, item_name])
-
-    if(rows.length === 0) {
-      return res.status(404).json({error: 'Comanda nu a fost gasita'})
-    }
-
-    const ctid = rows[0].ctid
-    
-    await client.query(`
-      DELETE FROM comenzi_temporare WHERE ctid = $1  
-    `, [ctid])
-    res.json({success: true})
-  } catch (error) {
-    console.error('Eroare la stergere:', error)
-    res.status(500).json({error: 'Eroare DB la stergere'})
   } finally {
     client.release()
   }

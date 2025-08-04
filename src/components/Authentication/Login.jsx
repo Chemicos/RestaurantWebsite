@@ -39,10 +39,10 @@ export default function Login({ setShowRegister, onClose }) {
 
       if(res.ok) {
         const expiry = new Date().getTime() + 24 * 60 * 60 * 1000
-        const data = {prenume: result.user.prenume, expiry}
+        const data = {id: result.user.id, prenume: result.user.prenume, expiry}
         login(data)
 
-        // localStorage.setItem('user', JSON.stringify(data))
+        sessionStorage.setItem('user_id', result.user.id)
         setTimeout(() => {
           setIsLoading(false)
           triggerSnackbar('Autentificare cu succes!')

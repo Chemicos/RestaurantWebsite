@@ -6,6 +6,7 @@ import { NavLink } from "react-router-dom"
 import { AuthContext } from "../contexts/AuthContext"
 import { IconButton, ListItemIcon, ListItemText, Menu, MenuItem } from "@mui/material"
 import { ExpandMore, Logout } from "@mui/icons-material"
+import { useCart } from "../contexts/CartContext"
 
 const navItems = [
     {name: 'Acasa', path: '/'},
@@ -22,6 +23,8 @@ export default function Navigation() {
 
     const [anchorEl, setAnchorEl] = useState(null)
     const openMenu = Boolean(anchorEl)
+
+    const {cartItemCount} = useCart()
 
     const handleMenuClick = (event) => {
         setAnchorEl(event.currentTarget)
@@ -40,7 +43,6 @@ export default function Navigation() {
         return () => window.removeEventListener('scroll', handleScroll)
     }, [])
 
-const cartItemCount = 0
   return (
     <div className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${hasShadow ? 'shadow-lg bg-custom-yellow' : ''}`}>
         <div className='flex p-4 justify-between items-center'>
@@ -77,11 +79,11 @@ const cartItemCount = 0
             </div>
 
             <div className="flex gap-6">
-                <div className="relative cursor-pointer">
+                <div className="relative">
                     <ShoppingCartSimpleIcon
                         size={30}
                         weight="bold"
-                        className="text-[#66635B] hover:text-black transition-colors duration-200"
+                        className="text-[#66635B]"
                     />
                     <span className="absolute -top-2 -right-2 bg-custom-red text-xs text-white w-5 h-5 rounded-full flex items-center justify-center">
                         {cartItemCount}

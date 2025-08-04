@@ -5,6 +5,7 @@ import OrderSummary from './OrderSummary'
 import ConfirmDelete from './ConfirmDelete'
 import { Alert, Snackbar } from '@mui/material'
 import MenuCustomizer from '../MenuCustomizer/MenuCustomizer'
+import { useCart } from '../../contexts/CartContext'
 
 export default function MenuPage() {
   const [selectedCategory, setSelectedCategory] = useState('')
@@ -19,6 +20,8 @@ export default function MenuPage() {
   const [selectedItem, setSelectedItem] = useState(null) 
 
   const API_URL = import.meta.env.VITE_API_URL
+
+  const {fetchCartItems} = useCart()
 
   useEffect(() => {
     const fetchMenus = async () => {
@@ -44,10 +47,16 @@ export default function MenuPage() {
 
   const fetchOrders = async () => {
     const session_id = sessionStorage.getItem("session_id")
-    if (!session_id) return
+    const user_id = sessionStorage.getItem("user_id")
+    
+    if (!user_id && !session_id) return
+
+    const url = user_id
+      ? `${API_URL}/api/comenzi_temporare?user_id=${user_id}`
+      : `${API_URL}/api/comenzi_temporare?session_id=${session_id}`
 
     try {
-      const res = await fetch(`${API_URL}/api/comenzi_temporare?session_id=${session_id}`)
+      const res = await fetch(url)
       const data = await res.json()
       const allItems = data.map(entry => entry.items)
       setOrders(allItems.flat())
@@ -64,15 +73,17 @@ export default function MenuPage() {
 
   const handleDeleteOrder = async (menuName) => {
     const session_id = sessionStorage.getItem("session_id")
-    if (!session_id) return
+    const user_id = sessionStorage.getItem("user_id")
+    if (!menuName || (!user_id && !session_id)) return
 
     try {
       await fetch(`${API_URL}/api/comenzi_temporare`, {
         method: 'DELETE',
         headers: {'Content-Type' : 'application/json'},
-        body: JSON.stringify({session_id, item_name: menuName})
+        body: JSON.stringify({item_name: menuName, ...(user_id ? {user_id} : {session_id})})
       })
       fetchOrders()
+      fetchCartItems()
       setMenuToDelete(null)
       setToastOpen(true)
     } catch (error) {

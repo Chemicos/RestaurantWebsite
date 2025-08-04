@@ -1,4 +1,3 @@
-import React, { useState } from 'react'
 import { PizzaIcon, BowlFoodIcon, CookieIcon, MagnifyingGlassIcon } from "@phosphor-icons/react"
 import { Box, FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material'
 
@@ -115,7 +114,7 @@ export default function SearchOptions({
 
         <button
           onClick={onResetFilters}
-          className='hover:bg-red-600 hover:border-red-600 active:scale-90 text-custom-gray hover:text-white text-sm border border-custom-gray px-3 py-2 rounded transition-all cursor-pointer'
+          className='hover:bg-red-600 hover:border-red-600 active:scale-90 text-custom-gray hover:text-white text-md border border-custom-gray px-3 py-2 rounded transition-all cursor-pointer'
         >
           Reseteaza
         </button>

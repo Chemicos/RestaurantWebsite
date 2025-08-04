@@ -1,4 +1,5 @@
 import { MinusIcon, PlusIcon } from "@phosphor-icons/react";
+import { useCart } from "../../contexts/CartContext";
 
 export default function MenuPreviewPanel({
    imageUrl,
@@ -36,11 +37,19 @@ export default function MenuPreviewPanel({
     const totalBeforeQty = basePrice + bauturaTotal + sosuriTotal
     const totalPrice = totalBeforeQty * quantity
 
+    const {fetchCartItems} = useCart()
+
     const handleAddOrder = async () => {
-       const session_id = sessionStorage.getItem("session_id") || crypto.randomUUID()
+       let session_id = sessionStorage.getItem("session_id")
+       const user_id = sessionStorage.getItem('user_id')
+
+       if(!user_id && !session_id) {
+        session_id = crypto.randomUUID()
+        // sessionStorage.setItem('session_id', session_id)
+       }
        
       const orderPayload = {
-        session_id,
+        ...(user_id ? {user_id} : {session_id}),
         menu: {
           name,
           price: totalPrice,
@@ -67,6 +76,7 @@ export default function MenuPreviewPanel({
 
         onClose()
         if (currentPath !== '/meniuri') navigate('/meniuri')
+        await fetchCartItems()
 
       } catch (error) {
         console.error("Eroare la salvarea comenzii:", error)

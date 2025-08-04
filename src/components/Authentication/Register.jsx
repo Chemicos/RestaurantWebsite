@@ -76,8 +76,9 @@ export default function Register({ setShowRegister, onClose }) {
       const result = await res.json()
       if(res.ok) {
         const expiry = new Date().getTime() + 24 * 60 * 60 * 1000
-        const loginData = { prenume: result.user.prenume, expiry }
+        const loginData = { id: result.user.id, prenume: result.user.prenume, expiry }
         login(loginData)
+        sessionStorage.setItem("user_id", result.user.id)
         setTimeout(() => {
           triggerSnackbar('Cont creat cu succes!')
           setIsLoading(false)

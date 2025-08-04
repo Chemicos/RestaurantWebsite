@@ -55,7 +55,7 @@ export default function MainSection() {
           
           <NavLink className='w-fit' to='/meniuri'>          
             <button className='w-fit bg-custom-red hover:bg-red-700 text-white font-semibold 
-              py-4 px-8 text-lg rounded-xl transition-colors cursor-pointer shadow-md'
+              py-4 px-8 text-lg rounded-xl transition-all cursor-pointer shadow-md active:scale-90'
             >
               Comanda Online
             </button>
