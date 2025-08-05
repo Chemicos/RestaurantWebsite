@@ -57,6 +57,7 @@ export default function Register({ setShowRegister, onClose }) {
     }
 
     setIsLoading(true)
+    const session_id = sessionStorage.getItem('session_id')
 
     const registerData = {
       nume,
@@ -64,7 +65,8 @@ export default function Register({ setShowRegister, onClose }) {
       email,
       telefon,
       parola: password,
-      tip_persoana: perJuridica ? 'juridica' : 'fizica'
+      tip_persoana: perJuridica ? 'juridica' : 'fizica',
+      session_id
     }
 
     try {
@@ -79,6 +81,7 @@ export default function Register({ setShowRegister, onClose }) {
         const loginData = { id: result.user.id, prenume: result.user.prenume, expiry }
         login(loginData)
         sessionStorage.setItem("user_id", result.user.id)
+        sessionStorage.removeItem('session_id')
         setTimeout(() => {
           triggerSnackbar('Cont creat cu succes!')
           setIsLoading(false)

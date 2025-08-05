@@ -14,8 +14,8 @@ function App() {
 
   return (
     <SnackbarProvider>
-      <AuthProvider>
-        <CartProvider>
+      <CartProvider>
+        <AuthProvider>
           <Router>
             <div className='pt-24'>
               <Navigation />
@@ -27,8 +27,8 @@ function App() {
               <Footer />
             </div>
           </Router>
-        </CartProvider>
-      </AuthProvider>
+        </AuthProvider>
+      </CartProvider>
     </SnackbarProvider>
   )
 }

@@ -20,38 +20,46 @@ export default function Login({ setShowRegister, onClose }) {
   const handleSubmit = async (e) => {
     e.preventDefault()
     setError('')
-
-    if(!email || !parola) {
+    
+     if (!email || !parola) {
       setError('Completeaza toate campurile')
       return
     }
 
+    const session_id = sessionStorage.getItem('session_id')
     setIsLoading(true)
 
     try {
-      const res = await fetch(`${API_URL}/api/login`,  {
+      const res = await fetch(`${API_URL}/api/login`, {
         method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({email, parola})
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, parola, session_id })
       })
 
       const result = await res.json()
 
-      if(res.ok) {
+      if (res.ok) {
         const expiry = new Date().getTime() + 24 * 60 * 60 * 1000
-        const data = {id: result.user.id, prenume: result.user.prenume, expiry}
-        login(data)
+        const data = {
+          id: result.user.id,
+          prenume: result.user.prenume,
+          expiry
+        }
 
+        login(data)
         sessionStorage.setItem('user_id', result.user.id)
+
+        sessionStorage.removeItem('session_id')
+
         setTimeout(() => {
           setIsLoading(false)
           triggerSnackbar('Autentificare cu succes!')
           onClose()
         }, 1000)
-      } else {
-        setError(result.error || 'Autentificare esuata')
-        setIsLoading(false)
-      }
+    } else {
+      setError(result.error || 'Autentificare esuata')
+      setIsLoading(false)
+    }
     } catch (error) {
       console.error('Eroare:', error)
       setError('Eroare server. Incearca din nou.')

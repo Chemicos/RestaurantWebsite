@@ -156,7 +156,7 @@ app.delete('/api/comenzi_temporare', async (req, res) => {
 })
 
 app.post('/api/register', async (req, res) => {
-  const {nume, prenume, email, telefon, parola, tip_persoana} = req.body
+  const {nume, prenume, email, telefon, parola, tip_persoana, session_id} = req.body
 
   if (!nume || !prenume || !email || !parola || !tip_persoana) {
     return res.status(400).json({error: 'Datele sunt incomplete'})
@@ -174,6 +174,14 @@ app.post('/api/register', async (req, res) => {
 
       const newUser = insertResult.rows[0]
 
+      if(session_id) {
+        await client.query(`
+          UPDATE comenzi_temporare
+          SET user_id = $1, session_id = NULL
+          WHERE session_id = $2
+        `, [newUser.id, session_id])
+      }
+
       res.status(201).json({ success: true, user: {id: newUser.id, prenume: newUser.prenume} })
   } catch (error) {
     console.error('Eroare la inregistrare:', error)
@@ -188,7 +196,7 @@ app.post('/api/register', async (req, res) => {
 })
 
 app.post('/api/login', async (req, res) => {
-  const {email, parola} = req.body
+  const {email, parola, session_id} = req.body
 
   if(!email || !parola) {
     return res.status(400).json({error: 'Email si parola sunt necesare'})
@@ -209,6 +217,14 @@ app.post('/api/login', async (req, res) => {
 
     if(!parolaMatch) {
       return res.status(401).json({error: 'Credentiale invalide'})
+    }
+    
+    if(session_id) {
+      await client.query(`
+        UPDATE comenzi_temporare
+        SET user_id = $1, session_id = NULL
+        WHERE session_id = $2
+      `, [user.id, session_id])
     }
 
     res.json({

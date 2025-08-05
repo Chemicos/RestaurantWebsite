@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import SearchOptions from './SearchOptions'
 import MainMenuList from './MainMenuList'
 import OrderSummary from './OrderSummary'
@@ -6,8 +6,11 @@ import ConfirmDelete from './ConfirmDelete'
 import { Alert, Snackbar } from '@mui/material'
 import MenuCustomizer from '../MenuCustomizer/MenuCustomizer'
 import { useCart } from '../../contexts/CartContext'
+import { AuthContext } from '../../contexts/AuthContext'
 
 export default function MenuPage() {
+  const {user} = useContext(AuthContext)
+
   const [selectedCategory, setSelectedCategory] = useState('')
   const [scrolled, setScrolled] = useState(false)
   const [menuItems, setMenuItems] = useState([])
@@ -38,7 +41,7 @@ export default function MenuPage() {
 
   useEffect(() => {
     fetchOrders()
-  }, [])
+  }, [user])
 
   const handleCustomizeMenu = (item) => {
     setSelectedItem(item)

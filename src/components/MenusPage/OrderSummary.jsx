@@ -3,7 +3,6 @@ import ConfirmDelete from './ConfirmDelete'
 import { generateOrderDetailsText } from './utils/formatOrderDetails'
 
 export default function OrderSummary({orders, onRequestDelete}) {
-
   const totalPrice = orders.reduce((acc, order) => acc + Number(order.price), 0)
   
   return (
