@@ -131,7 +131,7 @@ export default function MenuCustomizer({
             <button
                 onClick={onClose} 
                 className="absolute top-4 right-4 text-white p-2 rounded-full bg-[#66635B]/30 cursor-pointer
-                transition-colors duration-300 hover:bg-red-600 hover:shadow-lg"
+                transition-colors hover:bg-red-600 hover:shadow-lg"
             >
                 <XIcon size={20} weight="bold" />
             </button>

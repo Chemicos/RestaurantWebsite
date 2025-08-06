@@ -6,7 +6,7 @@ export default function OrderSummary({orders, onRequestDelete}) {
   const totalPrice = orders.reduce((acc, order) => acc + Number(order.price), 0)
   
   return (
-    <div className='shadow bg-custom-white rounded-xl p-6 w-[auto] h-auto overflow-y-auto'>
+    <div className='bg-custom-white rounded-xl p-6 w-[auto] h-auto overflow-y-auto'>
       <h2 className='font-bold text-xl mb-6 text-center'>Comanda ta</h2>
 
       {orders.length === 0 ? (

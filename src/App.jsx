@@ -9,6 +9,7 @@ import { Alert, Snackbar } from '@mui/material'
 import AuthProvider from './contexts/AuthContext'
 import SnackbarProvider from './contexts/SnackbarContext'
 import { CartProvider } from './contexts/CartContext'
+import ContactPage from './components/ContactPage/ContactPage'
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
               <Routes>
                 <Route path='/' element={<Home />} />
                 <Route path='/meniuri' element={<MenuPage />} />
+                <Route path='/contact' element={<ContactPage />} />
               </Routes>
               <Footer />
             </div>
