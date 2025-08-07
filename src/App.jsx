@@ -19,15 +19,18 @@ function App() {
       <CartProvider>
         <AuthProvider>
           <Router>
-            <div className='pt-24'>
+            <div className='flex flex-col min-h-screen'>
               <Navigation />
 
-              <Routes>
-                <Route path='/' element={<Home />} />
-                <Route path='/meniuri' element={<MenuPage />} />
-                <Route path='/contact' element={<ContactPage />} />
-                <Route path='/informatii' element={<InfoPage />} />
-              </Routes>
+              <div className='flex-grow pt-24'>
+                <Routes>
+                  <Route path='/' element={<Home />} />
+                  <Route path='/meniuri' element={<MenuPage />} />
+                  <Route path='/contact' element={<ContactPage />} />
+                  <Route path='/informatii' element={<InfoPage />} />
+                </Routes>
+              </div>
+
               <Footer />
             </div>
           </Router>

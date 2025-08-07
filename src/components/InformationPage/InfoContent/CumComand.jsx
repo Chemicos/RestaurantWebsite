@@ -13,11 +13,19 @@ import pas2 from '/assets/pasiComanda/pas2.jpeg'
 import pas3 from '/assets/pasiComanda/pas3.jpeg'
 
 export default function CumComand() {
-    const [expanded, setExpanded] = useState('pas1')
+    const [expandedPanels, setExpandedPanels] = useState(['pas1'])
 
     const handleChange = (panel) => (event, isExpanded) => {
-        setExpanded(isExpanded ? panel : false)
+        setExpandedPanels(prev => {
+            if (isExpanded) {
+                return [...prev, panel]
+            } else {
+                return prev.filter(p => p !== panel)
+            }
+        })
     }
+
+    const isExpanded = (panel) => expandedPanels.includes(panel)
   return (
     <div className='prose max-w-none'>
         <h1 className='text-3xl font-semibold'>Cum Comand</h1>
@@ -28,7 +36,7 @@ export default function CumComand() {
         <p className='text-custom-gray mt-2'>Pizzeria Clinceni iti ofera posibilitatea de a comanda rapid si simplu direct de pe site-ul nostru. Iata pasii pentru a plasa o comanda online:</p>
 
         <Accordion 
-            expanded={expanded === 'pas1'}
+            expanded={isExpanded('pas1')}
             onChange={handleChange('pas1')}
             elevation={0} 
             sx={{backgroundColor: 'transparent'}}
@@ -46,7 +54,12 @@ export default function CumComand() {
             </AccordionDetails>
         </Accordion>
 
-        <Accordion expanded={expanded === 'pas2'} onChange={handleChange('pas2')} elevation={0} sx={{backgroundColor: 'transparent'}}>
+        <Accordion 
+            expanded={isExpanded('pas2')} 
+            onChange={handleChange('pas2')} 
+            elevation={0} 
+            sx={{backgroundColor: 'transparent'}}
+        >
             <AccordionSummary expandIcon={<ExpandMoreIcon />} className='!p-0'>
                 <Typography sx={{color: '#E7272C', fontWeight: 'bold'}}>
                     Pasul 2:
@@ -60,7 +73,12 @@ export default function CumComand() {
             </AccordionDetails>
         </Accordion>
 
-        <Accordion disableGutters elevation={0} sx={{backgroundColor: 'transparent'}}>
+        <Accordion 
+            expanded={isExpanded('pas3')} 
+            onChange={handleChange('pas3')}
+            elevation={0} 
+            sx={{backgroundColor: 'transparent'}}
+        >
             <AccordionSummary expandIcon={<ExpandMoreIcon />} className='!p-0'>
                 <Typography sx={{color: '#E7272C', fontWeight: 'bold'}}>
                     Pasul 3:
@@ -69,15 +87,20 @@ export default function CumComand() {
             <AccordionDetails>
                 <p className='text-custom-gray'>
                     Dupa adaugarea meniurilor mergi in partea dreapta, spre sectiunea 
-                    <span className='font-semibold'>Comanda ta</span>
+                    <span className='font-semibold'> Comanda ta </span>
                      si apesi butonul 
-                    <span className='font-bold'>Finalizeaza</span>.
+                    <span className='font-bold'> Finalizeaza</span>.
                 </p>
                 <img src={pas3} alt="Pasul 3" className='mt-3 shadow-lg rounded-lg' />
             </AccordionDetails>
         </Accordion>
 
-        <Accordion disableGutters elevation={0} sx={{backgroundColor: 'transparent'}}>
+        <Accordion 
+            expanded={isExpanded('pas4')} 
+            onChange={handleChange('pas4')} 
+            elevation={0} 
+            sx={{backgroundColor: 'transparent'}}
+        >
             <AccordionSummary expandIcon={<ExpandMoreIcon />} className='!p-0'>
                 <Typography sx={{color: '#E7272C', fontWeight: 'bold'}}>
                     Pasul 4:
@@ -96,7 +119,12 @@ export default function CumComand() {
 
         <h3 className='text-xl mt-4 mb-4'>2. Comanda Telefonica</h3> 
 
-        <Accordion disableGutters elevation={0} sx={{backgroundColor: 'transparent'}}>
+        <Accordion 
+            expanded={isExpanded('telefon')} 
+            onChange={handleChange('telefon')}
+            elevation={0} 
+            sx={{backgroundColor: 'transparent'}}
+        >
             <AccordionSummary expandIcon={<ExpandMoreIcon />} className='!p-0'>
                 <Typography sx={{color: '#66635B'}}>
                     Daca preferi sa comanzi prin telefon, ne poti suna la {' '}
