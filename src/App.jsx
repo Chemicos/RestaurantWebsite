@@ -10,6 +10,7 @@ import AuthProvider from './contexts/AuthContext'
 import SnackbarProvider from './contexts/SnackbarContext'
 import { CartProvider } from './contexts/CartContext'
 import ContactPage from './components/ContactPage/ContactPage'
+import InfoPage from './components/InformationPage/InfoPage'
 
 function App() {
 
@@ -25,6 +26,7 @@ function App() {
                 <Route path='/' element={<Home />} />
                 <Route path='/meniuri' element={<MenuPage />} />
                 <Route path='/contact' element={<ContactPage />} />
+                <Route path='/informatii' element={<InfoPage />} />
               </Routes>
               <Footer />
             </div>

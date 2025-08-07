@@ -3,7 +3,7 @@ import React from 'react'
 export default function ContactUs() {
   return (
     <form className='w-full md:w-[640px] mt-20 flex flex-col mx-auto px-4 md:px-0'>
-      <h2 className='font-semibold text-3xl mb-20 text-center'>Contacteaza-ne</h2>
+      <h2 className='font-semibold text-3xl mb-10 text-center'>Contacteaza-ne</h2>
 
       <div className='w-full flex flex-col gap-4'>
         <div className='flex flex-col md:flex-row gap-4'>

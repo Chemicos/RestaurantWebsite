@@ -9,10 +9,10 @@ export default function ContactDetails() {
         <GoogleMapComponent />
       </div>
 
-      <div className='flex flex-col gap-6 justify-center h-full p-10 lg:py-20 xl:px-30'>
+      <div className='flex flex-col gap-6 justify-center h-full p-5 sm:p-10 lg:py-20 xl:px-30'>
         <div className='w-full'>
           <h2 className='text-xl sm:text-3xl text-center sm:text-start mb-4'>Ia legatura cu noi</h2>
-          <p className='text-center sm:text-start text-custom-gray'>Suntem aici pentru tine. Ne poti contacta usor folosind datele de mai jos.</p>
+          <p className='text-center sm:text-start text-custom-gray text-sm sm:text-md'>Suntem aici pentru tine. Ne poti contacta usor folosind datele de mai jos.</p>
         </div>
 
         <div className='w-full h-[1px] bg-black/30'></div>
