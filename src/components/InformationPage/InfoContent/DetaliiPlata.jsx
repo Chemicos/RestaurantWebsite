@@ -25,7 +25,7 @@ export default function DetaliiPlata() {
         </p>
         <p className='text-custom-gray mt-2'>
             Pizzeria Clineci ofera livrare la domiciliu in zonele 
-            <span className='font-semibold'>Clinceni, Domnesti, Bragadiru, Teghes si Ordoreanu. </span>
+            <span className='font-semibold'> Clinceni, Domnesti, Bragadiru, Teghes si Ordoreanu. </span>
             Pentru a beneficia de livrare gratuita, este necesar ca valoarea minima a comenzii sa fie de 50 de lei. Pentru comenzile sub aceasta suma, se aplica o taxa de livrare de 20 de lei. Pentru detalii suplimentare sau pentru a plasa o comanda,
             puteti contacta Pizzeria Clinceni la numarul de telefon <span className='font-semibold'>0000000000</span> sau prin e-mail la adresa <span className='font-semibold'>comenzi@pizzeriaclinceni.ro</span>.
 

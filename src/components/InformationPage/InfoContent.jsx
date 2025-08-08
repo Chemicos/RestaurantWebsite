@@ -2,6 +2,7 @@ import React from 'react'
 import CumComand from './InfoContent/CumComand'
 import DetaliiLivrare from './InfoContent/DetaliiLivrare'
 import DetaliiPlata from './InfoContent/DetaliiPlata'
+import PoliticaCookie from './InfoContent/PoliticaCookie'
 
 export default function InfoContent({
     selectedTopic
@@ -11,6 +12,7 @@ export default function InfoContent({
         {selectedTopic === 'cum-comand' && <CumComand />}
         {selectedTopic === 'livrare' && <DetaliiLivrare />}
         {selectedTopic === 'plata' && <DetaliiPlata />}
+        {selectedTopic === 'cookie' && <PoliticaCookie />}
     </div>
   )
 }
