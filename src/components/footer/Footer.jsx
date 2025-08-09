@@ -76,9 +76,9 @@ export default function Footer() {
                 <div className='flex flex-col items-start gap-2 md:gap-1'>
                     <h3 className='text-white mb-4 font-semibold text-2xl'>Informatii</h3>
                     <a className={`text-white block ${hoverEffectText}`} href="">Cum comand</a>
-                    <a className={`text-white block ${hoverEffectText}`} href="">Detalii plata</a>
                     <a className={`text-white block ${hoverEffectText}`} href="">Detalii livrare</a>
-                    <a className={`text-white block ${hoverEffectText}`} href="">Politica retur</a>
+                    <a className={`text-white block ${hoverEffectText}`} href="">Detalii plata</a>
+                    <a className={`text-white block ${hoverEffectText}`} href="">Despre</a>
                 </div>
 
                 <div className='h-[1px] lg:h-auto w-auto lg:w-[1px] bg-custom-gray'></div>

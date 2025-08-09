@@ -33,24 +33,30 @@ export default function CumComand() {
         <h2 className='text-xl mt-4'>Cum comanzi online/telefonic de la Pizzeria Clinceni</h2>
 
         <h3 className='text-xl mt-4'>1. Comanda Online</h3> 
-        <p className='text-custom-gray mt-2'>Pizzeria Clinceni iti ofera posibilitatea de a comanda rapid si simplu direct de pe site-ul nostru. Iata pasii pentru a plasa o comanda online:</p>
+        <p className='text-custom-gray mt-2'>Pizzeria Clinceni iti ofera posibilitatea de a comanda rapid si simplu direct de pe site-ul nostru. Iata pasii pentru a plasa o comanda online <span className='font-bold text-custom-red'>(Apasa pe pasi)</span>:</p>
 
         <Accordion 
             expanded={isExpanded('pas1')}
             onChange={handleChange('pas1')}
             elevation={0} 
-            sx={{backgroundColor: 'transparent'}}
+            disableGutters
+             sx={{
+                backgroundColor: 'transparent',
+                '&:before': {
+                display: isExpanded('pas1') ? 'none' : 'block'
+                }
+            }}
         >
             <AccordionSummary expandIcon={<ExpandMoreIcon />} className='!p-0'>
-                <Typography sx={{color: '#E7272C', fontWeight: 'bold'}}>
+                <Typography sx={{color: '#E7272C', fontWeight: 'bold', fontSize: '20px'}}>
                     Pasul 1:
                 </Typography>
             </AccordionSummary>
             <AccordionDetails>
                 <p className='text-custom-gray'>
-                    Alege produsul preferat din pagina de <span className='font-semibold'>Meniuri</span>.
+                    Alege produsul preferat din pagina <span className='font-semibold'>Meniuri</span>.
                 </p>
-                <img src={pas1} alt="Pasul 1" className='mt-3 shadow-lg rounded-lg' />
+                <img src={pas1} alt="Pasul 1" className='mt-3 shadow-lg rounded-lg mx-auto sm:h-[300px] lg:h-[400px]' />
             </AccordionDetails>
         </Accordion>
 
@@ -58,10 +64,16 @@ export default function CumComand() {
             expanded={isExpanded('pas2')} 
             onChange={handleChange('pas2')} 
             elevation={0} 
-            sx={{backgroundColor: 'transparent'}}
+            disableGutters
+             sx={{
+                backgroundColor: 'transparent',
+                '&:before': {
+                display: isExpanded('pas2') ? 'none' : 'block'
+                }
+            }}
         >
             <AccordionSummary expandIcon={<ExpandMoreIcon />} className='!p-0'>
-                <Typography sx={{color: '#E7272C', fontWeight: 'bold'}}>
+                <Typography sx={{color: '#E7272C', fontWeight: 'bold', fontSize: '20px'}}>
                     Pasul 2:
                 </Typography>
             </AccordionSummary>
@@ -69,7 +81,7 @@ export default function CumComand() {
                 <p className='text-custom-gray'>
                     Personalizeaza-ti produsul si apoi mergi la butonul <span className='font-semibold'>Adauga</span>.
                 </p>
-                <img src={pas2} alt="Pasul 2" className='mt-3 shadow-lg rounded-lg' />
+                <img src={pas2} alt="Pasul 2" className='mt-3 shadow-lg rounded-lg mx-auto sm:h-[300px] lg:h-[400px]' />
             </AccordionDetails>
         </Accordion>
 
@@ -77,10 +89,16 @@ export default function CumComand() {
             expanded={isExpanded('pas3')} 
             onChange={handleChange('pas3')}
             elevation={0} 
-            sx={{backgroundColor: 'transparent'}}
+            disableGutters
+             sx={{
+                backgroundColor: 'transparent',
+                '&:before': {
+                display: isExpanded('pas3') ? 'none' : 'block'
+                }
+            }}
         >
             <AccordionSummary expandIcon={<ExpandMoreIcon />} className='!p-0'>
-                <Typography sx={{color: '#E7272C', fontWeight: 'bold'}}>
+                <Typography sx={{color: '#E7272C', fontWeight: 'bold', fontSize: '20px'}}>
                     Pasul 3:
                 </Typography>
             </AccordionSummary>
@@ -91,7 +109,7 @@ export default function CumComand() {
                      si apesi butonul 
                     <span className='font-bold'> Finalizeaza</span>.
                 </p>
-                <img src={pas3} alt="Pasul 3" className='mt-3 shadow-lg rounded-lg' />
+                <img src={pas3} alt="Pasul 3" className='mt-3 shadow-lg rounded-lg mx-auto sm:h-[300px] lg:h-[400px]' />
             </AccordionDetails>
         </Accordion>
 
@@ -99,10 +117,16 @@ export default function CumComand() {
             expanded={isExpanded('pas4')} 
             onChange={handleChange('pas4')} 
             elevation={0} 
-            sx={{backgroundColor: 'transparent'}}
+            disableGutters
+             sx={{
+                backgroundColor: 'transparent',
+                '&:before': {
+                display: isExpanded('pas4') ? 'none' : 'block'
+                }
+            }}
         >
             <AccordionSummary expandIcon={<ExpandMoreIcon />} className='!p-0'>
-                <Typography sx={{color: '#E7272C', fontWeight: 'bold'}}>
+                <Typography sx={{color: '#E7272C', fontWeight: 'bold', fontSize: '20px'}}>
                     Pasul 4:
                 </Typography>
             </AccordionSummary>
@@ -123,7 +147,13 @@ export default function CumComand() {
             expanded={isExpanded('telefon')} 
             onChange={handleChange('telefon')}
             elevation={0} 
-            sx={{backgroundColor: 'transparent'}}
+            disableGutters
+             sx={{
+                backgroundColor: 'transparent',
+                '&:before': {
+                display: isExpanded('telefon') ? 'none' : 'block'
+                }
+            }}
         >
             <AccordionSummary expandIcon={<ExpandMoreIcon />} className='!p-0'>
                 <Typography sx={{color: '#66635B'}}>

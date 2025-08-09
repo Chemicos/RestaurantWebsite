@@ -6,14 +6,16 @@ export default function InfoPage() {
   const [selectedTopic, setSelectedTopic] = useState('cum-comand')
 
   return (
-    <div className='flex max-w-[1280px] mx-auto px-4 gap-10'>
+    <div className='max-w-[1080px] mx-auto px-4 md:flex md:gap-10'>
       <InfoNav 
         selectedTopic={selectedTopic} 
         onSelectTopic={setSelectedTopic} 
       />
-      <InfoContent 
-        selectedTopic={selectedTopic}
-      />
+      <div className='flex-1'>
+        <InfoContent 
+          selectedTopic={selectedTopic}
+        />
+      </div>
     </div>
   )
 }

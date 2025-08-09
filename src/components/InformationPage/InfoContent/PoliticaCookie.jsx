@@ -33,6 +33,11 @@ export default function PoliticaCookie() {
             Poti seta browserul sa te avertizeze inainte de a accepta cookie-urile sau poti sa-l setezi sa le refuze, desi este posibil sa nu ai acces la toate functiile acestui site daca faci acest lucru. Recurge la butonul “help” (ajutor) al browser-ului tau, pentru a afla cum poti face acest lucru.
             Poti sa controlezi si/ sau sa stergi cookie-urile, dupa cum doresti. Poti sterge toate modulele cookie, care sunt deja pe computerul tau si poti seta cele mai multe browsere pentru a impiedica plasarea acestora. Totusi, daca faci acest lucru, este posibil sa fii nevoit sa reglezi manual anumite preferinte, de fiecare data cand vizitezi site-ul nostru web, iar unele servicii si functionalitati ar putea sa nu functioneze.
         </p>
+
+        <h2 className='text-xl mt-4'>Amendamente la Politica de Cookies</h2>
+        <p className='text-custom-gray mt-2'>
+            In cazul in care hotaram modificarea prezentei Politici de Cookies, vom publica noua versiune aici, iar aceasta va inlocui versiunea actuala.
+        </p>
     </div>
   )
 }

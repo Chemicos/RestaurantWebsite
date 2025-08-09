@@ -3,6 +3,7 @@ import CumComand from './InfoContent/CumComand'
 import DetaliiLivrare from './InfoContent/DetaliiLivrare'
 import DetaliiPlata from './InfoContent/DetaliiPlata'
 import PoliticaCookie from './InfoContent/PoliticaCookie'
+import Despre from './InfoContent/Despre'
 
 export default function InfoContent({
     selectedTopic
@@ -13,6 +14,7 @@ export default function InfoContent({
         {selectedTopic === 'livrare' && <DetaliiLivrare />}
         {selectedTopic === 'plata' && <DetaliiPlata />}
         {selectedTopic === 'cookie' && <PoliticaCookie />}
+        {selectedTopic === 'despre' && <Despre />}
     </div>
   )
 }
