@@ -4,11 +4,12 @@ import { EnvelopeIcon, FacebookLogoIcon, InstagramLogoIcon, MapPinIcon, PhoneIco
 import { useInView } from 'react-intersection-observer'
 // eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion'
+import { NavLink } from 'react-router-dom'
 
 export default function Footer() {
     const [activeIcon, setActiveIcon] = useState(null)
 
-    const hoverEffectText = `transition-colors duration-300 hover:text-red-500`
+    const hoverEffectText = `transition-colors hover:text-red-500`
     const handleClick = (icon) => {
         setActiveIcon(icon)
         setTimeout(() => {
@@ -75,10 +76,18 @@ export default function Footer() {
 
                 <div className='flex flex-col items-start gap-2 md:gap-1'>
                     <h3 className='text-white mb-4 font-semibold text-2xl'>Informatii</h3>
-                    <a className={`text-white block ${hoverEffectText}`} href="">Cum comand</a>
-                    <a className={`text-white block ${hoverEffectText}`} href="">Detalii livrare</a>
-                    <a className={`text-white block ${hoverEffectText}`} href="">Detalii plata</a>
-                    <a className={`text-white block ${hoverEffectText}`} href="">Despre</a>
+                    <NavLink className={`text-white block ${hoverEffectText}`} to='/informatii?topic=cum-comand' >
+                        Cum comand
+                    </NavLink>
+                    <NavLink className={`text-white block ${hoverEffectText}`} to='/informatii?topic=livrare' >
+                        Detalii livrare
+                    </NavLink>
+                    <NavLink className={`text-white block ${hoverEffectText}`} to='/informatii?topic=plata' >
+                        Detalii plata
+                    </NavLink>
+                    <NavLink className={`text-white block ${hoverEffectText}`} to='/informatii?topic=despre' >
+                        Despre
+                    </NavLink>
                 </div>
 
                 <div className='h-[1px] lg:h-auto w-auto lg:w-[1px] bg-custom-gray'></div>

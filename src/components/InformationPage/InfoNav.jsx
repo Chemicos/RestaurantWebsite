@@ -1,4 +1,4 @@
-import { Divider, Drawer, IconButton, List, ListItemButton, ListItemText } from '@mui/material'
+import { createTheme, Divider, Drawer, Fab, IconButton, List, ListItemButton, ListItemText, ThemeProvider } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
 import React, { useEffect, useState } from 'react'
 
@@ -9,6 +9,14 @@ const topics = [
     {id: 'cookie', label: 'Politica de cookie'},
     {id: 'despre', label: 'Despre'}
 ]
+
+const theme = createTheme({
+  breakpoints: {
+    values: {
+      sm: 768
+    }
+  }
+})
 
 export default function InfoNav({
     selectedTopic,
@@ -33,15 +41,29 @@ export default function InfoNav({
     
   return (
     <>
-      <div className='md:hidden w-full flex items-center justify-between sticky top-20 z-20'>
-        <IconButton
-          aria-label='deschide meniul informatii'
+    <ThemeProvider theme={theme}>
+      {!open && (
+        <Fab 
+          color='default'
+          aria-label='meniul informatii'
           onClick={() => setOpen(true)}
-          size='large'
+          sx={{
+            position: 'fixed',
+            left: 16,
+            bottom: `calc(16px + env(safe-area-inset-bottom))`,
+            zIndex: 1300,
+            backgroundColor: '#ffd980',
+            boxShadow: 3,
+            display: {xs: 'block', sm: 'none'},
+            '&:hover': {
+              backgroundColor: '#ffd980'
+            }
+          }}
         >
           <MenuIcon />
-        </IconButton>
-      </div>
+        </Fab>  
+      )}
+    </ThemeProvider>
 
       <Drawer
         anchor='left'
@@ -49,10 +71,8 @@ export default function InfoNav({
         onClose={() => setOpen(false)}
         PaperProps={{sx: {width: 280, backgroundColor: '#FEF7EA'}}}
       >
-        <div className='p-4'>
-          <h4 className='text-xl font-semibold mb-2'>Informatii</h4>
-          <Divider />
-        </div>
+        <h4 className='text-xl font-semibold mb-2 p-4'>Informatii</h4>
+        <Divider />
         <List>
           {topics.map(t => (
             <ListItemButton 
@@ -61,10 +81,10 @@ export default function InfoNav({
               onClick={() => handlePick(t.id)}
               sx={{
                 '&.Mui-selected': {
-                backgroundColor: '#ffd980',
+                  backgroundColor: 'transparent',
                 },
                 '&.Mui-selected:hover': {
-                  backgroundColor: '#fef2f2',
+                  backgroundColor: 'transparent',
                 }
               }}
             >

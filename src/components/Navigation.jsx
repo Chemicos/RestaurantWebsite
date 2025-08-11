@@ -1,11 +1,12 @@
 import {DotIcon, IconContext, ShoppingCartSimpleIcon, User} from "@phosphor-icons/react"
-import { useContext, useEffect, useState } from "react"
+import { useContext, useEffect, useMemo, useState } from "react"
 import Login from "./Authentication/Login"
 import Register from "./Authentication/Register"
-import { NavLink } from "react-router-dom"
+import { NavLink, useLocation } from "react-router-dom"
 import { AuthContext } from "../contexts/AuthContext"
-import { IconButton, ListItemIcon, ListItemText, Menu, MenuItem } from "@mui/material"
-import { ExpandMore, Logout } from "@mui/icons-material"
+import { createTheme, Divider, Drawer, IconButton, List, ListItemButton, ListItemIcon, ListItemText, Menu, MenuItem, ThemeProvider } from "@mui/material"
+import { Close, ExpandMore, Logout } from "@mui/icons-material"
+import MenuIcon from '@mui/icons-material/Menu'
 import { useCart } from "../contexts/CartContext"
 
 const navItems = [
@@ -14,6 +15,14 @@ const navItems = [
     {name: 'Contact', path: '/contact'},
     {name: 'Informatii', path: '/informatii'}
 ]
+
+const theme = createTheme({
+  breakpoints: {
+    values: {
+      sm: 768
+    }
+  }
+})
 
 export default function Navigation() {
     const [showLogin, setShowLogin] = useState(false)
@@ -25,6 +34,13 @@ export default function Navigation() {
     const openMenu = Boolean(anchorEl)
 
     const {cartItemCount} = useCart()
+
+    const [openDrawer, setOpenDrawer] = useState(false)
+    const location = useLocation()
+
+    useEffect(() => {
+        if (openDrawer) setOpenDrawer(false)
+    }, [location.pathname]) //eslint-disable-line
 
     const handleMenuClick = (event) => {
         setAnchorEl(event.currentTarget)
@@ -43,6 +59,39 @@ export default function Navigation() {
         return () => window.removeEventListener('scroll', handleScroll)
     }, [])
 
+    const DrawerList = useMemo(
+        () => (
+            <>
+                <div className="flex items-center justify-between p-4">
+                    <IconButton onClick={() => setOpenDrawer(false)} aria-label="inchide">
+                        <Close />
+                    </IconButton>
+                </div>
+                <Divider />
+
+                <List>
+                    {navItems.map((item) => (
+                        <ListItemButton
+                            key={item.path}
+                            component={NavLink}
+                            to={item.path}
+                        >
+                            <ListItemText
+                                primary={item.name}
+                                primaryTypographyProps={{
+                                    sx: {
+                                        fontWeight: location.pathname === item.path ? 700 : 400,
+                                        color: location.pathname === item.path ? '#E7272C' : '#66635B'
+                                    }
+                                }}
+                            />
+                        </ListItemButton>
+                    ))}
+                </List>
+            </>
+        ),
+        [location.pathname]
+    )
   return (
     <div className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${hasShadow ? 'shadow-lg bg-custom-yellow' : ''}`}>
         <div className='flex p-4 justify-between items-center'>
@@ -52,33 +101,43 @@ export default function Navigation() {
                 className='h-16' 
             />
 
-            <div className='flex gap-8'>
+            <div className='hidden md:flex gap-8'>
                  {navItems.map(({ name, path }) => (
-            <NavLink
-              key={name}
-              to={path}
-              className={({ isActive }) => `
-                relative flex flex-col items-center text-lg cursor-pointer transition-opacity duration-200
-                ${isActive ? "opacity-100 font-semibold" : "opacity-50 hover:opacity-100"}
-              `}
-            >
-            {({ isActive }) => (
-                <>
-                    {name}
-                    {isActive && (
-                    <DotIcon
-                        size={20}
-                        weight="fill"
-                        className="absolute -bottom-4 animate-fade-in"
-                    />
+                    <NavLink
+                    key={name}
+                    to={path}
+                    className={({ isActive }) => `
+                        relative flex flex-col items-center text-lg cursor-pointer transition-opacity duration-200
+                        ${isActive ? "opacity-100 font-semibold" : "opacity-50 hover:opacity-100"}
+                    `}
+                    >
+                    {({ isActive }) => (
+                        <>
+                            {name}
+                            {isActive && (
+                            <DotIcon
+                                size={20}
+                                weight="fill"
+                                className="absolute -bottom-4 animate-fade-in"
+                            />
+                            )}
+                        </>
                     )}
-                </>
-            )}
-            </NavLink>
-          ))}
+                    </NavLink>
+                ))}
             </div>
 
-            <div className="flex gap-6">
+            <div className="flex gap-6 items-center">
+                <ThemeProvider theme={theme}>
+                    <IconButton 
+                        onClick={() => setOpenDrawer(true)}
+                        aria-label="deschide meniul"
+                        sx={{display: {xs: 'inline-flex', sm: "none"}}}
+                    >
+                        <MenuIcon sx={{height: '30px', width: '30px'}} />
+                    </IconButton>
+                </ThemeProvider>
+
                 <div className="relative">
                     <ShoppingCartSimpleIcon
                         size={30}
@@ -161,6 +220,15 @@ export default function Navigation() {
                 )}
             </div>     
         </div>
+        <Drawer
+            anchor="left"
+            open={openDrawer}
+            onClose={() => setOpenDrawer(false)}
+            PaperProps={{sx: {width: 280, backgroundColor: '#FEF7EA'}}}
+            sx={{zIndex: 1300}}
+        >
+            {DrawerList}
+        </Drawer>
     </div>
   )
 }
