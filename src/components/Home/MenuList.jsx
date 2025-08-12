@@ -1,4 +1,4 @@
-import { CircularProgress } from '@mui/material'
+import { CircularProgress, useMediaQuery } from '@mui/material'
 import { CaretLeftIcon, CaretRightIcon } from '@phosphor-icons/react'
 import React, { useEffect, useState } from 'react'
 import MenuCustomizer from '../MenuCustomizer/MenuCustomizer'
@@ -20,7 +20,9 @@ export default function MenuList() {
     }
 
     const API_URL = import.meta.env.VITE_API_URL
-    const itemsPerPage = 4
+
+    const isMobile = useMediaQuery('(max-width: 768px)')
+    const itemsPerPage = isMobile ? 1 : 4
 
     const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.2 })
 
@@ -30,6 +32,13 @@ export default function MenuList() {
         .then(data => setMenuItems(data))
         .catch(err => console.error('Error loading menu:', err))
     }, [])
+
+    useEffect(() => {
+        setStartIndex(prev => {
+            const maxStart = Math.max(0, menuItems.length - itemsPerPage)
+            return Math.min(prev - (prev % itemsPerPage), maxStart)
+        })
+    }, [itemsPerPage, menuItems.length])
 
      const triggerFade = (callback) => {
         setIsFading(true)
@@ -50,6 +59,8 @@ export default function MenuList() {
     }
 
     const visibleItems = menuItems.slice(startIndex, startIndex + itemsPerPage)
+    const canPrev = startIndex > 0
+    const canNext = startIndex + itemsPerPage < menuItems.length
 
   return (
     <div className='max-w-[1440px] mx-auto mt-14 px-6 lg:px-4'>
@@ -61,7 +72,7 @@ export default function MenuList() {
                     className='text-custom-red hover:bg-red-600 hover:text-white transition-colors duration-500 cursor-pointer rounded-full p-2
                     disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-red-600 disabled:cursor-not-allowed'
                     onClick={handlePrev}
-                    disabled={startIndex === 0}
+                    disabled={!canPrev}
                 >
                     <CaretLeftIcon size={25} weight='bold' />
                 </button>
@@ -70,7 +81,7 @@ export default function MenuList() {
                     className='text-custom-red hover:bg-red-600 hover:text-white transition-colors duration-500 cursor-pointer rounded-full p-2
                     disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-red-600 disabled:cursor-not-allowed'
                     onClick={handleNext}
-                    disabled={startIndex + itemsPerPage >= menuItems.length}
+                    disabled={!canNext}
                 >
                     <CaretRightIcon size={25} weight='bold' />
                 </button>
@@ -82,7 +93,7 @@ export default function MenuList() {
             initial="hidden"
             animate={inView ? (isFading ? "fadeOut" : "visible") : "hidden"}
     
-            className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8`}
+            className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8`}
         >
             {visibleItems.map(item => (
                 <div key={item.id} className='flex flex-col items-center'>
@@ -112,8 +123,7 @@ export default function MenuList() {
                         hover:text-white hover:bg-red-600 transition-colors duration-300'
                         >
                             Personalizează
-                        </button>
-                        
+                        </button>              
                     </div>
                 </div>
             ))}

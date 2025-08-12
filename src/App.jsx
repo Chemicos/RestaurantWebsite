@@ -11,6 +11,7 @@ import SnackbarProvider from './contexts/SnackbarContext'
 import { CartProvider } from './contexts/CartContext'
 import ContactPage from './components/ContactPage/ContactPage'
 import InfoPage from './components/InformationPage/InfoPage'
+import ScrollToTop from './components/ScrollToTop'
 
 function App() {
 
@@ -21,6 +22,8 @@ function App() {
           <Router>
             <div className='flex flex-col min-h-screen'>
               <Navigation />
+
+              <ScrollToTop />
 
               <div className='flex-grow pt-24'>
                 <Routes>

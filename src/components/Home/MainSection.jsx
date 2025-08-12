@@ -33,7 +33,7 @@ export default function MainSection() {
 
   return (
     <div className='mt-14 flex justify-center items-center px-6 lg:px-24'>
-      <div className='max-w-[1440px] w-full flex flex-col lg:flex-row justify-between items-center gap-5'>
+      <div className='max-w-[1440px] w-full flex flex-col xl:flex-row justify-between items-center gap-8 xl:gap-5'>
         <motion.div 
           className='flex flex-col gap-8'
           ref={ref}
@@ -41,19 +41,19 @@ export default function MainSection() {
           animate={inView ? {opacity: 1, x: 0} : {}}
           transition={{duration: 1, ease: 'easeOut'}}
         >
-          <div>
-            <span className='text-custom-red font-bold text-2xl'>Bine ai venit la</span>
-            <h1 className='text-5xl font-extrabold leading-tight'>
+          <div className='text-center xl:text-start'>
+            <span className='text-custom-red font-bold text-xl sm:text-2xl'>Bine ai venit la</span>
+            <h1 className='text-4xl sm:text-5xl font-extrabold leading-tight'>
               Pizzeria Restaurant <br/> 
               si Bucura-te de <span className='text-custom-red'>delicii</span>
             </h1>
           </div>
 
-          <p className='text-gray-700 text-lg leading-relaxed max-w-lg'>
+          <p className='text-gray-700 text-lg text-center xl:text-start leading-relaxed max-w-lg'>
             La Pizzeria Restaurant, pasiunea pentru gust autentic prinde viață în fiecare felie. Fie că vii pentru o pizza crocantă, o porție generoasă de paste sau doar pentru vibe-ul cald și prietenos, te așteptăm cu drag la o masă pe gustul tău.
           </p>
           
-          <NavLink className='w-fit' to='/meniuri'>          
+          <NavLink className='w-fit mx-auto xl:mx-0' to='/meniuri'>          
             <button className='w-fit bg-custom-red hover:bg-red-700 text-white font-semibold 
               py-4 px-8 text-lg rounded-xl transition-all cursor-pointer shadow-md active:scale-90'
             >
@@ -61,7 +61,7 @@ export default function MainSection() {
             </button>
           </NavLink>
 
-          <div className='flex items-center gap-4 text-md text-gray-700'>
+          <div className='w-full flex items-center justify-center xl:justify-start gap-4 text-md text-gray-700'>
             <ClockIcon 
               size={32} 
               color='red' 
@@ -69,7 +69,7 @@ export default function MainSection() {
               className='animate-pulse-scale'
             />
             
-            <div className='text-base'>
+            <div>
               <p>Luni - Vineri: 10:30 - 21:00</p>
               <p>Weekend: 12:00 - 21:00</p>
             </div>
