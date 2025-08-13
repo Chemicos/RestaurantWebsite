@@ -1,9 +1,10 @@
-import { Alert, alpha, Box, CircularProgress, IconButton, InputAdornment, Switch, TextField } from '@mui/material'
+import { Alert, alpha, Box, CircularProgress, IconButton, InputAdornment, Switch, TextField, useMediaQuery } from '@mui/material'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import PassDifficulty from './PassDifficulty'
 import { SnackbarContext } from '../../contexts/SnackbarContext'
 import { AuthContext } from '../../contexts/AuthContext'
+import { XIcon } from '@phosphor-icons/react'
 
 export default function Register({ setShowRegister, onClose }) {
   const ref = useRef()
@@ -14,6 +15,8 @@ export default function Register({ setShowRegister, onClose }) {
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [activeInput, setActiveInput] = useState(null)
+  const [isPasswordFocused, setIsPasswordFocused] = useState(false)
+  const [showPassTooltip, setShowPassTooltip] = useState(false)
   const [confirmPass, setConfirmPass] = useState('')
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 
@@ -32,6 +35,7 @@ export default function Register({ setShowRegister, onClose }) {
   const [isLoading, setIsLoading] = useState(false)
 
   const {triggerSnackbar} = useContext(SnackbarContext)
+  const isMobile = useMediaQuery('(max-width: 768px)')
   const { login } = useContext(AuthContext)
 
   const API_URL = import.meta.env.VITE_API_URL
@@ -43,7 +47,6 @@ export default function Register({ setShowRegister, onClose }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    if(password !== confirmPass) return
     if(!nume || !prenume || !email || !isValidEmail(email) || !password || !confirmPass) {
       setFieldErrors({
         nume: !nume,
@@ -55,6 +58,11 @@ export default function Register({ setShowRegister, onClose }) {
       setError(!isValidEmail(email) ? 'Email invalid' : 'Completeaza toate campurile obligatorii.')
       return
     }
+    if(password !== confirmPass) {
+      setFieldErrors(prev => ({...prev, confirmPass: true}))
+      setError('Parolele nu coincid')
+      return
+    } 
 
     setIsLoading(true)
     const session_id = sessionStorage.getItem('session_id')
@@ -108,6 +116,18 @@ export default function Register({ setShowRegister, onClose }) {
   }, [password, confirmPass])
 
   useEffect(() => {
+    let timeout
+    if (isPasswordFocused) {
+      setShowPassTooltip(true)
+    } else {
+      timeout = setTimeout(() => {
+        setShowPassTooltip(false)
+      }, 100)
+    }
+    return () => clearTimeout(timeout)
+  }, [isPasswordFocused])
+  
+  useEffect(() => {
     const handleClickOutside = (event) => {
       if(ref.current && !ref.current.contains(event.target)) {
         setIsClosing(true)
@@ -133,10 +153,21 @@ export default function Register({ setShowRegister, onClose }) {
     }
   }, [confirmPass, showConfirmPassword])
 
+  useEffect(() => {
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.body.style.overflow = 'auto'
+    }
+  }, [])
+
   return (
     <div 
       ref={ref}
-      className={`absolute right-8 top-16 w-80 bg-custom-white rounded-xl shadow-xl p-6 z-50 ${isClosing ? "animate-fade-out": "animate-fade-in"}`}
+      className={`bg-custom-white shadow-xl z-50 
+        ${isClosing ? "animate-fade-out": "animate-fade-in"}
+        ${isMobile ? 'fixed flex flex-col justify-center top-0 left-0 h-screen w-screen rounded-none p-6 overflow-y-auto' 
+          : 'absolute right-8 top-16 w-80 rounded-xl p-6'}
+      `}
     >
       <form className='flex flex-col gap-5'>
         <h2 className='text-md'>Inregistrare cont</h2>
@@ -252,8 +283,8 @@ export default function Register({ setShowRegister, onClose }) {
             setError('')
           }}
           fullWidth
-          onFocus={() => setActiveInput("password")}
-          onBlur={() => setActiveInput(null)}
+          onFocus={() => setIsPasswordFocused(true)}
+          onBlur={() => setIsPasswordFocused(false)}
           size="small"
           InputProps={{
             sx: {
@@ -279,7 +310,13 @@ export default function Register({ setShowRegister, onClose }) {
           }}
         />
 
-        {password && <PassDifficulty password={password} isVisible={activeInput === "password"} />}
+          {password.length > 0 && showPassTooltip && (
+            isMobile 
+              ? <PassDifficulty password={password} isVisible={isPasswordFocused} />
+              : <div className='relative'>
+                  <PassDifficulty password={password} isVisible={isPasswordFocused} />
+                </div>
+          )}
 
         <TextField
           label="Confirma parola*"
@@ -357,7 +394,8 @@ export default function Register({ setShowRegister, onClose }) {
 
         <button 
           type="submit"
-          className='w-full h-[40px] bg-custom-red hover:bg-red-700 text-custom-white font-semibold py-2 rounded-lg transition-colors cursor-pointer'
+          className='w-full h-[40px] bg-custom-red hover:bg-red-700 text-custom-white font-semibold py-2 rounded-lg 
+          transition-all active:scale-90 active:bg-red-700 cursor-pointer'
           onClick={handleSubmit}
         >
           {isLoading ? (
@@ -380,6 +418,16 @@ export default function Register({ setShowRegister, onClose }) {
       >
           Ai deja cont?
       </a>
+
+      {isMobile && (
+        <button
+            onClick={onClose} 
+            className="absolute top-4 right-4 text-white p-2 rounded-full bg-[#66635B]/30 cursor-pointer
+            transition-all hover:bg-red-600 active:bg-red-600 hover:shadow-lg"
+        >
+            <XIcon size={20} weight="bold" />
+        </button>
+      )}
     </div>
   )
 }

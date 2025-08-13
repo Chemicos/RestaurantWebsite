@@ -65,11 +65,11 @@ export default function MenuList() {
   return (
     <div className='max-w-[1440px] mx-auto mt-14 px-6 lg:px-4'>
         <div className='flex w-full justify-between items-center mb-8'>
-            <h2 className='text-3xl font-thin'>Ce mancam astazi?</h2>
+            <h2 className='text-2xl md:text-3xl font-semibold'>Ce mancam astazi?</h2>
             
             <div className='flex gap-4'>
                 <button 
-                    className='text-custom-red hover:bg-red-600 hover:text-white transition-colors duration-500 cursor-pointer rounded-full p-2
+                    className='text-custom-red hover:bg-red-600 active:bg-red-600 active:text-white hover:text-white transition-all duration-500 cursor-pointer rounded-full p-2
                     disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-red-600 disabled:cursor-not-allowed'
                     onClick={handlePrev}
                     disabled={!canPrev}
@@ -78,7 +78,7 @@ export default function MenuList() {
                 </button>
 
                 <button
-                    className='text-custom-red hover:bg-red-600 hover:text-white transition-colors duration-500 cursor-pointer rounded-full p-2
+                    className='text-custom-red hover:bg-red-600 active:bg-red-600 active:text-white hover:text-white transition-all duration-500 cursor-pointer rounded-full p-2
                     disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-red-600 disabled:cursor-not-allowed'
                     onClick={handleNext}
                     disabled={!canNext}

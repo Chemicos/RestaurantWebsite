@@ -1,3 +1,4 @@
+import { useMediaQuery } from '@mui/material'
 import React from 'react'
 
 export default function PassDifficulty({ password, isVisible = true }) {
@@ -10,7 +11,8 @@ export default function PassDifficulty({ password, isVisible = true }) {
             isValid: /[0-9]/.test(password) || /[!@#$%^&*(),.?":{}|<>]/.test(password)
         }
     ]
-
+    
+    const isMobile = useMediaQuery(`(max-width: 768px)`)
     const validCount = criteria.filter(c => c.isValid).length
 
     const progressColor =(() => {
@@ -25,9 +27,16 @@ export default function PassDifficulty({ password, isVisible = true }) {
     const progressWidth = (validCount / 3) * 100
 
   return (
-    <div className='relative animate-fade-in'>
-        {isVisible && (
-           <div className='absolute -left-56 top-2 w-52 bg-custom-white border border-gray-300 shadow-md rounded-b-xl rounded-tl-xl p-4 space-y-1 z-10'>
+    <div className={`relative transition-all
+        ${isVisible ? 'opacity-100 animate-fade-in' : 'opacity-0 animate-fade-out'}`}
+    >
+        {(isMobile ? password.length > 0 : isVisible) && (
+           <div className={`space-y-1 
+                ${isMobile 
+                    ? 'static w-full px-2' 
+                    : 'absolute -left-56 top-2 w-52 bg-custom-white border border-gray-300 shadow-md rounded-b-xl rounded-tl-xl p-4 z-10'
+                }
+           `}>
                 <ul className='space-y-1'>
                 {criteria.map(c => (
                     <li
