@@ -2,7 +2,7 @@ import {DotIcon, IconContext, ShoppingCartSimpleIcon, User} from "@phosphor-icon
 import { useContext, useEffect, useMemo, useState } from "react"
 import Login from "./Authentication/Login"
 import Register from "./Authentication/Register"
-import { NavLink, useLocation } from "react-router-dom"
+import { NavLink, useLocation, useNavigate } from "react-router-dom"
 import { AuthContext } from "../contexts/AuthContext"
 import { createTheme, Divider, Drawer, IconButton, List, ListItemButton, ListItemIcon, ListItemText, Menu, MenuItem, ThemeProvider } from "@mui/material"
 import { Close, ExpandMore, Logout } from "@mui/icons-material"
@@ -40,6 +40,8 @@ export default function Navigation() {
 
     const [openDrawer, setOpenDrawer] = useState(false)
     const location = useLocation()
+
+    const navigate = useNavigate()
 
     useEffect(() => {
         if (openDrawer) setOpenDrawer(false)
@@ -146,7 +148,10 @@ export default function Navigation() {
                         size={30}
                         weight="bold"
                         className="text-[#66635B] hover:text-black transition-all active:text-black cursor-pointer"
-                        onClick={() => setShowOrderSummaryMobile(true)}
+                        onClick={() => {
+                            navigate('/meniuri') 
+                            setShowOrderSummaryMobile(true)
+                        }}
                     />
                     <span className="absolute -top-2 -right-2 bg-custom-red text-xs text-white w-5 h-5 rounded-full flex items-center justify-center">
                         {cartItemCount}

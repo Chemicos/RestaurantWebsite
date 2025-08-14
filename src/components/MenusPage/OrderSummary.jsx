@@ -17,7 +17,7 @@ export default function OrderSummary({orders, onRequestDelete}) {
         <p className='text-center text-custom-gray'>Inca nu ai adaugat un meniu.</p>
       ): (
         <>
-          <div className={`${isMobile ? 'w-full h-full' : 'h-[400px] w-[300px]'}flex flex-col gap-4 overflow-y-auto pr-1`}>
+          <div className={`${isMobile ? 'w-full h-full' : 'h-[400px] w-[300px]'} flex flex-col gap-4 overflow-y-auto pr-1`}>
             {orders.map((order, index) => (
               <div key={index} className='flex justify-between border-b border-black/20 pb-4'>
                 <div className='flex flex-col items-start w-[200px]'>
@@ -40,11 +40,15 @@ export default function OrderSummary({orders, onRequestDelete}) {
               </div>
             ))}
           </div>
-
-          <button className='mt-6 bg-custom-red hover:bg-red-700 text-white py-2 px-4 w-full rounded-full font-semibold cursor-pointer transition-all'>
-            Finalizeaza pentru {totalPrice.toFixed(2)} RON
-          </button>
         </>
+      )}
+
+      {orders.length > 0 ? (
+        <button className='mt-6 bg-custom-red hover:bg-red-700 active:bg-red-700 active:scale-90 text-white py-2 px-4 w-full rounded-full font-semibold cursor-pointer transition-all'>
+          Finalizeaza pentru {totalPrice.toFixed(2)} RON
+        </button>
+      ) : (
+        <span></span>
       )}
     </div>
   )
