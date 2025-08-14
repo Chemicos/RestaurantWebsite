@@ -196,9 +196,9 @@ app.post('/api/register', async (req, res) => {
 })
 
 app.post('/api/login', async (req, res) => {
-  const {email, parola, session_id} = req.body
+  const {email, password, session_id} = req.body
 
-  if(!email || !parola) {
+  if(!email || !password) {
     return res.status(400).json({error: 'Email si parola sunt necesare'})
   }
 
@@ -213,7 +213,7 @@ app.post('/api/login', async (req, res) => {
     }
 
     const user = result.rows[0]
-    const parolaMatch = await bcrypt.compare(parola, user.parola)
+    const parolaMatch = await bcrypt.compare(password, user.parola)
 
     if(!parolaMatch) {
       return res.status(401).json({error: 'Credentiale invalide'})

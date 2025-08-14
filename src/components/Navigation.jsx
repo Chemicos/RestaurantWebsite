@@ -8,6 +8,7 @@ import { createTheme, Divider, Drawer, IconButton, List, ListItemButton, ListIte
 import { Close, ExpandMore, Logout } from "@mui/icons-material"
 import MenuIcon from '@mui/icons-material/Menu'
 import { useCart } from "../contexts/CartContext"
+import { useOrderSummary } from "../contexts/OrderSummaryContext"
 
 const navItems = [
     {name: 'Acasa', path: '/'},
@@ -25,6 +26,8 @@ const theme = createTheme({
 })
 
 export default function Navigation() {
+    const {setShowOrderSummaryMobile} = useOrderSummary()
+
     const [showLogin, setShowLogin] = useState(false)
     const [showRegister, setShowRegister] = useState(false)
     const [hasShadow, setHasShadow] = useState(false)
@@ -142,7 +145,8 @@ export default function Navigation() {
                     <ShoppingCartSimpleIcon
                         size={30}
                         weight="bold"
-                        className="text-[#66635B]"
+                        className="text-[#66635B] hover:text-black transition-all active:text-black cursor-pointer"
+                        onClick={() => setShowOrderSummaryMobile(true)}
                     />
                     <span className="absolute -top-2 -right-2 bg-custom-red text-xs text-white w-5 h-5 rounded-full flex items-center justify-center">
                         {cartItemCount}

@@ -7,9 +7,12 @@ import { Alert, Snackbar } from '@mui/material'
 import MenuCustomizer from '../MenuCustomizer/MenuCustomizer'
 import { useCart } from '../../contexts/CartContext'
 import { AuthContext } from '../../contexts/AuthContext'
+import { useOrderSummary } from '../../contexts/OrderSummaryContext'
+import OrderSummaryMobileWrapper from './OrderSummaryMobileWrapper'
 
 export default function MenuPage() {
   const {user} = useContext(AuthContext)
+  const { showOrderSummaryMobile, setShowOrderSummaryMobile } = useOrderSummary()
 
   const [selectedCategory, setSelectedCategory] = useState('')
   const [scrolled, setScrolled] = useState(false)
@@ -143,13 +146,6 @@ export default function MenuPage() {
             onRequestDelete={(menuName) => setMenuToDelete(menuName)}
           />        
         </div>
-
-        <ConfirmDelete 
-          visible={!!menuToDelete}
-          onCancel={() => setMenuToDelete(null)}
-          onConfirm={() => handleDeleteOrder(menuToDelete)}
-          menuName={menuToDelete}
-        />
       </div>
 
       <Snackbar
@@ -168,6 +164,14 @@ export default function MenuPage() {
         </Alert>
       </Snackbar>
 
+      {showOrderSummaryMobile && (
+        <OrderSummaryMobileWrapper
+          orders={orders}
+          onRequestDelete={(menuName) => setMenuToDelete(menuName)}
+          onClose={() => setShowOrderSummaryMobile(false)}
+        />
+      )}
+
       {isCustomizerOpen && selectedItem && (
         <MenuCustomizer
           menu={selectedItem}
@@ -178,6 +182,13 @@ export default function MenuPage() {
           refreshOrders={fetchOrders}
         />
       )}
+
+      <ConfirmDelete 
+          visible={!!menuToDelete}
+          onCancel={() => setMenuToDelete(null)}
+          onConfirm={() => handleDeleteOrder(menuToDelete)}
+          menuName={menuToDelete}
+        />
     </div>
   )
 }

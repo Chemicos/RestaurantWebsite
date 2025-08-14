@@ -1,19 +1,23 @@
 import { MinusIcon, PlusIcon } from '@phosphor-icons/react'
 import ConfirmDelete from './ConfirmDelete'
 import { generateOrderDetailsText } from './utils/formatOrderDetails'
+import { useMediaQuery } from '@mui/material'
 
 export default function OrderSummary({orders, onRequestDelete}) {
   const totalPrice = orders.reduce((acc, order) => acc + Number(order.price), 0)
+  const isMobile = useMediaQuery('(max-width: 1024px)')
   
   return (
-    <div className='bg-custom-white rounded-xl p-6 w-[auto] h-auto overflow-y-auto'>
-      <h2 className='font-bold text-xl mb-6 text-center'>Comanda ta</h2>
+    <div className={`bg-custom-white rounded-xl p-6 w-[auto] overflow-y-auto
+      ${isMobile ? 'flex flex-col items-center justify-between h-full' : 'h-auto'}
+    `}>
+      <h2 className='font-semibold lg:font-bold text-4xl lg:text-xl mb-6 text-center'>Comanda ta</h2>
 
       {orders.length === 0 ? (
         <p className='text-center text-custom-gray'>Inca nu ai adaugat un meniu.</p>
       ): (
         <>
-          <div className='flex flex-col gap-4 h-[400px] w-[300px] overflow-y-auto pr-1'>
+          <div className={`${isMobile ? 'w-full h-full' : 'h-[400px] w-[300px]'}flex flex-col gap-4 overflow-y-auto pr-1`}>
             {orders.map((order, index) => (
               <div key={index} className='flex justify-between border-b border-black/20 pb-4'>
                 <div className='flex flex-col items-start w-[200px]'>

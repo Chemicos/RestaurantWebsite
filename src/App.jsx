@@ -12,6 +12,7 @@ import { CartProvider } from './contexts/CartContext'
 import ContactPage from './components/ContactPage/ContactPage'
 import InfoPage from './components/InformationPage/InfoPage'
 import ScrollToTop from './components/ScrollToTop'
+import { OrderSummaryProvider } from './contexts/OrderSummaryContext'
 
 function App() {
 
@@ -19,24 +20,26 @@ function App() {
     <SnackbarProvider>
       <CartProvider>
         <AuthProvider>
-          <Router>
-            <div className='flex flex-col min-h-screen'>
-              <Navigation />
+          <OrderSummaryProvider>
+            <Router>
+              <div className='flex flex-col min-h-screen'>
+                <Navigation />
 
-              <ScrollToTop />
+                <ScrollToTop />
 
-              <div className='flex-grow pt-24'>
-                <Routes>
-                  <Route path='/' element={<Home />} />
-                  <Route path='/meniuri' element={<MenuPage />} />
-                  <Route path='/contact' element={<ContactPage />} />
-                  <Route path='/informatii' element={<InfoPage />} />
-                </Routes>
+                <div className='flex-grow pt-24'>
+                  <Routes>
+                    <Route path='/' element={<Home />} />
+                    <Route path='/meniuri' element={<MenuPage />} />
+                    <Route path='/contact' element={<ContactPage />} />
+                    <Route path='/informatii' element={<InfoPage />} />
+                  </Routes>
+                </div>
+
+                <Footer />
               </div>
-
-              <Footer />
-            </div>
-          </Router>
+            </Router>
+          </OrderSummaryProvider>
         </AuthProvider>
       </CartProvider>
     </SnackbarProvider>
