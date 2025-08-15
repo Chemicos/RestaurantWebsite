@@ -15,7 +15,7 @@ export default function OrderSummaryMobileWrapper({orders, onRequestDelete, onCl
 
     if(!isMobile) return null
   return (
-    <div className="fixed top-0 left-0 w-full h-full bg-custom-white z-50 p-4 overflow-y-auto animate-fade-in">
+    <div className="fixed top-0 left-0 w-full h-full bg-custom-white z-[1300] p-4 overflow-y-auto animate-fade-in">
       <div className="flex justify-end">
         <button
             onClick={onClose} 

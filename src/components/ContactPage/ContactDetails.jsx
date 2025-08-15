@@ -14,7 +14,7 @@ export default function ContactDetails() {
       ref={ref}
       initial={{opacity: 0, y: 90}}
       animate={inView ? {opacity: 1, y:0} : {}}
-      transition={{duration: 1, ease: 'easeOut'}}
+      transition={{duration: 0.5, ease: 'easeOut'}}
     >
       <div className='w-full h-[300px] lg:h-full overflow-hidden'>
         <GoogleMapComponent />
