@@ -51,7 +51,7 @@ export default function InfoNav({
             position: 'fixed',
             left: 16,
             bottom: `calc(16px + env(safe-area-inset-bottom))`,
-            zIndex: 1300,
+            zIndex: 40,
             backgroundColor: '#ffd980',
             boxShadow: 3,
             display: {xs: 'block', sm: 'none'},

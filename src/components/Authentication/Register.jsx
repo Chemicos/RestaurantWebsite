@@ -170,7 +170,7 @@ export default function Register({ setShowRegister, onClose }) {
       `}
     >
       <form className='flex flex-col gap-5'>
-        <h2 className='text-md'>Inregistrare cont</h2>
+        <h2 className='text-md font-semibold'>Inregistrare cont</h2>
 
         <TextField
           InputProps={{

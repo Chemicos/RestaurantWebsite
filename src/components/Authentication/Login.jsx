@@ -97,7 +97,7 @@ export default function Login({ setShowRegister, onClose }) {
   return (
     <div 
       ref={ref}
-      className={`bg-custom-white shadow-lg z-50 
+      className={`bg-custom-white shadow-lg z-[1300] 
         ${isClosing ? 'animate-fade-out' : 'animate-fade-in'}
         ${isMobile ? 'fixed flex flex-col justify-center top-0 left-0 w-screen h-screen rounded-none p-6' : 'absolute right-8 top-16 w-80 rounded-xl p-6'}
       `}

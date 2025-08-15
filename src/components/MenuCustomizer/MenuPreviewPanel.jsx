@@ -1,5 +1,6 @@
 import { MinusIcon, PlusIcon } from "@phosphor-icons/react";
-import { useCart } from "../../contexts/CartContext";
+import AddMenu from "./AddMenu";
+import { useMediaQuery } from "@mui/material";
 
 export default function MenuPreviewPanel({
    imageUrl,
@@ -12,79 +13,13 @@ export default function MenuPreviewPanel({
    selectedSosuri = {},
    selectedGarnitura = null,
    selectedSalate = [],
-   onClose,
-   refreshOrders,
-   navigate,
-   currentPath
+   totalPrice,
+   handleAddOrder
   }) {
 
-    const basePrice = Number(price)
-    const bauturaTotal = Array.isArray(selectedBauturi) 
-    ? selectedBauturi.reduce((acc, bautura) => {
-      const price = Number(bautura?.price || 0)
-      const qty = Number(bautura?.quantity || 0)
-      return acc + price * qty
-      }, 0)
-    : 0
-
-    const sosuriTotal = Array.isArray(selectedSosuri)
-    ? selectedSosuri.reduce((acc, sos) => {
-      const price = Number(sos?.price || 0)
-      const qty = Number(sos?.quantity || 0)
-      return acc + price * qty
-    }, 0)
-    : 0
-    const totalBeforeQty = basePrice + bauturaTotal + sosuriTotal
-    const totalPrice = totalBeforeQty * quantity
-
-    const {fetchCartItems} = useCart()
-
-    const handleAddOrder = async () => {
-       let session_id = sessionStorage.getItem("session_id")
-       const user_id = sessionStorage.getItem('user_id')
-
-       if(!user_id && !session_id) {
-        session_id = crypto.randomUUID()
-        // sessionStorage.setItem('session_id', session_id)
-       }
-       
-      const orderPayload = {
-        ...(user_id ? {user_id} : {session_id}),
-        menu: {
-          name,
-          price: totalPrice,
-          quantity,
-          garnitura: selectedGarnitura,
-          salate: selectedSalate,
-          bauturi: selectedBauturi,
-          sosuri: selectedSosuri
-        }        
-      }
-
-      sessionStorage.setItem("session_id", orderPayload.session_id)
-
-      try {
-        await fetch(`${import.meta.env.VITE_API_URL}/api/comenzi_temporare`, {
-          method: "POST",
-          headers: {"Content-Type": "application/json"},
-          body: JSON.stringify(orderPayload)
-        })
-
-        if (typeof refreshOrders === 'function') {
-          refreshOrders()
-        }
-
-        onClose()
-        if (currentPath !== '/meniuri') navigate('/meniuri')
-        await fetchCartItems()
-
-      } catch (error) {
-        console.error("Eroare la salvarea comenzii:", error)
-      }
-    }
-
+  const isMobile = useMediaQuery('(max-width: 1024px)')
   return (
-    <div className="w-full h-full flex flex-col items-center justify-between gap-6">
+    <div className={`w-full ${isMobile ? '' : 'h-full'} flex flex-col items-center justify-between gap-6`}>
       <div className="flex flex-col items-center gap-4 w-full">
         <div className="w-40 h-40 md:w-60 md:h-60 rounded-lg overflow-hidden">
           <img src={imageUrl} alt={name} className="w-full h-full object-cover" />
@@ -140,36 +75,14 @@ export default function MenuPreviewPanel({
           </div>
         </div>
       </div>
-
-      <div className="flex flex-col w-full">
-        <div className="flex items-center justify-center gap-6">
-          <button
-            onClick={() => setQuantity(prev => Math.max(1, prev - 1))}
-            className="bg-[#66635B]/30 text-gray-600 p-2 rounded-full cursor-pointer
-            transition-all duration-100 active:scale-90 hover:bg-[#66635B]/60"
-          >
-            <MinusIcon size={25} weight="bold" />
-          </button>
-
-          <span className="text-xl font-semibold">{quantity}</span>
-
-          <button
-            onClick={() => setQuantity(prev => prev + 1)}
-            className="bg-custom-red text-white p-2 rounded-full cursor-pointer
-            transition-all duration-100 active:scale-90 hover:bg-red-700"
-          >
-            <PlusIcon size={25} weight="bold" />
-          </button>
-        </div>
-
-        <button 
-          className="w-full mt-4 py-3 rounded-full text-white font-semibold bg-custom-red shadow-sm
-          hover:bg-red-700 transition-colors duration-300 cursor-pointer"
-          onClick={handleAddOrder}
-        >
-          Adauga {quantity} pentru {totalPrice.toFixed(2)} RON
-        </button>
-      </div>
+      {!isMobile && (
+        <AddMenu
+          quantity={quantity}
+          setQuantity={setQuantity}
+          totalPrice={totalPrice}
+          handleAddOrder={handleAddOrder}
+        />
+      )}
     </div>
   )
 }

@@ -3,9 +3,11 @@ import { XIcon } from "@phosphor-icons/react";
 import MenuCustomizerForm from "./MenuCustomizerForm";
 import MenuPreviewPanel from "./MenuPreviewPanel";
 import { useEffect, useState } from "react";
-import { CircularProgress } from "@mui/material";
+import { CircularProgress, useMediaQuery } from "@mui/material";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useCart } from "../../contexts/CartContext";
+import AddMenu from "./AddMenu";
 
 export default function MenuCustomizer({ 
   onClose,
@@ -25,10 +27,12 @@ export default function MenuCustomizer({
 
   const navigate = useNavigate()
   const location = useLocation()
+  const {fetchCartItems} = useCart()
 
   const { id: menuId, image_url: imageUrl, name, price, ingredients } = menu || {}
 
   const API_URL = import.meta.env.VITE_API_URL
+  const isMobile = useMediaQuery('(max-width: 1024px)')
 
   useEffect(() => {
     if (!menuId) return
@@ -75,6 +79,58 @@ export default function MenuCustomizer({
     }
   }, [])
 
+  const basePrice = Number(price) || 0
+  const bauturaTotal = Array.isArray(selectedBauturi) 
+    ? selectedBauturi.reduce((acc, b) => acc + Number(b.price || 0) * Number(b.quantity || 0), 0)
+    : 0
+
+  const sosuriTotal = Array.isArray(selectedSosuri)
+    ? selectedSosuri.reduce((acc, s) => acc + Number(s.price || 0) * Number(s.quantity || 0), 0)
+    : 0
+
+  const totalBeforeQty = basePrice + bauturaTotal + sosuriTotal
+  const totalPrice = totalBeforeQty * quantity
+
+  const handleAddOrder = async () => {
+    let session_id = sessionStorage.getItem("session_id")
+    const user_id = sessionStorage.getItem("user_id")
+
+    if (!user_id && !session_id) {
+      session_id = crypto.randomUUID()
+    }
+
+    const orderPayload = {
+      ...(user_id ? { user_id } : { session_id }),
+      menu: {
+        name,
+        price: totalPrice,
+        quantity,
+        garnitura: selectedGarnitura,
+        salate: selectedSalate,
+        bauturi: selectedBauturi,
+        sosuri: selectedSosuri
+      }
+    }
+
+    sessionStorage.setItem("session_id", orderPayload.session_id)
+
+    try {
+      await fetch(`${API_URL}/api/comenzi_temporare`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(orderPayload)
+      })
+
+      if (typeof refreshOrders === 'function') refreshOrders()
+      onClose()
+      if (location.pathname !== "/meniuri") navigate("/meniuri")
+      await fetchCartItems()
+
+    } catch (error) {
+      console.error("Eroare la salvarea comenzii:", error)
+    }
+  }
+
   return (
     <AnimatePresence>
       <motion.div 
@@ -87,44 +143,83 @@ export default function MenuCustomizer({
             initial={{opacity: 0, scale: 0.85}}
             animate={{opacity: 1, scale: 1}}
             transition={{duration: 0.2}}
-            className="relative bg-[#FEF7EA] rounded-xl w-full max-w-5xl h-[85vh] flex overflow-hidden"
+            className={`relative bg-[#FEF7EA] w-full flex overflow-hidden
+              ${isMobile ? 'h-screen flex-col' : 'max-w-5xl h-[85vh] flex-row rounded-xl'}
+            `}
           >
             {isLoading ? (
               <div className="w-full flex justify-center items-center h-full">
                 <CircularProgress color="error" />
               </div>
+            ) : isMobile ? (
+              <div className="flex flex-col h-full relative">
+                <div className="flex flex-col gap-4 overflow-y-auto pb-36 px-6 pt-6">
+                  <MenuPreviewPanel
+                    imageUrl={imageUrl}
+                    name={name}
+                    price={price}
+                    ingredients={ingredients}
+                    quantity={quantity}
+                    setQuantity={setQuantity}
+                    selectedBauturi={selectedBauturi}
+                    selectedSosuri={selectedSosuri}
+                    selectedGarnitura={selectedGarnitura}
+                    selectedSalate={selectedSalate}
+                    totalPrice={totalPrice}
+                    handleAddOrder={handleAddOrder}
+                  />
+
+                  <MenuCustomizerForm
+                    onGarnituraSelect={setSelectedGarnitura}
+                    onSalataSelect={setSelectedSalate}
+                    onBauturaSelect={setSelectedBauturi}
+                    onSosSelect={setSelectedSosuri}
+                    garnituri={garnituri}
+                    salate={salate}
+                    bauturi={bauturi}
+                    sosuri={sosuri}
+                  />
+                </div>
+
+                <div className="fixed bottom-0 left-0 right-0 bg-[#FEF7EA] px-6 py-4 border-t border-gray-300 z-10">
+                  <AddMenu 
+                    quantity={quantity}
+                    setQuantity={setQuantity}
+                    totalPrice={totalPrice}
+                    handleAddOrder={handleAddOrder}
+                  />
+                </div>
+              </div>
             ) : (
               <>
                 <div className="w-1/2 p-12 overflow-y-auto border-r border-[#FEF7EA] shadow-xl">
-                    <MenuCustomizerForm
-                      onGarnituraSelect={setSelectedGarnitura}
-                      onSalataSelect={setSelectedSalate}
-                      onBauturaSelect={setSelectedBauturi}
-                      onSosSelect={setSelectedSosuri}
-                      garnituri={garnituri}
-                      salate={salate}
-                      bauturi={bauturi}
-                      sosuri={sosuri}
-                    />
+                  <MenuCustomizerForm
+                    onGarnituraSelect={setSelectedGarnitura}
+                    onSalataSelect={setSelectedSalate}
+                    onBauturaSelect={setSelectedBauturi}
+                    onSosSelect={setSelectedSosuri}
+                    garnituri={garnituri}
+                    salate={salate}
+                    bauturi={bauturi}
+                    sosuri={sosuri}
+                  />
                 </div>
 
                 <div className="w-1/2 p-12">
-                    <MenuPreviewPanel
-                      imageUrl={imageUrl}
-                      name={name}
-                      price={price}
-                      ingredients={ingredients}
-                      quantity={quantity}
-                      setQuantity={setQuantity}
-                      selectedBauturi={selectedBauturi}
-                      selectedSosuri={selectedSosuri}
-                      selectedGarnitura={selectedGarnitura}
-                      selectedSalate={selectedSalate}
-                      onClose={onClose}
-                      refreshOrders={refreshOrders}
-                      navigate={navigate}
-                      currentPath={location.pathname}
-                    />
+                  <MenuPreviewPanel
+                    imageUrl={imageUrl}
+                    name={name}
+                    price={price}
+                    ingredients={ingredients}
+                    quantity={quantity}
+                    setQuantity={setQuantity}
+                    selectedBauturi={selectedBauturi}
+                    selectedSosuri={selectedSosuri}
+                    selectedGarnitura={selectedGarnitura}
+                    selectedSalate={selectedSalate}
+                    totalPrice={totalPrice}
+                    handleAddOrder={handleAddOrder}
+                  />
                 </div>
               </>
             )}

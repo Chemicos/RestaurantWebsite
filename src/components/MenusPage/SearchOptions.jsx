@@ -147,6 +147,7 @@ export default function SearchOptions({
           </Box>
         )}
 
+
         {isMobile && (
           <>
             <Fab
@@ -157,7 +158,7 @@ export default function SearchOptions({
                 position: 'fixed',
                 left: 16,
                 bottom: 'calc(16px + env(safe-area-inset-bottom))',
-                zIndex: 1200,
+                zIndex: 40,
                 backgroundColor: '#ffd980',
                 boxShadow: 3,
                 '&:hover': { backgroundColor: '#ffd980' }
@@ -180,6 +181,9 @@ export default function SearchOptions({
                 {getFilterInputs(true)}
               </Box>
             </Drawer>
+            <span style={{ fontSize: 14, fontWeight: 500, color: '#66635B' }}>
+              {countOfMenus} Meniuri
+            </span>
           </>
         )}
       </ThemeProvider>
