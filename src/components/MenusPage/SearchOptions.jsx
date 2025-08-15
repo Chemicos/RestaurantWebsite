@@ -157,7 +157,7 @@ export default function SearchOptions({
                 position: 'fixed',
                 left: 16,
                 bottom: 'calc(16px + env(safe-area-inset-bottom))',
-                zIndex: 1300,
+                zIndex: 1200,
                 backgroundColor: '#ffd980',
                 boxShadow: 3,
                 '&:hover': { backgroundColor: '#ffd980' }
@@ -170,7 +170,7 @@ export default function SearchOptions({
               anchor='left'
               open={openDrawer}
               onClose={() => setOpenDrawer(false)}
-              PaperProps={{ sx: { width: 280, backgroundColor: '#FEF7EA' } }}
+              PaperProps={{ sx: { width: 280, backgroundColor: '#FEF7EA', zIndex: 1300} }}
             >
               <h4 className='text-xl font-semibold p-4 mb-2'>Filtrare meniuri</h4>
 
