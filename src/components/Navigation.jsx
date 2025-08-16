@@ -4,7 +4,7 @@ import Login from "./Authentication/Login"
 import Register from "./Authentication/Register"
 import { NavLink, useLocation, useNavigate } from "react-router-dom"
 import { AuthContext } from "../contexts/AuthContext"
-import { createTheme, Divider, Drawer, IconButton, List, ListItemButton, ListItemIcon, ListItemText, Menu, MenuItem, ThemeProvider } from "@mui/material"
+import { createTheme, Divider, Drawer, IconButton, List, ListItemButton, ListItemIcon, ListItemText, Menu, MenuItem, ThemeProvider, useMediaQuery } from "@mui/material"
 import { Close, ExpandMore, Logout } from "@mui/icons-material"
 import MenuIcon from '@mui/icons-material/Menu'
 import { useCart } from "../contexts/CartContext"
@@ -42,6 +42,7 @@ export default function Navigation() {
     const location = useLocation()
 
     const navigate = useNavigate()
+    const isMobile = useMediaQuery('(max-width: 1024px)')
 
     useEffect(() => {
         if (openDrawer) setOpenDrawer(false)
@@ -149,8 +150,12 @@ export default function Navigation() {
                         weight="bold"
                         className="text-[#66635B] hover:text-black transition-all active:text-black cursor-pointer"
                         onClick={() => {
-                            navigate('/meniuri') 
-                            setShowOrderSummaryMobile(true)
+                            if(isMobile) {
+                                setShowOrderSummaryMobile(true) 
+                                navigate('/meniuri')   
+                            } else {
+                                navigate('/meniuri')
+                            }                            
                         }}
                     />
                     <span className="absolute -top-2 -right-2 bg-custom-red text-xs text-white w-5 h-5 rounded-full flex items-center justify-center">

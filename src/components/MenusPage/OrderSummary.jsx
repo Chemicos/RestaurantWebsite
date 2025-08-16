@@ -15,7 +15,7 @@ export default function OrderSummary({orders, onRequestDelete}) {
 
       {orders.length === 0 ? (
         <p className='text-center text-custom-gray'>Inca nu ai adaugat un meniu.</p>
-      ): (
+      ) : (
         <>
           <div className={`${isMobile ? 'w-full h-full' : 'h-[400px] w-[300px]'} flex flex-col gap-4 overflow-y-auto pr-1`}>
             {orders.map((order, index) => (

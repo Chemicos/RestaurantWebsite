@@ -13,6 +13,7 @@ import ContactPage from './components/ContactPage/ContactPage'
 import InfoPage from './components/InformationPage/InfoPage'
 import ScrollToTop from './components/ScrollToTop'
 import { OrderSummaryProvider } from './contexts/OrderSummaryContext'
+import FinishOrderPage from './components/FinishOrder/FinishOrderPage'
 
 function App() {
 
@@ -33,6 +34,7 @@ function App() {
                     <Route path='/meniuri' element={<MenuPage />} />
                     <Route path='/contact' element={<ContactPage />} />
                     <Route path='/informatii' element={<InfoPage />} />
+                    <Route path='/finalizare' element={<FinishOrderPage />} />
                   </Routes>
                 </div>
 
