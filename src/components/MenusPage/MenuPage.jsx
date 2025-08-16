@@ -3,7 +3,7 @@ import SearchOptions from './SearchOptions'
 import MainMenuList from './MainMenuList'
 import OrderSummary from './OrderSummary'
 import ConfirmDelete from './ConfirmDelete'
-import { Alert, Snackbar } from '@mui/material'
+import { Alert, CircularProgress, Snackbar } from '@mui/material'
 import MenuCustomizer from '../MenuCustomizer/MenuCustomizer'
 import { useCart } from '../../contexts/CartContext'
 import { AuthContext } from '../../contexts/AuthContext'
@@ -24,6 +24,7 @@ export default function MenuPage() {
 
   const [isCustomizerOpen, setIsCustomizerOpen] = useState(false)
   const [selectedItem, setSelectedItem] = useState(null) 
+  const [isLoading, setIsLoading] = useState(true)
 
   const API_URL = import.meta.env.VITE_API_URL
 
@@ -32,11 +33,17 @@ export default function MenuPage() {
   useEffect(() => {
     const fetchMenus = async () => {
       try {
+        setIsLoading(true)
+
         const res = await fetch(`${API_URL}/api/menus`)
         const data = await res.json()
         setMenuItems(data)
       } catch (error) {
         console.error("Eroare la preluarea meniurilor", error)
+      } finally {
+        setTimeout(() => {
+          setIsLoading(false)
+        }, 500)
       }
     }
     fetchMenus()
@@ -128,11 +135,18 @@ export default function MenuPage() {
           countOfMenus={menuItems.length}
           onResetFilters={handleResetFilters}
         />
-        <MainMenuList 
-          menuItems={filteredMenus} 
-          refreshOrders={fetchOrders}
-          onCustomize={handleCustomizeMenu}
-        />
+
+        {isLoading ? (
+          <div className="flex justify-center items-center h-full">
+            <CircularProgress color="error" />
+          </div>
+        ) : (
+          <MainMenuList 
+            menuItems={filteredMenus} 
+            refreshOrders={fetchOrders}
+            onCustomize={handleCustomizeMenu}
+          />
+        )}
       </div>
 
       <div className='relative hidden lg:block'>
