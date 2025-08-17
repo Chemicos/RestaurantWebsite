@@ -9,16 +9,17 @@ import { useCart } from '../../contexts/CartContext'
 import { AuthContext } from '../../contexts/AuthContext'
 import { useOrderSummary } from '../../contexts/OrderSummaryContext'
 import OrderSummaryMobileWrapper from './OrderSummaryMobileWrapper'
+import { useOrders } from './utils/useOrders'
 
 export default function MenuPage() {
-  const {user} = useContext(AuthContext)
+  // const {user} = useContext(AuthContext)
   const { showOrderSummaryMobile, setShowOrderSummaryMobile } = useOrderSummary()
 
   const [selectedCategory, setSelectedCategory] = useState('')
   const [scrolled, setScrolled] = useState(false)
   const [menuItems, setMenuItems] = useState([])
   const [searchTerm, setSearchTerm] = useState('')
-  const [orders, setOrders] = useState([])
+  // const [orders, setOrders] = useState([])
   const [menuToDelete, setMenuToDelete] = useState(null)
   const [toastOpen, setToastOpen] = useState(false)
 
@@ -29,6 +30,7 @@ export default function MenuPage() {
   const API_URL = import.meta.env.VITE_API_URL
 
   const {fetchCartItems} = useCart()
+  const {orders, refreshOrders} = useOrders()
 
   useEffect(() => {
     const fetchMenus = async () => {
@@ -49,34 +51,34 @@ export default function MenuPage() {
     fetchMenus()
   }, [])
 
-  useEffect(() => {
-    fetchOrders()
-  }, [user])
+  // useEffect(() => {
+  //   fetchOrders()
+  // }, [user])
 
   const handleCustomizeMenu = (item) => {
     setSelectedItem(item)
     setIsCustomizerOpen(true)
   }
 
-  const fetchOrders = async () => {
-    const session_id = sessionStorage.getItem("session_id")
-    const user_id = sessionStorage.getItem("user_id")
+  // const fetchOrders = async () => {
+  //   const session_id = sessionStorage.getItem("session_id")
+  //   const user_id = sessionStorage.getItem("user_id")
     
-    if (!user_id && !session_id) return
+  //   if (!user_id && !session_id) return
 
-    const url = user_id
-      ? `${API_URL}/api/comenzi_temporare?user_id=${user_id}`
-      : `${API_URL}/api/comenzi_temporare?session_id=${session_id}`
+  //   const url = user_id
+  //     ? `${API_URL}/api/comenzi_temporare?user_id=${user_id}`
+  //     : `${API_URL}/api/comenzi_temporare?session_id=${session_id}`
 
-    try {
-      const res = await fetch(url)
-      const data = await res.json()
-      const allItems = data.map(entry => entry.items)
-      setOrders(allItems.flat())
-    } catch (err) {
-      console.error("Eroare la preluarea comenzilor:", err)
-    }
-  }
+  //   try {
+  //     const res = await fetch(url)
+  //     const data = await res.json()
+  //     const allItems = data.map(entry => entry.items)
+  //     setOrders(allItems.flat())
+  //   } catch (err) {
+  //     console.error("Eroare la preluarea comenzilor:", err)
+  //   }
+  // }
 
   const filteredMenus = menuItems.filter(menu => {
     const matchesCategory = selectedCategory ? menu.category === selectedCategory : true
@@ -95,7 +97,8 @@ export default function MenuPage() {
         headers: {'Content-Type' : 'application/json'},
         body: JSON.stringify({item_name: menuName, ...(user_id ? {user_id} : {session_id})})
       })
-      fetchOrders()
+      // fetchOrders()
+      refreshOrders()
       fetchCartItems()
       setMenuToDelete(null)
       setToastOpen(true)
@@ -143,7 +146,8 @@ export default function MenuPage() {
         ) : (
           <MainMenuList 
             menuItems={filteredMenus} 
-            refreshOrders={fetchOrders}
+            // refreshOrders={fetchOrders}
+            refreshOrders={refreshOrders}
             onCustomize={handleCustomizeMenu}
           />
         )}
@@ -193,7 +197,8 @@ export default function MenuPage() {
             setIsCustomizerOpen(false)
             setSelectedItem(null)
           }}
-          refreshOrders={fetchOrders}
+          // refreshOrders={fetchOrders}
+          refreshOrders={refreshOrders}
         />
       )}
 

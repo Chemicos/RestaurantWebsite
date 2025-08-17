@@ -2,10 +2,12 @@ import { MinusIcon, PlusIcon } from '@phosphor-icons/react'
 import ConfirmDelete from './ConfirmDelete'
 import { generateOrderDetailsText } from './utils/formatOrderDetails'
 import { useMediaQuery } from '@mui/material'
+import { useNavigate } from 'react-router-dom'
 
 export default function OrderSummary({orders, onRequestDelete}) {
   const totalPrice = orders.reduce((acc, order) => acc + Number(order.price), 0)
   const isMobile = useMediaQuery('(max-width: 1024px)')
+  const navigate = useNavigate()
   
   return (
     <div className={`bg-custom-white rounded-xl p-6 w-[auto] overflow-y-auto
@@ -44,7 +46,10 @@ export default function OrderSummary({orders, onRequestDelete}) {
       )}
 
       {orders.length > 0 ? (
-        <button className='mt-6 bg-custom-red hover:bg-red-700 active:bg-red-700 active:scale-90 text-white py-2 px-4 w-full rounded-full font-semibold cursor-pointer transition-all'>
+        <button 
+          className='mt-6 bg-custom-red hover:bg-red-700 active:bg-red-700 active:scale-90 text-white py-2 px-4 w-full rounded-full font-semibold cursor-pointer transition-all'
+          onClick={() => navigate('/finalizare')}
+        >
           Finalizeaza pentru {totalPrice.toFixed(2)} RON
         </button>
       ) : (
