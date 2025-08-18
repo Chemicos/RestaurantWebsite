@@ -57,6 +57,7 @@ export default function FinishOrderPage() {
           )
           }
         </AnimatePresence>
+        
         <PaymentMethod />
         <OrderNote />
       </div>
