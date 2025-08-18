@@ -47,7 +47,7 @@ export default function OrderSummary({orders, onRequestDelete}) {
 
       {orders.length > 0 ? (
         <button 
-          className='mt-6 bg-custom-red hover:bg-red-700 active:bg-red-700 active:scale-90 text-white py-2 px-4 w-full rounded-full font-semibold cursor-pointer transition-all'
+          className='mt-6 bg-custom-red hover:bg-red-700 active:bg-red-700 active:scale-90 text-white py-4 lg:py-2 px-4 w-full rounded-full font-semibold cursor-pointer transition-all'
           onClick={() => navigate('/finalizare')}
         >
           Finalizeaza pentru {totalPrice.toFixed(2)} RON

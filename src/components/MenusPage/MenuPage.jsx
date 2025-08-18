@@ -9,7 +9,7 @@ import { useCart } from '../../contexts/CartContext'
 import { AuthContext } from '../../contexts/AuthContext'
 import { useOrderSummary } from '../../contexts/OrderSummaryContext'
 import OrderSummaryMobileWrapper from './OrderSummaryMobileWrapper'
-import { useOrders } from './utils/useOrders'
+import { useOrders } from './hooks/useOrders'
 
 export default function MenuPage() {
   // const {user} = useContext(AuthContext)

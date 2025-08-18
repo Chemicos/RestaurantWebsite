@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react"
 import { AuthContext } from "../../../contexts/AuthContext"
-import { fetchOrders } from "./fetchOrders"
+import { fetchOrders } from "../utils/fetchOrders"
 
 export const useOrders = () => {
     const {user} = useContext(AuthContext)
