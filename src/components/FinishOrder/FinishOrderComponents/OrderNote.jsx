@@ -1,9 +1,24 @@
-import React from 'react'
+import { Note } from '@mui/icons-material'
+import React, { useState } from 'react'
 
 export default function OrderNote() {
+  const [note, setNote] = useState('')
+  const maxLength = 450
+
   return (
-    <div>
-      
+    <div className='flex flex-col gap-4'>
+      <div className='flex flex-row items-center'>
+        <h3 className='text-xl font-semibold'>Adauga detalii despre comanda</h3>
+        <span className='ml-2 text-xs bg-[#FFD980] px-2 py-1 rounded-full'>optional</span>
+      </div>
+
+      <textarea rows={4} placeholder='' maxLength={maxLength} value={note} onChange={(e) => setNote(e.target.value)}
+        className='w-full border-2 border-custom-gray rounded p-2 bg-[#fdf6ed] resize-none text-md outline-none focus:border-blue-700'
+      />
+
+      <div className='text-right text-xs text-gray-500'>
+        {maxLength - note.length} caractere ramase
+      </div>
     </div>
   )
 }

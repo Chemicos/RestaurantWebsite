@@ -27,7 +27,7 @@ export default function OrderList() {
             className='flex justify-between border-b border-black/10 pb-2 text-sm'
           >
             <div>
-              <p className='font-medium'>{order.name}</p>
+              <p className='font-medium text-lg'>{order.name}</p>
               <p className='text-custom-gray text-sm'>{generateOrderDetailsText(order)}</p>
             </div>
 

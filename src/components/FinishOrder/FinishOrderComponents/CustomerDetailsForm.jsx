@@ -31,7 +31,7 @@ export default function CustomerDetailsForm() {
   }, [userDetails])
   return (
     <div className='flex flex-col gap-4'>
-      <h3 className='text-2xl font-semibold'>Date personale</h3>
+      <h3 className='text-xl font-semibold'>Date personale</h3>
       <TextField
         label='Nume'
         variant='outlined'
