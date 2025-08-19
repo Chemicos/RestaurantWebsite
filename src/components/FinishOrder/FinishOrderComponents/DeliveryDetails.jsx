@@ -13,11 +13,11 @@ export default function DeliveryDetails() {
         defaultValue=''
         variant='outlined'
       >
-        <MenuItem value='Clinceni'>Clinceni</MenuItem>
-        <MenuItem value='Ordoreanu'>Ordoreanu</MenuItem>
-        <MenuItem value='Domnesti'>Domnesti</MenuItem>
-        <MenuItem value='Teghes'>Teghes</MenuItem>
-        <MenuItem value='Bragadiru'>Bragadiru</MenuItem>
+        <MenuItem sx={{'&.Mui-selected, &.Mui-selected:hover': { backgroundColor: '#FFE2E2' }}} value='Clinceni'>Clinceni</MenuItem>
+        <MenuItem sx={{'&.Mui-selected, &.Mui-selected:hover': { backgroundColor: '#FFE2E2' }}} value='Ordoreanu'>Ordoreanu</MenuItem>
+        <MenuItem sx={{'&.Mui-selected, &.Mui-selected:hover': { backgroundColor: '#FFE2E2' }}} value='Domnesti'>Domnesti</MenuItem>
+        <MenuItem sx={{'&.Mui-selected, &.Mui-selected:hover': { backgroundColor: '#FFE2E2' }}} value='Teghes'>Teghes</MenuItem>
+        <MenuItem sx={{'&.Mui-selected, &.Mui-selected:hover': { backgroundColor: '#FFE2E2' }}} value='Bragadiru'>Bragadiru</MenuItem>
       </TextField>
 
       <TextField

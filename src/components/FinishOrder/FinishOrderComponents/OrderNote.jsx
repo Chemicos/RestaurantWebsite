@@ -1,9 +1,8 @@
-import { Note } from '@mui/icons-material'
 import React, { useState } from 'react'
 
 export default function OrderNote() {
   const [note, setNote] = useState('')
-  const maxLength = 450
+  const maxLength = 350
 
   return (
     <div className='flex flex-col gap-4'>

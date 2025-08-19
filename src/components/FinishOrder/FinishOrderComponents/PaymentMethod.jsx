@@ -2,11 +2,13 @@ import { MenuItem, TextField } from '@mui/material'
 import { CreditCardIcon, HandCoinsIcon } from '@phosphor-icons/react'
 import React, { useState } from 'react'
 
-export default function PaymentMethod() {
+export default function PaymentMethod({setPaymentMethod}) {
   const [method, setMethod] = useState('')
 
   const handleChange = (event) => {
-    setMethod(event.target.value)
+    const selected = event.target.value
+    setMethod(selected)
+    setPaymentMethod(selected)
   }
 
   const getIcon = () => {

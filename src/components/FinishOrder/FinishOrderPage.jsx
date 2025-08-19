@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import FinishedOrderSummary from './FinishedOrderSummary'
 import OrderList from './FinishOrderComponents/OrderList'
 import CustomerDetailsForm from './FinishOrderComponents/CustomerDetailsForm'
@@ -11,15 +11,29 @@ import { Switch } from '@mui/material'
 import { AnimatePresence } from 'framer-motion'
 // eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion'
+import { useOrders } from '../MenusPage/hooks/useOrders'
 
 
 export default function FinishOrderPage() {
   const navigate = useNavigate()
   const [isDelivery, setIsDelivery] = useState(true)
+  const [scrolled, setScrolled] = useState(false)
+
+  const [paymentMethod, setPaymentMethod] = useState('Card')
+  const {orders} = useOrders()
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 10)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  })
 
   return (
-  <div className='min-h-screen px-12 py-8 flex justify-between gap-10'>
-      <div className='w-2/3 flex flex-col gap-8'>
+  <div className='max-w-[1650px] px-4 py-8 mx-auto flex justify-between gap-10'>
+      <div className='w-full flex flex-col gap-8'>
         <div className='flex flex-col gap-6'>
           <div className='flex items-center gap-4'>
             <button
@@ -58,12 +72,20 @@ export default function FinishOrderPage() {
           }
         </AnimatePresence>
         
-        <PaymentMethod />
+        <PaymentMethod setPaymentMethod={setPaymentMethod} />
         <OrderNote />
       </div>
-
-      <div className='w-1/3 h-fit sticky top-24'>
-        <FinishedOrderSummary />
+      
+      <div className='relative hidden lg:block'>
+        <div className={`max-h-[calc(100vh-5rem)] sticky top-20
+          transition-all duration-500 ease-out ${scrolled ? 'translate-y-[40px]' : 'translate-y-0'}
+        `}>
+          <FinishedOrderSummary
+            orders={orders}
+            paymentMethod={paymentMethod}
+            isDelivery={isDelivery}
+          />
+        </div>
       </div>
     </div>
   )

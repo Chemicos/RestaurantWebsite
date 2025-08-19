@@ -26,8 +26,11 @@ export default function OrderList() {
             key={index}
             className='flex justify-between border-b border-black/10 pb-2 text-sm'
           >
-            <div>
-              <p className='font-medium text-lg'>{order.name}</p>
+            <div className=''>
+              <div className='flex gap-1 items-center'>
+                <span>X{order.quantity}</span>
+                <p className='font-medium text-lg'>{order.name}</p>
+              </div>
               <p className='text-custom-gray text-sm'>{generateOrderDetailsText(order)}</p>
             </div>
 
