@@ -19,7 +19,11 @@ export const CartProvider = ({children}) => {
             const res = await fetch(url)
             const data = await res.json()
             if(Array.isArray(data)) {
-                setCartItemCount(data.length)
+                const totalQuantity = data.reduce((acc, item) => {
+                    const parsed = typeof item.items === 'string' ? JSON.parse(item.items) : item.items
+                    return acc + Number(parsed?.quantity || 1)
+                }, 0)
+                setCartItemCount(totalQuantity)
             }
         } catch (error) {
             console.error('Eroare la fetch comenzi temporare:', error)

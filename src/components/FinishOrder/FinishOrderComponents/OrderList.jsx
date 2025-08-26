@@ -34,7 +34,7 @@ export default function OrderList() {
               <p className='text-custom-gray text-sm'>{generateOrderDetailsText(order)}</p>
             </div>
 
-            <p className='text-sm'>{Number(order.price).toFixed(2)} RON</p>
+            <p className='text-sm md:text-[18px]'>{Number(order.price).toFixed(2)} RON</p>
           </div>
         ))
       )}
