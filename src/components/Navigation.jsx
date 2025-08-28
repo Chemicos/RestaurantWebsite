@@ -1,14 +1,15 @@
 import {DotIcon, IconContext, ShoppingCartSimpleIcon, User} from "@phosphor-icons/react"
-import { useContext, useEffect, useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import Login from "./Authentication/Login"
 import Register from "./Authentication/Register"
 import { NavLink, useLocation, useNavigate } from "react-router-dom"
-import { AuthContext } from "../contexts/AuthContext"
+// import { AuthContext } from "../contexts/AuthContext"
 import { createTheme, Divider, Drawer, IconButton, List, ListItemButton, ListItemIcon, ListItemText, Menu, MenuItem, ThemeProvider, useMediaQuery } from "@mui/material"
 import { Close, ExpandMore, Logout } from "@mui/icons-material"
 import MenuIcon from '@mui/icons-material/Menu'
 import { useCart } from "../contexts/CartContext"
 import { useOrderSummary } from "../contexts/OrderSummaryContext"
+import { useAuthWithCart } from "./MenusPage/hooks/useAuthWithCart"
 
 const navItems = [
     {name: 'Acasa', path: '/'},
@@ -31,7 +32,7 @@ export default function Navigation() {
     const [showLogin, setShowLogin] = useState(false)
     const [showRegister, setShowRegister] = useState(false)
     const [hasShadow, setHasShadow] = useState(false)
-    const {user, logout} = useContext(AuthContext)
+    const {user, logoutWithCart} = useAuthWithCart()
 
     const [anchorEl, setAnchorEl] = useState(null)
     const openMenu = Boolean(anchorEl)
@@ -199,7 +200,7 @@ export default function Navigation() {
                             transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                             anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                         >
-                           <MenuItem onClick={logout}>
+                           <MenuItem onClick={logoutWithCart}>
                             <ListItemIcon>
                                 <Logout></Logout>
                             </ListItemIcon>

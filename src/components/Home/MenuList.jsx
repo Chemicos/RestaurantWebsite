@@ -6,7 +6,7 @@ import MenuCustomizer from '../MenuCustomizer/MenuCustomizer'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 
-export default function MenuList() {
+export default function MenuList({refreshOrders}) {
     const [menuItems, setMenuItems] = useState([])
     const [startIndex, setStartIndex] = useState(0)
     const [isFading, setIsFading] = useState(false)
@@ -132,6 +132,7 @@ export default function MenuList() {
                 <MenuCustomizer 
                     onClose={() => setIsCustomizing(false)} 
                     menu={selectedItem}
+                    refreshOrders={refreshOrders}
                 />
             )}
         </motion.div>

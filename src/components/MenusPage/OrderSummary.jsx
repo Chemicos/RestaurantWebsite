@@ -1,5 +1,3 @@
-import { MinusIcon, PlusIcon } from '@phosphor-icons/react'
-import ConfirmDelete from './ConfirmDelete'
 import { generateOrderDetailsText } from './utils/formatOrderDetails'
 import { useMediaQuery } from '@mui/material'
 import { useNavigate } from 'react-router-dom'

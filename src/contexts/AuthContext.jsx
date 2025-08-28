@@ -32,8 +32,24 @@ export default function AuthProvider({ children }) {
                 setUser(parsed)
             } else {
                 localStorage.removeItem('user')
+                logout(true)
             }
         }
+    }, [])
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            const data = JSON.parse(sessionStorage.getItem("user_data"))
+            const now = new Date().getTime()
+
+            if (data && data.expiry && now > data.expiry) {
+                sessionStorage.removeItem("user_id")
+                sessionStorage.removeItem("user_data")
+                logout()
+            }
+        }, 1000)
+
+        return () => clearInterval(interval)
     }, [])
 
   return (

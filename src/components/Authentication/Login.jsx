@@ -1,8 +1,9 @@
 import { Alert, Box, CircularProgress, TextField, useMediaQuery } from '@mui/material'
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import { SnackbarContext } from '../../contexts/SnackbarContext'
-import { AuthContext } from '../../contexts/AuthContext'
+// import { AuthContext } from '../../contexts/AuthContext'
 import { XIcon } from '@phosphor-icons/react'
+import { useAuthWithCart } from '../MenusPage/hooks/useAuthWithCart'
 
 export default function Login({ setShowRegister, onClose }) {
   const ref = useRef()
@@ -13,7 +14,7 @@ export default function Login({ setShowRegister, onClose }) {
   const [isLoading, setIsLoading] = useState(false)
 
   const {triggerSnackbar} = useContext(SnackbarContext)
-  const { login } = useContext(AuthContext)
+  const { login } = useAuthWithCart()
 
   const API_URL = import.meta.env.VITE_API_URL
 
