@@ -33,7 +33,7 @@ export default function FinishedOrderSummary({orders, paymentMethod, isDelivery}
             <div className='flex flex-col gap-2'>
               <div className='flex justify-between'>
                 <span>Produse: </span>
-                <span>{totalProducts} RON</span>
+                <span>{totalProducts.toFixed(2)} RON</span>
               </div>
               
               {isDelivery && (
@@ -62,7 +62,7 @@ export default function FinishedOrderSummary({orders, paymentMethod, isDelivery}
 
             <div className='flex justify-between mt-6 text-xl font-bold'>
               <span className='uppercase'>Total:</span>
-              <span>{totalFinal} RON</span>
+              <span>{totalFinal.toFixed(2)} RON</span>
             </div>
           </> 
         )}

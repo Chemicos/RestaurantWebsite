@@ -4,12 +4,18 @@ import cors from 'cors';
 import pkg from 'pg';
 import dotenv from 'dotenv';
 import bcrypt from 'bcrypt';
+import cookieParser from 'cookie-parser';
+import jwt from 'jsonwebtoken';
 
 dotenv.config();
 const { Pool } = pkg;
 
 const app = express();
-app.use(cors());
+app.use(cookieParser())
+app.use(cors({
+  origin: 'http://localhost:5173',
+  credentials: true
+}));
 app.use(express.json());
 
 const pool = new Pool({
@@ -182,6 +188,19 @@ app.post('/api/register', async (req, res) => {
         `, [newUser.id, session_id])
       }
 
+      const token = jwt.sign(
+        { id: newUser.id, prenume: newUser.prenume },
+        process.env.JWT_SECRET,
+        { expiresIn: '1d' }
+      )
+
+      res.cookie('auth_token', token, {
+        httpOnly: true,
+        secure: false,
+        sameSite: 'lax',
+        maxAge: 24 * 60 * 60 * 1000
+      })
+
       res.status(201).json({ success: true, user: {id: newUser.id, prenume: newUser.prenume} })
   } catch (error) {
     console.error('Eroare la inregistrare:', error)
@@ -196,47 +215,66 @@ app.post('/api/register', async (req, res) => {
 })
 
 app.post('/api/login', async (req, res) => {
-  const {email, password, session_id} = req.body
-
-  if(!email || !password) {
-    return res.status(400).json({error: 'Email si parola sunt necesare'})
-  }
-
+  const { email, password, session_id } = req.body
   const client = await pool.connect()
+
   try {
     const result = await client.query(`
-      SELECT id, prenume, parola FROM utilizatori WHERE email = $1 
+      SELECT id, prenume, parola FROM utilizatori WHERE email = $1
     `, [email])
 
-    if(result.rows.length === 0) {
-      return res.status(401).json({error: 'Credentiale invalide'})
-    }
+    if (result.rows.length === 0) return res.status(401).json({ error: 'Credentiale invalide' })
 
     const user = result.rows[0]
     const parolaMatch = await bcrypt.compare(password, user.parola)
+    if (!parolaMatch) return res.status(401).json({ error: 'Credentiale invalide' })
 
-    if(!parolaMatch) {
-      return res.status(401).json({error: 'Credentiale invalide'})
-    }
-    
-    if(session_id) {
+    if (session_id) {
       await client.query(`
         UPDATE comenzi_temporare
         SET user_id = $1, session_id = NULL
         WHERE session_id = $2
-      `, [user.id, session_id])
+      `, [user.id, session_id]);
     }
 
-    res.json({
-      success: true, 
-      user: {id: user.id, prenume: user.prenume}
+    const token = jwt.sign(
+      { id: user.id, prenume: user.prenume },
+      process.env.JWT_SECRET,
+      { expiresIn: '1d' }
+    )
+
+    res.cookie('auth_token', token, {
+      httpOnly: true,
+      secure: false, // setează `true` în producție cu HTTPS
+      sameSite: 'lax',
+      maxAge: 24 * 60 * 60 * 1000
     })
+
+    res.json({ success: true })
   } catch (error) {
     console.error('Eroare la autentificare:', error)
-    res.status(500).json({ error: 'Eroare interna DB' })
+    res.status(500).json({ error: 'Eroare interna' })
   } finally {
     client.release()
   }
+})
+
+app.get('/api/me', (req, res) => {
+  const token = req.cookies.auth_token
+
+  if (!token) return res.status(401).json({ error: 'Neautentificat' })
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET)
+    res.json({ user: decoded })
+  } catch (err) {
+    res.status(403).json({ error: 'Token invalid sau expirat' })
+  }
+})
+
+app.post('/api/logout', (req, res) => {
+  res.clearCookie('auth_token')
+  res.json({ success: true })
 })
 
 app.get('/api/utilizatori/:id', async (req, res) => {

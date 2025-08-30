@@ -2,12 +2,13 @@
 import { XIcon } from "@phosphor-icons/react";
 import MenuCustomizerForm from "./MenuCustomizerForm";
 import MenuPreviewPanel from "./MenuPreviewPanel";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CircularProgress, useMediaQuery } from "@mui/material";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useCart } from "../../contexts/CartContext";
 import AddMenu from "./AddMenu";
+import { AuthContext } from "../../contexts/AuthContext";
 
 export default function MenuCustomizer({ 
   onClose,
@@ -28,6 +29,7 @@ export default function MenuCustomizer({
   const navigate = useNavigate()
   const location = useLocation()
   const {fetchCartItems} = useCart()
+  const {user} = useContext(AuthContext)
 
   const { id: menuId, image_url: imageUrl, name, price, ingredients } = menu || {}
 
@@ -93,7 +95,7 @@ export default function MenuCustomizer({
 
   const handleAddOrder = async () => {
     let session_id = sessionStorage.getItem("session_id")
-    const user_id = sessionStorage.getItem("user_id")
+    const user_id = user?.id
 
     if (!user_id && !session_id) {
       session_id = crypto.randomUUID()
@@ -118,6 +120,7 @@ export default function MenuCustomizer({
       await fetch(`${API_URL}/api/comenzi_temporare`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        credentials: 'include',
         body: JSON.stringify(orderPayload)
       })
 

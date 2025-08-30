@@ -1,7 +1,6 @@
 import { Alert, Box, CircularProgress, TextField, useMediaQuery } from '@mui/material'
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import { SnackbarContext } from '../../contexts/SnackbarContext'
-// import { AuthContext } from '../../contexts/AuthContext'
 import { XIcon } from '@phosphor-icons/react'
 import { useAuthWithCart } from '../MenusPage/hooks/useAuthWithCart'
 
@@ -39,34 +38,20 @@ export default function Login({ setShowRegister, onClose }) {
     try {
       const res = await fetch(`${API_URL}/api/login`, {
         method: 'POST',
+        credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password, session_id })
       })
 
-      const result = await res.json()
-
       if (res.ok) {
-        const expiry = new Date().getTime() + 24 * 60 * 60 * 1000
-        const data = {
-          id: result.user.id,
-          prenume: result.user.prenume,
-          expiry
-        }
-
-        login(data)
-        sessionStorage.setItem('user_id', result.user.id)
-
+        await login() // Reapelează /api/me
         sessionStorage.removeItem('session_id')
-
-        setTimeout(() => {
-          setIsLoading(false)
-          triggerSnackbar('Autentificare cu succes!')
-          onClose()
-        }, 1000)
-    } else {
-      setError(result.error || 'Autentificare esuata')
-      setIsLoading(false)
-    }
+        triggerSnackbar('Autentificare cu succes!')
+        onClose()
+      } else {
+        const err = await res.json()
+        setError(err.error || 'Eroare')
+      }
     } catch (error) {
       console.error('Eroare:', error)
       setError('Eroare server. Incearca din nou.')

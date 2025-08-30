@@ -5,15 +5,15 @@ import Footer from './components/footer/Footer'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Home from './components/Home/Home'
 import MenuPage from './components/MenusPage/MenuPage'
-import AuthProvider from './contexts/AuthContext'
-import SnackbarProvider from './contexts/SnackbarContext'
-import { CartProvider } from './contexts/CartContext'
 import ContactPage from './components/ContactPage/ContactPage'
 import InfoPage from './components/InformationPage/InfoPage'
 import ScrollToTop from './components/ScrollToTop'
-import { OrderSummaryProvider } from './contexts/OrderSummaryContext'
 import FinishOrderPage from './components/FinishOrder/FinishOrderPage'
 import AppInitializer from './AppInitializer'
+import AuthProvider from './contexts/AuthContext'
+import SnackbarProvider from './contexts/SnackbarContext'
+import { CartProvider } from './contexts/CartContext'
+import { OrderSummaryProvider } from './contexts/OrderSummaryContext'
 import { GlobalOrdersProvider } from './contexts/GlobalOrdersContext'
 import { OrdersProvider } from './components/MenusPage/hooks/useOrders'
 
@@ -21,8 +21,8 @@ function App() {
 
   return (
     <SnackbarProvider>
-      <CartProvider>
-        <AuthProvider>
+      <AuthProvider>
+        <CartProvider>
           <GlobalOrdersProvider>
             <OrdersProvider>
               <OrderSummaryProvider>
@@ -49,8 +49,8 @@ function App() {
               </OrderSummaryProvider>
             </OrdersProvider>
           </GlobalOrdersProvider>
-        </AuthProvider>
-      </CartProvider>
+        </CartProvider>
+       </AuthProvider>
     </SnackbarProvider>
   )
 }

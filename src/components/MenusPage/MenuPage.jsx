@@ -5,14 +5,13 @@ import OrderSummary from './OrderSummary'
 import ConfirmDelete from './ConfirmDelete'
 import { Alert, CircularProgress, Snackbar } from '@mui/material'
 import MenuCustomizer from '../MenuCustomizer/MenuCustomizer'
-import { useCart } from '../../contexts/CartContext'
 import { AuthContext } from '../../contexts/AuthContext'
 import { useOrderSummary } from '../../contexts/OrderSummaryContext'
 import OrderSummaryMobileWrapper from './OrderSummaryMobileWrapper'
 import { useOrders } from './hooks/useOrders'
+import { useCart } from '../../contexts/CartContext'
 
 export default function MenuPage() {
-  // const {user} = useContext(AuthContext)
   const { showOrderSummaryMobile, setShowOrderSummaryMobile } = useOrderSummary()
 
   const [selectedCategory, setSelectedCategory] = useState('')
@@ -31,6 +30,7 @@ export default function MenuPage() {
 
   const {fetchCartItems} = useCart()
   const {orders, refreshOrders} = useOrders()
+  const {user} = useContext(AuthContext)
 
   useEffect(() => {
     const fetchMenus = async () => {
@@ -88,7 +88,7 @@ export default function MenuPage() {
 
   const handleDeleteOrder = async (menuName) => {
     const session_id = sessionStorage.getItem("session_id")
-    const user_id = sessionStorage.getItem("user_id")
+    const user_id = user?.id
     if (!menuName || (!user_id && !session_id)) return
 
     try {

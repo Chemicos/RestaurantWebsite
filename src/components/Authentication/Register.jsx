@@ -80,15 +80,14 @@ export default function Register({ setShowRegister, onClose }) {
     try {
       const res = await fetch(`${API_URL}/api/register`, {
         method: 'POST',
+        credentials: 'include',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(registerData)
       })
       const result = await res.json()
       if(res.ok) {
-        const expiry = new Date().getTime() + 24 * 60 * 60 * 1000
-        const loginData = { id: result.user.id, prenume: result.user.prenume, expiry }
-        login(loginData)
-        sessionStorage.setItem("user_id", result.user.id)
+        await login()
+        
         sessionStorage.removeItem('session_id')
         setTimeout(() => {
           triggerSnackbar('Cont creat cu succes!')

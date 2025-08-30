@@ -1,24 +1,42 @@
 import { createContext, useContext, useEffect, useState } from "react"
 import { AuthContext } from "../../../contexts/AuthContext"
-import { fetchOrders } from "../utils/fetchOrders"
 
 const OrdersContext = createContext()
 
 export const OrdersProvider = ({ children }) => {
   const { user } = useContext(AuthContext)
   const [orders, setOrders] = useState([])
+  const API_URL = import.meta.env.VITE_API_URL
 
   const refreshOrders = async () => {
     const session_id = sessionStorage.getItem("session_id")
-    const user_id = sessionStorage.getItem("user_id")
+    const user_id = user?.id
 
     if (!user_id && !session_id) {
       setOrders([])
       return
     }
 
-    const data = await fetchOrders()
-    setOrders(data)
+    const url = user_id
+      ? `${API_URL}/api/comenzi_temporare?user_id=${user_id}`
+      : `${API_URL}/api/comenzi_temporare?session_id=${session_id}`
+
+    try {
+      const res = await fetch(url, { credentials: "include" })
+      const data = await res.json() 
+
+      const allItems = Array.isArray(data) ? data.map(entry => entry.items) : []
+
+      const normalized = allItems.flatMap(item => {
+        const value = typeof item === "string" ? JSON.parse(item) : item
+        return Array.isArray(value) ? value : [value]
+      })
+
+      setOrders(normalized)
+    } catch (err) {
+      console.error("Eroare la preluarea comenzilor:", err)
+      setOrders([])
+    }
   }
 
   useEffect(() => {

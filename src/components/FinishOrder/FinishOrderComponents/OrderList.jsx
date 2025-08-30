@@ -1,20 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { fetchOrders } from '../../MenusPage/utils/fetchOrders'
+// import { fetchOrders } from '../../MenusPage/utils/fetchOrders'
 import { generateOrderDetailsText } from '../../MenusPage/utils/formatOrderDetails'
-import { AuthContext } from '../../../contexts/AuthContext'
+// import { AuthContext } from '../../../contexts/AuthContext'
+import { useOrders } from '../../MenusPage/hooks/useOrders'
 
 export default function OrderList() {
-  const [orders, setOrders] = useState([])
-
-  const {user} = useContext(AuthContext)
-
-  useEffect(() => {
-    const loadOrders = async () => {
-      const data = await fetchOrders()
-      setOrders(data)
-    }
-    loadOrders()
-  }, [user])
+  const {orders} = useOrders()
   
   return (
     <div className='flex flex-col gap-6'>
