@@ -12,7 +12,10 @@ import { AnimatePresence } from 'framer-motion'
 // eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion'
 import { useOrders } from '../MenusPage/hooks/useOrders'
+import { useUserDetails } from '../MenusPage/hooks/useUserDetails'
 
+const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+const phoneRe = /^[0-9+\-\s]{8,}$/
 
 export default function FinishOrderPage() {
   const navigate = useNavigate()
@@ -22,6 +25,31 @@ export default function FinishOrderPage() {
   const [paymentMethod, setPaymentMethod] = useState('Card')
   const {orders} = useOrders()
 
+  const [customer, setCustomer] = useState({
+    prenume: '', nume: '', telefon: '', email: ''
+  })
+
+  const [delivery, setDelivery] = useState({
+    localitate: '', strada: '', codPostal: ''
+  })
+
+  const [errors, setErrors] = useState({
+    customer: {}, delivery: {}
+  })
+
+  const { userDetails } = useUserDetails()
+
+  useEffect(() => {
+    if (userDetails) {
+      setCustomer({
+        prenume: userDetails.prenume || '',
+        nume: userDetails.nume || '',
+        telefon: userDetails.telefon || '',
+        email: userDetails.email || ''
+      })
+    }
+  }, [userDetails])
+
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 10)
@@ -30,6 +58,41 @@ export default function FinishOrderPage() {
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   })
+
+  const validate = () => {
+    const custErr = {}
+
+    if (!customer.nume?.trim()) custErr.nume = 'Numele este obligatoriu'
+    if (!customer.prenume?.trim()) custErr.prenume = 'Prenumele este obligatoriu'
+    if (!customer.telefon?.trim()) custErr.telefon = 'Telefonul este obligatoriu'
+    else if (!phoneRe.test(customer.telefon)) custErr.telefon = 'Telefon invalid'
+    if (!customer.email?.trim()) custErr.email = 'Emailul este obligatoriu'
+    else if (!emailRe.test(customer.email)) custErr.email = 'Email invalid'
+
+    const delErr = {}
+    if (isDelivery) {
+      if (!delivery.localitate) delErr.localitate = 'Selectează localitatea'
+      if (!delivery.strada?.trim()) delErr.strada = 'Strada este obligatorie'
+      if (!delivery.codPostal?.trim()) delErr.codPostal = 'Codul poștal este obligatoriu'
+    }
+
+    setErrors({ customer: custErr, delivery: delErr })
+    const ok = Object.keys(custErr).length === 0 && Object.keys(delErr).length === 0
+    if (!ok) {
+      const firstErrorId =
+        Object.keys(custErr)[0] ? `customer-${Object.keys(custErr)[0]}` :
+        Object.keys(delErr)[0] ? `delivery-${Object.keys(delErr)[0]}` : null
+      if (firstErrorId) {
+        const el = document.getElementById(firstErrorId)
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      }
+    }
+    return ok
+  }
+
+  const handleSubmitOrder = async () => {
+    if (!validate()) return
+  }
 
   return (
   <div className='max-w-[1650px] px-4 py-8 mx-auto flex justify-between gap-10'>
@@ -46,7 +109,11 @@ export default function FinishOrderPage() {
           </div>
           <OrderList />
         </div>
-        <CustomerDetailsForm />
+        <CustomerDetailsForm
+          value={customer}
+          onChange={setCustomer}
+          errors={errors.customer}
+        />
 
         <div>
           <h3 className='text-2xl font-semibold'>Metoda de livrare</h3>
@@ -66,7 +133,11 @@ export default function FinishOrderPage() {
               exit={{opacity: 0, y: -10}}
               transition={{duration: 0.3}}
             >
-              <DeliveryDetails />
+              <DeliveryDetails
+                value={delivery}
+                onChange={setDelivery}
+                errors={errors.delivery}
+              />
             </motion.div>
           )
           }
@@ -84,6 +155,7 @@ export default function FinishOrderPage() {
             orders={orders}
             paymentMethod={paymentMethod}
             isDelivery={isDelivery}
+            onSubmit={handleSubmitOrder}
           />
         </div>
       </div>

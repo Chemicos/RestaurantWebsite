@@ -1,67 +1,54 @@
 import React, { useEffect, useState } from 'react'
 import { TextField } from '@mui/material'
-import { useUserDetails } from '../../MenusPage/hooks/useUserDetails'
 
-export default function CustomerDetailsForm() {
-  const {userDetails} = useUserDetails()
+export default function CustomerDetailsForm({ value, onChange, errors = {}}) {
+  const handle = (field) => (e) => onChange(prev => ({...prev, [field]: e.target.value}))
 
-  const [formData, setFormData] = useState({
-    prenume: '',
-    nume: '',
-    telefon: '',
-    email: ''
-  })
-
-  useEffect(() => {
-    if (userDetails) {
-      setFormData({
-        prenume: userDetails.prenume || '',
-        nume: userDetails.nume || '',
-        telefon: userDetails.telefon || '',
-        email: userDetails.email || ''
-      })
-    } else {
-      setFormData({
-        prenume: '',
-        nume: '',
-        telefon: '',
-        email: ''
-      })
-    }
-  }, [userDetails])
   return (
     <div className='flex flex-col gap-4'>
       <h3 className='text-xl font-semibold'>Date personale</h3>
       <TextField
+        id='customer-nume'
         label='Nume'
         variant='outlined'
         fullWidth
-        value={formData.nume}
-        onChange={(e) => setFormData(prev => ({...prev, nume: e.target.value}))}
+        value={value.nume}
+        onChange={handle('nume')}
+        error={!!errors.nume}
+        helperText={errors.nume || ''}
       />
 
       <TextField
+        id='customer-prenume'
         label='Prenume'
         variant='outlined'
         fullWidth
-        value={formData.prenume}
-        onChange={(e) => setFormData(prev => ({...prev, prenume: e.target.value}))}
+        value={value.prenume}
+        onChange={handle('prenume')}
+        error={!!errors.prenume}
+        helperText={errors.prenume || ''}
       />
 
       <TextField
+        id='customer-telefon'
         label='Telefon'
         variant='outlined'
         fullWidth
-        value={formData.telefon}
-        onChange={(e) => setFormData(prev => ({...prev, telefon: e.target.value}))}
+        value={value.telefon}
+        onChange={handle('telefon')}
+        error={!!errors.telefon}
+        helperText={errors.telefon || ''}
       />
 
       <TextField
+        id='customer-email'
         label='Email'
         variant='outlined'
         fullWidth
-        value={formData.email}
-        onChange={(e) => setFormData(prev => ({...prev, email: e.target.value}))}
+        value={value.email}
+        onChange={handle('email')}
+        error={!!errors.email}
+        helperText={errors.email || ''}
       />
     </div>
   )

@@ -36,15 +36,9 @@ export default function PaymentMethod({setPaymentMethod}) {
           value={method}
           onChange={handleChange}
           sx={{
-            '& .MuiInput-underline:after': {
-              borderBottomColor: '#E7272C',
-            },
             '& .MuiInputLabel-root': {
               color: '#66635B',
-            },
-            '& .MuiInputLabel-root.Mui-focused': {
-              color: '#E7272C',
-            },
+            }
           }}
         >
           <MenuItem sx={{'&.Mui-selected, &.Mui-selected:hover': { backgroundColor: '#FFE2E2' }}} value='Card'>Card</MenuItem>

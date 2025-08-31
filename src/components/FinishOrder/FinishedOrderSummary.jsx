@@ -2,7 +2,7 @@ import { CircularProgress } from '@mui/material'
 import { BowlFoodIcon, WarningCircleIcon } from '@phosphor-icons/react'
 import React, { useEffect, useState } from 'react'
 
-export default function FinishedOrderSummary({orders, paymentMethod, isDelivery}) {
+export default function FinishedOrderSummary({orders, paymentMethod, isDelivery, onSubmit}) {
   const totalProducts = orders.reduce((acc, item) => acc + Number(item.price), 0)
   const deliveryTax = isDelivery && totalProducts < 50 ? 8 : 0
   const totalFinal = totalProducts + deliveryTax
@@ -70,6 +70,7 @@ export default function FinishedOrderSummary({orders, paymentMethod, isDelivery}
       <button
         className='bg-custom-red hover:bg-red-700 active:bg-red-700 active:scale-90 text-white py-4 lg:py-2 
         px-4 mt-6 w-full rounded-full font-semibold cursor-pointer transition-all'
+        onClick={onSubmit}
       >
         Trimite Comanda
       </button>
