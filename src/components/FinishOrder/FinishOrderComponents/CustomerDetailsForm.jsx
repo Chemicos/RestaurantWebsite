@@ -1,8 +1,14 @@
-import React, { useEffect, useState } from 'react'
 import { TextField } from '@mui/material'
 
-export default function CustomerDetailsForm({ value, onChange, errors = {}}) {
+export default function CustomerDetailsForm({ 
+  value, onChange, errors = {}, validators = {}
+}) {
   const handle = (field) => (e) => onChange(prev => ({...prev, [field]: e.target.value}))
+  
+  const isNonEmpty = (v) => !!v?.toString().trim()
+  const isValidBy = (re, v) => re ? re.test(v || '') : true
+  const showRequiredError = (field) => !!errors[field] && !isNonEmpty(value[field])
+  const showRegexError = (field, re) => !!errors[field] && isNonEmpty(value[field]) && !isValidBy(re, value[field])
 
   return (
     <div className='flex flex-col gap-4'>
@@ -14,8 +20,8 @@ export default function CustomerDetailsForm({ value, onChange, errors = {}}) {
         fullWidth
         value={value.nume}
         onChange={handle('nume')}
-        error={!!errors.nume}
-        helperText={errors.nume || ''}
+        error={showRequiredError('nume')}
+        helperText={showRequiredError('nume') ? errors.nume : ''}
       />
 
       <TextField
@@ -25,8 +31,8 @@ export default function CustomerDetailsForm({ value, onChange, errors = {}}) {
         fullWidth
         value={value.prenume}
         onChange={handle('prenume')}
-        error={!!errors.prenume}
-        helperText={errors.prenume || ''}
+        error={showRequiredError('prenume')}
+        helperText={showRequiredError('prenume') ? errors.prenume : ''}
       />
 
       <TextField
@@ -36,8 +42,12 @@ export default function CustomerDetailsForm({ value, onChange, errors = {}}) {
         fullWidth
         value={value.telefon}
         onChange={handle('telefon')}
-        error={!!errors.telefon}
-        helperText={errors.telefon || ''}
+        error={showRequiredError('telefon') || showRegexError('telefon', validators.telefon) }
+        helperText={
+          showRequiredError('telefon') || showRegexError('telefon', validators.telefon)
+            ? errors.telefon
+            : ''
+        }
       />
 
       <TextField
@@ -47,8 +57,12 @@ export default function CustomerDetailsForm({ value, onChange, errors = {}}) {
         fullWidth
         value={value.email}
         onChange={handle('email')}
-        error={!!errors.email}
-        helperText={errors.email || ''}
+        error={ showRequiredError('email') || showRegexError('email', validators.email) }
+        helperText={
+          showRequiredError('email') || showRegexError('email', validators.email)
+            ? errors.email
+            : ''
+        }
       />
     </div>
   )

@@ -1,5 +1,5 @@
 import { CircularProgress } from '@mui/material'
-import { BowlFoodIcon, WarningCircleIcon } from '@phosphor-icons/react'
+import { BasketIcon, WarningCircleIcon } from '@phosphor-icons/react'
 import React, { useEffect, useState } from 'react'
 
 export default function FinishedOrderSummary({orders, paymentMethod, isDelivery, onSubmit}) {
@@ -16,10 +16,10 @@ export default function FinishedOrderSummary({orders, paymentMethod, isDelivery,
   }, [])
 
   return (
-    <div className='bg-custom-white rounded-xl p-6 shadow-lg h-auto w-[400px]'>
-      <div className='flex justify-between items-center mb-4'>
+    <div className='flex flex-col justify-between bg-transparent lg:bg-[#f9f9f9] lg:rounded-xl lg:p-6 lg:shadow-lg h-[400px] lg:h-auto w-full lg:w-[400px]'>
+      <div className='flex justify-between items-center lg:mb-4'>
         <h3 className='text-2xl font-semibold'>Rezumat comanda</h3>
-        <BowlFoodIcon size={35} weight='duotone' />
+        <BasketIcon size={35} color="#ff0000" weight='duotone' />
       </div>
 
       <hr className="border-[#66635B]/40 mb-4" />

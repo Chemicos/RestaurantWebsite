@@ -1,4 +1,3 @@
-import React, { useContext, useEffect, useState } from 'react'
 // import { fetchOrders } from '../../MenusPage/utils/fetchOrders'
 import { generateOrderDetailsText } from '../../MenusPage/utils/formatOrderDetails'
 // import { AuthContext } from '../../../contexts/AuthContext'
@@ -22,7 +21,7 @@ export default function OrderList() {
                 <span>X{order.quantity}</span>
                 <p className='font-medium text-lg'>{order.name}</p>
               </div>
-              <p className='text-custom-gray text-sm'>{generateOrderDetailsText(order)}</p>
+              <p className='text-custom-gray w-[250px] sm:w-auto text-[12px] md:text-sm'>{generateOrderDetailsText(order)}</p>
             </div>
 
             <p className='text-sm md:text-[18px]'>{Number(order.price).toFixed(2)} RON</p>

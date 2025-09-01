@@ -95,7 +95,7 @@ export default function FinishOrderPage() {
   }
 
   return (
-  <div className='max-w-[1650px] px-4 py-8 mx-auto flex justify-between gap-10'>
+  <div className='flex flex-col lg:flex-row justify-between max-w-[1650px] px-4 py-8 mx-auto gap-10'>
       <div className='w-full flex flex-col gap-8'>
         <div className='flex flex-col gap-6'>
           <div className='flex items-center gap-4'>
@@ -113,6 +113,7 @@ export default function FinishOrderPage() {
           value={customer}
           onChange={setCustomer}
           errors={errors.customer}
+          validators={{email: emailRe, telefon: phoneRe}}
         />
 
         <div>
@@ -147,7 +148,7 @@ export default function FinishOrderPage() {
         <OrderNote />
       </div>
       
-      <div className='relative hidden lg:block'>
+      <div className='relative'>
         <div className={`max-h-[calc(100vh-5rem)] sticky top-20
           transition-all duration-500 ease-out ${scrolled ? 'translate-y-[40px]' : 'translate-y-0'}
         `}>

@@ -16,8 +16,8 @@ export default function DeliveryDetails({value, onChange, errors = {}}) {
         variant='outlined'
         value={value.localitate}
         onChange={handle('localitate')}
-        error={!!errors.localitate}
-        helperText={errors.localitate || ''}
+        error={!!errors.localitate && !value.localitate.trim()}
+        helperText={!!errors.localitate && !value.localitate.trim() ? errors.localitate : ''}
       >
         <MenuItem sx={{'&.Mui-selected, &.Mui-selected:hover': { backgroundColor: '#FFE2E2' }}} value='Clinceni'>Clinceni</MenuItem>
         <MenuItem sx={{'&.Mui-selected, &.Mui-selected:hover': { backgroundColor: '#FFE2E2' }}} value='Ordoreanu'>Ordoreanu</MenuItem>
@@ -33,8 +33,8 @@ export default function DeliveryDetails({value, onChange, errors = {}}) {
         fullWidth
         value={value.strada}
         onChange={handle('strada')}
-        error={!!errors.strada}
-        helperText={errors.strada || ''}
+        error={!!errors.strada && !value.strada.trim()}
+        helperText={!!errors.strada && !value.strada.trim() ? errors.strada : ''}
       />
 
       <TextField
@@ -44,8 +44,8 @@ export default function DeliveryDetails({value, onChange, errors = {}}) {
         fullWidth
         value={value.codPostal}
         onChange={handle('codPostal')}
-        error={!!errors.codPostal}
-        helperText={errors.codPostal || ''}
+        error={!!errors.codPostal && !value.codPostal.trim()}
+        helperText={!!errors.codPostal && !value.codPostal.trim() ? errors.codPostal : ''}
       />
       
       <FormControlLabel

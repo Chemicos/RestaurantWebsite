@@ -12,7 +12,7 @@ export default function OrderNote() {
       </div>
 
       <textarea rows={4} placeholder='' maxLength={maxLength} value={note} onChange={(e) => setNote(e.target.value)}
-        className='w-full border-2 border-custom-gray rounded p-2 bg-[#fdf6ed] resize-none text-md outline-none focus:border-blue-700'
+        className='w-full border-1 border-black/40 rounded p-2 resize-none text-md outline-none hover:border-black focus:border-blue-600'
       />
 
       <div className='text-right text-xs text-gray-500'>
