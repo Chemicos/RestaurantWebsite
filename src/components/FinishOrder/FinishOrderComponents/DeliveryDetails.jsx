@@ -1,8 +1,11 @@
 import { Checkbox, FormControlLabel, MenuItem, TextField } from '@mui/material'
-import React from 'react'
 
-export default function DeliveryDetails({value, onChange, errors = {}}) {
+export default function DeliveryDetails({value, onChange, errors = {}, validators = {}}) {
   const handle = (field) => (e) => onChange(prev => ({ ...prev, [field]: e.target.value }))
+  const nonEmpty = (v) => !!v?.toString().trim()
+
+  const stradaInvalid =
+    !!errors.strada && nonEmpty(value.strada) && validators.strada && !validators.strada(value.strada)
 
   return (
     <div className='flex flex-col gap-4'>
@@ -33,8 +36,12 @@ export default function DeliveryDetails({value, onChange, errors = {}}) {
         fullWidth
         value={value.strada}
         onChange={handle('strada')}
-        error={!!errors.strada && !value.strada.trim()}
-        helperText={!!errors.strada && !value.strada.trim() ? errors.strada : ''}
+        error={!!errors.strada && (!nonEmpty(value.strada) || stradaInvalid)}
+        helperText={
+          !!errors.strada && (!nonEmpty(value.strada) || stradaInvalid)
+            ? errors.strada
+            : ''
+        }
       />
 
       <TextField

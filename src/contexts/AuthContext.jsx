@@ -31,34 +31,6 @@ export default function AuthProvider({ children }) {
         login()
     }, [])
 
-    // useEffect(() => {
-    //     const storedUser = localStorage.getItem('user')
-    //     if (storedUser) {
-    //         const parsed = JSON.parse(storedUser)
-    //         if(parsed.expiry > new Date().getTime()) {
-    //             setUser(parsed)
-    //         } else {
-    //             localStorage.removeItem('user')
-    //             logout(true)
-    //         }
-    //     }
-    // }, [])
-
-    // useEffect(() => {
-    //     const interval = setInterval(() => {
-    //         const data = JSON.parse(sessionStorage.getItem("user_data"))
-    //         const now = new Date().getTime()
-
-    //         if (data && data.expiry && now > data.expiry) {
-    //             sessionStorage.removeItem("user_id")
-    //             sessionStorage.removeItem("user_data")
-    //             logout()
-    //         }
-    //     }, 1000)
-
-    //     return () => clearInterval(interval)
-    // }, [])
-
   return (
     <AuthContext.Provider value={{user, login, logout}}>
         {children}

@@ -16,13 +16,16 @@ import { useUserDetails } from '../MenusPage/hooks/useUserDetails'
 
 const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 const phoneRe = /^[0-9+\-\s]{8,}$/
+const normalizeSpaces = (s) => s.replace(/\s+/g, ' ').trim()
+const stradaAllowedRe = /^[A-Za-z0-9 .,'/-]+$/
+const stradaHasDigitRe = /\d/
 
 export default function FinishOrderPage() {
   const navigate = useNavigate()
   const [isDelivery, setIsDelivery] = useState(true)
   const [scrolled, setScrolled] = useState(false)
 
-  const [paymentMethod, setPaymentMethod] = useState('Card')
+  const [paymentMethod, setPaymentMethod] = useState('')
   const {orders} = useOrders()
 
   const [customer, setCustomer] = useState({
@@ -34,7 +37,7 @@ export default function FinishOrderPage() {
   })
 
   const [errors, setErrors] = useState({
-    customer: {}, delivery: {}
+    customer: {}, delivery: {}, payment: ''
   })
 
   const { userDetails } = useUserDetails()
@@ -46,6 +49,10 @@ export default function FinishOrderPage() {
         nume: userDetails.nume || '',
         telefon: userDetails.telefon || '',
         email: userDetails.email || ''
+      })
+    } else {
+      setCustomer({
+        prenume: '', nume: '', telefon: '', email: ''
       })
     }
   }, [userDetails])
@@ -59,9 +66,17 @@ export default function FinishOrderPage() {
     return () => window.removeEventListener('scroll', handleScroll)
   })
 
+  const isValidStrada = (raw) => {
+    const s = normalizeSpaces(raw || '')
+    if (s.length < 5 || s.length > 80) return false
+    if (!stradaAllowedRe.test(s)) return false
+    if (!stradaHasDigitRe.test(s)) return false
+
+    return true
+  }
+
   const validate = () => {
     const custErr = {}
-
     if (!customer.nume?.trim()) custErr.nume = 'Numele este obligatoriu'
     if (!customer.prenume?.trim()) custErr.prenume = 'Prenumele este obligatoriu'
     if (!customer.telefon?.trim()) custErr.telefon = 'Telefonul este obligatoriu'
@@ -72,16 +87,34 @@ export default function FinishOrderPage() {
     const delErr = {}
     if (isDelivery) {
       if (!delivery.localitate) delErr.localitate = 'Selectează localitatea'
-      if (!delivery.strada?.trim()) delErr.strada = 'Strada este obligatorie'
+
+      if (!delivery.strada?.trim()) {
+        delErr.strada = 'Strada este obligatorie'
+      } else if (!isValidStrada(delivery.strada)) {
+        delErr.strada = 'Adresa invalida (5–80 caractere, litere și numar). Ex: "Str. Mihai Viteazul 12, Bl. B"'
+      }
+
       if (!delivery.codPostal?.trim()) delErr.codPostal = 'Codul poștal este obligatoriu'
     }
 
-    setErrors({ customer: custErr, delivery: delErr })
-    const ok = Object.keys(custErr).length === 0 && Object.keys(delErr).length === 0
+    let paymentErr = ''
+    if (!['Card', 'Numerar'].includes(paymentMethod)) {
+      paymentErr = 'Selecteaza o metoda de plata'
+    }
+
+    setErrors({ customer: custErr, delivery: delErr, payment: paymentErr })
+
+    const ok = 
+      Object.keys(custErr).length === 0 && 
+      Object.keys(delErr).length === 0 &&
+      !paymentErr
+
     if (!ok) {
       const firstErrorId =
         Object.keys(custErr)[0] ? `customer-${Object.keys(custErr)[0]}` :
-        Object.keys(delErr)[0] ? `delivery-${Object.keys(delErr)[0]}` : null
+        Object.keys(delErr)[0] ? `delivery-${Object.keys(delErr)[0]}` : 
+        paymentErr ? 'payment-method' : null
+
       if (firstErrorId) {
         const el = document.getElementById(firstErrorId)
         if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' })
@@ -138,13 +171,19 @@ export default function FinishOrderPage() {
                 value={delivery}
                 onChange={setDelivery}
                 errors={errors.delivery}
+                validators={{strada: isValidStrada}}
               />
             </motion.div>
           )
           }
         </AnimatePresence>
         
-        <PaymentMethod setPaymentMethod={setPaymentMethod} />
+        <PaymentMethod 
+          value={paymentMethod} 
+          onChange={setPaymentMethod}
+          error={errors.payment}
+        />
+
         <OrderNote />
       </div>
       

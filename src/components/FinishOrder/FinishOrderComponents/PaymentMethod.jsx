@@ -1,14 +1,11 @@
 import { MenuItem, TextField } from '@mui/material'
 import { CreditCardIcon, HandCoinsIcon } from '@phosphor-icons/react'
-import React, { useState } from 'react'
 
-export default function PaymentMethod({setPaymentMethod}) {
-  const [method, setMethod] = useState('')
+export default function PaymentMethod({value, onChange, error}) {
+  const method = value || ''
 
   const handleChange = (event) => {
-    const selected = event.target.value
-    setMethod(selected)
-    setPaymentMethod(selected)
+    onChange(event.target.value)
   }
 
   const getIcon = () => {
@@ -29,12 +26,15 @@ export default function PaymentMethod({setPaymentMethod}) {
         {getIcon()}
 
         <TextField
+          id='payment-method'
           select
           fullWidth
           label='Alege o metoda de plata'
           variant='standard'
           value={method}
           onChange={handleChange}
+          error={!!error}
+          helperText={error || ''}
           sx={{
             '& .MuiInputLabel-root': {
               color: '#66635B',
