@@ -18,7 +18,6 @@ export default function MenuPage() {
   const [scrolled, setScrolled] = useState(false)
   const [menuItems, setMenuItems] = useState([])
   const [searchTerm, setSearchTerm] = useState('')
-  // const [orders, setOrders] = useState([])
   const [menuToDelete, setMenuToDelete] = useState(null)
   const [toastOpen, setToastOpen] = useState(false)
 
@@ -51,34 +50,10 @@ export default function MenuPage() {
     fetchMenus()
   }, [])
 
-  // useEffect(() => {
-  //   fetchOrders()
-  // }, [user])
-
   const handleCustomizeMenu = (item) => {
     setSelectedItem(item)
     setIsCustomizerOpen(true)
   }
-
-  // const fetchOrders = async () => {
-  //   const session_id = sessionStorage.getItem("session_id")
-  //   const user_id = sessionStorage.getItem("user_id")
-    
-  //   if (!user_id && !session_id) return
-
-  //   const url = user_id
-  //     ? `${API_URL}/api/comenzi_temporare?user_id=${user_id}`
-  //     : `${API_URL}/api/comenzi_temporare?session_id=${session_id}`
-
-  //   try {
-  //     const res = await fetch(url)
-  //     const data = await res.json()
-  //     const allItems = data.map(entry => entry.items)
-  //     setOrders(allItems.flat())
-  //   } catch (err) {
-  //     console.error("Eroare la preluarea comenzilor:", err)
-  //   }
-  // }
 
   const filteredMenus = menuItems.filter(menu => {
     const matchesCategory = selectedCategory ? menu.category === selectedCategory : true
@@ -97,7 +72,6 @@ export default function MenuPage() {
         headers: {'Content-Type' : 'application/json'},
         body: JSON.stringify({item_name: menuName, ...(user_id ? {user_id} : {session_id})})
       })
-      // fetchOrders()
       refreshOrders()
       fetchCartItems()
       setMenuToDelete(null)

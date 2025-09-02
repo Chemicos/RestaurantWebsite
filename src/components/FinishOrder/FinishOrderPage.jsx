@@ -13,6 +13,7 @@ import { AnimatePresence } from 'framer-motion'
 import { motion } from 'framer-motion'
 import { useOrders } from '../MenusPage/hooks/useOrders'
 import { useUserDetails } from '../MenusPage/hooks/useUserDetails'
+import ConfirmOrder from './FinishOrderComponents/ConfirmOrder'
 
 const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 const phoneRe = /^[0-9+\-\s]{8,}$/
@@ -24,6 +25,7 @@ export default function FinishOrderPage() {
   const navigate = useNavigate()
   const [isDelivery, setIsDelivery] = useState(true)
   const [scrolled, setScrolled] = useState(false)
+  const [showConfirm, setShowConfirm] = useState(false)
 
   const [paymentMethod, setPaymentMethod] = useState('')
   const {orders} = useOrders()
@@ -125,6 +127,11 @@ export default function FinishOrderPage() {
 
   const handleSubmitOrder = async () => {
     if (!validate()) return
+    setShowConfirm(true)
+  }
+
+  const handleCloseConfirm = () => {
+    setShowConfirm(false)
   }
 
   return (
@@ -199,6 +206,12 @@ export default function FinishOrderPage() {
           />
         </div>
       </div>
+
+      {showConfirm && (
+        <ConfirmOrder
+          open={showConfirm}
+          onClose={handleCloseConfirm} />
+      )}
     </div>
   )
 }

@@ -1,11 +1,25 @@
 /* eslint-disable no-unused-vars */
 import { WarningCircleIcon } from '@phosphor-icons/react'
 import { AnimatePresence, motion } from 'framer-motion'
-import React from 'react'
+import { useEffect } from 'react'
 
-export default function ConfirmDelete({visible, onCancel, onConfirm, menuName}) {
+export default function ConfirmDelete({visible, onCancel, onConfirm, menuName}) {    
+    useEffect(() => {
+        if (!visible) return
+        const onKey = (e) => e.key === 'Escape' && onCancel?.()
+        window.addEventListener('keydown', onKey)
+        return () => window.removeEventListener('keydown', onKey)
+    }, [visible, onCancel])
+
+    useEffect(() => {
+        if (!visible) return
+        const prev = document.body.style.overflow
+        document.body.style.overflow = 'hidden'
+        return () => {document.body.style.overflow = prev}
+    }, [visible])
+    
     if(!visible) return null
-  return (
+    return (
     <AnimatePresence>
         <motion.div 
             initial={{opacity: 0}}
@@ -23,20 +37,34 @@ export default function ConfirmDelete({visible, onCancel, onConfirm, menuName}) 
                 </div>
                 
                 <div className='mb-8'>
-                    <h2 className="text-xl font-semibold">Confirmare Ștergere</h2>
-                    <p className="text-custom-gray text-sm leading-relaxed">Sigur vrei să ștergi <strong>{menuName}</strong> din comanda ta?</p>
+                    <motion.h2 
+                        className="text-xl font-semibold"
+                        initial={{ y: 6, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        transition={{ delay: 0.15 }}
+                    >
+                        Confirmare Ștergere
+                    </motion.h2>
+                    <motion.p 
+                        className="text-custom-gray text-sm leading-relaxed"
+                        initial={{ y: 6, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        transition={{ delay: 0.22 }}
+                    >
+                        Sigur vrei să ștergi <strong>{menuName}</strong> din comanda ta?
+                    </motion.p>
                 </div>
 
                 <div className="flex justify-center gap-2 w-full">
                     <button
                         onClick={onCancel}
-                        className="w-full px-4 py-2 text-custom-gray rounded hover:bg-gray-200 hover:text-black active:bg-gray-200 active:text-black cursor-pointer transition-all"
+                        className="w-full px-4 py-2 text-custom-gray rounded-lg hover:bg-gray-200 hover:text-black active:bg-gray-200 active:text-black cursor-pointer transition-all"
                     >
                         Anulează
                     </button>
                     <button
                         onClick={onConfirm}
-                        className="w-full px-4 py-2 bg-custom-red text-white rounded hover:bg-red-700 active:bg-red-700 active:scale-90 cursor-pointer transition-all"
+                        className="w-full px-4 py-2 bg-custom-red text-white rounded-lg hover:bg-red-700 active:bg-red-700 active:scale-90 cursor-pointer transition-all"
                     >
                         Șterge
                     </button>
