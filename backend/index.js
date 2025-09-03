@@ -77,8 +77,14 @@ app.get('/api/sosuri', async (req, res) => {
 })
 
 app.get('/api/comenzi_temporare', async (req, res) => {
-  const {session_id, user_id} = req.query
-  if (!session_id && !user_id) return res.status(400).json({ error: "Lipseste session_id sau user_id" })
+  let {session_id, user_id} = req.query
+
+  if (user_id === 'undefined') user_id = null
+  if (session_id === 'undefined') session_id = null
+
+  if (!session_id && !user_id) {
+    return res.status(400).json({ error: "Lipseste session_id sau user_id" })
+  } 
 
   const client = await pool.connect()
   try {
@@ -156,6 +162,110 @@ app.delete('/api/comenzi_temporare', async (req, res) => {
   } catch (error) {
     console.error('Eroare la stergere:', error)
     res.status(500).json({error: 'Eroare DB la stergere'})
+  } finally {
+    client.release()
+  }
+})
+
+app.post('/api/orders', async (req, res) => {
+  const token = req.cookies.auth_token
+  let userFromToken = null;
+  try {
+    if (token) userFromToken = jwt.verify(token, process.env.JWT_SECRET);
+  } catch (_) {}
+
+  const {
+    session_id,
+    customer,
+    delivery,
+    payment_method,
+    note
+  } = req.body
+
+  if(!customer?.nume || !customer?.prenume || !customer?.email || !customer?.telefon) {
+    return res.status(400).json({error: 'Date client incomplete'})
+  }
+  if(!['Card', 'Numerar'].includes(payment_method)) {
+    return res.status(400).json({error: 'Metoda de plata invalida'})
+  }
+  const client = await pool.connect()
+  try {
+    await client.query('BEGIN')
+    const identifier =  userFromToken?.id ? {col: 'user_id', val: userFromToken.id} : {col: 'session_id', val: session_id}
+
+    if(!identifier.val) {
+      await client.query('ROLLBACK')
+      return res.status(400).json({error: 'Lipseste user_id sau session_id'})
+    }
+
+    const tmp = await client.query(
+      `SELECT id, items, total_partial FROM comenzi_temporare 
+      WHERE ${identifier.col} = $1 FOR UPDATE`, 
+      [identifier.val]
+    )
+
+    if(tmp.rows.length === 0) {
+      await client.query('ROLLBACK')
+      return res.status(400).json({error: 'Cosul este gol'})
+    }
+
+    const subtotal = tmp.rows.reduce((s, r) => s + Number(r.total_partial || 0), 0)
+
+    const deliveryFee = delivery?.localitate ? (subtotal < 50 ? 8 : 0) : 0
+    const total = subtotal + deliveryFee
+
+    const insertOrder = await client.query(
+      `INSERT INTO comenzi (
+        user_id, session_id,
+        customer_nume, customer_prenume, customer_email, customer_telefon,
+        delivery_localitate, delivery_strada, delivery_cod_postal,
+        payment_method, total, note
+      ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12) RETURNING id`,
+       [
+        userFromToken?.id || null, userFromToken?.id ? null : session_id, 
+        customer.nume, customer.prenume, customer.email, customer.telefon,
+        delivery?.localitate || null, delivery?.strada || null, delivery?.codPostal || null,
+        payment_method, total, note || null
+      ]
+    )
+
+    const orderId = insertOrder.rows[0].id
+
+    for(const row of tmp.rows) {
+      const item = typeof row.items === 'string' ? JSON.parse(row.items) : row.items
+
+      const quantity = Number(item.quantity || 1)
+      const lineTotal = Number(item.price || 0)
+      const unitPrice = quantity > 0 ? lineTotal / quantity : lineTotal
+
+      await client.query(
+        `INSERT INTO comenzi_items (
+          order_id, menu_id, name, quantity, unit_price, line_total, options
+        ) VALUES ($1,$2,$3,$4,$5,$6,$7)`,
+         [
+          orderId, item.menu_id || null,
+          item.name, quantity, unitPrice, lineTotal,
+          JSON.stringify({
+            garnitura: item.garnitura ?? null,
+            salate: item.salate ?? [],
+            bauturi: item.bauturi ?? [],
+            sosuri: item.sosuri ?? []
+          })
+         ]
+      )
+    }
+
+    await client.query(
+      `DELETE FROM comenzi_temporare WHERE ${identifier.col} = $1`,
+      [identifier.val]
+    )
+
+    await client.query('COMMIT')
+    res.json({success: true, order_id: orderId, total})
+  } catch (error) {
+    await client.query('ROLLBACK')
+    console.error('Finalize order error:', error)
+    res.status(500).json({error: 'Eroare la salvarea comenzii'})
   } finally {
     client.release()
   }

@@ -22,6 +22,7 @@ const stradaAllowedRe = /^[A-Za-z0-9 .,'/-]+$/
 const stradaHasDigitRe = /\d/
 
 export default function FinishOrderPage() {
+  const API_URL = import.meta.env.VITE_API_URL
   const navigate = useNavigate()
   const [isDelivery, setIsDelivery] = useState(true)
   const [scrolled, setScrolled] = useState(false)
@@ -127,7 +128,34 @@ export default function FinishOrderPage() {
 
   const handleSubmitOrder = async () => {
     if (!validate()) return
-    setShowConfirm(true)
+    
+    const session_id = sessionStorage.getItem('session_id')
+    const body = {
+      session_id,
+      customer,
+      delivery: isDelivery ? delivery : null,
+      payment_method: paymentMethod,
+      note: ''
+    }
+    
+    try {
+      const res = await fetch(`${API_URL}/api/orders`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        credentials: 'include',
+        body: JSON.stringify(body)
+      })
+      const data = await res.json()
+      
+      if(!res.ok) {
+        console.error(data.error)
+        return
+      }
+
+      setShowConfirm(true)
+    } catch (error) {
+      console.error('Eroare order fetch:', error)
+    }
   }
 
   const handleCloseConfirm = () => {
