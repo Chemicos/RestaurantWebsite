@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 export default function ConfirmOrder({
     open,
     onClose,
+    onOk,
     title = 'Comanda a fost trimisa!',
     message = 'Iti multumim. Te vom contacta in curand.',
     okText = 'Am inteles'
@@ -89,7 +90,10 @@ export default function ConfirmOrder({
                 </motion.p>
 
                 <motion.button
-                    onClick={onClose}
+                    onClick={() => {
+                        onOk?.()
+                        onClose?.()
+                    }}
                     className='mt-2 bg-custom-red hover:bg-red-700 active:bg-red-700 active:scale-95 text-white py-2 px-4 w-full rounded-lg font-semibold transition-all'
                     autoFocus
                 >

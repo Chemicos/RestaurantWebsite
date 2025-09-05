@@ -14,16 +14,20 @@ import { motion } from 'framer-motion'
 import { useOrders } from '../MenusPage/hooks/useOrders'
 import { useUserDetails } from '../MenusPage/hooks/useUserDetails'
 import ConfirmOrder from './FinishOrderComponents/ConfirmOrder'
+import { useCart } from '../../contexts/CartContext'
 
 const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-const phoneRe = /^[0-9+\-\s]{8,}$/
+const phoneRe = /^[0-9+\-\s]{10,}$/
 const normalizeSpaces = (s) => s.replace(/\s+/g, ' ').trim()
 const stradaAllowedRe = /^[A-Za-z0-9 .,'/-]+$/
 const stradaHasDigitRe = /\d/
 
 export default function FinishOrderPage() {
-  const API_URL = import.meta.env.VITE_API_URL
   const navigate = useNavigate()
+  const API_URL = import.meta.env.VITE_API_URL
+  const {fetchCartItems, setCartItemCount} = useCart()
+  const {refreshOrders, setOrders} = useOrders()
+
   const [isDelivery, setIsDelivery] = useState(true)
   const [scrolled, setScrolled] = useState(false)
   const [showConfirm, setShowConfirm] = useState(false)
@@ -152,6 +156,11 @@ export default function FinishOrderPage() {
         return
       }
 
+      setOrders([])
+      setCartItemCount(0)
+
+      await Promise.all([refreshOrders(), fetchCartItems()])
+
       setShowConfirm(true)
     } catch (error) {
       console.error('Eroare order fetch:', error)
@@ -160,6 +169,11 @@ export default function FinishOrderPage() {
 
   const handleCloseConfirm = () => {
     setShowConfirm(false)
+  }
+
+  const handleConfirmOk = async () => {
+    await Promise.all([refreshOrders(), fetchCartItems()])
+    navigate('/meniuri')
   }
 
   return (
@@ -238,6 +252,7 @@ export default function FinishOrderPage() {
       {showConfirm && (
         <ConfirmOrder
           open={showConfirm}
+          onOk={handleConfirmOk}
           onClose={handleCloseConfirm} />
       )}
     </div>

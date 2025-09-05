@@ -48,6 +48,9 @@ export default function CustomerDetailsForm({
             ? errors.telefon
             : ''
         }
+        slotProps={{htmlInput: {
+          maxLength: 10
+        }}}
       />
 
       <TextField
