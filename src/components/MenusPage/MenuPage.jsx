@@ -20,6 +20,10 @@ export default function MenuPage() {
   const [searchTerm, setSearchTerm] = useState('')
   const [menuToDelete, setMenuToDelete] = useState(null)
   const [toastOpen, setToastOpen] = useState(false)
+  const [editToastOpen, setEditToastOpen] = useState(false)
+
+  const [editingOrder, setEditingOrder] = useState(null)
+  const [editingCartId, setEditingCartId] = useState(null)
 
   const [isCustomizerOpen, setIsCustomizerOpen] = useState(false)
   const [selectedItem, setSelectedItem] = useState(null) 
@@ -61,16 +65,21 @@ export default function MenuPage() {
     return matchesCategory && matchesSearch
   })
 
-  const handleDeleteOrder = async (menuName) => {
+  const handleDeleteOrder = async (cartId) => {
     const session_id = sessionStorage.getItem("session_id")
     const user_id = user?.id
-    if (!menuName || (!user_id && !session_id)) return
+    if (!cartId|| (!user_id && !session_id)) return
 
     try {
-      await fetch(`${API_URL}/api/comenzi_temporare`, {
+      // await fetch(`${API_URL}/api/comenzi_temporare`, {
+      //   method: 'DELETE',
+      //   headers: {'Content-Type' : 'application/json'},
+      //   body: JSON.stringify({item_name: order.name, ...(user_id ? {user_id} : {session_id})})
+      // })
+      await fetch(`${API_URL}/api/comenzi_temporare/${cartId}`, {
         method: 'DELETE',
         headers: {'Content-Type' : 'application/json'},
-        body: JSON.stringify({item_name: menuName, ...(user_id ? {user_id} : {session_id})})
+        body: JSON.stringify(user_id ? {user_id} : {session_id})
       })
       refreshOrders()
       fetchCartItems()
@@ -84,6 +93,11 @@ export default function MenuPage() {
   const handleCloseToast = (_, reason) => {
     if (reason === 'clickaway') return
     setToastOpen(false)
+  }
+
+  const handleCloseEditToast = (_, reason) => {
+    if (reason === 'clickaway') return
+    setEditToastOpen(false)
   }
 
   const handleResetFilters = () => {
@@ -135,7 +149,16 @@ export default function MenuPage() {
         }>
           <OrderSummary
             orders={orders}
-            onRequestDelete={(menuName) => setMenuToDelete(menuName)}
+            // onRequestDelete={(cartId) => setMenuToDelete(cartId)}
+            onRequestDelete={(order) => setMenuToDelete({id: order._cartId, name: order.name})}
+            onRequestEdit={(order) => {
+              const base = menuItems.find(m => m.name === order.name)
+              if (!base) return
+              setSelectedItem(base)
+              setEditingOrder(order)
+              setEditingCartId(order._cartId)
+              setIsCustomizerOpen(true)
+            }}
           />        
         </div>
       </div>
@@ -156,32 +179,58 @@ export default function MenuPage() {
         </Alert>
       </Snackbar>
 
+      <Snackbar
+        open={editToastOpen}
+        autoHideDuration={4000}
+        onClose={handleCloseEditToast}
+        anchorOrigin={{vertical: 'bottom', horizontal: 'center'}}
+      >
+        <Alert onClose={handleCloseEditToast} severity='success' variant='filled' sx={{width: '100%'}}>
+          Meniul a fost actualizat cu succes!
+        </Alert>
+      </Snackbar>
+
       {showOrderSummaryMobile && (
         <OrderSummaryMobileWrapper
           orders={orders}
-          onRequestDelete={(menuName) => setMenuToDelete(menuName)}
+          onRequestDelete={(order) => setMenuToDelete({id: order._cartId, name: order.name})}
           onClose={() => setShowOrderSummaryMobile(false)}
+          onRequestEdit={(order) => {
+            const base = menuItems.find(m => m.name === order.name)
+            if (!base) return
+            setSelectedItem(base)
+            setEditingOrder(order)
+            setEditingCartId(order._cartId)
+            setIsCustomizerOpen(true)
+          }}
         />
       )}
 
       {isCustomizerOpen && selectedItem && (
         <MenuCustomizer
           menu={selectedItem}
+          mode={editingOrder ? 'edit' : 'add'}
+          initialSelection={editingOrder || null}
+          cartItemId={editingCartId || null}
           onClose={() => {
             setIsCustomizerOpen(false)
             setSelectedItem(null)
+            setEditingOrder(null)
+            setEditingCartId(null)
           }}
-          // refreshOrders={fetchOrders}
           refreshOrders={refreshOrders}
+          onEdited={() => setEditToastOpen(true)}
         />
       )}
 
       <ConfirmDelete 
           visible={!!menuToDelete}
           onCancel={() => setMenuToDelete(null)}
-          onConfirm={() => handleDeleteOrder(menuToDelete)}
-          menuName={menuToDelete}
-        />
+          // onConfirm={() => handleDeleteOrder(menuToDelete)}
+          // menuName={menuToDelete}
+          onConfirm={() => handleDeleteOrder(menuToDelete?.id)}
+          menuName={menuToDelete?.name}
+      />
     </div>
   )
 }

@@ -46,7 +46,7 @@ export default function MenuPreviewPanel({
               </p>
             )}
 
-            {Object.keys(selectedSalate).length > 0 && (
+            {Array.isArray(selectedSalate) && selectedSalate.length > 0 && (
               <p className="text-black">
                 Salate:
                 <span className="text-custom-gray">

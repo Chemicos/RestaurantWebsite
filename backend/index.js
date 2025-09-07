@@ -88,8 +88,13 @@ app.get('/api/comenzi_temporare', async (req, res) => {
 
   const client = await pool.connect()
   try {
+    // const query = `
+    //   SELECT items FROM comenzi_temporare 
+    //   WHERE ${user_id ? 'user_id = $1' : 'session_id = $1'}
+    // `
+
     const query = `
-      SELECT items FROM comenzi_temporare 
+      SELECT id, items, total_partial FROM comenzi_temporare
       WHERE ${user_id ? 'user_id = $1' : 'session_id = $1'}
     `
     const value = user_id || session_id
@@ -131,34 +136,71 @@ app.post('/api/comenzi_temporare', async (req, res) => {
   }
 })
 
-app.delete('/api/comenzi_temporare', async (req, res) => {
-  const {session_id, user_id, item_name} = req.body
+app.patch('/api/comenzi_temporare/:id', async (req, res) => {
+  const {id} = req.params
+  const {session_id, user_id, menu} = req.body
 
-  if (!item_name || (!session_id && !user_id)) {
-    return res.status(400).json({error: 'Lipseste item_name si identificator (user_id sau session_id)'})
+  if(!menu || (!user_id && !session_id)) {
+    return res.status(400).json({error: 'Date incomplete'})
   }
 
   const client = await pool.connect()
-  const identifierColumn = user_id ? 'user_id' : 'session_id'
-  const identifierValue = user_id || session_id
 
   try {
-    const {rows} = await client.query(`
-      SELECT ctid FROM comenzi_temporare
-      WHERE ${identifierColumn} = $1 AND items->>'name' = $2
-      LIMIT 1
-    `, [identifierValue, item_name])
+    const identifierColumn = user_id ? 'user_id' : 'session_id'
+    const identifierValue = user_id || session_id
 
-    if(rows.length === 0) {
-      return res.status(404).json({error: 'Comanda nu a fost gasita'})
+    const found  = await client.query(
+      `SELECT 1 FROM comenzi_temporare WHERE id = $1 AND ${identifierColumn} = $2`,
+      [id, identifierValue]
+    )
+
+    if(found.rowCount === 0) {
+      return res(404).json({error: 'Element inexistent sau nu apartine utilizatorului.'})
     }
 
-    const ctid = rows[0].ctid
-    
-    await client.query(`
-      DELETE FROM comenzi_temporare WHERE ctid = $1  
-    `, [ctid])
-    res.json({success: true})
+    await client.query(
+      `UPDATE comenzi_temporare
+       SET items = $1, total_partial = $2, last_updated = now()
+       WHERE id = $3
+      `,
+      [JSON.stringify(menu), menu.price, id]
+    )
+
+    res.json({succes: true})
+  } catch (error) {
+    console.error('Eroare PATCH:', error)
+    res.status(500).json({error: 'Eroare DB'})
+  } finally {
+    client.release()
+  }
+})
+
+app.delete('/api/comenzi_temporare/:id', async (req, res) => {
+  const {id} = req.params
+  const {session_id, user_id} = req.body
+
+  if (!id || (!session_id && !user_id)) {
+    return res.status(400).json({error: 'Lipseste id si identificator (user_id sau session_id)'})
+  }
+
+  const client = await pool.connect()
+
+  try {
+    const identifierColumn = user_id ? 'user_id' : 'session_id'
+    const identifierValue = user_id || session_id
+
+    const del = await client.query(
+      `DELETE FROM comenzi_temporare 
+       WHERE id = $1 AND ${identifierColumn} = $2`,
+      [id, identifierValue]
+    )
+
+    if (del.rowCount === 0) {
+      return res.status(404).json({error: 'Item inexistent sau nu apartine utilizatorului.'})
+    }
+
+    res.json({ success: true })
   } catch (error) {
     console.error('Eroare la stergere:', error)
     res.status(500).json({error: 'Eroare DB la stergere'})

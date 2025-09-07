@@ -3,17 +3,22 @@ import React, { useEffect } from 'react'
 import OrderSummary from './OrderSummary'
 import { XIcon } from '@phosphor-icons/react'
 
-export default function OrderSummaryMobileWrapper({orders, onRequestDelete, onClose}) {
+export default function OrderSummaryMobileWrapper({orders, onRequestDelete, onRequestEdit, onClose}) {
     const isMobile = useMediaQuery('(max-width: 1024px)')
     
     useEffect(() => {
-        document.body.style.overflow = 'hidden'
-        return () => {
-          document.body.style.overflow = 'auto'
-        }
-      }, [])
+      document.body.style.overflow = 'hidden'
+      return () => {
+        document.body.style.overflow = 'auto'
+      }
+    }, [])
 
     if(!isMobile) return null
+
+    const handleEdit = (order) => {
+      if (typeof onClose === 'function') onClose()
+      if (typeof onRequestEdit === 'function') onRequestEdit(order)
+    }
   return (
     <div className="fixed top-0 left-0 w-full h-full bg-custom-white z-[1300] p-4 overflow-y-auto animate-fade-in">
       <div className="flex justify-end">
@@ -28,6 +33,7 @@ export default function OrderSummaryMobileWrapper({orders, onRequestDelete, onCl
       <OrderSummary
         orders={orders}
         onRequestDelete={onRequestDelete}
+        onRequestEdit={handleEdit}
       />
     </div>
   )

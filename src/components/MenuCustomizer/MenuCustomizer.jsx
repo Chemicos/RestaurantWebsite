@@ -14,12 +14,22 @@ export default function MenuCustomizer({
   onClose,
   menu,
   refreshOrders,
+  mode = 'add',
+  initialSelection = null,
+  cartItemId = null,
+  onEdited
 }) {
-  const [quantity, setQuantity] = useState(1)
-  const [selectedGarnitura, setSelectedGarnitura] = useState(null)
-  const [selectedSalate, setSelectedSalate] = useState([])
-  const [selectedBauturi, setSelectedBauturi] = useState({})
-  const [selectedSosuri, setSelectedSosuri] = useState({})
+  // const [quantity, setQuantity] = useState(1)
+  // const [selectedGarnitura, setSelectedGarnitura] = useState(null)
+  // const [selectedSalate, setSelectedSalate] = useState([])
+  // const [selectedBauturi, setSelectedBauturi] = useState({})
+  // const [selectedSosuri, setSelectedSosuri] = useState({})
+  const [quantity, setQuantity] = useState(initialSelection?.quantity ?? 1)
+  const [selectedGarnitura, setSelectedGarnitura] = useState(initialSelection?.garnitura ?? null)
+  const [selectedSalate, setSelectedSalate] = useState(initialSelection?.salate ?? [])
+  const [selectedBauturi, setSelectedBauturi] = useState(initialSelection?.bauturi ?? [])
+  const [selectedSosuri, setSelectedSosuri] = useState(initialSelection?.sosuri ?? [])
+
   const [isLoading, setIsLoading] = useState(true)
   const [garnituri, setGarnituri] = useState([])
   const [salate, setSalate] = useState([])
@@ -117,14 +127,21 @@ export default function MenuCustomizer({
     sessionStorage.setItem("session_id", orderPayload.session_id)
 
     try {
-      await fetch(`${API_URL}/api/comenzi_temporare`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+      const url = mode === 'edit' 
+        ? `${API_URL}/api/comenzi_temporare/${cartItemId}`
+        : `${API_URL}/api/comenzi_temporare`
+
+      const method = mode === 'edit' ? 'PATCH' : 'POST'
+
+      await fetch(url, {
+        method,
+        headers: {"Content-Type": "application/json"},
         credentials: 'include',
         body: JSON.stringify(orderPayload)
       })
 
       if (typeof refreshOrders === 'function') refreshOrders()
+      if (mode === 'edit' && typeof onEdited === 'function') onEdited()
       onClose()
       if (location.pathname !== "/meniuri") navigate("/meniuri")
       await fetchCartItems()
@@ -181,6 +198,7 @@ export default function MenuCustomizer({
                     salate={salate}
                     bauturi={bauturi}
                     sosuri={sosuri}
+                    defaults={initialSelection}
                   />
                 </div>
 
@@ -205,6 +223,7 @@ export default function MenuCustomizer({
                     salate={salate}
                     bauturi={bauturi}
                     sosuri={sosuri}
+                    defaults={initialSelection}
                   />
                 </div>
 
@@ -229,7 +248,7 @@ export default function MenuCustomizer({
             <button
                 onClick={onClose} 
                 className="absolute top-4 right-4 text-white p-2 rounded-full bg-[#66635B]/30 cursor-pointer
-                transition-colors hover:bg-red-600 hover:shadow-lg"
+                transition-all hover:bg-red-600 active:bg-red-600 hover:shadow-lg"
             >
                 <XIcon size={20} weight="bold" />
             </button>

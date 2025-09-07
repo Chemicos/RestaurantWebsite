@@ -2,7 +2,7 @@ import { generateOrderDetailsText } from './utils/formatOrderDetails'
 import { useMediaQuery } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 
-export default function OrderSummary({orders, onRequestDelete}) {
+export default function OrderSummary({orders, onRequestDelete, onRequestEdit}) {
   const totalPrice = orders.reduce((acc, order) => acc + Number(order.price), 0)
   const isMobile = useMediaQuery('(max-width: 1024px)')
   const navigate = useNavigate()
@@ -27,13 +27,23 @@ export default function OrderSummary({orders, onRequestDelete}) {
                   </div>
                   
                   <p className='text-sm text-custom-gray leading-relaxed'>{generateOrderDetailsText(order)}</p>
+                  
 
-                  <button 
-                  className='text-sm text-custom-red font-medium hover:underline cursor-pointer'
-                  onClick={() => onRequestDelete(order.name)}
-                  >
-                    Sterge
-                  </button>
+                  <div className='flex gap-2'>
+                    <button 
+                    className='text-sm text-custom-red font-medium hover:underline cursor-pointer'
+                    onClick={() => onRequestDelete(order)}
+                    >
+                      Sterge
+                    </button>
+
+                    <button
+                      className='text-sm text-custom-red font-medium hover:underline cursor-pointer'
+                      onClick={() => onRequestEdit(order)}
+                    >
+                      Editeaza
+                    </button>
+                  </div>
                 </div>
           
                 <p className='text-md'>{Number(order.price).toFixed(2)} RON</p>

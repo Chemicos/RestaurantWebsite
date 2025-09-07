@@ -31,7 +31,7 @@ export default function AddMenu({
 
         <button 
             className="w-full mt-4 py-3 rounded-full text-white font-semibold bg-custom-red shadow-sm
-            hover:bg-red-700 transition-colors duration-300 cursor-pointer"
+            hover:bg-red-700 active:scale-90 transition-all duration-300 cursor-pointer"
             onClick={handleAddOrder}
         >
             Adauga {quantity} pentru {totalPrice.toFixed(2)} RON

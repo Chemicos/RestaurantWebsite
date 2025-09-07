@@ -23,13 +23,18 @@ export const OrdersProvider = ({ children }) => {
 
     try {
       const res = await fetch(url, { credentials: "include" })
-      const data = await res.json() 
+      const rows = await res.json() 
 
-      const allItems = Array.isArray(data) ? data.map(entry => entry.items) : []
+      // const allItems = Array.isArray(data) ? data.map(entry => entry.items) : []
 
-      const normalized = allItems.flatMap(item => {
-        const value = typeof item === "string" ? JSON.parse(item) : item
-        return Array.isArray(value) ? value : [value]
+      const normalized = (Array.isArray(rows) ? rows : []).flatMap(row => {
+        const raw = typeof row.items === "string" ? JSON.parse(row.items) : row.items
+        const arr = Array.isArray(raw) ? raw : [raw]
+        return arr.map(it => ({
+          ...it,
+          _cartId: row.id,
+          _lineTotal: row.total_partial,
+        }))
       })
 
       setOrders(normalized)

@@ -12,12 +12,35 @@ export default function MenuCustomizerForm({
   garnituri,
   salate, 
   bauturi, 
-  sosuri
+  sosuri,
+  defaults = null
 }) {
   const [selectedGarnitura, setSelectedGarnitura] = useState(null)
   const [selectedSalate, setSelectedSalate] = useState({})
   const [selectedBauturi, setSelectedBauturi] = useState({})
   const [selectedSosuri, setSelectedSosuri] = useState({})
+
+  useEffect(() => {
+    if(!defaults) return
+    if(defaults.garnitura) setSelectedGarnitura(defaults.garnitura)
+    if(Array.isArray(defaults.salate)) {
+      const map = {}
+      defaults.salate.forEach(s => { if (s?.id && s.quantity) map[s.id] = s.quantity })
+      setSelectedSalate(map)
+    }
+    
+    if(Array.isArray(defaults.bauturi)) {
+      const map = {}
+      defaults.bauturi.forEach(b => { if (b?.id && b.quantity) map[b.id] = b.quantity })
+      setSelectedBauturi(map)
+    }
+
+    if(Array.isArray(defaults.sosuri)) {
+      const map = {}
+      defaults.sosuri.forEach(s => { if (s?.id && s.quantity) map[s.id] = s.quantity })
+      setSelectedSosuri(map)
+    }
+  }, [defaults, garnituri, salate, bauturi, sosuri])
 
   const updateSosuriQuantity = (id, delta) => {
     setSelectedSosuri(prev => {
