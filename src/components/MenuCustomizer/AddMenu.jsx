@@ -5,7 +5,8 @@ export default function AddMenu({
     quantity, 
     setQuantity, 
     totalPrice, 
-    handleAddOrder
+    handleAddOrder,
+    isEditing
 }) {
   return (
     <div className="flex flex-col w-full">
@@ -34,7 +35,9 @@ export default function AddMenu({
             hover:bg-red-700 active:scale-90 transition-all duration-300 cursor-pointer"
             onClick={handleAddOrder}
         >
-            Adauga {quantity} pentru {totalPrice.toFixed(2)} RON
+            {isEditing 
+                ? `Salveaza ${quantity} pentru ${totalPrice.toFixed(2)} RON` 
+                : `Adauga ${quantity} pentru ${totalPrice.toFixed(2)} RON `}
         </button>
     </div>
   )

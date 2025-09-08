@@ -6,6 +6,7 @@ import dotenv from 'dotenv';
 import bcrypt from 'bcrypt';
 import cookieParser from 'cookie-parser';
 import jwt from 'jsonwebtoken';
+import Stripe from 'stripe';
 
 dotenv.config();
 const { Pool } = pkg;
@@ -26,13 +27,49 @@ const pool = new Pool({
   port: 5432,
 });
 
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
+const CLIENT_URL = process.env.CLIENT_URL || 'http://localhost:5173'
+
+app.post('/api/stripe/checkout', async (req, res) => {
+  try {
+    const { amount, metadata } = req.body
+    if (!amount || amount < 1) {
+      return res.status(400).json({ error: 'Suma lipseste sau este invalida' })
+    }
+
+    const session = await stripe.checkout.sessions.create({
+      mode: 'payment',
+      payment_method_types: ['card'],
+      line_items: [
+        {
+          price_data: {
+            currency: 'ron',
+            product_data: { name: 'Comanda restaurant' },
+            unit_amount: amount
+          },
+          quantity: 1
+        }
+      ],
+
+      success_url: `${CLIENT_URL}/finalizare?plata=success`,
+      cancel_url: `${CLIENT_URL}/finalizare?plata=cancel`,
+      metadata: metadata || {}
+    })
+
+    res.json({ url: session.url })
+  } catch (error) {
+    console.error('Stripe checkout error:', error)
+    res.status(500).json({ error: 'Eroare Stripe' })
+  }
+})
+
 app.get('/api/menus', async (req, res) => {
   try {
-    const result = await pool.query('SELECT * FROM menu');
+    const result = await pool.query('SELECT * FROM menu')
     res.json(result.rows);
   } catch (err) {
     console.error('Error fetching menu:', err);
-    res.status(500).json({err: 'Internal Server Error'});
+    res.status(500).json({err: 'Internal Server Error'})
   }
 });
 

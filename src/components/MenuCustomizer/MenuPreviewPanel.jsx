@@ -14,7 +14,8 @@ export default function MenuPreviewPanel({
    selectedGarnitura = null,
    selectedSalate = [],
    totalPrice,
-   handleAddOrder
+   handleAddOrder,
+   isEditing = false
   }) {
 
   const isMobile = useMediaQuery('(max-width: 1024px)')
@@ -81,6 +82,7 @@ export default function MenuPreviewPanel({
           setQuantity={setQuantity}
           totalPrice={totalPrice}
           handleAddOrder={handleAddOrder}
+          isEditing={isEditing}
         />
       )}
     </div>

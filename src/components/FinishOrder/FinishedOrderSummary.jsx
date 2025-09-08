@@ -2,10 +2,12 @@ import { CircularProgress } from '@mui/material'
 import { BasketIcon, WarningCircleIcon } from '@phosphor-icons/react'
 import React, { useEffect, useState } from 'react'
 
-export default function FinishedOrderSummary({orders, paymentMethod, isDelivery, onSubmit}) {
-  const totalProducts = orders.reduce((acc, item) => acc + Number(item.price), 0)
-  const deliveryTax = isDelivery && totalProducts < 50 ? 8 : 0
-  const totalFinal = totalProducts + deliveryTax
+export default function FinishedOrderSummary({
+  paymentMethod, isDelivery, onSubmit, totalProducts, deliveryTax, totalFinal
+}) {
+  // const totalProducts = orders.reduce((acc, item) => acc + Number(item.price), 0)
+  // const deliveryTax = isDelivery && totalProducts < 50 ? 8 : 0
+  // const totalFinal = totalProducts + deliveryTax
   
   const [isLoading, setIsLoading] = useState(true)
 

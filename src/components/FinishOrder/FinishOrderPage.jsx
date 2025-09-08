@@ -26,14 +26,13 @@ export default function FinishOrderPage() {
   const navigate = useNavigate()
   const API_URL = import.meta.env.VITE_API_URL
   const {fetchCartItems, setCartItemCount} = useCart()
-  const {refreshOrders, setOrders} = useOrders()
+  const {orders, refreshOrders, setOrders} = useOrders()
 
   const [isDelivery, setIsDelivery] = useState(true)
   const [scrolled, setScrolled] = useState(false)
   const [showConfirm, setShowConfirm] = useState(false)
 
   const [paymentMethod, setPaymentMethod] = useState('')
-  const {orders} = useOrders()
 
   const [customer, setCustomer] = useState({
     prenume: '', nume: '', telefon: '', email: ''
@@ -48,6 +47,10 @@ export default function FinishOrderPage() {
   })
 
   const { userDetails } = useUserDetails()
+
+  const totalProducts = orders.reduce((acc, it) => acc + Number(it.price || 0), 0)
+  const deliveryTax = isDelivery && totalProducts < 50 ? 8 : 0
+  const totalFinal = totalProducts + deliveryTax
 
   useEffect(() => {
     if (userDetails) {
@@ -134,33 +137,63 @@ export default function FinishOrderPage() {
     if (!validate()) return
     
     const session_id = sessionStorage.getItem('session_id')
-    const body = {
+    const orderDraft = {
       session_id,
       customer,
       delivery: isDelivery ? delivery : null,
-      payment_method: paymentMethod,
-      note: ''
+      payment_method: 'Card',
+      note: '',
+      summary: { totalProducts, deliveryTax, totalFinal }
     }
     
     try {
+      if (paymentMethod === 'Card') {
+        sessionStorage.setItem('order_draft', JSON.stringify(orderDraft))
+
+        const stripeRes = await fetch(`${API_URL}/api/stripe/checkout`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            amount: Math.round(totalFinal * 100),
+            metadata: {
+              customer_email: customer.email
+            }
+          })
+        })
+        
+        const stripeData = await stripeRes.json()
+        
+        if (!stripeRes.ok || !stripeData.url) {
+          console.error('Stripe error:', stripeData.error)
+          return
+        }
+        
+        window.location.href = stripeData.url
+        return
+      }
+      
       const res = await fetch(`${API_URL}/api/orders`, {
         method: 'POST',
-        headers: {'Content-Type': 'application/json'},
+        headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
-        body: JSON.stringify(body)
+        body: JSON.stringify({
+          session_id,
+          customer,
+          delivery: isDelivery ? delivery : null,
+          payment_method: 'Numerar',
+          note: '',
+          summary: { totalProducts, deliveryTax, totalFinal }
+        })
       })
       const data = await res.json()
-      
-      if(!res.ok) {
+      if (!res.ok) {
         console.error(data.error)
         return
       }
 
       setOrders([])
       setCartItemCount(0)
-
       await Promise.all([refreshOrders(), fetchCartItems()])
-
       setShowConfirm(true)
     } catch (error) {
       console.error('Eroare order fetch:', error)
@@ -241,10 +274,13 @@ export default function FinishOrderPage() {
           transition-all duration-500 ease-out ${scrolled ? 'translate-y-[40px]' : 'translate-y-0'}
         `}>
           <FinishedOrderSummary
-            orders={orders}
+            // orders={orders}
             paymentMethod={paymentMethod}
             isDelivery={isDelivery}
             onSubmit={handleSubmitOrder}
+            totalProducts={totalProducts}
+            deliveryTax={deliveryTax}
+            totalFinal={totalFinal}
           />
         </div>
       </div>

@@ -19,11 +19,6 @@ export default function MenuCustomizer({
   cartItemId = null,
   onEdited
 }) {
-  // const [quantity, setQuantity] = useState(1)
-  // const [selectedGarnitura, setSelectedGarnitura] = useState(null)
-  // const [selectedSalate, setSelectedSalate] = useState([])
-  // const [selectedBauturi, setSelectedBauturi] = useState({})
-  // const [selectedSosuri, setSelectedSosuri] = useState({})
   const [quantity, setQuantity] = useState(initialSelection?.quantity ?? 1)
   const [selectedGarnitura, setSelectedGarnitura] = useState(initialSelection?.garnitura ?? null)
   const [selectedSalate, setSelectedSalate] = useState(initialSelection?.salate ?? [])
@@ -208,6 +203,7 @@ export default function MenuCustomizer({
                     setQuantity={setQuantity}
                     totalPrice={totalPrice}
                     handleAddOrder={handleAddOrder}
+                    isEditing={mode === 'edit'}
                   />
                 </div>
               </div>
@@ -241,6 +237,7 @@ export default function MenuCustomizer({
                     selectedSalate={selectedSalate}
                     totalPrice={totalPrice}
                     handleAddOrder={handleAddOrder}
+                    isEditing={mode === 'edit'}
                   />
                 </div>
               </>
