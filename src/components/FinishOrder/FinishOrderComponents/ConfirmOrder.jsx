@@ -6,9 +6,9 @@ export default function ConfirmOrder({
     open,
     onClose,
     onOk,
-    title = 'Comanda a fost trimisa!',
+    title = 'Plata a fost efectuată!',
     message = 'Iti multumim. Te vom contacta in curand.',
-    okText = 'Am inteles'
+    okText = 'Inchide'
 }) {
 
     useEffect(() => {

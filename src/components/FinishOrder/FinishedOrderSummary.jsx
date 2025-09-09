@@ -3,7 +3,7 @@ import { BasketIcon, WarningCircleIcon } from '@phosphor-icons/react'
 import React, { useEffect, useState } from 'react'
 
 export default function FinishedOrderSummary({
-  paymentMethod, isDelivery, onSubmit, totalProducts, deliveryTax, totalFinal
+  paymentMethod, isDelivery, onSubmit, totalProducts, deliveryTax, totalFinal, isSubmitting = false
 }) {
   // const totalProducts = orders.reduce((acc, item) => acc + Number(item.price), 0)
   // const deliveryTax = isDelivery && totalProducts < 50 ? 8 : 0
@@ -73,8 +73,18 @@ export default function FinishedOrderSummary({
         className='bg-custom-red hover:bg-red-700 active:bg-red-700 active:scale-90 text-white py-4 lg:py-2 
         px-4 mt-6 w-full rounded-full font-semibold cursor-pointer transition-all'
         onClick={onSubmit}
+        disabled={isSubmitting}
+        aria-busy={isSubmitting}
+        aria-disabled={isSubmitting}
       >
-        Trimite Comanda
+        {isSubmitting ? (
+          <span className='flex items-center justify-center gap-2'>
+            <CircularProgress size={20} color='inherit' />
+            {paymentMethod === 'Card' ? 'Se deschide plata...' : 'Se trimite comanda...'}
+          </span>
+        ): (
+          'Trimite Comanda'
+        )}
       </button>
     </div>
   )

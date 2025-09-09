@@ -51,7 +51,7 @@ app.post('/api/stripe/checkout', async (req, res) => {
         }
       ],
 
-      success_url: `${CLIENT_URL}/finalizare?plata=success`,
+      success_url: `${CLIENT_URL}/meniuri?plata=success`,
       cancel_url: `${CLIENT_URL}/finalizare?plata=cancel`,
       metadata: metadata || {}
     })

@@ -10,9 +10,13 @@ import { useOrderSummary } from '../../contexts/OrderSummaryContext'
 import OrderSummaryMobileWrapper from './OrderSummaryMobileWrapper'
 import { useOrders } from './hooks/useOrders'
 import { useCart } from '../../contexts/CartContext'
+import { useLocation, useNavigate } from 'react-router-dom'
+import ConfirmOrderTransaction from './ConfirmOrderTransaction'
 
 export default function MenuPage() {
   const { showOrderSummaryMobile, setShowOrderSummaryMobile } = useOrderSummary()
+  const location = useLocation()
+  const navigate = useNavigate()
 
   const [selectedCategory, setSelectedCategory] = useState('')
   const [scrolled, setScrolled] = useState(false)
@@ -21,6 +25,7 @@ export default function MenuPage() {
   const [menuToDelete, setMenuToDelete] = useState(null)
   const [toastOpen, setToastOpen] = useState(false)
   const [editToastOpen, setEditToastOpen] = useState(false)
+  const [showConfirmOrder, setShowConfirmOrder] = useState(false)
 
   const [editingOrder, setEditingOrder] = useState(null)
   const [editingCartId, setEditingCartId] = useState(null)
@@ -31,8 +36,8 @@ export default function MenuPage() {
 
   const API_URL = import.meta.env.VITE_API_URL
 
-  const {fetchCartItems} = useCart()
-  const {orders, refreshOrders} = useOrders()
+  const {fetchCartItems, setCartItemCount} = useCart()
+  const {orders, refreshOrders, setOrders} = useOrders()
   const {user} = useContext(AuthContext)
 
   useEffect(() => {
@@ -71,11 +76,6 @@ export default function MenuPage() {
     if (!cartId|| (!user_id && !session_id)) return
 
     try {
-      // await fetch(`${API_URL}/api/comenzi_temporare`, {
-      //   method: 'DELETE',
-      //   headers: {'Content-Type' : 'application/json'},
-      //   body: JSON.stringify({item_name: order.name, ...(user_id ? {user_id} : {session_id})})
-      // })
       await fetch(`${API_URL}/api/comenzi_temporare/${cartId}`, {
         method: 'DELETE',
         headers: {'Content-Type' : 'application/json'},
@@ -114,6 +114,49 @@ export default function MenuPage() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  useEffect(() => {
+    const params = new URLSearchParams(location.search)
+    const result = params.get('plata')
+
+    const finalizeAfterStripe = async () => {
+      if (result !== 'success') return
+      const draftRaw = sessionStorage.getItem('order_draft')
+      if (!draftRaw) {
+        params.delete('plata')
+        navigate({ pathname: location.pathname, search: params.toString() }, { replace: true })
+        return
+      }
+
+      try {
+        const draft = JSON.parse(draftRaw)
+        const res = await fetch(`${API_URL}/api/orders`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify(draft)
+        })
+        const data = await res.json()
+        if (!res.ok) {
+          console.error(data.error)
+          return
+        }
+
+        setOrders([])
+        setCartItemCount(0)
+        await Promise.all([refreshOrders(), fetchCartItems()])
+        setShowConfirmOrder(true)
+      } catch (e) {
+        console.error('Finalizare dupa Stripe esuata:', e)
+      } finally {
+        sessionStorage.removeItem('order_draft')
+        params.delete('plata')
+        navigate({ pathname: location.pathname, search: params.toString() }, { replace: true })
+      }
+    }
+
+    finalizeAfterStripe()
+  }, [location.search])
+
 
   return (
     <div className='max-w-[1650px] mt-7 md:mt-14 mx-auto px-4 flex gap-12'>
@@ -134,7 +177,6 @@ export default function MenuPage() {
         ) : (
           <MainMenuList 
             menuItems={filteredMenus} 
-            // refreshOrders={fetchOrders}
             refreshOrders={refreshOrders}
             onCustomize={handleCustomizeMenu}
           />
@@ -149,7 +191,6 @@ export default function MenuPage() {
         }>
           <OrderSummary
             orders={orders}
-            // onRequestDelete={(cartId) => setMenuToDelete(cartId)}
             onRequestDelete={(order) => setMenuToDelete({id: order._cartId, name: order.name})}
             onRequestEdit={(order) => {
               const base = menuItems.find(m => m.name === order.name)
@@ -226,10 +267,13 @@ export default function MenuPage() {
       <ConfirmDelete 
           visible={!!menuToDelete}
           onCancel={() => setMenuToDelete(null)}
-          // onConfirm={() => handleDeleteOrder(menuToDelete)}
-          // menuName={menuToDelete}
           onConfirm={() => handleDeleteOrder(menuToDelete?.id)}
           menuName={menuToDelete?.name}
+      />
+      <ConfirmOrderTransaction
+        open={showConfirmOrder}
+        onClose={() => setShowConfirmOrder(false)}
+        onOk={() => setShowConfirmOrder(false)}
       />
     </div>
   )

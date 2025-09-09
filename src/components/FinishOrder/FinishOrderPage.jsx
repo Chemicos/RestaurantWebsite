@@ -31,6 +31,7 @@ export default function FinishOrderPage() {
   const [isDelivery, setIsDelivery] = useState(true)
   const [scrolled, setScrolled] = useState(false)
   const [showConfirm, setShowConfirm] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
 
   const [paymentMethod, setPaymentMethod] = useState('')
 
@@ -147,6 +148,8 @@ export default function FinishOrderPage() {
     }
     
     try {
+      setSubmitting(true)
+
       if (paymentMethod === 'Card') {
         sessionStorage.setItem('order_draft', JSON.stringify(orderDraft))
 
@@ -165,6 +168,7 @@ export default function FinishOrderPage() {
         
         if (!stripeRes.ok || !stripeData.url) {
           console.error('Stripe error:', stripeData.error)
+          setSubmitting(false)
           return
         }
         
@@ -188,6 +192,7 @@ export default function FinishOrderPage() {
       const data = await res.json()
       if (!res.ok) {
         console.error(data.error)
+        setSubmitting(false)
         return
       }
 
@@ -195,8 +200,10 @@ export default function FinishOrderPage() {
       setCartItemCount(0)
       await Promise.all([refreshOrders(), fetchCartItems()])
       setShowConfirm(true)
+      setSubmitting(false)
     } catch (error) {
       console.error('Eroare order fetch:', error)
+      setSubmitting(false)
     }
   }
 
@@ -281,6 +288,7 @@ export default function FinishOrderPage() {
             totalProducts={totalProducts}
             deliveryTax={deliveryTax}
             totalFinal={totalFinal}
+            isSubmitting={submitting}
           />
         </div>
       </div>
