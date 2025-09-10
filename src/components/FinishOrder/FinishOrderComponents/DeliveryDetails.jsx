@@ -4,6 +4,11 @@ export default function DeliveryDetails({value, onChange, errors = {}, validator
   const handle = (field) => (e) => onChange(prev => ({ ...prev, [field]: e.target.value }))
   const nonEmpty = (v) => !!v?.toString().trim()
 
+  const handleCodPostal = (e) => {
+    const digits = e.target.value.replace(/\D/g, '').slice(0, 6)
+    onChange(prev => ({...prev, codPostal: digits}))
+  }
+
   const stradaInvalid =
     !!errors.strada && nonEmpty(value.strada) && validators.strada && !validators.strada(value.strada)
 
@@ -50,9 +55,17 @@ export default function DeliveryDetails({value, onChange, errors = {}, validator
         variant='outlined'
         fullWidth
         value={value.codPostal}
-        onChange={handle('codPostal')}
-        error={!!errors.codPostal && !value.codPostal.trim()}
-        helperText={!!errors.codPostal && !value.codPostal.trim() ? errors.codPostal : ''}
+        onChange={handleCodPostal}
+        slotProps={{htmlInput: {
+          maxLength: 6,
+          inputMode: 'numeric',
+          pattern: '[0-9]*'
+        }}}
+        error={!!errors.codPostal && (value.codPostal.length !== 6)}
+        helperText={!!errors.codPostal && (value.codPostal.length !== 6)
+          ? errors.codPostal
+          : ''
+        }
       />
       
       <FormControlLabel

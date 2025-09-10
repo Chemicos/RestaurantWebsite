@@ -39,7 +39,7 @@ export default function MainSection() {
           ref={ref}
           initial={{ opacity: 0, x: -80}}
           animate={inView ? {opacity: 1, x: 0} : {}}
-          transition={{duration: 1, ease: 'easeOut'}}
+          transition={{duration: 0.5, ease: 'easeOut'}}
         >
           <div className='text-center xl:text-start'>
             <span className='text-custom-red font-bold text-xl sm:text-2xl'>Bine ai venit la</span>
@@ -80,7 +80,7 @@ export default function MainSection() {
           ref={ref}
           initial={{opacity: 0, x: 80}}
           animate={inView ? {opacity: 1, x: 0} : {}}
-          transition={{ duration: 1, ease: 'easeOut'}}
+          transition={{ duration: 0.5, ease: 'easeOut'}}
           className='w-full max-w-[750px] h-[480px] rounded-2xl overflow-hidden shadow-2xl relative'
         >
           {isLoading ? (

@@ -21,6 +21,7 @@ const phoneRe = /^[0-9+\-\s]{10,}$/
 const normalizeSpaces = (s) => s.replace(/\s+/g, ' ').trim()
 const stradaAllowedRe = /^[A-Za-z0-9 .,'/-]+$/
 const stradaHasDigitRe = /\d/
+const codPostalRe = /^\d{6}$/
 
 export default function FinishOrderPage() {
   const navigate = useNavigate()
@@ -105,7 +106,14 @@ export default function FinishOrderPage() {
         delErr.strada = 'Adresa invalida (5–80 caractere, litere și numar). Ex: "Str. Mihai Viteazul 12, Bl. B"'
       }
 
-      if (!delivery.codPostal?.trim()) delErr.codPostal = 'Codul poștal este obligatoriu'
+      if (!delivery.codPostal?.trim()) {
+        delErr.codPostal = 'Codul poștal este obligatoriu'
+      } else if (!codPostalRe.test(delivery.codPostal)) {
+        const onlyDigits = /^\d+$/.test(delivery.codPostal)
+        delErr.codPostal = onlyDigits
+          ? 'Codul postal trebuie sa contina exact 6 cifre.'
+          : 'Foloseste doar cifre (exact 6).'
+      }
     }
 
     let paymentErr = ''

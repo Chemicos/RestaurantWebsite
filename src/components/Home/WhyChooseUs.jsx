@@ -41,7 +41,7 @@ export default function WhyChooseUs() {
             ref={ref}
             initial={{ opacity: 0, y: 80}}
             animate={inView ? {opacity: 1, y: 0} : {}}
-            transition={{duration: 1, ease: 'easeOut'}}
+            transition={{duration: 0.5, ease: 'easeOut'}}
             className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 md:gap-12 w-full max-w-[1440px]'
         >
             {features.map((feature, index) => (
