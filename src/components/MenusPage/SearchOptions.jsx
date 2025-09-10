@@ -66,18 +66,31 @@ export default function SearchOptions({
             PaperProps: {
               sx: {
                 backgroundColor: '#f9f9f9',
+                paddingX: '10px'
               },
             },
           }}
         >
-          <MenuItem value="" sx={{ '&.Mui-selected, &.Mui-selected:hover': { backgroundColor: '#FFE2E2' } }}>
+          <MenuItem value="" sx={{
+            borderRadius: '10px',
+            paddingX: '10px',
+            '&.Mui-selected, &.Mui-selected:hover': { backgroundColor: '#FFE2E2', borderRadius: '10px' } 
+            }}
+          >
             <em>Toate</em>
           </MenuItem>
           {filterOptions.map((opt) => (
             <MenuItem
               key={opt.value}
               value={opt.value}
-              sx={{ '&.Mui-selected, &.Mui-selected:hover': { backgroundColor: '#FFE2E2' } }}
+              sx={{ 
+                borderRadius: '10px', 
+                paddingX: '10px',
+                '&.Mui-selected, &.Mui-selected:hover': { 
+                  backgroundColor: '#FFE2E2',
+                  borderRadius: '10px'
+                } 
+              }}
             >
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, fontStyle: 'italic' }}>
                 {opt.icon}

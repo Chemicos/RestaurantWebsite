@@ -16,6 +16,7 @@ import { CartProvider } from './contexts/CartContext'
 import { OrderSummaryProvider } from './contexts/OrderSummaryContext'
 import { GlobalOrdersProvider } from './contexts/GlobalOrdersContext'
 import { OrdersProvider } from './components/MenusPage/hooks/useOrders'
+import ProfilePage from './components/Profile/ProfilePage'
 
 function App() {
 
@@ -40,6 +41,7 @@ function App() {
                         <Route path='/contact' element={<ContactPage />} />
                         <Route path='/informatii' element={<InfoPage />} />
                         <Route path='/finalizare' element={<FinishOrderPage />} />
+                        <Route path='/profil' element={<ProfilePage />} />
                       </Routes>
                     </div>
 

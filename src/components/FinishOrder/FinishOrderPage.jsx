@@ -225,7 +225,7 @@ export default function FinishOrderPage() {
   }
 
   return (
-  <div className='flex flex-col lg:flex-row justify-between max-w-[1650px] px-4 py-8 mx-auto gap-10'>
+  <div className='flex flex-col lg:flex-row justify-between max-w-[1440px] px-8 lg:px-4 py-8 mx-auto gap-10'>
       <div className='w-full flex flex-col gap-8'>
         <div className='flex flex-col gap-6'>
           <div className='flex items-center gap-4'>

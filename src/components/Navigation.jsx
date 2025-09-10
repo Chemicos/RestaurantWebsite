@@ -1,9 +1,8 @@
-import {DotIcon, IconContext, ShoppingCartSimpleIcon, User} from "@phosphor-icons/react"
+import {DotIcon, IconContext, ShoppingCartSimpleIcon, User, UserIcon} from "@phosphor-icons/react"
 import { useEffect, useMemo, useState } from "react"
 import Login from "./Authentication/Login"
 import Register from "./Authentication/Register"
 import { NavLink, useLocation, useNavigate } from "react-router-dom"
-// import { AuthContext } from "../contexts/AuthContext"
 import { createTheme, Divider, Drawer, IconButton, List, ListItemButton, ListItemIcon, ListItemText, Menu, MenuItem, ThemeProvider, useMediaQuery } from "@mui/material"
 import { Close, ExpandMore, Logout } from "@mui/icons-material"
 import MenuIcon from '@mui/icons-material/Menu'
@@ -189,6 +188,8 @@ export default function Navigation() {
                                     overflow: 'visible',
                                     mt: 1.5,
                                     minWidth: 150,
+                                    borderRadius: '0.5rem',
+                                    paddingX: '1rem',
                                     '& .MuiAvatar-root': {
                                         width: 32,
                                         height: 32,
@@ -200,12 +201,27 @@ export default function Navigation() {
                             transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                             anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                         >
-                           <MenuItem onClick={logoutWithCart}>
-                            <ListItemIcon>
-                                <Logout></Logout>
-                            </ListItemIcon>
-                            <ListItemText sx={{color: '#66635B'}}>Logout</ListItemText>
-                           </MenuItem>
+                            <MenuItem 
+                                sx={{borderRadius: '0.5rem', paddingX: '10px'}} 
+                                onClick={() => navigate('/profil')}
+                            >
+                                <ListItemIcon>
+                                    <UserIcon size={24} weight="bold" />
+                                </ListItemIcon>
+                                <ListItemText sx={{color: '#66635B'}}>
+                                    Profil
+                                </ListItemText>
+                            </MenuItem>
+
+                            <MenuItem 
+                                sx={{borderRadius: '0.5rem', paddingX: '10px'}} 
+                                onClick={logoutWithCart}
+                            >
+                                <ListItemIcon>
+                                    <Logout></Logout>
+                                </ListItemIcon>
+                                <ListItemText sx={{color: '#66635B'}}>Deconectare</ListItemText>
+                            </MenuItem>
                         </Menu>    
                     </div>
                 ) : (
