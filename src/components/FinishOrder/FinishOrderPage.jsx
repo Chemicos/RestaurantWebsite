@@ -62,10 +62,20 @@ export default function FinishOrderPage() {
         telefon: userDetails.telefon || '',
         email: userDetails.email || ''
       })
+
+      setDelivery({
+        localitate: userDetails.localitate || '',
+        strada: userDetails.strada || '',
+        codPostal: userDetails.cod_postal || ''
+      })
+
+      setErrors(prev => ({...prev, delivery: {}}))
     } else {
       setCustomer({
         prenume: '', nume: '', telefon: '', email: ''
       })
+
+      setDelivery({localitate: '', strada: '', codPostal: ''})
     }
   }, [userDetails])
 

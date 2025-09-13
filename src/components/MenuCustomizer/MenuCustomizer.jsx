@@ -17,7 +17,8 @@ export default function MenuCustomizer({
   mode = 'add',
   initialSelection = null,
   cartItemId = null,
-  onEdited
+  onEdited,
+  onAdded
 }) {
   const [quantity, setQuantity] = useState(initialSelection?.quantity ?? 1)
   const [selectedGarnitura, setSelectedGarnitura] = useState(initialSelection?.garnitura ?? null)
@@ -137,6 +138,8 @@ export default function MenuCustomizer({
 
       if (typeof refreshOrders === 'function') refreshOrders()
       if (mode === 'edit' && typeof onEdited === 'function') onEdited()
+      if (mode !== 'edit' && typeof onAdded === 'function') onAdded()
+
       onClose()
       if (location.pathname !== "/meniuri") navigate("/meniuri")
       await fetchCartItems()

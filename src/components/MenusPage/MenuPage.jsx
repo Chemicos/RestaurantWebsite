@@ -23,8 +23,9 @@ export default function MenuPage() {
   const [menuItems, setMenuItems] = useState([])
   const [searchTerm, setSearchTerm] = useState('')
   const [menuToDelete, setMenuToDelete] = useState(null)
-  const [toastOpen, setToastOpen] = useState(false)
+  const [deleteToastOpen, setDeleteToastOpen] = useState(false)
   const [editToastOpen, setEditToastOpen] = useState(false)
+  const [addToastOpen, setAddToastOpen] = useState(false)
   const [showConfirmOrder, setShowConfirmOrder] = useState(false)
 
   const [editingOrder, setEditingOrder] = useState(null)
@@ -84,7 +85,7 @@ export default function MenuPage() {
       refreshOrders()
       fetchCartItems()
       setMenuToDelete(null)
-      setToastOpen(true)
+      setDeleteToastOpen(true)
     } catch (error) {
       console.error('Eroare la stergerea comenzii', error)
     }
@@ -92,12 +93,17 @@ export default function MenuPage() {
 
   const handleCloseToast = (_, reason) => {
     if (reason === 'clickaway') return
-    setToastOpen(false)
+    setDeleteToastOpen(false)
   }
 
   const handleCloseEditToast = (_, reason) => {
     if (reason === 'clickaway') return
     setEditToastOpen(false)
+  }
+
+  const handleCloseAddToast = (_, reason) => {
+    if (reason === 'clickaway') return
+    setAddToastOpen(false)
   }
 
   const handleResetFilters = () => {
@@ -205,7 +211,7 @@ export default function MenuPage() {
       </div>
 
       <Snackbar
-        open={toastOpen}
+        open={deleteToastOpen}
         autoHideDuration={4000}
         onClose={handleCloseToast}
         anchorOrigin={{vertical: 'bottom', horizontal: 'center'}}
@@ -228,6 +234,17 @@ export default function MenuPage() {
       >
         <Alert onClose={handleCloseEditToast} severity='success' variant='filled' sx={{width: '100%'}}>
           Meniul a fost actualizat cu succes!
+        </Alert>
+      </Snackbar>
+
+      <Snackbar
+        open={addToastOpen}
+        autoHideDuration={4000}
+        onClose={handleCloseAddToast}
+        anchorOrigin={{vertical: 'bottom', horizontal: 'center'}}
+      >
+        <Alert onClose={handleCloseAddToast} severity='success' variant='filled' sx={{width: '100%'}}>
+          Meniul a fost adaugat cu succes!
         </Alert>
       </Snackbar>
 
@@ -261,6 +278,7 @@ export default function MenuPage() {
           }}
           refreshOrders={refreshOrders}
           onEdited={() => setEditToastOpen(true)}
+          onAdded={() => setAddToastOpen(true)}
         />
       )}
 

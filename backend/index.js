@@ -456,6 +456,7 @@ app.get('/api/me', (req, res) => {
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET)
     res.json({ user: decoded })
+  // eslint-disable-next-line no-unused-vars
   } catch (err) {
     res.status(403).json({ error: 'Token invalid sau expirat' })
   }
@@ -472,7 +473,8 @@ app.get('/api/utilizatori/:id', async (req, res) => {
   const client = await pool.connect()
   try {
     const result = await client.query(`
-      SELECT prenume, nume, email, telefon FROM utilizatori WHERE id = $1
+      SELECT prenume, nume, email, telefon, localitate, strada, cod_postal 
+      FROM utilizatori WHERE id = $1
     `, [id])
 
     if(result.rows.length === 0) {
@@ -483,6 +485,68 @@ app.get('/api/utilizatori/:id', async (req, res) => {
   } catch (error) {
     console.error('Eroare la fetch utilizatori', error)
     res.status(500).json({error: 'Eroare DB'})
+  } finally {
+    client.release()
+  }
+})
+
+app.patch('/api/utilizatori/:id', async (req, res) => {
+  const {id} = req.params
+  const token = req.cookies.auth_token
+
+  if(!token) return res.status(401).json({error: 'Neautentificate'})
+  let decoded
+  try {
+
+    decoded = jwt.verify(token, process.env.JWT_SECRET)
+  // eslint-disable-next-line no-unused-vars
+  } catch (error) {
+    return res.status(403).json({error: 'Token invalid sau expirat'})
+  }
+
+  if(String(decoded.id) !== String(id)) {
+    return res.status(403).json({error: 'Nu ai voie sa modifici acest profil'})
+  }
+
+  const {
+    nume, prenume, telefon, email,
+    localitate, strada, codPostal
+  } = req.body
+
+  const fields = {
+     ...(nume !== undefined && { nume }),
+    ...(prenume !== undefined && { prenume }),
+    ...(telefon !== undefined && { telefon }),
+    ...(email !== undefined && { email }),
+    ...(localitate !== undefined && { localitate }),
+    ...(strada !== undefined && { strada }),
+    ...(codPostal !== undefined && { cod_postal: codPostal })
+  }
+
+  const keys = Object.keys(fields)
+  if (keys.length === 0) {
+    return res.status(400).json({ error: 'Nimic de actualizat' })
+  }
+
+  const setClauses = keys.map((k, i) => `${k} = $${i + 1}`).join(', ')
+  const values = keys.map(k => fields[k])
+
+  const client = await pool.connect()
+
+  try {
+    const q = `
+      UPDATE utilizatori
+      SET ${setClauses}
+      WHERE id = $${values.length + 1}
+      RETURNING id, nume, prenume, email, telefon, localitate, strada, cod_postal
+    `
+
+    const result = await client.query(q, [...values, id])
+    res.json({success: true, user: result.rows[0]})
+  } catch (error) {
+     console.error('Eroare PATCH utilizatori:', error)
+
+     res.status(500).json({error: 'Eroare DB'})
   } finally {
     client.release()
   }

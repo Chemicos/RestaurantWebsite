@@ -1,7 +1,9 @@
 import { MenuItem, TextField } from '@mui/material'
 import React from 'react'
 
-export default function ProfileUserForm() {
+export default function ProfileUserForm({value, onChange}) {
+    const handle = (field) => (e) => onChange(prev => ({...prev, [field]: e.target.value}))
+
   return (
     <div className='flex flex-col gap-4'>
         <div className='flex flex-col gap-4'>
@@ -10,24 +12,32 @@ export default function ProfileUserForm() {
                 label='Nume'
                 variant='outlined'
                 fullWidth
+                value={value.nume}
+                onChange={handle('nume')}
             />
 
             <TextField 
                 label='Prenume'
                 variant='outlined'
                 fullWidth
+                value={value.prenume}
+                onChange={handle('prenume')}
             />
 
             <TextField 
                 label='Telefon'
                 variant='outlined'
                 fullWidth
+                value={value.telefon}
+                onChange={handle('telefon')}
             />
 
             <TextField 
                 label='Email'
                 variant='outlined'
                 fullWidth
+                value={value.email}
+                onChange={handle('email')}
             />
         </div>
 
@@ -40,6 +50,8 @@ export default function ProfileUserForm() {
                 label='Localitate'
                 fullWidth
                 variant='outlined'
+                value={value.localitate}
+                onChange={handle('localitate')}
             >
                 <MenuItem sx={{'&.Mui-selected, &.Mui-selected:hover': { backgroundColor: '#FFE2E2' }}} value='Clinceni'>Clinceni</MenuItem>
                 <MenuItem sx={{'&.Mui-selected, &.Mui-selected:hover': { backgroundColor: '#FFE2E2' }}} value='Ordoreanu'>Ordoreanu</MenuItem>
@@ -53,6 +65,8 @@ export default function ProfileUserForm() {
                 label='Strada...'
                 variant='outlined'
                 fullWidth
+                value={value.strada}
+                onChange={handle('strada')}
             />
 
             <TextField
@@ -60,6 +74,9 @@ export default function ProfileUserForm() {
                 label='Cod Postal'
                 variant='outlined'
                 fullWidth
+                value={value.codPostal}
+                onChange={handle('codPostal')}
+                slotProps={{htmlInput: {maxLength: 6, inputMode: 'numeric', pattern: '[0-9]*'}}}
             />
         </div>
     </div>
