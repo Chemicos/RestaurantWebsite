@@ -31,6 +31,11 @@ export default function ProfilePage() {
         strada: userDetails.strada || '',
         codPostal: userDetails.cod_postal || ''
       }))
+    } else {
+      setForm({
+        nume: '', prenume: '', telefon: '', email: '',
+        localitate: '', strada: '', codPostal: ''
+      })
     }
   }, [userDetails])
 

@@ -32,30 +32,30 @@ export default function MainSection() {
   }, [])
 
   return (
-    <div className='mt-14 flex justify-center items-center px-6 lg:px-24'>
-      <div className='max-w-[1440px] w-full flex flex-col xl:flex-row justify-between items-center gap-8 xl:gap-5'>
+    <div className='xl:h-[840px] xl:pb-20 pt-14 flex justify-center items-center px-6'>
+      <div className='max-w-[1440px] w-full flex flex-col xl:flex-row justify-between items-center gap-8 xl:gap-4'>
         <motion.div 
-          className='flex flex-col gap-8'
+          className='flex flex-col gap-12 xl:gap-8'
           ref={ref}
           initial={{ opacity: 0, x: -80}}
           animate={inView ? {opacity: 1, x: 0} : {}}
           transition={{duration: 0.5, ease: 'easeOut'}}
         >
           <div className='text-center xl:text-start'>
-            <span className='text-custom-red font-bold text-xl sm:text-2xl'>Bine ai venit la</span>
+            <span className='text-custom-red font-bold text-xl sm:text-[36px]'>Bine ai venit la</span>
             <h1 className='text-4xl sm:text-5xl font-extrabold leading-tight'>
               Pizzeria Restaurant <br/> 
               si Bucura-te de <span className='text-custom-red'>delicii</span>
             </h1>
           </div>
 
-          <p className='text-gray-700 text-lg text-center xl:text-start leading-relaxed max-w-lg'>
+          <p className='text-gray-700 text-md sm:text-xl text-center xl:text-start leading-relaxed max-w-xl'>
             La Pizzeria Restaurant, pasiunea pentru gust autentic prinde viață în fiecare felie. Fie că vii pentru o pizza crocantă, o porție generoasă de paste sau doar pentru vibe-ul cald și prietenos, te așteptăm cu drag la o masă pe gustul tău.
           </p>
           
           <NavLink className='w-fit mx-auto xl:mx-0' to='/meniuri'>          
             <button className='w-fit bg-custom-red hover:bg-red-700 text-white font-semibold 
-              py-4 px-8 text-lg rounded-xl transition-all cursor-pointer shadow-md active:scale-90'
+              py-4 px-8 text-lg xl:text-xl rounded-xl transition-all cursor-pointer shadow-md active:scale-90'
             >
               Comanda Online
             </button>
@@ -81,7 +81,7 @@ export default function MainSection() {
           initial={{opacity: 0, x: 80}}
           animate={inView ? {opacity: 1, x: 0} : {}}
           transition={{ duration: 0.5, ease: 'easeOut'}}
-          className='w-full max-w-[750px] h-[480px] rounded-2xl overflow-hidden shadow-2xl relative'
+          className='w-full max-w-[700px] h-[350px] md:h-[480px] xl:h-[600px] rounded-2xl overflow-hidden shadow-2xl relative'
         >
           {isLoading ? (
             <Skeleton 

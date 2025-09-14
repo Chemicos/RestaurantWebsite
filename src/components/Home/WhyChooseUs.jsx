@@ -36,13 +36,13 @@ export default function WhyChooseUs() {
     const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.2 })
 
   return (
-    <div className='flex justify-center px-4 py-10 md:py-16'>
+    <div className='max-w-[1440px] flex justify-center mx-auto px-4 py-10 md:py-16'>
         <motion.div 
             ref={ref}
             initial={{ opacity: 0, y: 80}}
             animate={inView ? {opacity: 1, y: 0} : {}}
             transition={{duration: 0.5, ease: 'easeOut'}}
-            className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 md:gap-12 w-full max-w-[1440px]'
+            className='grid grid-cols-2 xl:grid-cols-5 gap-6 md:gap-12 w-full max-w-[1440px]'
         >
             {features.map((feature, index) => (
                 <div 

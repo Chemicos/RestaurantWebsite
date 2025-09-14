@@ -93,10 +93,10 @@ export default function MenuList({refreshOrders}) {
             initial="hidden"
             animate={inView ? (isFading ? "fadeOut" : "visible") : "hidden"}
     
-            className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8`}
+            className={`h-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8`}
         >
             {visibleItems.map(item => (
-                <div key={item.id} className='flex flex-col items-center'>
+                <div key={item.id} className='flex flex-col items-center justify-between'>
                     <img 
                         src={item.image_url} 
                         alt={item.name} 
@@ -120,7 +120,7 @@ export default function MenuList({refreshOrders}) {
                                     setIsCustomizing(true)
                                 }}
                             className='mt-4 px-4 py-2 text-md font-bold text-custom-red border border-custom-red cursor-pointer rounded-lg
-                        hover:text-white hover:bg-red-600 transition-colors duration-300'
+                        hover:text-white active:text-white hover:bg-red-600 active:bg-red-600 transition-colors duration-300'
                         >
                             Personalizează
                         </button>              
