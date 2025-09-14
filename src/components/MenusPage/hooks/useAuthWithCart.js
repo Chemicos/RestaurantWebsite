@@ -10,11 +10,11 @@ export const useAuthWithCart = () => {
     const {setGlobalOrders} = useContext(GlobalOrdersContext)
     const {setOrders} = useOrders()
 
-    const logoutWithCart = () => {
+    const logoutWithCart = async () => {
         setCartItemCount(0)
         setGlobalOrders([])
         setOrders([])
-        logout()
+        await logout()
   }
 
   return {

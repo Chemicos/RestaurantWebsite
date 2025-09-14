@@ -14,6 +14,9 @@ export default function ProfileUserForm({value, onChange}) {
                 fullWidth
                 value={value.nume}
                 onChange={handle('nume')}
+                slotProps={{input: {
+                    readOnly: true
+                }}}
             />
 
             <TextField 
@@ -22,6 +25,9 @@ export default function ProfileUserForm({value, onChange}) {
                 fullWidth
                 value={value.prenume}
                 onChange={handle('prenume')}
+                slotProps={{input: {
+                    readOnly: true
+                }}}
             />
 
             <TextField 
@@ -38,6 +44,9 @@ export default function ProfileUserForm({value, onChange}) {
                 fullWidth
                 value={value.email}
                 onChange={handle('email')}
+                slotProps={{input: {
+                    readOnly: true
+                }}}
             />
         </div>
 
@@ -52,12 +61,23 @@ export default function ProfileUserForm({value, onChange}) {
                 variant='outlined'
                 value={value.localitate}
                 onChange={handle('localitate')}
+                slotProps={{select: {
+                    MenuProps: {
+                        PaperProps: {
+                            sx: {
+                                backgroundColor: '#f9f9f9',
+                                paddingX: '10px',
+                                borderRadius: '10px'
+                            }
+                        }
+                    }
+                }}}
             >
-                <MenuItem sx={{'&.Mui-selected, &.Mui-selected:hover': { backgroundColor: '#FFE2E2' }}} value='Clinceni'>Clinceni</MenuItem>
-                <MenuItem sx={{'&.Mui-selected, &.Mui-selected:hover': { backgroundColor: '#FFE2E2' }}} value='Ordoreanu'>Ordoreanu</MenuItem>
-                <MenuItem sx={{'&.Mui-selected, &.Mui-selected:hover': { backgroundColor: '#FFE2E2' }}} value='Domnesti'>Domnesti</MenuItem>
-                <MenuItem sx={{'&.Mui-selected, &.Mui-selected:hover': { backgroundColor: '#FFE2E2' }}} value='Teghes'>Teghes</MenuItem>
-                <MenuItem sx={{'&.Mui-selected, &.Mui-selected:hover': { backgroundColor: '#FFE2E2' }}} value='Bragadiru'>Bragadiru</MenuItem>
+                <MenuItem sx={{borderRadius: '10px', paddingX: '10px', '&.Mui-selected, &.Mui-selected:hover': { backgroundColor: '#FFE2E2' }}} value='Clinceni'>Clinceni</MenuItem>
+                <MenuItem sx={{borderRadius: '10px', paddingX: '10px', '&.Mui-selected, &.Mui-selected:hover': { backgroundColor: '#FFE2E2' }}} value='Ordoreanu'>Ordoreanu</MenuItem>
+                <MenuItem sx={{borderRadius: '10px', paddingX: '10px', '&.Mui-selected, &.Mui-selected:hover': { backgroundColor: '#FFE2E2' }}} value='Domnesti'>Domnesti</MenuItem>
+                <MenuItem sx={{borderRadius: '10px', paddingX: '10px', '&.Mui-selected, &.Mui-selected:hover': { backgroundColor: '#FFE2E2' }}} value='Teghes'>Teghes</MenuItem>
+                <MenuItem sx={{borderRadius: '10px', paddingX: '10px', '&.Mui-selected, &.Mui-selected:hover': { backgroundColor: '#FFE2E2' }}} value='Bragadiru'>Bragadiru</MenuItem>
             </TextField>
 
             <TextField

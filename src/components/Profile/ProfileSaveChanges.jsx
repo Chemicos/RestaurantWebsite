@@ -58,7 +58,7 @@ export default function ProfileSaveChanges({value, onSaved}) {
         ${saving ? 'opacity-70 pointer-events-none' : ''}`}
         onClick={handleSave}
       >
-        {saving ? 'Se salvează…' : 'Salvează'}
+        {saving ? 'Se salveaza…' : 'Salveaza'}
       </button>
     </div>
   )

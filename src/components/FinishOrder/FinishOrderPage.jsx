@@ -47,6 +47,7 @@ export default function FinishOrderPage() {
   const [errors, setErrors] = useState({
     customer: {}, delivery: {}, payment: ''
   })
+  const [note, setNote] = useState('')
 
   const { userDetails } = useUserDetails()
 
@@ -161,7 +162,7 @@ export default function FinishOrderPage() {
       customer,
       delivery: isDelivery ? delivery : null,
       payment_method: 'Card',
-      note: '',
+      note: note.trim() || null,
       summary: { totalProducts, deliveryTax, totalFinal }
     }
     
@@ -203,7 +204,7 @@ export default function FinishOrderPage() {
           customer,
           delivery: isDelivery ? delivery : null,
           payment_method: 'Numerar',
-          note: '',
+          note: note.trim() || null,
           summary: { totalProducts, deliveryTax, totalFinal }
         })
       })
@@ -291,7 +292,7 @@ export default function FinishOrderPage() {
           error={errors.payment}
         />
 
-        <OrderNote />
+        <OrderNote noteValue={note} onChange={setNote} />
       </div>
       
       <div className='relative'>

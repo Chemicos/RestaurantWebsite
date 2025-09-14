@@ -51,6 +51,7 @@ export default function Login({ setShowRegister, onClose }) {
       } else {
         const err = await res.json()
         setError(err.error || 'Eroare')
+        setIsLoading(false)
       }
     } catch (error) {
       console.error('Eroare:', error)

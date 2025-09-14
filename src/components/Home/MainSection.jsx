@@ -81,7 +81,7 @@ export default function MainSection() {
           initial={{opacity: 0, x: 80}}
           animate={inView ? {opacity: 1, x: 0} : {}}
           transition={{ duration: 0.5, ease: 'easeOut'}}
-          className='w-full max-w-[700px] h-[350px] md:h-[480px] xl:h-[600px] rounded-2xl overflow-hidden shadow-2xl relative'
+          className='w-full max-w-[700px] h-[350px] sm:h-[480px] xl:h-[500px] rounded-2xl overflow-hidden shadow-2xl relative'
         >
           {isLoading ? (
             <Skeleton 

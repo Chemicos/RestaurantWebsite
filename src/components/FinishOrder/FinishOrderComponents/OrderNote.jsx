@@ -1,7 +1,6 @@
-import React, { useState } from 'react'
+// import React, { useState } from 'react'
 
-export default function OrderNote() {
-  const [note, setNote] = useState('')
+export default function OrderNote({noteValue, onChange}) {
   const maxLength = 350
 
   return (
@@ -11,12 +10,12 @@ export default function OrderNote() {
         <span className='ml-2 text-xs bg-[#FFD980] px-2 py-1 rounded-full'>optional</span>
       </div>
 
-      <textarea rows={4} placeholder='' maxLength={maxLength} value={note} onChange={(e) => setNote(e.target.value)}
+      <textarea rows={4} placeholder='' maxLength={maxLength} value={noteValue} onChange={(e) => onChange(e.target.value)}
         className='w-full border-1 border-black/40 rounded p-2 resize-none text-md outline-none hover:border-black focus:border-blue-600'
       />
 
       <div className='text-right text-xs text-gray-500'>
-        {maxLength - note.length} caractere ramase
+        {maxLength - noteValue.length} caractere ramase
       </div>
     </div>
   )

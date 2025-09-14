@@ -44,6 +44,12 @@ export default function Navigation() {
     const navigate = useNavigate()
     const isMobile = useMediaQuery('(max-width: 1024px)')
 
+    const handleLogout = async () => {
+        await logoutWithCart()
+        setAnchorEl(null)
+        navigate('/')
+    }
+
     useEffect(() => {
         if (openDrawer) setOpenDrawer(false)
     }, [location.pathname]) //eslint-disable-line
@@ -215,7 +221,7 @@ export default function Navigation() {
 
                             <MenuItem 
                                 sx={{borderRadius: '0.5rem', paddingX: '10px'}} 
-                                onClick={logoutWithCart}
+                                onClick={handleLogout}
                             >
                                 <ListItemIcon>
                                     <Logout></Logout>
