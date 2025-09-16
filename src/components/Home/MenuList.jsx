@@ -63,8 +63,8 @@ export default function MenuList({refreshOrders}) {
     const canNext = startIndex + itemsPerPage < menuItems.length
 
   return (
-    <div className='max-w-[1440px] mx-auto mt-14 px-6 lg:px-4'>
-        <div className='flex w-full justify-between items-center mb-8'>
+    <div className='max-w-[1440px] mx-auto px-6 lg:px-4 pt-14 :pt-20'>
+        <div className='flex w-full gap-4 items-center mb-8'>
             <h2 className='text-2xl md:text-3xl font-semibold'>Ce mancam astazi?</h2>
             
             <div className='flex gap-4'>

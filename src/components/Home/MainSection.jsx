@@ -42,7 +42,7 @@ export default function MainSection() {
           transition={{duration: 0.5, ease: 'easeOut'}}
         >
           <div className='text-center xl:text-start'>
-            <span className='text-custom-red font-bold text-xl sm:text-[36px]'>Bine ai venit la</span>
+            <span className='text-custom-red font-bold text-2xl sm:text-[36px]'>Bine ai venit la</span>
             <h1 className='text-4xl sm:text-5xl font-extrabold leading-tight'>
               Pizzeria Restaurant <br/> 
               si Bucura-te de <span className='text-custom-red'>delicii</span>
