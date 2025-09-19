@@ -212,12 +212,7 @@ export default function WhyChooseUs() {
                 </div>
               </motion.article>
             </AnimatePresence>
-          )}
-          
-
-              
-            
-          
+          )}      
         </div>
       </div>
     </section>
