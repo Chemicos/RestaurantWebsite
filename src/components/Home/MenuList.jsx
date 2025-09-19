@@ -21,7 +21,7 @@ export default function MenuList({refreshOrders}) {
 
     const API_URL = import.meta.env.VITE_API_URL
 
-    const isMobile = useMediaQuery('(max-width: 768px)')
+    const isMobile = useMediaQuery('(max-width: 1280px)')
     const itemsPerPage = isMobile ? 1 : 4
 
     const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.2 })
@@ -64,8 +64,8 @@ export default function MenuList({refreshOrders}) {
 
   return (
     <div className='max-w-[1440px] mx-auto px-6 lg:px-4 pt-14 :pt-20'>
-        <div className='flex w-full gap-4 items-center mb-8'>
-            <h2 className='text-2xl md:text-3xl font-semibold'>Ce mancam astazi?</h2>
+        <div className='flex w-full gap-4 items-center justify-center xl:justify-start mb-8'>
+            <h2 className='text-2xl sm:text-3xl font-semibold'>Ce mancam astazi?</h2>
             
             <div className='flex gap-4'>
                 <button 
@@ -93,14 +93,14 @@ export default function MenuList({refreshOrders}) {
             initial="hidden"
             animate={inView ? (isFading ? "fadeOut" : "visible") : "hidden"}
     
-            className={`h-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8`}
+            className={`h-full grid grid-cols-1 xl:grid-cols-4 w-full mx-auto xl:w-full gap-8`}
         >
             {visibleItems.map(item => (
                 <div key={item.id} className='flex flex-col items-center justify-between'>
                     <img 
                         src={item.image_url} 
                         alt={item.name} 
-                        className='w-full h-52 object-cover rounded-lg' 
+                        className='w-full h-52 object-cover rounded-xl' 
                     />
 
                     <div className='p-4 flex flex-col items-center space-y-2'>
