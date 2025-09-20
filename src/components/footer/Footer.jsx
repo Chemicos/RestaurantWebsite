@@ -20,7 +20,7 @@ export default function Footer() {
     const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.2 })
 
   return (
-    <footer className='w-full bg-custom-black mt-14 px-0 lg:px-4 py-12'>
+    <footer className='w-full bg-custom-black px-0 lg:px-4 py-12'>
         <div className='flex flex-col lg:flex-row justify-center items-center gap-4 lg:gap-20 flex-wrap'>
             <div className='flex-shrink-0'>
                 <img 

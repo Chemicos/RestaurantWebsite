@@ -63,9 +63,11 @@ export default function MenuList({refreshOrders}) {
     const canNext = startIndex + itemsPerPage < menuItems.length
 
   return (
-    <div className='max-w-[1440px] mx-auto px-6 lg:px-4 pt-14 :pt-20'>
-        <div className='flex w-full gap-4 items-center justify-center xl:justify-start mb-8'>
-            <h2 className='text-2xl sm:text-3xl font-semibold'>Ce mancam astazi?</h2>
+    <div className='max-w-[1440px] mx-auto px-6 lg:px-4 py-14 xl:py-20'>
+        <div className='flex flex-col xl:flex-row w-full gap-4 items-center justify-center xl:justify-start mb-16'>
+            <h2 className='text-4xl sm:text-5xl font-semibold'>
+                Ce mancam astazi<span className='text-custom-red'>?</span>
+            </h2>
             
             <div className='flex gap-4'>
                 <button 
@@ -93,10 +95,10 @@ export default function MenuList({refreshOrders}) {
             initial="hidden"
             animate={inView ? (isFading ? "fadeOut" : "visible") : "hidden"}
     
-            className={`h-full grid grid-cols-1 xl:grid-cols-4 w-full mx-auto xl:w-full gap-8`}
+            className={`h-full grid grid-cols-1 xl:grid-cols-4 w-ful xl:w-full gap-8 justify-items-center`}
         >
             {visibleItems.map(item => (
-                <div key={item.id} className='flex flex-col items-center justify-between'>
+                <div key={item.id} className='max-w-[450px] flex flex-col items-center justify-between'>
                     <img 
                         src={item.image_url} 
                         alt={item.name} 
@@ -122,7 +124,7 @@ export default function MenuList({refreshOrders}) {
                             className='mt-4 px-4 py-2 text-md font-bold text-custom-red border border-custom-red cursor-pointer rounded-lg
                         hover:text-white active:text-white hover:bg-red-600 active:bg-red-600 transition-colors duration-300'
                         >
-                            Personalizează
+                            Personalizeaza
                         </button>              
                     </div>
                 </div>
