@@ -19,7 +19,7 @@ export default function InfoPage() {
   }
 
   return (
-    <div className='max-w-[1080px] mx-auto px-4 md:flex md:gap-10'>
+    <div className='max-w-[1080px] mx-auto px-4 my-16 md:flex md:gap-10'>
       <InfoNav 
         selectedTopic={selectedTopic} 
         onSelectTopic={handleSelectTopic} 

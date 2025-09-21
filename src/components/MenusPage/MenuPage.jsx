@@ -165,7 +165,7 @@ export default function MenuPage() {
 
 
   return (
-    <div className='max-w-[1440px] mt-7 md:mt-14 mx-auto px-4 flex gap-12'>
+    <div className='max-w-[1440px] my-7 md:my-16 mx-auto px-4 flex gap-12'>
       <div className='flex-1'>
         <SearchOptions
           selectedCategory={selectedCategory}

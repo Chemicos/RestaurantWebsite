@@ -34,7 +34,7 @@ function App() {
                     <Navigation />
                     <ScrollToTop />
 
-                    <div className='flex-grow pt-24'>
+                    <div className='flex-grow'>
                       <Routes>
                         <Route path='/' element={<Home />} />
                         <Route path='/meniuri' element={<MenuPage />} />

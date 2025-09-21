@@ -32,8 +32,8 @@ const features = [
       "sa personalizezi preparatele si sa plasezi comanda in cateva minute."
     },
     {
-      key: 'meniuri',
-      label: 'Meniuri',
+      key: 'personalizare',
+      label: 'Personalizare',
       icon: <PaletteIcon size={36} weight='duotone' className='text-custom-red' />,
       title: "Meniuri Personalizate",
       desc: "De la alegerea garniturii, la alegerea sucului, noi iti oferim posibilitatea de a personaliza meniul dorit."
@@ -66,6 +66,7 @@ const useRandomTransforms = (n) => {
   )
 }
 
+
 function useIsXL() {
   const [isXL, setIsXL] = useState(() => 
     typeof window !== 'undefined' ? window.matchMedia('(min-width: 1280px)').matches : true
@@ -89,7 +90,7 @@ export default function WhyChooseUs() {
   const isMobile = useMediaQuery('(max-width: 1280px)')
 
   return (
-    <section className="max-w-[1440px] mx-auto px-4 py-10 xl:py-20 overflow-hidden">
+    <section className="max-w-[1440px] mx-auto px-4 py-10 xl:py-0 overflow-hidden">
       <div className="min-h-[100svh] xl:min-h-screen flex flex-col justify-center">
         
         <motion.h2
