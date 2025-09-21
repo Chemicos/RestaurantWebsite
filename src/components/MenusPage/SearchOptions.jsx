@@ -154,7 +154,7 @@ export default function SearchOptions({
             }}>
               {getFilterInputs(false)}
             </Box>
-            <span style={{ fontSize: 14, fontWeight: 500, color: '#66635B' }}>
+            <span className="hidden md:block" style={{ fontSize: 14, fontWeight: 500, color: '#66635B' }}>
               {countOfMenus} Meniuri
             </span>
           </Box>

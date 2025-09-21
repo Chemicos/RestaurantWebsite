@@ -28,7 +28,7 @@ const features = [
       label: 'Comanda',
       icon: <PhoneIcon size={36} weight='duotone' className='text-custom-red' />,
       title: "Comanda Telefonic",
-      desc: "Preferi să discuti cu cineva? Suna-ne si te ajutam sa alegi meniul potrivit, " +
+      desc: "Preferi sa discuti cu cineva? Suna-ne si te ajutam sa alegi meniul potrivit, " +
       "sa personalizezi preparatele si sa plasezi comanda in cateva minute."
     },
     {

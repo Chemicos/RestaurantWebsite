@@ -165,7 +165,7 @@ export default function MenuPage() {
 
 
   return (
-    <div className='max-w-[1440px] my-7 md:my-16 mx-auto px-4 flex gap-12'>
+    <div className='flex max-w-[1440px] my-36 mx-auto px-4 gap-12'>
       <div className='flex-1'>
         <SearchOptions
           selectedCategory={selectedCategory}
@@ -177,7 +177,7 @@ export default function MenuPage() {
         />
 
         {isLoading ? (
-          <div className="flex justify-center items-center h-full">
+          <div className="flex justify-center items-center min-h-screen">
             <CircularProgress color="error" />
           </div>
         ) : (

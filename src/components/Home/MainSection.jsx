@@ -32,7 +32,7 @@ export default function MainSection() {
   }, [])
 
   return (
-    <div className='min-h-[100svh] xl:min-h-screen mt-24 xl:mt-0 flex justify-center items-center px-6'>
+    <div className='min-h-[100svh] xl:min-h-screen mt-36 xl:mt-0 flex justify-center items-center px-6'>
       <div className='max-w-[1440px] w-full flex flex-col xl:flex-row justify-between items-center gap-8 xl:gap-4'>
         <motion.div 
           className='flex flex-col gap-12 xl:gap-8'

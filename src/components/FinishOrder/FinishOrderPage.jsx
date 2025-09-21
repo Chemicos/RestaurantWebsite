@@ -236,7 +236,7 @@ export default function FinishOrderPage() {
   }
 
   return (
-  <div className='flex flex-col lg:flex-row justify-between max-w-[1440px] px-8 lg:px-4 pt-8 mx-auto gap-10
+  <div className='flex flex-col lg:flex-row justify-between max-w-[1440px] px-8 lg:px-4 mt-36 mx-auto gap-10
     pb-28 lg:pb-8
   '>
       <div className='w-full flex flex-col gap-8'>
