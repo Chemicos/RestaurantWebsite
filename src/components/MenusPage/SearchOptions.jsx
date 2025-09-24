@@ -74,6 +74,7 @@ export default function SearchOptions({
           <MenuItem value="" sx={{
             borderRadius: '10px',
             paddingX: '10px',
+            marginBottom: '5px',
             '&.Mui-selected, &.Mui-selected:hover': { backgroundColor: '#FFE2E2', borderRadius: '10px' } 
             }}
           >
@@ -86,9 +87,10 @@ export default function SearchOptions({
               sx={{ 
                 borderRadius: '10px', 
                 paddingX: '10px',
+                marginBottom: '5px',
                 '&.Mui-selected, &.Mui-selected:hover': { 
                   backgroundColor: '#FFE2E2',
-                  borderRadius: '10px'
+                  borderRadius: '10px',
                 } 
               }}
             >

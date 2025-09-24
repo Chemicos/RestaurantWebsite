@@ -105,7 +105,7 @@ export default function Login({ setShowRegister, onClose }) {
           }}
           variant='outlined'
           value={email}
-          label='E-mail'
+          label='Email'
           error={error}
           type='email'
           size='small'

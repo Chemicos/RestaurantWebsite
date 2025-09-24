@@ -53,7 +53,7 @@ export default function ProfileSaveChanges({value, onSaved}) {
     <div className='w-full flex flex-col items-end gap-2'>
       {err && <div className='text-red-600 text-sm'>{err}</div>}
       <button
-        className={`w-fit bg-custom-red hover:bg-red-700 text-white text-lg font-semibold
+        className={`w-fit bg-custom-red hover:bg-red-800 active:bg-red-800 text-white text-lg font-semibold
         py-2 px-6 rounded-xl transition-all cursor-pointer active:scale-90
         ${saving ? 'opacity-70 pointer-events-none' : ''}`}
         onClick={handleSave}

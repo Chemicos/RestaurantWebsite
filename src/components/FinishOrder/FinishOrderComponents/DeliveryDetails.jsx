@@ -26,12 +26,23 @@ export default function DeliveryDetails({value, onChange, errors = {}, validator
         onChange={handle('localitate')}
         error={!!errors.localitate && !value.localitate.trim()}
         helperText={!!errors.localitate && !value.localitate.trim() ? errors.localitate : ''}
+        slotProps={{select: {
+          MenuProps: {
+              PaperProps: {
+                  sx: {
+                      backgroundColor: '#f9f9f9',
+                      paddingX: '10px',
+                      borderRadius: '10px'
+                  }
+              }
+          }
+        }}}
       >
-        <MenuItem sx={{'&.Mui-selected, &.Mui-selected:hover': { backgroundColor: '#FFE2E2' }}} value='Clinceni'>Clinceni</MenuItem>
-        <MenuItem sx={{'&.Mui-selected, &.Mui-selected:hover': { backgroundColor: '#FFE2E2' }}} value='Ordoreanu'>Ordoreanu</MenuItem>
-        <MenuItem sx={{'&.Mui-selected, &.Mui-selected:hover': { backgroundColor: '#FFE2E2' }}} value='Domnesti'>Domnesti</MenuItem>
-        <MenuItem sx={{'&.Mui-selected, &.Mui-selected:hover': { backgroundColor: '#FFE2E2' }}} value='Teghes'>Teghes</MenuItem>
-        <MenuItem sx={{'&.Mui-selected, &.Mui-selected:hover': { backgroundColor: '#FFE2E2' }}} value='Bragadiru'>Bragadiru</MenuItem>
+        <MenuItem sx={{borderRadius: '10px', paddingX: '10px', marginBottom: '5px', '&.Mui-selected, &.Mui-selected:hover': { backgroundColor: '#FFE2E2' }}} value='Clinceni'>Clinceni</MenuItem>
+        <MenuItem sx={{borderRadius: '10px', paddingX: '10px', marginBottom: '5px', '&.Mui-selected, &.Mui-selected:hover': { backgroundColor: '#FFE2E2' }}} value='Ordoreanu'>Ordoreanu</MenuItem>
+        <MenuItem sx={{borderRadius: '10px', paddingX: '10px', marginBottom: '5px', '&.Mui-selected, &.Mui-selected:hover': { backgroundColor: '#FFE2E2' }}} value='Domnesti'>Domnesti</MenuItem>
+        <MenuItem sx={{borderRadius: '10px', paddingX: '10px', marginBottom: '5px', '&.Mui-selected, &.Mui-selected:hover': { backgroundColor: '#FFE2E2' }}} value='Teghes'>Teghes</MenuItem>
+        <MenuItem sx={{borderRadius: '10px', paddingX: '10px', '&.Mui-selected, &.Mui-selected:hover': { backgroundColor: '#FFE2E2' }}} value='Bragadiru'>Bragadiru</MenuItem>
       </TextField>
 
       <TextField

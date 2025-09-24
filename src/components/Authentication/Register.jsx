@@ -237,7 +237,7 @@ export default function Register({ setShowRegister, onClose }) {
           }}
           variant='outlined'
           value={email}
-          label='E-mail*'
+          label='Email*'
           error={fieldErrors.email}
           type='email'
           size='small'

@@ -35,14 +35,20 @@ export default function PaymentMethod({value, onChange, error}) {
           onChange={handleChange}
           error={!!error}
           helperText={error || ''}
-          sx={{
-            '& .MuiInputLabel-root': {
-              color: '#66635B',
+          slotProps={{select: {
+            MenuProps: {
+                PaperProps: {
+                    sx: {
+                        backgroundColor: '#f9f9f9',
+                        paddingX: '10px',
+                        borderRadius: '10px'
+                    }
+                }
             }
-          }}
+          }}}
         >
-          <MenuItem sx={{'&.Mui-selected, &.Mui-selected:hover': { backgroundColor: '#FFE2E2' }}} value='Card'>Card</MenuItem>
-          <MenuItem sx={{'&.Mui-selected, &.Mui-selected:hover': { backgroundColor: '#FFE2E2' }}} value='Numerar'>Numerar</MenuItem>
+          <MenuItem sx={{borderRadius: '10px', marginBottom: '5px', paddingX: '10px', '&.Mui-selected, &.Mui-selected:hover': { backgroundColor: '#FFE2E2' }}} value='Card'>Card</MenuItem>
+          <MenuItem sx={{borderRadius: '10px', paddingX: '10px', '&.Mui-selected, &.Mui-selected:hover': { backgroundColor: '#FFE2E2' }}} value='Numerar'>Numerar</MenuItem>
         </TextField>
       </div>
     </div>

@@ -1,6 +1,6 @@
 import { createTheme, Divider, Drawer, Fab, IconButton, List, ListItemButton, ListItemText, ThemeProvider } from '@mui/material'
-import MenuIcon from '@mui/icons-material/Menu'
 import React, { useEffect, useState } from 'react'
+import { ChevronLeft } from '@mui/icons-material'
 
 const topics = [
     {id: 'cum-comand', label: 'Cum comand'},
@@ -60,7 +60,7 @@ export default function InfoNav({
             }
           }}
         >
-          <MenuIcon />
+          <ChevronLeft />
         </Fab>  
       )}
     </ThemeProvider>
