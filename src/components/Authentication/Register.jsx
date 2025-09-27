@@ -45,6 +45,15 @@ export default function Register({ setShowRegister, onClose }) {
     return regex.test(email)
   }
 
+  const isPasswordValid = (pwd) => {
+    const criteria = [
+      pwd.length >= 6,
+      /[A-Z]/.test(pwd),
+      /[0-9]/.test(pwd) || /[!@#$%^&*(),.?":{}|<>]/.test(pwd)
+    ]
+    return criteria.every(Boolean)
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     if(!nume || !prenume || !email || !isValidEmail(email) || !password || !confirmPass) {
@@ -58,6 +67,13 @@ export default function Register({ setShowRegister, onClose }) {
       setError(!isValidEmail(email) ? 'Email invalid' : 'Completează toate campurile obligatorii.')
       return
     }
+
+    if(!isPasswordValid(password)) {
+      setFieldErrors(prev => ({...prev, password: true}))
+      setError('Parola nu respectă toate criteriile de securitate.')
+      return
+    }
+    
     if(password !== confirmPass) {
       setFieldErrors(prev => ({...prev, confirmPass: true}))
       setError('Parolele nu coincid')

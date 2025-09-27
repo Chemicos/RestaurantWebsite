@@ -17,7 +17,7 @@ import ConfirmOrder from './FinishOrderComponents/ConfirmOrder'
 import { useCart } from '../../contexts/CartContext'
 
 const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-const phoneRe = /^[0-9+\-\s]{10,}$/
+const phoneRe = /^[0-9+\-\s]+$/
 const normalizeSpaces = (s) => s.replace(/\s+/g, ' ').trim()
 const stradaAllowedRe = /^[A-Za-z0-9 .,'/-]+$/
 const stradaHasDigitRe = /\d/

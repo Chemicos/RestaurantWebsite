@@ -36,6 +36,9 @@ export default function ProfileUserForm({value, onChange}) {
                 fullWidth
                 value={value.telefon}
                 onChange={handle('telefon')}
+                slotProps={{htmlInput: {
+                    maxLength: 20
+                }}}
             />
 
             <TextField 

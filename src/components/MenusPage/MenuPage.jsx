@@ -180,6 +180,12 @@ export default function MenuPage() {
           <div className="flex justify-center items-center min-h-screen">
             <CircularProgress color="error" />
           </div>
+        ) : filteredMenus.length === 0 ? (
+          <div className="flex justify-center items-center min-h-[300px]">
+            <p className="text-lg font-small text-gray-600">
+              Meniul căutat nu există.
+            </p>
+          </div>
         ) : (
           <MainMenuList 
             menuItems={filteredMenus} 

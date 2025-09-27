@@ -49,7 +49,7 @@ export default function CustomerDetailsForm({
             : ''
         }
         slotProps={{htmlInput: {
-          maxLength: 10
+          maxLength: 20
         }}}
       />
 
