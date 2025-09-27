@@ -12,39 +12,39 @@ const features = [
       label: 'Produse',
       icon: <HamburgerIcon size={36} weight='duotone' className='text-custom-red'/>,
       title: "Produse Diversificate",
-      desc: "Meniu gandit pentru toate gusturile: pizza clasica sau speciala, paste cremoase, salate fresh si deserturi lejere. " +
-      "Combina optiunile dupa preferinte si personalizeaza-ti usor comanda."
+      desc: "Meniu gândit pentru toate gusturile: pizza clasică sau specială, paste cremoase, salate fresh și deserturi. " +
+      "Combină opțiunile după preferințe și personalizează-ți ușor comanda."
     },
     {
       key: 'plata',
-      label: 'Plata',
+      label: 'Plată',
       icon: <CreditCardIcon size={36} weight='duotone' className='text-custom-red' />,
-      title: "Plata Card",
-      desc: "Platesti in siguranta, fara numerar. Acceptam carduri la livrare si online prin sesiune de plata securizata. " +
-      "Primesti pe email confirmarea tranzactiei, simplu si rapid."
+      title: "Plată Card",
+      desc: "Plătești în siguranță, fără numerar. Acceptăm carduri la livrare și online prin sesiune de plată securizată. " +
+      "Primești confirmarea tranzacției, simplu și rapid."
     },
     {
       key: 'comanda',
-      label: 'Comanda',
+      label: 'Comandă',
       icon: <PhoneIcon size={36} weight='duotone' className='text-custom-red' />,
-      title: "Comanda Telefonic",
-      desc: "Preferi sa discuti cu cineva? Suna-ne si te ajutam sa alegi meniul potrivit, " +
-      "sa personalizezi preparatele si sa plasezi comanda in cateva minute."
+      title: "Comandă Telefonic",
+      desc: "Preferi să discuți cu cineva? Sună-ne și te ajutăm să alegi meniul potrivit, " +
+      "să personalizezi preparatele și să plasezi comanda în câteva minute."
     },
     {
       key: 'personalizare',
       label: 'Personalizare',
       icon: <PaletteIcon size={36} weight='duotone' className='text-custom-red' />,
       title: "Meniuri Personalizate",
-      desc: "De la alegerea garniturii, la alegerea sucului, noi iti oferim posibilitatea de a personaliza meniul dorit."
+      desc: "De la alegerea garniturii, la alegerea sucului, noi îți oferim posibilitatea de a personaliza meniul dorit."
     },
     {
       key: 'livrare',
       label: 'Livrare',
       icon: <TruckIcon size={36} weight='duotone' className='text-custom-red' />,
-      title: "Livrare Rapida",
-      desc: "Ajungem prompt in Clinceni, Ordoreanu, Domnesti si Bragadiru. " +
-      "Ne organizam pe rute scurte pentru ca mancarea sa fie fierbinte si delicioasa."
+      title: "Livrare Rapidă",
+      desc: "Ajungem prompt în Clinceni, Ordoreanu, Domnești și Bragadiru. " +
+      "Ne organizăm pe rute scurte pentru ca mâncarea să fie fierbinte și delicioasă."
     }
 ]
 

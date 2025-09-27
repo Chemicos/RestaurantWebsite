@@ -4,7 +4,7 @@ import React from 'react'
 export default function PassDifficulty({ password, isVisible = true }) {
     const criteria = [
         {id: 'minLength', text: 'Minim 6 caractere', isValid: password.length >= 6},
-        {id: 'upperCase', text: 'Minim o majuscula', isValid: /[A-Z]/.test(password)},
+        {id: 'upperCase', text: 'Minim o majusculă', isValid: /[A-Z]/.test(password)},
         {
             id: 'numberOrSpecial',
             text: 'Cifre sau caractere speciale',

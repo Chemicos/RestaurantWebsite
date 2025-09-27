@@ -5,7 +5,7 @@ import { ChevronLeft } from '@mui/icons-material'
 const topics = [
     {id: 'cum-comand', label: 'Cum comand'},
     {id: 'livrare', label: 'Detalii livrare'},
-    {id: 'plata', label: 'Detalii plata'},
+    {id: 'plata', label: 'Detalii plată'},
     {id: 'cookie', label: 'Politica de cookie'},
     {id: 'despre', label: 'Despre'}
 ]

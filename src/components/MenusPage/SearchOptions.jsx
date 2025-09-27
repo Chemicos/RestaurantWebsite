@@ -107,7 +107,7 @@ export default function SearchOptions({
         <MagnifyingGlassIcon size={22} style={{ marginRight: 8, marginBottom: 4 }} />
         <TextField
           variant='standard'
-          label='Cauta'
+          label='Caută'
           fullWidth={isMobile}
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
@@ -132,7 +132,7 @@ export default function SearchOptions({
           isMobile ? 'w-full' : ''
         }`}
       >
-        Reseteaza
+        Resetează
       </button>
     </Box>
   )

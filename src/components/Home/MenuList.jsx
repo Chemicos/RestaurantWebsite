@@ -65,14 +65,14 @@ export default function MenuList({refreshOrders}) {
   return (
     <AnimatePresence>
         <div className='max-w-[1440px] mx-auto px-6 lg:px-4 py-14 xl:py-20'>
-            <div className='flex flex-col xl:flex-row w-full gap-4 items-center justify-center xl:justify-start mb-16'>
+            <div className='flex flex-col xl:flex-row w-full gap-4 items-center justify-center xl:justify-start mb-8 xl:mb-16'>
                 <motion.h2 
                     initial={{ opacity: 0, x: -90 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.5 }}  
                     className='text-4xl sm:text-5xl font-semibold'
                 >
-                    Ce mancam astazi<span className='text-custom-red'>?</span>
+                    Ce mâncăm astăzi<span className='text-custom-red'>?</span>
                 </motion.h2>
                 
                 <div className='flex gap-4'>
@@ -130,7 +130,7 @@ export default function MenuList({refreshOrders}) {
                                 className='mt-4 px-4 py-2 text-md font-bold text-custom-red border border-custom-red cursor-pointer rounded-lg
                             hover:text-white active:text-white hover:bg-red-600 active:bg-red-600 transition-colors duration-300'
                             >
-                                Personalizeaza
+                                Personalizează
                             </button>              
                         </div>
                     </div>

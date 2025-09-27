@@ -6,8 +6,8 @@ export default function OrderNote({noteValue, onChange}) {
   return (
     <div className='flex flex-col gap-4'>
       <div className='flex flex-row items-center'>
-        <h3 className='text-xl font-semibold'>Adauga detalii despre comanda</h3>
-        <span className='ml-2 text-xs bg-[#FFD980] px-2 py-1 rounded-full'>optional</span>
+        <h3 className='text-xl font-semibold'>Adaugă detalii despre comandă</h3>
+        <span className='ml-2 text-xs bg-[#FFD980] px-2 py-1 rounded-full'>opțional</span>
       </div>
 
       <textarea rows={4} placeholder='' maxLength={maxLength} value={noteValue} onChange={(e) => onChange(e.target.value)}
@@ -15,7 +15,7 @@ export default function OrderNote({noteValue, onChange}) {
       />
 
       <div className='text-right text-xs text-gray-500'>
-        {maxLength - noteValue.length} caractere ramase
+        {maxLength - noteValue.length} caractere rămase
       </div>
     </div>
   )

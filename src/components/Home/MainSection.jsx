@@ -45,7 +45,7 @@ export default function MainSection() {
             <span className='text-custom-red font-bold text-2xl sm:text-[36px]'>Bine ai venit la</span>
             <h1 className='text-4xl sm:text-5xl font-extrabold leading-tight'>
               Pizzeria Restaurant <br/> 
-              si Bucura-te de <span className='text-custom-red'>delicii</span>
+              și Bucură-te de <span className='text-custom-red'>delicii</span>
             </h1>
           </div>
 
@@ -57,7 +57,7 @@ export default function MainSection() {
             <button className='w-fit bg-custom-red hover:bg-red-700 text-white font-semibold 
               py-4 px-8 text-lg xl:text-xl rounded-xl transition-all cursor-pointer shadow-md active:scale-90'
             >
-              Comanda Online
+              Comandă Online
             </button>
           </NavLink>
 

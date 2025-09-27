@@ -75,14 +75,14 @@ export default function ProfileUserForm({value, onChange}) {
             >
                 <MenuItem sx={{borderRadius: '10px', marginBottom: '5px', paddingX: '10px', '&.Mui-selected, &.Mui-selected:hover': { backgroundColor: '#FFE2E2' }}} value='Clinceni'>Clinceni</MenuItem>
                 <MenuItem sx={{borderRadius: '10px', marginBottom: '5px', paddingX: '10px', '&.Mui-selected, &.Mui-selected:hover': { backgroundColor: '#FFE2E2' }}} value='Ordoreanu'>Ordoreanu</MenuItem>
-                <MenuItem sx={{borderRadius: '10px', marginBottom: '5px', paddingX: '10px', '&.Mui-selected, &.Mui-selected:hover': { backgroundColor: '#FFE2E2' }}} value='Domnesti'>Domnesti</MenuItem>
-                <MenuItem sx={{borderRadius: '10px', marginBottom: '5px', paddingX: '10px', '&.Mui-selected, &.Mui-selected:hover': { backgroundColor: '#FFE2E2' }}} value='Teghes'>Teghes</MenuItem>
+                <MenuItem sx={{borderRadius: '10px', marginBottom: '5px', paddingX: '10px', '&.Mui-selected, &.Mui-selected:hover': { backgroundColor: '#FFE2E2' }}} value='Domnesti'>Domnești</MenuItem>
+                <MenuItem sx={{borderRadius: '10px', marginBottom: '5px', paddingX: '10px', '&.Mui-selected, &.Mui-selected:hover': { backgroundColor: '#FFE2E2' }}} value='Teghes'>Țegheș</MenuItem>
                 <MenuItem sx={{borderRadius: '10px', paddingX: '10px', '&.Mui-selected, &.Mui-selected:hover': { backgroundColor: '#FFE2E2' }}} value='Bragadiru'>Bragadiru</MenuItem>
             </TextField>
 
             <TextField
                 id='delivery-strada'
-                label='Strada...'
+                label='Stradă...'
                 variant='outlined'
                 fullWidth
                 value={value.strada}
@@ -91,7 +91,7 @@ export default function ProfileUserForm({value, onChange}) {
 
             <TextField
                 id='delivery-codPostal'
-                label='Cod Postal'
+                label='Cod Poștal'
                 variant='outlined'
                 fullWidth
                 value={value.codPostal}

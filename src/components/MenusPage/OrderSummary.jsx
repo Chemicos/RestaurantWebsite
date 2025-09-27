@@ -14,7 +14,7 @@ export default function OrderSummary({orders, onRequestDelete, onRequestEdit}) {
       <h2 className='font-semibold lg:font-bold text-4xl lg:text-xl mb-6 text-center'>Comanda ta</h2>
 
       {orders.length === 0 ? (
-        <p className='text-center text-custom-gray'>Inca nu ai adaugat un meniu.</p>
+        <p className='text-center text-custom-gray'>Încă nu ai adaugat un meniu.</p>
       ) : (
         <>
           <div className={`${isMobile ? 'w-full h-full' : 'h-[400px] w-[300px]'} flex flex-col gap-4 overflow-y-auto pr-1`}>
@@ -34,14 +34,14 @@ export default function OrderSummary({orders, onRequestDelete, onRequestEdit}) {
                     className='text-sm text-custom-red font-medium hover:underline cursor-pointer'
                     onClick={() => onRequestDelete(order)}
                     >
-                      Sterge
+                      Șterge
                     </button>
 
                     <button
                       className='text-sm text-custom-red font-medium hover:underline cursor-pointer'
                       onClick={() => onRequestEdit(order)}
                     >
-                      Editeaza
+                      Editează
                     </button>
                   </div>
                 </div>
@@ -58,7 +58,7 @@ export default function OrderSummary({orders, onRequestDelete, onRequestEdit}) {
           className='mt-6 bg-custom-red hover:bg-red-700 active:bg-red-700 active:scale-90 text-white py-4 lg:py-2 px-4 w-full rounded-full font-semibold cursor-pointer transition-all'
           onClick={() => navigate('/finalizare')}
         >
-          Finalizeaza pentru {totalPrice.toFixed(2)} RON
+          Finalizează pentru {totalPrice.toFixed(2)} RON
         </button>
       ) : (
         <span></span>

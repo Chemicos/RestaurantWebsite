@@ -11,10 +11,10 @@ import { useOrderSummary } from "../contexts/OrderSummaryContext"
 import { useAuthWithCart } from "./MenusPage/hooks/useAuthWithCart"
 
 const navItems = [
-    {name: 'Acasa', path: '/'},
+    {name: 'Acasă', path: '/'},
     {name: 'Meniuri', path: '/meniuri'},
     {name: 'Contact', path: '/contact'},
-    {name: 'Informatii', path: '/informatii'}
+    {name: 'Informații', path: '/informatii'}
 ]
 
 const theme = createTheme({

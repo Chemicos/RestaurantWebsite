@@ -130,7 +130,7 @@ export default function Login({ setShowRegister, onClose }) {
           }}
           variant="outlined"
           value={password}
-          label="Parola"
+          label="Parolă"
           error={error}
           type="password"
           size="small"
@@ -157,7 +157,7 @@ export default function Login({ setShowRegister, onClose }) {
               <CircularProgress size={20} color='inherit' />
             </Box>
           ) : (
-            <span>Conecteaza-ma</span>
+            <span>Conectează-ma</span>
           )}
         </button>
       </form>

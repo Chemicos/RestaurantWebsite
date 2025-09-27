@@ -129,7 +129,7 @@ export default function FinishOrderPage() {
 
     let paymentErr = ''
     if (!['Card', 'Numerar'].includes(paymentMethod)) {
-      paymentErr = 'Selecteaza o metoda de plata'
+      paymentErr = 'Selectează o metoda de plată'
     }
 
     setErrors({ customer: custErr, delivery: delErr, payment: paymentErr })
@@ -260,11 +260,11 @@ export default function FinishOrderPage() {
         />
 
         <div>
-          <h3 className='text-2xl font-semibold'>Metoda de livrare</h3>
+          <h3 className='text-2xl font-semibold'>Metodă de livrare</h3>
           <div>
-            <span className={isDelivery ? 'text-custom-red' : 'text-custom-gray'}>La adresa</span>
+            <span className={isDelivery ? 'text-custom-red' : 'text-custom-gray'}>La adresă</span>
             <Switch checked={!isDelivery} onChange={(e) => setIsDelivery(!e.target.checked)} color='error' />
-            <span className={!isDelivery ? 'text-custom-red' : 'text-custom-gray'}>Ridicare personala</span>
+            <span className={!isDelivery ? 'text-custom-red' : 'text-custom-gray'}>Ridicare personală</span>
           </div>
         </div>
 

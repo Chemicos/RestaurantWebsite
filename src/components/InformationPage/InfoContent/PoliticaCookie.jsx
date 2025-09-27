@@ -5,38 +5,30 @@ export default function PoliticaCookie() {
     <div className='prose max-w-none'>
         <h1 className='text-3xl font-semibold'>Politica de cookie</h1>
 
-        <p className='text-custom-gray mt-2'>Aceasta politica de cookie-uri explica ce sunt cookie-urile si cum le folosim pe site-ul nostru. Trebuie sa citesti aceasta politica pentru a intelege ce tip de cookie-uri folosim, informatiile pe care le colectam cu ajutorul modulelor cookie si modul in care sunt utilizate aceste informatii. Poti sa iti dai consimtamantul pentru utilizarea cookie-urilor si poti sa-l revoci modificand setarile de pe browser-ul tau, care iti permite sa accepti sau sa refuzi setarea tuturor sau a anumitor cookie-uri.</p>
+        <p className='text-custom-gray mt-2'>Această politică de cookie-uri explică ce sunt cookie-urile și cum le folosim pe site-ul nostru. Trebuie să citești această politică pentru a înțelege ce tip de cookie-uri folosim, informațiile pe care le colectăm cu ajutorul modulelor cookie și modul în care sunt utilizate aceste informații. Poți să îți dai consimțământul pentru utilizarea cookie-urilor și poți să-l revoci modificând setările de pe browser-ul tău, care îți permite să accepți sau să refuzi setarea tuturor sau a anumitor cookie-uri.</p>
 
         <h2 className='text-xl mt-4'>Ce sunt cookie-urile?</h2>
-        <p className='text-custom-gray mt-2'>Cookie-urile sunt fisiere care contin un volum mic de informatii. Cookie-urile sunt stocate pe browser sau pe hard disk-ul calculatorului sau al dispozitivului tau.</p>
+        <p className='text-custom-gray mt-2'>Cookie-urile sunt fișiere care conțin un volum mic de informații. Cookie-urile sunt stocate pe browser sau pe hard disk-ul calculatorului sau al dispozitivului tău.</p>
 
         <h2 className='text-xl mt-4'>Cum putem folosi cookie-urile?</h2>
         <p className='text-custom-gray mt-2'>
-            Utilizam modulele cookie pentru a te distinge de alti utilizatori ai site-ului nostru si pentru a oferi o experienta de navigare unica pentru tine. Cookie-urile sunt folosite de noi pentru ca site-ul nostru sa-si aminteasca ce ai facut în timpul navigarii, de exemplu, detaliile tale de logare.
-            Cookie-urile contin informatii care sunt transferate pe hard disk-ul computerului tau. Aceste cookie-uri sunt folosite pentru a stoca informatii, cum ar fi momentul in care vizitatorul a intrat pe site, daca a mai fost pe site pana acum si ce site a raportat pe pagina web.
-            Poti sterge sau bloca aceste module cookie, dar daca faci asta, e posibil ca unele functionalitati ale site-ului nostru sa nu mearga conform asteptarilor.
+            Utilizăm modulele cookie pentru a te distinge de alți utilizatori ai site-ului nostru și pentru a oferi o experiență de navigare unică pentru tine. Cookie-urile sunt folosite de noi pentru ca site-ul nostru să-și amintească ce ai făcut în timpul navigării, de exemplu, detaliile tale de logare. Cookie-urile conțin informații care sunt transferate pe hard disk-ul computerului tău. Aceste cookie-uri sunt folosite pentru a stoca informații, cum ar fi momentul în care vizitatorul a intrat pe site, dacă a mai fost pe site până acum și ce site a raportat pe pagina web. Poți șterge sau bloca aceste module cookie, dar dacă faci asta, e posibil ca unele funcționalități ale site-ului nostru să nu meargă conform așteptărilor.
         </p>
 
         <h2 className='text-xl mt-4'>Ce tip de cookie-uri folosim?</h2>
         <p className='text-custom-gray mt-2'>
-            Fisierele cookie pot fi sub forma de cookie-uri de sesiune sau cookie-uri persistente.
-            Cookie-urile temporare - acestea sunt stocate temporar in dosarul "cookie" al browser-ului web, care le memoreaza pana cand utilizatorul iese de pe site-ul respectiv sau inchide fereastra browser-ului (de exemplu, cand te conectezi/ deconectezi/ de pe un cont de email sau retele de socializare)
-            Cookie-urile persistente - acestea sunt stocate pe hard disk-ul unui computer sau alt dispozitiv (si, in general, depind de ciclul de viata presetat al modulelor cookie). Anumite cookie-uri sunt utilizate exclusiv in timpul unei singure sesiuni si nu sunt memorate dupa ce utilizatorul paraseste site-ul web, in timp ce alte cookie-uri sunt memorate si reutilizate de fiecare data cand utilizatorul revine pe site-ul respectiv. Cu toate acestea, cookie-urile pot fi sterse de utilizator in orice moment prin accesarea setarilor browser-ului.
-            Acestea vor ramane stocate pe computerul sau pe dispozitivul tau, pana cand vor fi sterse sau pana cand vor atinge data de expirare.
-            Utilizam urmatoarele cookie-uri:
-            Cookie-urile necesare. Cookie-urile care asigura buna functionare a site-ului.
+            Cookie-urile temporare – acestea sunt stocate temporar în dosarul „cookie” al browser-ului web, care le memorează până când utilizatorul iese de pe site-ul respectiv sau închide fereastra browser-ului (de exemplu, când te conectezi/deconectezi de pe un cont de e-mail sau rețele de socializare).
+            Cookie-urile persistente – acestea sunt stocate pe hard disk-ul unui computer sau alt dispozitiv (și, în general, depind de ciclul de viață presetat al modulelor cookie). Anumite cookie-uri sunt utilizate exclusiv în timpul unei singure sesiuni și nu sunt memorate după ce utilizatorul părăsește site-ul web, în timp ce altele sunt memorate și reutilizate de fiecare dată când utilizatorul revine pe site-ul respectiv. Cu toate acestea, cookie-urile pot fi șterse de utilizator în orice moment prin accesarea setărilor browser-ului. Acestea vor rămâne stocate pe computerul sau pe dispozitivul tău, până când vor fi șterse sau până când vor atinge data de expirare.
         </p>
 
-        <h2 className='text-xl mt-4'>Cum poti controla cookie-urile?</h2>
+        <h2 className='text-xl mt-4'>Cum poți controla cookie-urile?</h2>
         <p className='text-custom-gray mt-2'>
-            Folosim cookie-urile in baza consimtamantului tau. Consimtamantul pentru utilizarea cookie-urilor se acorda si poate fi revocat prin modificarea setarilor de pe browser-ul tau, care iti permite sa accepti sau sa refuzi setarea tuturor sau a unor cookie-uri. Te rugam sa te asiguri ca setarile calculatorului tau reflecta faptul ca esti/ nu esti de acord sa accepti cookie-urile. Retine ca, daca folosesti computere diferite in locatii diferite, va trebui sa te asiguri ca fiecare browser este ajustat astfel incat sa se potriveasca preferintelor tale privind cookie-urile.
-            Poti seta browserul sa te avertizeze inainte de a accepta cookie-urile sau poti sa-l setezi sa le refuze, desi este posibil sa nu ai acces la toate functiile acestui site daca faci acest lucru. Recurge la butonul “help” (ajutor) al browser-ului tau, pentru a afla cum poti face acest lucru.
-            Poti sa controlezi si/ sau sa stergi cookie-urile, dupa cum doresti. Poti sterge toate modulele cookie, care sunt deja pe computerul tau si poti seta cele mai multe browsere pentru a impiedica plasarea acestora. Totusi, daca faci acest lucru, este posibil sa fii nevoit sa reglezi manual anumite preferinte, de fiecare data cand vizitezi site-ul nostru web, iar unele servicii si functionalitati ar putea sa nu functioneze.
+            Folosim cookie-urile în baza consimțământului tău. Consimțământul pentru utilizarea cookie-urilor se acordă și poate fi revocat prin modificarea setărilor de pe browser-ul tău, care îți permite să accepți sau să refuzi setarea tuturor sau a unor cookie-uri. Te rugăm să te asiguri că setările calculatorului tău reflectă faptul că ești/nu ești de acord să accepți cookie-urile. Reține că, dacă folosești computere diferite în locații diferite, va trebui să te asiguri că fiecare browser este ajustat astfel încât să se potrivească preferințelor tale privind cookie-urile. Poți seta browser-ul să te avertizeze înainte de a accepta cookie-urile sau poți să-l setezi să le refuze, deși este posibil să nu ai acces la toate funcțiile acestui site dacă faci acest lucru. Recurge la butonul „help” (ajutor) al browser-ului tău, pentru a afla cum poți face acest lucru. Poți să controlezi și/sau să ștergi cookie-urile, după cum dorești. Poți șterge toate modulele cookie care sunt deja pe computerul tău și poți seta cele mai multe browsere pentru a împiedica plasarea acestora. Totuși, dacă faci acest lucru, este posibil să fii nevoit să reglezi manual anumite preferințe de fiecare dată când vizitezi site-ul nostru web, iar unele servicii și funcționalități ar putea să nu funcționeze.
         </p>
 
         <h2 className='text-xl mt-4'>Amendamente la Politica de Cookies</h2>
         <p className='text-custom-gray mt-2'>
-            In cazul in care hotaram modificarea prezentei Politici de Cookies, vom publica noua versiune aici, iar aceasta va inlocui versiunea actuala.
+            În cazul în care hotărâm modificarea prezentei Politici de Cookies, vom publica noua versiune aici, iar aceasta va înlocui versiunea actuală.
         </p>
     </div>
   )

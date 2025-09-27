@@ -222,7 +222,7 @@ export default function MenuPage() {
           variant='filled'
           sx={{width: '100%'}}
         >
-          Meniul a fost sters cu succes!
+          Meniul a fost șters cu succes!
         </Alert>
       </Snackbar>
 
@@ -244,7 +244,7 @@ export default function MenuPage() {
         anchorOrigin={{vertical: 'bottom', horizontal: 'center'}}
       >
         <Alert onClose={handleCloseAddToast} severity='success' variant='filled' sx={{width: '100%'}}>
-          Meniul a fost adaugat cu succes!
+          Meniul a fost adăugat cu succes!
         </Alert>
       </Snackbar>
 

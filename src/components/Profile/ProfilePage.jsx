@@ -41,8 +41,8 @@ export default function ProfilePage() {
 
   return (
     <div className='flex flex-col gap-6 max-w-[680px] px-8 lg:px-4 my-36 mx-auto'>
-      <h1 className='text-2xl'>Editeaza Profil</h1>
-      <p className='text-custom-gray'>Scapa de necesitatea de a completa datele la fiecare comanda.</p>
+      <h1 className='text-2xl'>Editează-ți Profilul</h1>
+      <p className='text-custom-gray'>Scapă de necesitatea de a completa datele la fiecare comandă.</p>
 
       <ProfileUserForm
         value={form}

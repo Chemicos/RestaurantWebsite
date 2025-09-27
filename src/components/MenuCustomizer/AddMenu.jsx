@@ -36,8 +36,8 @@ export default function AddMenu({
             onClick={handleAddOrder}
         >
             {isEditing 
-                ? `Salveaza ${quantity} pentru ${totalPrice.toFixed(2)} RON` 
-                : `Adauga ${quantity} pentru ${totalPrice.toFixed(2)} RON `}
+                ? `Salvează ${quantity} pentru ${totalPrice.toFixed(2)} RON` 
+                : `Adaugă ${quantity} pentru ${totalPrice.toFixed(2)} RON `}
         </button>
     </div>
   )

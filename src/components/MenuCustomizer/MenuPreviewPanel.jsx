@@ -42,7 +42,7 @@ export default function MenuPreviewPanel({
 
             {selectedGarnitura && (
               <p className="text-md text-start text-black">
-                Garnitura:
+                Garnitură:
                 <span className="text-custom-gray"> {selectedGarnitura}</span>
               </p>
             )}
@@ -67,7 +67,7 @@ export default function MenuPreviewPanel({
 
             {Array.isArray(selectedBauturi) && selectedBauturi.length > 0 && (
               <p className="text-black">
-                Bauturi:
+                Băuturi:
                 <span className="text-custom-gray">
                   {' '}{selectedBauturi.map(b => `${b.name} x${b.quantity}`).join(', ')}
                 </span>

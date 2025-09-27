@@ -55,7 +55,7 @@ export default function Register({ setShowRegister, onClose }) {
         password: !password,
         confirmPass: !confirmPass
       })
-      setError(!isValidEmail(email) ? 'Email invalid' : 'Completeaza toate campurile obligatorii.')
+      setError(!isValidEmail(email) ? 'Email invalid' : 'Completează toate campurile obligatorii.')
       return
     }
     if(password !== confirmPass) {
@@ -271,7 +271,7 @@ export default function Register({ setShowRegister, onClose }) {
         />
 
         <TextField
-          label="Parola*"
+          label="Parolă*"
           error={fieldErrors.password}
           type={showPassword ? 'text' : 'password'}
           variant="outlined"
@@ -318,7 +318,7 @@ export default function Register({ setShowRegister, onClose }) {
           )}
 
         <TextField
-          label="Confirma parola*"
+          label="Confirmă parola*"
           type={showConfirmPassword ? 'text' : 'password'}
           variant="outlined"
           value={confirmPass}
@@ -359,7 +359,7 @@ export default function Register({ setShowRegister, onClose }) {
 
         <div className='flex items-center gap-2'>
           <span className={perJuridica ? "text-gray-500" : "text-red-600 font-semibold"}>
-            Fizica
+            Fizică
           </span>
 
           <Switch
@@ -383,7 +383,7 @@ export default function Register({ setShowRegister, onClose }) {
           />
 
           <span className={perJuridica ? "text-red-600 font-bold" : "text-gray-500"}>
-            Juridica
+            Juridică
           </span>
         </div>
 
@@ -402,7 +402,7 @@ export default function Register({ setShowRegister, onClose }) {
               <CircularProgress size={20} color='inherit' />
             </Box>
           ) : (
-            <span>Inregistreaza</span>
+            <span>Înregistrează</span>
           )}
         </button>
       </form>

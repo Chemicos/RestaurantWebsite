@@ -4,18 +4,18 @@ export default function Despre() {
             <h1 className='text-3xl font-semibold'>Despre</h1>
             <h2 className='text-xl mt-4'>Pasiune pentru pizza din 2016</h2>
 
-            <p className='text-custom-gray mt-2'>Pizzeria Clinceni a fost fondata in anul 2016, in Clinceni, Ilfov, din dorinta de a oferi comunitatii locale preparate delicioase, realizate din ingrediente proaspete si de calitate. De-a lungul anilor, ne-am castigat reputatia pentru gustul autentic al pizzei si serviciile noastre prompte de livrare.</p>
+            <p className='text-custom-gray mt-2'>Pizzeria Clinceni a fost fondată în anul 2016, în Clinceni, Ilfov, din dorința de a oferi comunitații locale preparate delicioase, realizate din ingrediente proaspete și de calitate. De-a lungul anilor, ne-am câștigat reputația pentru gustul autentic al pizzei și serviciile noastre prompte de livrare.</p>
 
-            <h2 className='text-xl mt-4'>Ce ne diferentiaza?</h2>
+            <h2 className='text-xl mt-4'>Ce ne diferențiază?</h2>
             <ul className="pl-6 list-disc text-custom-gray font-bold">
-                <li>Ingrediente proaspete si de calitate</li>
-                <li>Cuptor pe vatra</li>
-                <li>Livrare rapida</li>
+                <li>Ingrediente proaspete și de calitate</li>
+                <li>Cuptor pe vatră</li>
+                <li>Livrare rapidă</li>
                 <li>Pasiune pentru gust</li>
             </ul>
 
-            <h2 className='text-xl mt-4'>Misunea noastra</h2>
-            <p className='text-custom-gray mt-2'>Ne dorim sa fim prima alegere a clientilor din Clinceni si imprejurimi atunci cand vine vorba de pizza si preparate italiene autentice. Ne propunem sa mentinem calitatea si sa oferim mereu cele mai gustoase preparate, la preturi accesibile.</p>
+            <h2 className='text-xl mt-4'>Misunea noastră</h2>
+            <p className='text-custom-gray mt-2'>Ne dorim să fim prima alegere a clienților din Clinceni și imprejurimi atunci când vine vorba de pizza și preparate italiene autentice. Ne propunem să menținem calitatea și să oferim mereu cele mai gustoase preparate, la prețuri accesibile.</p>
         </div>
     )
 }

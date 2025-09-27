@@ -42,17 +42,17 @@ export default function Footer() {
 
                     <div className='flex items-center gap-2'>
                         <MapPinIcon size={20} color='white' weight='fill' />
-                        <a className={`text-white ${hoverEffectText}`} href="https://www.google.com/maps/">Str principala nr.204</a>
+                        <a className={`text-white ${hoverEffectText}`} href="https://www.google.com/maps/">Adresa de contact</a>
                     </div>
 
                     <div className='flex items-center gap-2'>
                         <PhoneIcon size={20} color='white' weight='fill' />
-                        <p className='text-white'>0314829480</p>
+                        <p className='text-white'>Număr de telefon</p>
                     </div>
 
                     <div className='flex items-center gap-2'>
                         <EnvelopeIcon size={20} color='white' weight='fill' />
-                        <p className='text-white'>comenzi@pizzeriaclinceni.ro</p>
+                        <p className='text-white'>comenzi@pizzeria.com</p>
                     </div>
 
                     <div className='flex gap-3'>
@@ -75,7 +75,7 @@ export default function Footer() {
                 <div className='h-[1px] lg:h-auto w-auto lg:w-[1px] bg-custom-gray'></div>
 
                 <div className='flex flex-col items-start gap-2 md:gap-1'>
-                    <h3 className='text-white mb-4 font-semibold text-2xl'>Informatii</h3>
+                    <h3 className='text-white mb-4 font-semibold text-2xl'>Informații</h3>
                     <NavLink className={`text-white block ${hoverEffectText}`} to='/informatii?topic=cum-comand' >
                         Cum comand
                     </NavLink>
@@ -83,7 +83,7 @@ export default function Footer() {
                         Detalii livrare
                     </NavLink>
                     <NavLink className={`text-white block ${hoverEffectText}`} to='/informatii?topic=plata' >
-                        Detalii plata
+                        Detalii plată
                     </NavLink>
                     <NavLink className={`text-white block ${hoverEffectText}`} to='/informatii?topic=despre' >
                         Despre
@@ -95,14 +95,12 @@ export default function Footer() {
                 <div className='flex flex-col items-start gap-2 md:gap-1'>
                     <h3 className='text-white mb-4 font-semibold text-2xl'>Date Comerciale</h3>
                     <p className='text-white'>SC & SRL</p>
-                    <p className='text-white'>CUI RO: 02045SOMETHING</p>
-                    <p className='text-white'>Punct de lucru: ceva strada</p>
-                    <p className='text-white'>Com. Clinceni, Jud. Ilfov</p>
+                    <p className='text-white'>CUI: CevaCeva</p>
+                    <p className='text-white'>Punct de lucru: Adresa</p>
+                    <p className='text-white'>Locație</p>
                 </div>
             </motion.div>
         </div>
-
-        <div className='text-white max-w-[1440px] mx-auto text-center mt-4 lg:text-right text-sm'>@ Copyright 2016 - 2025 Pizeria Clinceni</div>
     </footer>
   )
 }

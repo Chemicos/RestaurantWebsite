@@ -32,8 +32,8 @@ export default function CumComand() {
 
         <h2 className='text-xl mt-4'>Cum comanzi online/telefonic de la Pizzeria Clinceni</h2>
 
-        <h3 className='text-xl mt-4'>1. Comanda Online</h3> 
-        <p className='text-custom-gray mt-2'>Pizzeria Clinceni iti ofera posibilitatea de a comanda rapid si simplu direct de pe site-ul nostru. Iata pasii pentru a plasa o comanda online <span className='font-bold text-custom-red'>(Apasa pe pasi)</span>:</p>
+        <h3 className='text-xl mt-4'>1. Comandă Online</h3> 
+        <p className='text-custom-gray mt-2'>Pizzeria Clinceni îți oferă posibilitatea de a comanda rapid și simplu direct de pe site-ul nostru. Iată pașii pentru a plasa o comandă online <span className='font-bold text-custom-red'>(Apasă pe pași)</span>:</p>
 
         <Accordion 
             expanded={isExpanded('pas1')}
@@ -79,7 +79,7 @@ export default function CumComand() {
             </AccordionSummary>
             <AccordionDetails>
                 <p className='text-custom-gray'>
-                    Personalizeaza-ti produsul si apoi mergi la butonul <span className='font-semibold'>Adauga</span>.
+                    Personalizează-ți produsul și apoi mergi pe butonul <span className='font-semibold'>Adaugă</span>.
                 </p>
                 <img src={pas2} alt="Pasul 2" className='mt-3 shadow-lg rounded-lg mx-auto sm:h-[300px] lg:h-[400px]' />
             </AccordionDetails>
@@ -104,10 +104,10 @@ export default function CumComand() {
             </AccordionSummary>
             <AccordionDetails>
                 <p className='text-custom-gray'>
-                    Dupa adaugarea meniurilor mergi in partea dreapta, spre sectiunea 
+                    După adăugarea meniurilor mergi în partea dreapta, spre secțiunea 
                     <span className='font-semibold'> Comanda ta </span>
-                     si apesi butonul 
-                    <span className='font-bold'> Finalizeaza</span>.
+                     și apeși
+                    <span className='font-bold'> Finalizează</span>.
                 </p>
                 <img src={pas3} alt="Pasul 3" className='mt-3 shadow-lg rounded-lg mx-auto sm:h-[300px] lg:h-[400px]' />
             </AccordionDetails>
@@ -132,16 +132,16 @@ export default function CumComand() {
             </AccordionSummary>
             <AccordionDetails>
                 <p className='text-custom-gray'>
-                    In sectiunea de 
-                    <span className='font-semibold'> Finalizare Comanda
-                    </span> completezi campurile din <span className='font-bold'>Date personale</span> (doar in cazul in care nu esti autentificat), 
+                    În secțiunea de 
+                    <span className='font-semibold'> Finalizare Comandă
+                    </span> completezi câmpurile din <span className='font-bold'>Date personale</span> (doar în cazul în care nu ești autentificat), 
                     <span className='font-bold'> Adresa de livrare </span> 
-                    si selectezi metoda de livrare si cea de plata. 
+                    și selectezi metoda de livrare și cea de plată. 
                 </p>
             </AccordionDetails>
         </Accordion>
 
-        <h3 className='text-xl mt-4 mb-4'>2. Comanda Telefonica</h3> 
+        <h3 className='text-xl mt-4 mb-4'>2. Comandă Telefonică</h3> 
 
         <Accordion 
             expanded={isExpanded('telefon')} 
@@ -157,16 +157,16 @@ export default function CumComand() {
         >
             <AccordionSummary expandIcon={<ExpandMoreIcon />} className='!p-0'>
                 <Typography sx={{color: '#66635B'}}>
-                    Daca preferi sa comanzi prin telefon, ne poti suna la {' '}
-                    <span className='font-bold'>07284948491</span>
+                    Dacă preferi sa comanzi prin telefon, ne poti suna la
+                    <span className='font-bold'> 07284948491</span>
                 </Typography>
             </AccordionSummary>
             <AccordionDetails>
                 <ul className='list-disc list-inside text-custom-gray'>
-                    <li>Spune-ne numele, adresa de livrare si produsele dorite.</li>
-                    <li>Alegi metoda de plata preferata.</li>
-                    <li>Echipa noastra confirma comanda si estimarea timpului de livrare.</li>
-                    <li>Astepti comanda delicioasa direct la usa ta.</li>
+                    <li>Spune-ne numele, adresa de livrare și produsele dorite.</li>
+                    <li>Alegi metoda de plată preferată.</li>
+                    <li>Echipa noastră confirmă comanda și estimarea timpului de livrare.</li>
+                    <li>Astepți comanda delicioasă direct la ușa ta.</li>
                 </ul>
             </AccordionDetails>
         </Accordion>

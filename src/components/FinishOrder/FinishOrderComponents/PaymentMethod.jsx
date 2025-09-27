@@ -20,7 +20,7 @@ export default function PaymentMethod({value, onChange, error}) {
   }
   return (
     <div className='flex flex-col gap-4'>
-      <h3 className='text-xl font-semibold'>Metoda de plata</h3>
+      <h3 className='text-xl font-semibold'>Metodă de plată</h3>
 
       <div className='flex items-center gap-3'>
         {getIcon()}
@@ -29,7 +29,7 @@ export default function PaymentMethod({value, onChange, error}) {
           id='payment-method'
           select
           fullWidth
-          label='Alege o metoda de plata'
+          label='Alege o metodă de plată'
           variant='standard'
           value={method}
           onChange={handleChange}
