@@ -197,7 +197,7 @@ export default function MenuPage() {
 
       <div className='relative hidden lg:block'>
         <div className={`
-          sticky top-20 max-h-[calc(100vh-5rem)] overflow-auto
+          sticky top-20 max-h-[calc(100vh-5rem)]
           transition-all duration-500 ease-out
           ${scrolled ? 'translate-y-[40px]' : 'translate-y-0'}`
         }>

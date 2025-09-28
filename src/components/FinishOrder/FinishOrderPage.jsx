@@ -302,7 +302,6 @@ export default function FinishOrderPage() {
           transition-all duration-500 ease-out ${scrolled ? 'translate-y-[40px]' : 'translate-y-0'}
         `}>
           <FinishedOrderSummary
-            // orders={orders}
             paymentMethod={paymentMethod}
             isDelivery={isDelivery}
             onSubmit={handleSubmitOrder}

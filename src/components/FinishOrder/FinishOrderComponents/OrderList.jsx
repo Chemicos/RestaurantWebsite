@@ -16,10 +16,10 @@ export default function OrderList() {
             key={index}
             className='flex justify-between border-b border-black/10 pb-2 text-sm'
           >
-            <div className=''>
+            <div className='w-[200px] md:w-fit'>
               <div className='flex gap-1 items-center'>
                 <span>X{order.quantity}</span>
-                <p className='font-medium text-lg'>{order.name}</p>
+                <p className='font-medium text-md'>{order.name}</p>
               </div>
               <p className='text-custom-gray w-[250px] sm:w-auto text-[12px] md:text-sm'>{generateOrderDetailsText(order)}</p>
             </div>

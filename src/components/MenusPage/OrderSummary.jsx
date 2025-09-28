@@ -8,7 +8,7 @@ export default function OrderSummary({orders, onRequestDelete, onRequestEdit}) {
   const navigate = useNavigate()
   
   return (
-    <div className={`bg-custom-white rounded-xl p-6 w-auto overflow-y-auto
+    <div className={`bg-[#f9f9f9] rounded-xl p-6 w-full overflow-y-auto
       ${isMobile ? 'flex flex-col items-center justify-between h-full' : 'h-auto shadow-lg'}
     `}>
       <h2 className='font-semibold lg:font-bold text-4xl lg:text-xl mb-6 text-center'>Comanda ta</h2>
