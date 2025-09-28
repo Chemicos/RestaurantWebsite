@@ -37,6 +37,8 @@ export default function MenuCustomizer({
   const {fetchCartItems} = useCart()
   const {user} = useContext(AuthContext)
 
+  const isInvalidGarnitura = garnituri.length > 0 && !selectedGarnitura
+
   const { id: menuId, image_url: imageUrl, name, price, ingredients } = menu || {}
 
   const API_URL = import.meta.env.VITE_API_URL
@@ -185,6 +187,7 @@ export default function MenuCustomizer({
                     selectedSalate={selectedSalate}
                     totalPrice={totalPrice}
                     handleAddOrder={handleAddOrder}
+                    isInvalidGarnitura={isInvalidGarnitura}
                   />
 
                   <MenuCustomizerForm
@@ -207,6 +210,7 @@ export default function MenuCustomizer({
                     totalPrice={totalPrice}
                     handleAddOrder={handleAddOrder}
                     isEditing={mode === 'edit'}
+                    isInvalidGarnitura={isInvalidGarnitura}
                   />
                 </div>
               </div>
@@ -241,6 +245,7 @@ export default function MenuCustomizer({
                     totalPrice={totalPrice}
                     handleAddOrder={handleAddOrder}
                     isEditing={mode === 'edit'}
+                    isInvalidGarnitura={isInvalidGarnitura}
                   />
                 </div>
               </>

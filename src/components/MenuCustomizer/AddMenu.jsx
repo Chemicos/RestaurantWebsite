@@ -6,7 +6,8 @@ export default function AddMenu({
     setQuantity, 
     totalPrice, 
     handleAddOrder,
-    isEditing
+    isEditing,
+    isInvalidGarnitura = false
 }) {
   return (
     <div className="flex flex-col w-full">
@@ -30,10 +31,12 @@ export default function AddMenu({
             </button>
         </div>
 
-        <button 
-            className="w-full mt-4 py-3 rounded-full text-white font-semibold bg-custom-red shadow-sm
-            hover:bg-red-700 active:scale-90 transition-all duration-300 cursor-pointer"
+        <button
             onClick={handleAddOrder}
+            disabled={isInvalidGarnitura} 
+            className={`w-full mt-4 py-3 rounded-full text-white font-semibold bg-custom-red shadow-sm transition-all duration-300
+            ${isInvalidGarnitura ? 'opacity-50 cursor-not-allowed' : 'hover:bg-red-700 active:scale-90'}
+            `}
         >
             {isEditing 
                 ? `Salvează ${quantity} pentru ${totalPrice.toFixed(2)} RON` 
