@@ -9,14 +9,39 @@ const EMPTY = {
   localitate: '', strada: '', codPostal: ''
 }
 
+const normalizeSpaces = (s) => s.replace(/\s+/g, ' ').trim()
+const stradaAllowedRe = /^[A-Za-z0-9 .,'/-]+$/
+const stradaHasDigitRe = /\d/
+
 export default function ProfilePage() {
   const {userDetails, refreshUserDetails} = useUserDetails()
   const [form, setForm] = useState(EMPTY)
+  const [errors, setErrors] = useState({})
 
   const [saveToastOpen, setSaveToastOpen] = useState(false)
   const handleCloseToast = (_, reason) => {
     if(reason === 'clickaway') return
     setSaveToastOpen(false)
+  }
+
+  const isValidStrada = (raw) => {
+    const s = normalizeSpaces(raw || '')
+    if (s.length < 5 || s.length > 80) return false
+    if (!stradaAllowedRe.test(s)) return false
+    if (!stradaHasDigitRe.test(s)) return false
+    return true
+  }
+
+  const validate = () => {
+    const errs = {}
+
+    if (!form.strada?.trim()) {
+      errs.strada = 'Strada este obligatorie'
+    } else if (!isValidStrada(form.strada)) {
+      errs.strada = 'Adresă invalidă (5–80 caractere, litere și număr). Ex: "Str. Mihai Viteazul 12, Bl. B"'
+    }
+    setErrors(errs)
+    return Object.keys(errs).length === 0
   }
   
   useEffect(() => {
@@ -47,9 +72,11 @@ export default function ProfilePage() {
       <ProfileUserForm
         value={form}
         onChange={setForm}
+        errors={errors}
       />
       <ProfileSaveChanges 
         value={form} 
+        validate={validate}
         onSaved={async () => {
           await refreshUserDetails()
           setSaveToastOpen(true)

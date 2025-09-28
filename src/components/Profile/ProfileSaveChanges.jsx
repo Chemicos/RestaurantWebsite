@@ -3,13 +3,14 @@ import { AuthContext } from '../../contexts/AuthContext'
 
 const API_URL = import.meta.env.VITE_API_URL
 
-export default function ProfileSaveChanges({value, onSaved}) {
+export default function ProfileSaveChanges({value, onSaved, validate}) {
   const {user} = useContext(AuthContext)
   const [saving, setSaving] = useState(false)
   const [err, setErr] = useState('')
 
   const handleSave = async () => {
     if (!user?.id) return
+    if (!validate()) return
     setSaving(true)
     setErr('')
 

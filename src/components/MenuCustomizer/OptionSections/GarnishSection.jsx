@@ -9,7 +9,10 @@ export default function GarnishSection({
   return (
     <div className='space-y-4'>
       <div className='flex flex-col'>
-        <h3 className='font-semibold text-xl'>Alege Garnitura</h3>
+        <div className='flex items-center'>
+          <h3 className='font-semibold text-xl'>Alege Garnitura</h3>
+          <span className="ml-2 text-xs text-white font-light bg-custom-red px-2 py-0.5 rounded-full">obligatoriu</span>
+        </div>
         <p className='text-custom-gray text-sm font-semibold'>Alege 1</p>
       </div>
 

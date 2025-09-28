@@ -16,7 +16,7 @@ export default function MenuList({refreshOrders}) {
     const fadeVariants = {
         hidden: { opacity: 0, y: 80 },
         fadeOut: {opacity: 0},
-        visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } }
+        visible: { opacity: 1, y: 0, transition: { duration: 0.3, ease: 'easeOut' } }
     }
 
     const API_URL = import.meta.env.VITE_API_URL

@@ -1,7 +1,7 @@
 import { MenuItem, TextField } from '@mui/material'
 import React from 'react'
 
-export default function ProfileUserForm({value, onChange}) {
+export default function ProfileUserForm({value, onChange, errors = {}}) {
     const handle = (field) => (e) => onChange(prev => ({...prev, [field]: e.target.value}))
 
   return (
@@ -90,6 +90,14 @@ export default function ProfileUserForm({value, onChange}) {
                 fullWidth
                 value={value.strada}
                 onChange={handle('strada')}
+                // error={!!value.strada && !isValidStrada(value.strada)}
+                // helperText={
+                //     !!value.strada && !isValidStrada(value.strada)
+                //     ? 'Adresă invalidă (5-80 caractere, litere si număr). Ex: "Str. Mihai Viteazul 12, Bl. B"'
+                //     : ''
+                // }
+                error={!!errors.strada}
+                helperText={errors.strada || ''}
             />
 
             <TextField
