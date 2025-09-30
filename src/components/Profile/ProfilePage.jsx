@@ -6,7 +6,7 @@ import { Alert, Snackbar } from '@mui/material'
 
 const EMPTY = {
   nume: '', prenume: '', telefon: '', email: '',
-  localitate: '', strada: '', codPostal: ''
+  localitate: '', strada: ''
 }
 
 const normalizeSpaces = (s) => s.replace(/\s+/g, ' ').trim()
@@ -53,13 +53,12 @@ export default function ProfilePage() {
         telefon: userDetails.telefon || '',
         email: userDetails.email || '',
         localitate: userDetails.localitate || '',
-        strada: userDetails.strada || '',
-        codPostal: userDetails.cod_postal || ''
+        strada: userDetails.strada || ''
       }))
     } else {
       setForm({
         nume: '', prenume: '', telefon: '', email: '',
-        localitate: '', strada: '', codPostal: ''
+        localitate: '', strada: ''
       })
     }
   }, [userDetails])

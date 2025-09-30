@@ -3,7 +3,7 @@ import React from 'react'
 
 export default function DetaliiLivrare() {
   return (
-    <div className='flex flex-col items-center md:items-start text-center md:text-start prose max-w-none'>
+    <div className='flex flex-col items-start text-start prose max-w-none'>
         <h1 className='text-3xl font-semibold'>Detalii Livrare</h1>
 
         <h2 className='text-xl mt-4'>Cum livrăm comanda ta?</h2>

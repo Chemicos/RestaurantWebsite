@@ -100,7 +100,7 @@ export default function ProfileUserForm({value, onChange, errors = {}}) {
                 helperText={errors.strada || ''}
             />
 
-            <TextField
+            {/* <TextField
                 id='delivery-codPostal'
                 label='Cod Poștal'
                 variant='outlined'
@@ -108,7 +108,7 @@ export default function ProfileUserForm({value, onChange, errors = {}}) {
                 value={value.codPostal}
                 onChange={handle('codPostal')}
                 slotProps={{htmlInput: {maxLength: 6, inputMode: 'numeric', pattern: '[0-9]*'}}}
-            />
+            /> */}
         </div>
     </div>
   )

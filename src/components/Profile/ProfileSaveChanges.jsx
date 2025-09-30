@@ -31,7 +31,7 @@ export default function ProfileSaveChanges({value, onSaved, validate}) {
           email: value.email,
           localitate: value.localitate,
           strada: value.strada,
-          codPostal: value.codPostal
+          // codPostal: value.codPostal
         })
       })
 
