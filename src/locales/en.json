@@ -1,0 +1,74 @@
+{
+    "nav": {
+        "home": "Home",
+        "menus": "Menus",
+        "contact": "Contact",
+        "info": "Info",
+        "profile": "Profile",
+        "logout": "Logout"
+    },
+    "homeMain": {
+        "welcome": "Welcome to",
+        "title1": "Pizzeria Restaurant",
+        "title2": "and Enjoy our",
+        "highlight": "delights",
+        "subtitle": "At Pizzeria Restaurant, the passion for authentic taste comes alive in every slice. Whether you come for a crispy pizza, a generous portion of pasta, or just the warm and friendly vibe, we’re waiting for you with a meal you’ll love.",
+        "button": "Order Online",
+        "schedule": {
+        "weekdays": "Monday - Friday: 10:30 AM - 9:00 PM",
+        "weekend": "Weekend: 12:00 PM - 9:00 PM"
+        }
+    },
+    "homeWhy": {
+        "title": "Why Choose Us",
+        "features": {
+            "produse": {
+                "label": "Products",
+                "title": "Diverse Products",
+                "desc": "A menu designed for all tastes: classic or special pizza, creamy pasta, fresh salads, and desserts. Mix and match to your liking and customize your order easily."
+            },
+            "plata": {
+                "label": "Payment",
+                "title": "Card Payment",
+                "desc": "Pay safely, no cash needed. We accept cards at delivery and online via secure payment session. Get instant confirmation, simple and fast."
+            },
+            "comanda": {
+                "label": "Order",
+                "title": "Phone Orders",
+                "desc": "Prefer talking to someone? Call us and we’ll help you pick the right menu, customize dishes, and place your order in just minutes."
+            },
+            "personalizare": {
+                "label": "Customization",
+                "title": "Custom Menus",
+                "desc": "From choosing the side dish to selecting the drink, we give you the freedom to customize your perfect menu."
+            },
+            "livrare": {
+                "label": "Delivery",
+                "title": "Fast Delivery",
+                "desc": "We deliver promptly in Clinceni, Ordoreanu, Domnești, and Bragadiru. Short routes ensure your food arrives hot and delicious."
+            }
+        }
+    },
+    "homeMenus": {
+        "title": "What are we eating today",
+        "customize": "Customize"
+    },
+    "footer": {
+        "contactTitle": "Contact",
+        "address": "Contact address",
+        "phone": "Phone number",
+        "email": "orders@pizzeria.com",
+        "infoTitle": "Information",
+        "infoLinks": {
+        "order": "How to order",
+        "delivery": "Delivery details",
+        "payment": "Payment details",
+        "about": "About"
+        },
+        "businessTitle": "Business Data",
+        "company": "SC & SRL",
+        "cui": "CUI: CevaCeva",
+        "workplace": "Workplace: Address",
+        "location": "Location"    
+    }
+}

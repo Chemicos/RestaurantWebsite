@@ -9,13 +9,7 @@ import MenuIcon from '@mui/icons-material/Menu'
 import { useCart } from "../contexts/CartContext"
 import { useOrderSummary } from "../contexts/OrderSummaryContext"
 import { useAuthWithCart } from "./MenusPage/hooks/useAuthWithCart"
-
-const navItems = [
-    {name: 'Acasă', path: '/'},
-    {name: 'Meniuri', path: '/meniuri'},
-    {name: 'Contact', path: '/contact'},
-    {name: 'Informații', path: '/informatii'}
-]
+import { useTranslation } from "react-i18next"
 
 const theme = createTheme({
   breakpoints: {
@@ -26,6 +20,19 @@ const theme = createTheme({
 })
 
 export default function Navigation() {
+    const {t, i18n} = useTranslation()
+    const toggleLanguage = () => {
+        const newLang = i18n.language === "ro" ? "en" : "ro"
+        i18n.changeLanguage(newLang)
+    }
+
+    const navItems = [
+        {name: t("nav.home"), path: '/'},
+        {name: t("nav.menus"), path: '/meniuri'},
+        {name: t("nav.contact"), path: '/contact'},
+        {name: t("nav.info"), path: '/informatii'}
+    ]
+
     const {setShowOrderSummaryMobile} = useOrderSummary()
 
     const [showLogin, setShowLogin] = useState(false)
@@ -139,7 +146,16 @@ export default function Navigation() {
                 ))}
             </div>
 
-            <div className="flex gap-6 items-center">
+
+            <div className="flex gap-6 items-center">  
+                <IconButton onClick={toggleLanguage} aria-label="change language">
+                    {i18n.language === 'ro' ? (
+                        <img src="/assets/romania.png" alt="ro" className="w-6 h-6" />
+                    ) : (
+                        <img src="/assets/united-kingdom.png" alt="en" className="w-6 h-6" />
+                    )}
+                </IconButton>
+            
                 <ThemeProvider theme={theme}>
                     <IconButton 
                         onClick={() => setOpenDrawer(true)}

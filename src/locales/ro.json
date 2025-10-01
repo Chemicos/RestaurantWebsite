@@ -1,0 +1,74 @@
+{
+    "nav": {
+        "home": "Acasă",
+        "menus": "Meniuri",
+        "contact": "Contact",
+        "info": "Informații",
+        "profile": "Profil",
+        "logout": "Deconectare"
+    },
+    "homeMain": {
+        "welcome": "Bine ai venit la",
+        "title1": "Pizzeria Restaurant",
+        "title2": "și Bucură-te de",
+        "highlight": "delicii",
+        "subtitle": "La Pizzeria Restaurant, pasiunea pentru gust autentic prinde viață în fiecare felie. Fie că vii pentru o pizza crocantă, o porție generoasă de paste sau doar pentru vibe-ul cald și prietenos, te așteptăm cu drag la o masă pe gustul tău.",
+        "button": "Comandă Online",
+        "schedule": {
+            "weekdays": "Luni - Vineri: 10:30 - 21:00",
+            "weekend": "Weekend: 12:00 - 21:00"
+        }
+    },
+    "homeWhy": {
+        "title": "De ce noi",
+        "features": {
+            "produse": {
+                "label": "Produse",
+                "title": "Produse Diversificate",
+                "desc": "Meniu gândit pentru toate gusturile: pizza clasică sau specială, paste cremoase, salate fresh și deserturi. Combină opțiunile după preferințe și personalizează-ți ușor comanda."
+            },
+            "plata": {
+                "label": "Plată",
+                "title": "Plată Card",
+                "desc": "Plătești în siguranță, fără numerar. Acceptăm carduri la livrare și online prin sesiune de plată securizată. Primești confirmarea tranzacției, simplu și rapid."
+            },
+            "comanda": {
+                "label": "Comandă",
+                "title": "Comandă Telefonic",
+                "desc": "Preferi să discuți cu cineva? Sună-ne și te ajutăm să alegi meniul potrivit, să personalizezi preparatele și să plasezi comanda în câteva minute."
+            },
+            "personalizare": {
+                "label": "Personalizare",
+                "title": "Meniuri Personalizate",
+                "desc": "De la alegerea garniturii, la alegerea sucului, noi îți oferim posibilitatea de a personaliza meniul dorit."
+            },
+            "livrare": {
+                "label": "Livrare",
+                "title": "Livrare Rapidă",
+                "desc": "Ajungem prompt în Clinceni, Ordoreanu, Domnești și Bragadiru. Ne organizăm pe rute scurte pentru ca mâncarea să fie fierbinte și delicioasă."
+            }
+        }
+    },
+    "homeMenus": {
+        "title": "Ce mâncăm astăzi",
+        "customize": "Personalizează"
+    },
+    "footer": {
+        "contactTitle": "Contact",
+        "address": "Adresa de contact",
+        "phone": "Număr de telefon",
+        "email": "comenzi@pizzeria.com",
+        "infoTitle": "Informații",
+        "infoLinks": {
+        "order": "Cum comand",
+        "delivery": "Detalii livrare",
+        "payment": "Detalii plată",
+        "about": "Despre"
+        },
+        "businessTitle": "Date Comerciale",
+        "company": "SC & SRL",
+        "cui": "CUI: CevaCeva",
+        "workplace": "Punct de lucru: Adresa",
+        "location": "Locație"
+    }
+}

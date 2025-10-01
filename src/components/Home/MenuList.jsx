@@ -5,8 +5,11 @@ import MenuCustomizer from '../MenuCustomizer/MenuCustomizer'
 // eslint-disable-next-line no-unused-vars
 import { AnimatePresence, motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
+import { useTranslation } from 'react-i18next'
 
 export default function MenuList({refreshOrders}) {
+    const {t} = useTranslation()
+
     const [menuItems, setMenuItems] = useState([])
     const [startIndex, setStartIndex] = useState(0)
     const [isFading, setIsFading] = useState(false)
@@ -70,9 +73,9 @@ export default function MenuList({refreshOrders}) {
                     initial={{ opacity: 0, x: -90 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.5 }}  
-                    className='text-4xl sm:text-5xl font-semibold'
+                    className='text-4xl sm:text-5xl font-semibold text-center md:text-start'
                 >
-                    Ce mâncăm astăzi<span className='text-custom-red'>?</span>
+                    {t('homeMenus.title')}<span className='text-custom-red'>?</span>
                 </motion.h2>
                 
                 <div className='flex gap-4'>
@@ -130,7 +133,7 @@ export default function MenuList({refreshOrders}) {
                                 className='mt-4 px-4 py-2 text-md font-bold text-custom-red border border-custom-red cursor-pointer rounded-lg
                             hover:text-white active:text-white hover:bg-red-600 active:bg-red-600 transition-colors duration-300'
                             >
-                                Personalizează
+                                {t('homeMenus.customize')}
                             </button>              
                         </div>
                     </div>

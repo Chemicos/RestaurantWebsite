@@ -5,8 +5,10 @@ import { useInView } from 'react-intersection-observer'
 // eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion'
 import { NavLink } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 export default function Footer() {
+    const {t} = useTranslation()
     const [activeIcon, setActiveIcon] = useState(null)
 
     const hoverEffectText = `transition-colors hover:text-red-500`
@@ -38,21 +40,21 @@ export default function Footer() {
                 className='flex flex-col lg:flex-row flex-wrap gap-2 lg:gap-10'
             >
                 <div className='flex flex-col items-start gap-2 md:gap-1'>
-                    <h3 className='text-white mb-4 font-semibold text-2xl'>Contact</h3>
+                    <h3 className='text-white mb-4 font-semibold text-2xl'>{t('footer.contactTitle')}</h3>
 
                     <div className='flex items-center gap-2'>
                         <MapPinIcon size={20} color='white' weight='fill' />
-                        <a className={`text-white ${hoverEffectText}`} href="https://www.google.com/maps/">Adresa de contact</a>
+                        <a className={`text-white ${hoverEffectText}`} href="https://www.google.com/maps/">{t('footer.address')}</a>
                     </div>
 
                     <div className='flex items-center gap-2'>
                         <PhoneIcon size={20} color='white' weight='fill' />
-                        <p className='text-white'>Număr de telefon</p>
+                        <p className='text-white'>{t('footer.phone')}</p>
                     </div>
 
                     <div className='flex items-center gap-2'>
                         <EnvelopeIcon size={20} color='white' weight='fill' />
-                        <p className='text-white'>comenzi@pizzeria.com</p>
+                        <p className='text-white'>{t('footer.email')}</p>
                     </div>
 
                     <div className='flex gap-3'>
@@ -75,29 +77,29 @@ export default function Footer() {
                 <div className='h-[1px] lg:h-auto w-auto lg:w-[1px] bg-custom-gray'></div>
 
                 <div className='flex flex-col items-start gap-2 md:gap-1'>
-                    <h3 className='text-white mb-4 font-semibold text-2xl'>Informații</h3>
+                    <h3 className='text-white mb-4 font-semibold text-2xl'>{t('footer.infoTitle')}</h3>
                     <NavLink className={`text-white block ${hoverEffectText}`} to='/informatii?topic=cum-comand' >
-                        Cum comand
+                        {t('footer.infoLinks.order')}
                     </NavLink>
                     <NavLink className={`text-white block ${hoverEffectText}`} to='/informatii?topic=livrare' >
-                        Detalii livrare
+                        {t('footer.infoLinks.delivery')}
                     </NavLink>
                     <NavLink className={`text-white block ${hoverEffectText}`} to='/informatii?topic=plata' >
-                        Detalii plată
+                        {t('footer.infoLinks.payment')}
                     </NavLink>
                     <NavLink className={`text-white block ${hoverEffectText}`} to='/informatii?topic=despre' >
-                        Despre
+                        {t('footer.infoLinks.about')}
                     </NavLink>
                 </div>
 
                 <div className='h-[1px] lg:h-auto w-auto lg:w-[1px] bg-custom-gray'></div>
 
                 <div className='flex flex-col items-start gap-2 md:gap-1'>
-                    <h3 className='text-white mb-4 font-semibold text-2xl'>Date Comerciale</h3>
-                    <p className='text-white'>SC & SRL</p>
-                    <p className='text-white'>CUI: CevaCeva</p>
-                    <p className='text-white'>Punct de lucru: Adresa</p>
-                    <p className='text-white'>Locație</p>
+                    <h3 className='text-white mb-4 font-semibold text-2xl'>{t('footer.businessTitle')}</h3>
+                    <p className='text-white'>{t('footer.company')}</p>
+                    <p className='text-white'>{t('footer.cui')}</p>
+                    <p className='text-white'>{t('footer.workplace')}</p>
+                    <p className='text-white'>{t('footer.location')}</p>
                 </div>
             </motion.div>
         </div>

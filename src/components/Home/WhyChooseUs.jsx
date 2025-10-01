@@ -3,50 +3,51 @@ import React, { useEffect, useMemo, useState } from 'react'
 // eslint-disable-next-line no-unused-vars
 import { AnimatePresence, motion } from 'framer-motion'
 import { useMediaQuery } from '@mui/material'
+import { useTranslation } from 'react-i18next'
 // import { useInView } from 'react-intersection-observer'
 
 const bakingPizza = '/assets/chefbakingpizza.jpg'
-const features = [
-    {
-      key: 'produse',
-      label: 'Produse',
-      icon: <HamburgerIcon size={36} weight='duotone' className='text-custom-red'/>,
-      title: "Produse Diversificate",
-      desc: "Meniu gândit pentru toate gusturile: pizza clasică sau specială, paste cremoase, salate fresh și deserturi. " +
-      "Combină opțiunile după preferințe și personalizează-ți ușor comanda."
-    },
-    {
-      key: 'plata',
-      label: 'Plată',
-      icon: <CreditCardIcon size={36} weight='duotone' className='text-custom-red' />,
-      title: "Plată Card",
-      desc: "Plătești în siguranță, fără numerar. Acceptăm carduri la livrare și online prin sesiune de plată securizată. " +
-      "Primești confirmarea tranzacției, simplu și rapid."
-    },
-    {
-      key: 'comanda',
-      label: 'Comandă',
-      icon: <PhoneIcon size={36} weight='duotone' className='text-custom-red' />,
-      title: "Comandă Telefonic",
-      desc: "Preferi să discuți cu cineva? Sună-ne și te ajutăm să alegi meniul potrivit, " +
-      "să personalizezi preparatele și să plasezi comanda în câteva minute."
-    },
-    {
-      key: 'personalizare',
-      label: 'Personalizare',
-      icon: <PaletteIcon size={36} weight='duotone' className='text-custom-red' />,
-      title: "Meniuri Personalizate",
-      desc: "De la alegerea garniturii, la alegerea sucului, noi îți oferim posibilitatea de a personaliza meniul dorit."
-    },
-    {
-      key: 'livrare',
-      label: 'Livrare',
-      icon: <TruckIcon size={36} weight='duotone' className='text-custom-red' />,
-      title: "Livrare Rapidă",
-      desc: "Ajungem prompt în Clinceni, Ordoreanu, Domnești și Bragadiru. " +
-      "Ne organizăm pe rute scurte pentru ca mâncarea să fie fierbinte și delicioasă."
-    }
-]
+// const features = [
+//     {
+//       key: 'produse',
+//       label: 'Produse',
+//       icon: <HamburgerIcon size={36} weight='duotone' className='text-custom-red'/>,
+//       title: "Produse Diversificate",
+//       desc: "Meniu gândit pentru toate gusturile: pizza clasică sau specială, paste cremoase, salate fresh și deserturi. " +
+//       "Combină opțiunile după preferințe și personalizează-ți ușor comanda."
+//     },
+//     {
+//       key: 'plata',
+//       label: 'Plată',
+//       icon: <CreditCardIcon size={36} weight='duotone' className='text-custom-red' />,
+//       title: "Plată Card",
+//       desc: "Plătești în siguranță, fără numerar. Acceptăm carduri la livrare și online prin sesiune de plată securizată. " +
+//       "Primești confirmarea tranzacției, simplu și rapid."
+//     },
+//     {
+//       key: 'comanda',
+//       label: 'Comandă',
+//       icon: <PhoneIcon size={36} weight='duotone' className='text-custom-red' />,
+//       title: "Comandă Telefonic",
+//       desc: "Preferi să discuți cu cineva? Sună-ne și te ajutăm să alegi meniul potrivit, " +
+//       "să personalizezi preparatele și să plasezi comanda în câteva minute."
+//     },
+//     {
+//       key: 'personalizare',
+//       label: 'Personalizare',
+//       icon: <PaletteIcon size={36} weight='duotone' className='text-custom-red' />,
+//       title: "Meniuri Personalizate",
+//       desc: "De la alegerea garniturii, la alegerea sucului, noi îți oferim posibilitatea de a personaliza meniul dorit."
+//     },
+//     {
+//       key: 'livrare',
+//       label: 'Livrare',
+//       icon: <TruckIcon size={36} weight='duotone' className='text-custom-red' />,
+//       title: "Livrare Rapidă",
+//       desc: "Ajungem prompt în Clinceni, Ordoreanu, Domnești și Bragadiru. " +
+//       "Ne organizăm pe rute scurte pentru ca mâncarea să fie fierbinte și delicioasă."
+//     }
+// ]
 
 const stack_offset = 10
 const card_height = 220
@@ -83,7 +84,28 @@ function useIsXL() {
   }, [])
   return isXL
 }
+
+const icons = {
+  produse: <HamburgerIcon size={36} weight='duotone' className='text-custom-red'/>,
+  plata: <CreditCardIcon size={36} weight='duotone' className='text-custom-red' />,
+  comanda: <PhoneIcon size={36} weight='duotone' className='text-custom-red' />,
+  personalizare: <PaletteIcon size={36} weight='duotone' className='text-custom-red' />,
+  livrare: <TruckIcon size={36} weight='duotone' className='text-custom-red' />
+}
+
 export default function WhyChooseUs() {
+  const {t} = useTranslation()
+
+  const featureKeys = ["produse", "plata", "comanda", "personalizare", "livrare"]
+
+  const features = featureKeys.map((key) => ({
+    key,
+    label: t(`homeWhy.features.${key}.label`),
+    title: t(`homeWhy.features.${key}.title`),
+    desc: t(`homeWhy.features.${key}.desc`),
+    icon: icons[key]
+  }))
+
   const [active, setActive] = useState(0)
   const randoms = useRandomTransforms(features.length)
   const isXl = useIsXL()
@@ -99,7 +121,7 @@ export default function WhyChooseUs() {
           transition={{ duration: 0.5 }}
           className="text-4xl sm:text-5xl font-semibold mb-10 text-center xl:text-left"
         >
-          De ce noi<span className='text-custom-red'>?</span>
+          {t('homeWhy.title')}<span className='text-custom-red'>?</span>
         </motion.h2>
 
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-20 sm:gap-14 items-center justify-center">

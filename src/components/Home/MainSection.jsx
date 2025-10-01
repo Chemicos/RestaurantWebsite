@@ -5,6 +5,7 @@ import { useInView } from 'react-intersection-observer'
 // eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion'
 import { NavLink } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 const images = [
   "/assets/cartofi_condimentati.jpg",
@@ -14,6 +15,8 @@ const images = [
 ]
 
 export default function MainSection() {
+  const {t} = useTranslation()
+
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isLoading, setIsLoading] = useState(true)
 
@@ -42,22 +45,22 @@ export default function MainSection() {
           transition={{duration: 0.5, ease: 'easeOut'}}
         >
           <div className='text-center xl:text-start'>
-            <span className='text-custom-red font-bold text-2xl sm:text-[36px]'>Bine ai venit la</span>
+            <span className='text-custom-red font-bold text-2xl sm:text-[36px]'>{t('homeMain.welcome')}</span>
             <h1 className='text-4xl sm:text-5xl font-extrabold leading-tight'>
-              Pizzeria Restaurant <br/> 
-              și Bucură-te de <span className='text-custom-red'>delicii</span>
+              {t('homeMain.title1')} <br/> 
+              {t('homeMain.title2')} <span className='text-custom-red'>{t('homeMain.highlight')}</span>
             </h1>
           </div>
 
           <p className='text-gray-700 text-md sm:text-xl text-center xl:text-start leading-relaxed max-w-xl'>
-            La Pizzeria Restaurant, pasiunea pentru gust autentic prinde viață în fiecare felie. Fie că vii pentru o pizza crocantă, o porție generoasă de paste sau doar pentru vibe-ul cald și prietenos, te așteptăm cu drag la o masă pe gustul tău.
+            {t('homeMain.subtitle')}
           </p>
           
           <NavLink className='w-fit mx-auto xl:mx-0' to='/meniuri'>          
             <button className='w-fit bg-custom-red hover:bg-red-700 text-white font-semibold 
               py-4 px-8 text-lg xl:text-xl rounded-xl transition-all cursor-pointer shadow-md active:scale-90'
             >
-              Comandă Online
+              {t('homeMain.button')}
             </button>
           </NavLink>
 
@@ -70,8 +73,8 @@ export default function MainSection() {
             />
             
             <div>
-              <p>Luni - Vineri: 10:30 - 21:00</p>
-              <p>Weekend: 12:00 - 21:00</p>
+              <p>{t('homeMain.schedule.weekdays')}</p>
+              <p>{t('homeMain.schedule.weekend')}</p>
             </div>
           </div>
         </motion.div>
