@@ -1,19 +1,22 @@
 import { CheckIcon, PlusIcon } from '@phosphor-icons/react'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 
 export default function GarnishSection({
     garnituri,
     selectedGarnitura,
     setSelectedGarnitura
 }) {
+  const {t} = useTranslation()
+
   return (
     <div className='space-y-4'>
       <div className='flex flex-col'>
         <div className='flex items-center'>
-          <h3 className='font-semibold text-xl'>Alege Garnitura</h3>
-          <span className="ml-2 text-xs text-white font-light bg-custom-red px-2 py-0.5 rounded-full">obligatoriu</span>
+          <h3 className='font-semibold text-xl'>{t('customizer.garnish.title')}</h3>
+          <span className="ml-2 text-xs text-white font-light bg-custom-red px-2 py-0.5 rounded-full">{t('customizer.garnish.required')}</span>
         </div>
-        <p className='text-custom-gray text-sm font-semibold'>Alege 1</p>
+        <p className='text-custom-gray text-sm font-semibold'>{t('customizer.garnish.subtitle')}</p>
       </div>
 
       <div>

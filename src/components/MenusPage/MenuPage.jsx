@@ -12,11 +12,13 @@ import { useOrders } from './hooks/useOrders'
 import { useCart } from '../../contexts/CartContext'
 import { useLocation, useNavigate } from 'react-router-dom'
 import ConfirmOrderTransaction from './ConfirmOrderTransaction'
+import { useTranslation } from 'react-i18next'
 
 export default function MenuPage() {
   const { showOrderSummaryMobile, setShowOrderSummaryMobile } = useOrderSummary()
   const location = useLocation()
   const navigate = useNavigate()
+  const {t} = useTranslation()
 
   const [selectedCategory, setSelectedCategory] = useState('')
   const [scrolled, setScrolled] = useState(false)
@@ -183,7 +185,7 @@ export default function MenuPage() {
         ) : filteredMenus.length === 0 ? (
           <div className="flex justify-center items-center min-h-[300px]">
             <p className="text-lg font-small text-gray-600">
-              Meniul căutat nu există.
+              {t('toasts.notFound')}
             </p>
           </div>
         ) : (
@@ -228,7 +230,7 @@ export default function MenuPage() {
           variant='filled'
           sx={{width: '100%'}}
         >
-          Meniul a fost șters cu succes!
+          {t('toasts.deleted')}
         </Alert>
       </Snackbar>
 
@@ -239,7 +241,7 @@ export default function MenuPage() {
         anchorOrigin={{vertical: 'bottom', horizontal: 'center'}}
       >
         <Alert onClose={handleCloseEditToast} severity='success' variant='filled' sx={{width: '100%'}}>
-          Meniul a fost actualizat cu succes!
+          {t('toasts.edited')}
         </Alert>
       </Snackbar>
 
@@ -250,7 +252,7 @@ export default function MenuPage() {
         anchorOrigin={{vertical: 'bottom', horizontal: 'center'}}
       >
         <Alert onClose={handleCloseAddToast} severity='success' variant='filled' sx={{width: '100%'}}>
-          Meniul a fost adăugat cu succes!
+          {t('toasts.added')}
         </Alert>
       </Snackbar>
 

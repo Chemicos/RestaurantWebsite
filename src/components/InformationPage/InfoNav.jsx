@@ -1,14 +1,7 @@
 import { createTheme, Divider, Drawer, Fab, IconButton, List, ListItemButton, ListItemText, ThemeProvider } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { ChevronLeft } from '@mui/icons-material'
-
-const topics = [
-    {id: 'cum-comand', label: 'Cum comand'},
-    {id: 'livrare', label: 'Detalii livrare'},
-    {id: 'plata', label: 'Detalii plată'},
-    {id: 'cookie', label: 'Politica de cookie'},
-    {id: 'despre', label: 'Despre'}
-]
+import { useTranslation } from 'react-i18next'
 
 const theme = createTheme({
   breakpoints: {
@@ -22,6 +15,14 @@ export default function InfoNav({
     selectedTopic,
     onSelectTopic
 }) {
+  const {t} = useTranslation()
+  const topics = [
+    {id: 'cum-comand', label: t('infoNav.topics.how-to-order')},
+    {id: 'livrare', label: t('infoNav.topics.delivery')},
+    {id: 'plata', label: t('infoNav.topics.payment')},
+    {id: 'cookie', label: t('infoNav.topics.cookie')},
+    {id: 'despre', label: t('infoNav.topics.about')}
+  ]
 
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
@@ -71,7 +72,7 @@ export default function InfoNav({
         onClose={() => setOpen(false)}
         PaperProps={{sx: {width: 280, backgroundColor: '#FEF7EA'}}}
       >
-        <h4 className='text-xl font-semibold mb-2 p-4'>Informatii</h4>
+        <h4 className='text-xl font-semibold mb-2 p-4'>{t('infoNav.title')}</h4>
         <Divider />
         <List>
           {topics.map(t => (

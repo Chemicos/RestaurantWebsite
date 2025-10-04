@@ -53,6 +53,160 @@
         "title": "Ce mâncăm astăzi",
         "customize": "Personalizează"
     },
+    "searchOptions": {
+        "title": "Filtrare meniuri",
+        "category": "Categorie",
+        "categoryOptions": {
+            "all": "Toate",
+            "pizza": "Pizza",
+            "pasta": "Paste",
+            "desert": "Desert",
+            "others": "Altele"
+        },
+        "search": "Caută",
+        "reset": "Resetează",
+        "menus": "Meniuri"
+    },
+    "orderSummary": {
+        "title": "Comanda ta",
+        "emptyOrder": "Încă nu ai adaugat un meniu.",
+        "delete": "Șterge",
+        "edit": "Editează",
+        "finish": "Finalizează pentru"
+    },
+    "confirmDelete": {
+        "title": "Confirmare Ștergere",
+        "message1": "Sigur vrei să ștergi",
+        "message2": "din comanda ta?",
+        "cancel": "Anulează",
+        "delete": "Șterge"
+    },
+    "toasts": {
+        "deleted": "Meniul a fost șters cu succes!",
+        "edited": "Meniul a fost actualizat cu succes!",
+        "added": "Meniul a fost adăugat cu succes!",
+        "notFound": "Meniul căutat nu există."
+    },
+    "customizer": {
+        "garnish": {
+            "title": "Alege Garnitura",
+            "required": "obligatoriu",
+            "subtitle": "Alege 1"
+        },
+        "salad": {
+            "title": "Alege Salata",
+            "optional": "opțional"
+        },
+        "sauce": {
+            "title": "Alege Sosuri",
+            "optional": "opțional"
+        },
+        "drinks": {
+            "title": "Alege Bautura",
+            "optional": "opțional"
+        }
+    },
+    "menuPreview": {
+        "ingredients": "Ingrediente",
+        "garnish": "Garnitură",
+        "salads": "Salate",
+        "sauces": "Sosuri",
+        "drinks": "Băuturi"
+    },
+    "addMenu": {
+        "save": "Salvează",
+        "for": "pentru",
+        "add": "Adaugă",
+        "addFor": "pentru"
+    },
+     "contactDetails": {
+        "title": "Ia legătura cu noi",
+        "subtitle": "Suntem aici pentru tine. Ne poți contacta ușor folosind datele de mai jos.",
+        "address": "Strada Principală nr. 105, Clinceni",
+        "phone": "0782984927"
+    },
+    "contactUs": {
+        "title": "Contactează-ne",
+        "fields": {
+            "email": "Email",
+            "name": "Nume",
+            "phone": "Telefon",
+            "message": "Mesaj",
+            "placeholderMessage": "Scrie mesajul aici"
+        },
+        "errors": {
+            "emailRequired": "Emailul este obligatoriu",
+            "emailInvalid": "Email invalid",
+            "nameRequired": "Numele este obligatoriu",
+            "phoneRequired": "Telefonul este obligatoriu",
+            "phoneInvalid": "Telefon invalid",
+            "messageRequired": "Mesajul este obligatoriu",
+            "limitReached": "Ai atins limita"
+        },
+        "charsLeft": "caractere rămase",
+        "submit": "Trimite",
+        "confirmMessage": {
+            "title": "Mesajul a fost trimis!",
+            "message": "Îți mulțumim. Îți vom răspunde în curând.",
+            "okText": "Închide"
+        }
+    },
+    "infoNav": {
+        "title": "Informații",
+        "topics": {
+            "how-to-order": "Cum comand",
+            "delivery": "Detalii livrare",
+            "payment": "Detalii plată",
+            "cookie": "Politica de cookie",
+            "about": "Despre"
+        }
+    },
+    "howToOrder": {
+        "title": "Cum Comand",
+        "subtitle": "Cum comanzi online/telefonic de la Pizzeria Clinceni",
+        "online": {
+            "title": "1. Comandă Online",
+            "desc": "Pizzeria Clinceni îți oferă posibilitatea de a comanda rapid și simplu direct de pe site-ul nostru. Iată pașii pentru a plasa o comandă online",
+            "descExtra": "(Vezi mai jos)",
+            "step1": {
+                "title": "Pasul 1",
+                "desc": "Alege produsul preferat din pagina",
+                "descExtra": "Meniuri"
+            },
+            "step2": {
+                "title": "Pasul 2",
+                "desc": "Personalizează-ți produsul și apoi mergi pe butonul",
+                "descExtra": "Adaugă"
+            },
+            "step3": {
+                "title": "Pasul 3",
+                "desc1": "După adăugarea meniurilor mergi în partea dreaptă, spre secțiunea",
+                "desc2": "și apeși",
+                "descExtra1": "Comanda ta",
+                "descExtra2": "Finalizează"
+            },
+            "step4": {
+                "title": "Pasul 4",
+                "desc1": "În secțiunea de",
+                "desc2": "completezi câmpurile din",
+                "desc3": "(dacă nu ești autentificat),",
+                "desc4": "și selectezi metoda de livrare și cea de plată",
+                "descExtra1": "Finalizare Comandă",
+                "descExtra2": "Date personale",
+                "descExtra3": "Adresa de livrare"
+            }
+        },
+        "phone": {
+            "title": "2. Comandă Telefonică",
+            "summary": "Dacă preferi să comanzi prin telefon, ne poți suna la",
+            "steps": [
+                "Spune-ne numele, adresa de livrare și produsele dorite.",
+                "Alegi metoda de plată preferată.",
+                "Echipa noastră confirmă comanda și estimarea timpului de livrare.",
+                "Aștepți comanda delicioasă direct la ușa ta."
+            ]
+        }
+    },
     "footer": {
         "contactTitle": "Contact",
         "address": "Adresa de contact",

@@ -79,37 +79,46 @@ export default function Navigation() {
     }, [])
 
     const DrawerList = useMemo(
-        () => (
-            <>
-                <div className="flex items-center justify-between p-4">
-                    <IconButton onClick={() => setOpenDrawer(false)} aria-label="inchide">
-                        <Close />
-                    </IconButton>
-                </div>
-                <Divider />
+        () => {
+            const navItems = [
+                { name: t("nav.home"), path: '/' },
+                { name: t("nav.menus"), path: '/meniuri' },
+                { name: t("nav.contact"), path: '/contact' },
+                { name: t("nav.info"), path: '/informatii' }
+            ]
+        
+            return (
+                <>
+                    <div className="flex items-center justify-between p-4">
+                        <IconButton onClick={() => setOpenDrawer(false)} aria-label="inchide">
+                            <Close />
+                        </IconButton>
+                    </div>
+                    <Divider />
 
-                <List>
-                    {navItems.map((item) => (
-                        <ListItemButton
-                            key={item.path}
-                            component={NavLink}
-                            to={item.path}
-                        >
-                            <ListItemText
-                                primary={item.name}
-                                primaryTypographyProps={{
-                                    sx: {
-                                        fontWeight: location.pathname === item.path ? 700 : 400,
-                                        color: location.pathname === item.path ? '#E7272C' : '#66635B'
-                                    }
-                                }}
-                            />
-                        </ListItemButton>
-                    ))}
-                </List>
-            </>
-        ),
-        [location.pathname]
+                    <List>
+                        {navItems.map((item) => (
+                            <ListItemButton
+                                key={item.path}
+                                component={NavLink}
+                                to={item.path}
+                            >
+                                <ListItemText
+                                    primary={item.name}
+                                    primaryTypographyProps={{
+                                        sx: {
+                                            fontWeight: location.pathname === item.path ? 700 : 400,
+                                            color: location.pathname === item.path ? '#E7272C' : '#66635B'
+                                        }
+                                    }}
+                                />
+                            </ListItemButton>
+                        ))}
+                    </List>
+                </>
+            )
+        },
+        [location.pathname, t, i18n.language]
     )
   return (
     <div className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${hasShadow ? 'shadow-lg bg-custom-yellow' : ''}`}>

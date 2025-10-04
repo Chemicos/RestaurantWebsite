@@ -4,8 +4,10 @@ import { useInView } from 'react-intersection-observer'
 import { motion } from 'framer-motion' 
 import ConfirmMessage from './ConfirmMessage'
 import { TextField } from '@mui/material'
+import { useTranslation } from 'react-i18next'
 
 export default function ContactUs({ prefill }) {
+  const {t} = useTranslation()
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.2 })
   const [confirmOpen, setConfirmOpen] = useState(false)
   const [form, setForm] = useState({
@@ -47,23 +49,23 @@ export default function ContactUs({ prefill }) {
     const phoneRe = /^[0-9\s+\-()]{6,}$/
 
     if (!form.email.trim()) {
-      newErrors.email = 'Emailul este obligatoriu'
+      newErrors.email = t('contactUs.errors.emailRequired')
     } else if (!emailRe.test(form.email)) {
-      newErrors.email = 'Email invalid'
+      newErrors.email = t('contactUs.errors.emailInvalid')
     }
 
     if (!form.nume.trim()) {
-      newErrors.nume = 'Numele este obligatoriu'
+      newErrors.nume = t('contactUs.errors.nameRequired')
     }
 
     if (!form.telefon.trim()) {
-      newErrors.telefon = 'Telefonul este obligatoriu'
+      newErrors.telefon = t('contactUs.errors.phoneRequired')
     } else if (!phoneRe.test(form.telefon)) {
-      newErrors.telefon = 'Telefon invalid'
+      newErrors.telefon = t('contactUs.errors.phoneInvalid')
     }
 
     if (!form.mesaj.trim()) {
-      newErrors.mesaj = 'Mesajul este obligatoriu'
+      newErrors.mesaj = t('contactUs.errors.messageRequired')
     }
 
     setErrors(newErrors)
@@ -114,14 +116,14 @@ export default function ContactUs({ prefill }) {
         className='w-full md:w-[640px] px-6 md:px-0'
       >
         <form className='w-full flex flex-col' onSubmit={handleSubmitMessage}>
-          <h2 className='text-4xl mb-10 text-center'>Contactează-ne</h2>
+          <h2 className='text-4xl mb-10 text-center'>{t('contactUs.title')}</h2>
 
           <div className='w-full flex flex-col gap-8 md:gap-4'>
             <div className='flex flex-col md:flex-row gap-8 md:gap-4'>
               <TextField
                 name='email'
                 type='email'
-                label='Email'
+                label={t('contactUs.fields.email')}
                 fullWidth
                 value={form.email}
                 onChange={handleChange}
@@ -133,7 +135,7 @@ export default function ContactUs({ prefill }) {
               <TextField
                 name='nume'
                 type='text'
-                label='Nume'
+                label={t('contactUs.fields.name')}
                 fullWidth
                 value={form.nume}
                 onChange={handleChange}
@@ -146,7 +148,7 @@ export default function ContactUs({ prefill }) {
             <TextField
               name='telefon'
               type='text'
-              label='Telefon'
+              label={t('contactUs.fields.phone')}
               fullWidth
               value={form.telefon}
               onChange={handleChange}
@@ -157,8 +159,8 @@ export default function ContactUs({ prefill }) {
 
             <TextField
               name='mesaj'
-              label='Mesaj'
-              placeholder='Scrie mesajul aici'
+              label={t('contactUs.fields.message')}
+              placeholder={t('contactUs.fields.placeholderMessage')}
               fullWidth
               multiline
               rows={6}
@@ -169,8 +171,8 @@ export default function ContactUs({ prefill }) {
               helperText={
                 errors.mesaj ||
                 (form.mesaj.length === messageMaxLength
-                  ? `Ai atins limita`
-                  : `${messageMaxLength - form.mesaj.length} caractere rămase`)
+                  ? `${t('contactUs.errors.limitReached')}`
+                  : `${messageMaxLength - form.mesaj.length} ${t('contactUs.charsLeft')}`)
               }
               sx={customInputStyles}
             />
@@ -180,7 +182,7 @@ export default function ContactUs({ prefill }) {
                 className='bg-custom-red text-white font-medium py-3 w-32 rounded-xl self-center text-lg hover:bg-red-800 active:bg-red-800 cursor-pointer transition-all
                 active:scale-90'
             >
-                Trimite
+              {t('contactUs.submit')}
             </button>
           </div>
         </form>

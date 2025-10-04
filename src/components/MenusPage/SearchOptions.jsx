@@ -1,13 +1,7 @@
 import { PizzaIcon, BowlFoodIcon, CookieIcon, MagnifyingGlassIcon, FunnelSimpleIcon } from "@phosphor-icons/react"
 import { Box, createTheme, Divider, Drawer, Fab, FormControl, InputLabel, MenuItem, Select, TextField, ThemeProvider, useMediaQuery } from '@mui/material'
 import { useState } from "react"
-
-const filterOptions = [
-  { value: 'Pizza', label: 'Pizza', icon: <PizzaIcon size={20} /> },
-  { value: 'Paste', label: 'Paste', icon: <BowlFoodIcon size={20} /> },
-  { value: 'Desert', label: 'Desert', icon: <CookieIcon size={20} /> },
-  { value: 'Altele', label: 'Altele'}
-]
+import { useTranslation } from "react-i18next"
 
 const theme = createTheme({
   breakpoints: {
@@ -25,7 +19,15 @@ export default function SearchOptions({
   onResetFilters
 }) {
   const [openDrawer, setOpenDrawer] = useState(false)
+  const {t} = useTranslation()
   const isMobile = useMediaQuery('(max-width: 1024px)')
+
+  const filterOptions = [
+    { value: 'Pizza', label: t('searchOptions.categoryOptions.pizza'), icon: <PizzaIcon size={20} /> },
+    { value: 'Paste', label: t('searchOptions.categoryOptions.pasta'), icon: <BowlFoodIcon size={20} /> },
+    { value: 'Desert', label: t('searchOptions.categoryOptions.desert'), icon: <CookieIcon size={20} /> },
+    { value: 'Altele', label: t('searchOptions.categoryOptions.others')}
+  ]
 
   const getFilterInputs = (isMobile) => (
     <Box
@@ -52,7 +54,7 @@ export default function SearchOptions({
           },
         }}
       >
-        <InputLabel id='filter-label'>Categorie</InputLabel>
+        <InputLabel id='filter-label'>{t('searchOptions.category')}</InputLabel>
         <Select
           labelId='filter-label'
           id='category-select'
@@ -78,7 +80,7 @@ export default function SearchOptions({
             '&.Mui-selected, &.Mui-selected:hover': { backgroundColor: '#FFE2E2', borderRadius: '10px' } 
             }}
           >
-            <em>Toate</em>
+            <em>{t('searchOptions.categoryOptions.all')}</em>
           </MenuItem>
           {filterOptions.map((opt) => (
             <MenuItem
@@ -107,7 +109,7 @@ export default function SearchOptions({
         <MagnifyingGlassIcon size={22} style={{ marginRight: 8, marginBottom: 4 }} />
         <TextField
           variant='standard'
-          label='Caută'
+          label={t('searchOptions.search')}
           fullWidth={isMobile}
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
@@ -132,7 +134,7 @@ export default function SearchOptions({
           isMobile ? 'w-full' : ''
         }`}
       >
-        Resetează
+        {t('searchOptions.reset')}
       </button>
     </Box>
   )
@@ -188,7 +190,7 @@ export default function SearchOptions({
               onClose={() => setOpenDrawer(false)}
               PaperProps={{ sx: { width: 280, backgroundColor: '#FEF7EA', zIndex: 1300} }}
             >
-              <h4 className='text-xl font-semibold p-4 mb-2'>Filtrare meniuri</h4>
+              <h4 className='text-xl font-semibold p-4 mb-2'>{t('searchOptions.title')}</h4>
 
               <Divider />
 
@@ -197,7 +199,7 @@ export default function SearchOptions({
               </Box>
             </Drawer>
             <span style={{ fontSize: 14, fontWeight: 500, color: '#66635B' }}>
-              {countOfMenus} Meniuri
+              {countOfMenus} {t('searchOptions.menus')}
             </span>
           </>
         )}

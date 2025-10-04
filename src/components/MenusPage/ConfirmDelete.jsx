@@ -2,8 +2,11 @@
 import { WarningCircleIcon } from '@phosphor-icons/react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 
 export default function ConfirmDelete({visible, onCancel, onConfirm, menuName}) {    
+    const {t} = useTranslation()
+
     useEffect(() => {
         if (!visible) return
         const onKey = (e) => e.key === 'Escape' && onCancel?.()
@@ -43,7 +46,7 @@ export default function ConfirmDelete({visible, onCancel, onConfirm, menuName}) 
                         animate={{ y: 0, opacity: 1 }}
                         transition={{ delay: 0.15 }}
                     >
-                        Confirmare Ștergere
+                        {t('confirmDelete.title')}
                     </motion.h2>
                     <motion.p 
                         className="text-custom-gray text-sm leading-relaxed"
@@ -51,7 +54,7 @@ export default function ConfirmDelete({visible, onCancel, onConfirm, menuName}) 
                         animate={{ y: 0, opacity: 1 }}
                         transition={{ delay: 0.22 }}
                     >
-                        Sigur vrei să ștergi <strong>{menuName}</strong> din comanda ta?
+                        {t('confirmDelete.message1')} <strong>{menuName}</strong> {t('confirmDelete.message2')}
                     </motion.p>
                 </div>
 
@@ -60,13 +63,13 @@ export default function ConfirmDelete({visible, onCancel, onConfirm, menuName}) 
                         onClick={onCancel}
                         className="w-full px-4 py-2 text-custom-gray rounded-lg hover:bg-gray-200 hover:text-black active:bg-gray-200 active:text-black cursor-pointer transition-all"
                     >
-                        Anulează
+                        {t('confirmDelete.cancel')}
                     </button>
                     <button
                         onClick={onConfirm}
                         className="w-full px-4 py-2 bg-custom-red text-white rounded-lg hover:bg-red-700 active:bg-red-700 active:scale-90 cursor-pointer transition-all"
                     >
-                        Șterge
+                        {t('confirmDelete.delete')}
                     </button>
                 </div>
             </motion.div>

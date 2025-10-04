@@ -53,6 +53,160 @@
         "title": "What are we eating today",
         "customize": "Customize"
     },
+    "searchOptions": {
+        "title": "Filter menus",
+        "category": "Category",
+        "categoryOptions": {
+            "all": "All",
+            "pizza": "Pizza",
+            "pasta": "Pasta",
+            "desert": "Desert",
+            "others": "Others"
+        },
+        "search": "Search",
+        "reset": "Reset",
+        "menus": "Menus"
+    },
+    "orderSummary": {
+        "title": "Your order",
+        "emptyOrder": "You haven't added a menu yet.",
+        "delete": "Delete",
+        "edit": "Edit",
+        "finish": "Checkout for"
+    },
+    "confirmDelete": {
+        "title": "Delete Confirmation",
+        "message1": "Are you sure you want to delete",
+        "message2": "from your order?",
+        "cancel": "Cancel",
+        "delete": "Delete"
+    },
+    "toasts": {
+        "deleted": "The menu has been successfully deleted!",
+        "edited": "The menu has been successfully updated!",
+        "added": "The menu has been successfully added!",
+        "notFound": "The searched menu does not exist."
+    },
+    "customizer": {
+        "garnish": {
+            "title": "Choose Garnish",
+            "required": "required",
+            "subtitle": "Choose 1"
+        },
+        "salad": {
+            "title": "Choose Salad",
+            "optional": "optional"
+        },
+        "sauce": {
+            "title": "Choose Sauce",
+            "optional": "optional"
+        },
+        "drinks": {
+            "title": "Choose Drink",
+            "optional": "optional"
+        }
+    },
+    "menuPreview": {
+        "ingredients": "Ingredients",
+        "garnish": "Garnish",
+        "salads": "Salads",
+        "sauces": "Sauces",
+        "drinks": "Drinks"
+    },
+    "addMenu": {
+        "save": "Save",
+        "for": "for",
+        "add": "Add",
+        "addFor": "for"
+    },
+    "contactDetails": {
+        "title": "Get in touch with us",
+        "subtitle": "We’re here for you. You can easily contact us using the details below.",
+        "address": "105 Main Street, Clinceni",
+        "phone": "+40 782 984 927"
+    },
+    "contactUs": {
+        "title": "Contact us",
+        "fields": {
+            "email": "Email",
+            "name": "Name",
+            "phone": "Phone",
+            "message": "Message",
+            "placeholderMessage": "Write your message here"
+        },
+        "errors": {
+            "emailRequired": "Email is required",
+            "emailInvalid": "Invalid email",
+            "nameRequired": "Name is required",
+            "phoneRequired": "Phone is required",
+            "phoneInvalid": "Invalid phone number",
+            "messageRequired": "Message is required",
+            "limitReached": "You have reached the limit"
+        },
+        "charsLeft": "characters left",
+        "submit": "Send",
+        "confirmMessage": {
+            "title": "Your message has been sent!",
+            "message": "Thank you. We will get back to you soon.",
+            "okText": "Close"
+        }
+    },
+    "infoNav": {
+        "title": "Information",
+        "topics": {
+            "how-to-order": "How to order",
+            "delivery": "Delivery details",
+            "payment": "Payment details",
+            "cookie": "Cookie policy",
+            "about": "About"
+        }
+    },
+    "howToOrder": {
+        "title": "How to Order",
+        "subtitle": "How to order online/by phone from Pizzeria Clinceni",
+        "online": {
+            "title": "1. Online Order",
+            "desc": "Pizzeria Clinceni gives you the option to order quickly and easily directly from our website. Here are the steps to place an order online",
+            "descExtra": "(See bellow)",
+            "step1": {
+                "title": "Step 1",
+                "desc": "Choose your preferred product from the",
+                "descExtra": "Menus page"
+            },
+            "step2": {
+                "title": "Step 2",
+                "desc": "Customize your product and then click the",
+                "descExtra": "Add button"
+            },
+            "step3": {
+                "title": "Step 3",
+                "desc1": "After adding the menus, go to the right-hand side,",
+                "desc2": "and press",
+                "descExtra1": "to Your Order,",
+                "descExtra2": "Checkout"
+            },
+            "step4": {
+                "title": "Step 4",
+                "desc1": "In the",
+                "desc2": "section, fill in your",
+                "desc3": "(if not logged in),",
+                "desc4": "and select the delivery and payment method",
+                "descExtra1": "Checkout",
+                "descExtra2": "Personal Data",
+                "descExtra3": "Delivery Address"
+            }
+        },
+        "phone": {
+            "title": "2. Phone Order",
+            "summary": "If you prefer to order by phone, you can call us at",
+            "steps": [
+                "Tell us your name, delivery address, and the desired products.",
+                "Choose your preferred payment method.",
+                "Our team confirms the order and gives you an estimated delivery time.",
+                "Wait for your delicious order right at your door."
+            ]
+        }
+    },
     "footer": {
         "contactTitle": "Contact",
         "address": "Contact address",

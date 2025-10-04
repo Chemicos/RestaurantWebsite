@@ -1,5 +1,6 @@
 import { MinusIcon, PlusIcon } from '@phosphor-icons/react'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 
 export default function SauceSection({
     sosuri,
@@ -7,13 +8,14 @@ export default function SauceSection({
     toggleSos,
     updateSosuriQuantity
 }) {
+  const {t} = useTranslation()
   return (
     <div className='space-y-4'>
       <div className='flex items-center'>
           <h3 className=' font-semibold text-xl'>
-            Alege Sosuri
+            {t('customizer.sauce.title')}
           </h3>
-          <span className='ml-2 text-xs font-light bg-[#FFD980] px-2 py-0.5 rounded-full'>opțional</span>
+          <span className='ml-2 text-xs font-light bg-[#FFD980] px-2 py-0.5 rounded-full'>{t('customizer.sauce.optional')}</span>
         </div>
 
         <div>

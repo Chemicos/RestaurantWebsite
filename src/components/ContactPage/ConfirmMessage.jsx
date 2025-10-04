@@ -1,13 +1,16 @@
 import React, { useEffect } from 'react'
 // eslint-disable-next-line no-unused-vars
 import { AnimatePresence, motion } from 'framer-motion'
+import { useTranslation } from 'react-i18next'
 
 export default function ConfirmMessage({
-    open, onClose, onOk, 
-    title = 'Mesajul a fost trimis!',
-    message = 'Îți mulțumim. Îți vom răspunde în curând.',
-    okText = 'Închide',
+    open, onClose, onOk
 }) {
+    const {t} = useTranslation()
+
+    const title = t('contactUs.confirmMessage.title')
+    const message = t('contactUs.confirmMessage.message')
+    const okText = t('contactUs.confirmMessage.okText')
     useEffect(() => {
         if (!open) return
         const onKey = (e) => e.key === 'Escape' && onClose?.()
