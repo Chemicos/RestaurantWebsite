@@ -1,8 +1,10 @@
 import { TextField } from '@mui/material'
+import { useTranslation } from 'react-i18next'
 
 export default function CustomerDetailsForm({ 
   value, onChange, errors = {}, validators = {}
 }) {
+  const {t} = useTranslation()
   const handle = (field) => (e) => onChange(prev => ({...prev, [field]: e.target.value}))
   
   const isNonEmpty = (v) => !!v?.toString().trim()
@@ -12,10 +14,10 @@ export default function CustomerDetailsForm({
 
   return (
     <div className='flex flex-col gap-4'>
-      <h3 className='text-xl font-semibold'>Date personale</h3>
+      <h3 className='text-xl font-semibold'>{t('finishOrder.customerDetails.title')}</h3>
       <TextField
         id='customer-nume'
-        label='Nume'
+        label={t('finishOrder.customerDetails.lastName')}
         variant='outlined'
         fullWidth
         value={value.nume}
@@ -26,7 +28,7 @@ export default function CustomerDetailsForm({
 
       <TextField
         id='customer-prenume'
-        label='Prenume'
+        label={t('finishOrder.customerDetails.firstName')}
         variant='outlined'
         fullWidth
         value={value.prenume}
@@ -37,7 +39,7 @@ export default function CustomerDetailsForm({
 
       <TextField
         id='customer-telefon'
-        label='Telefon'
+        label={t('finishOrder.customerDetails.phone')}
         variant='outlined'
         fullWidth
         value={value.telefon}
@@ -55,7 +57,7 @@ export default function CustomerDetailsForm({
 
       <TextField
         id='customer-email'
-        label='Email'
+        label={t('finishOrder.customerDetails.email')}
         variant='outlined'
         fullWidth
         value={value.email}

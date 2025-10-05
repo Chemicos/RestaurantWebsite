@@ -207,6 +207,106 @@
             ]
         }
     },
+    "deliveryDetails": {
+        "title": "Delivery Details",
+        "subtitle": "How do we deliver your order?",
+        "howWeDeliverText": "Pizzeria Clinceni offers you fast and safe delivery so you can enjoy fresh and delicious pizza right at home!",
+        "zoneTitle": "Delivery Area",
+        "weekdays": "Monday-Friday:",
+        "timeTitle": "Estimated Delivery Time",
+        "timeText": "Depending on your location and order volume, the average delivery time is between",
+        "timeValue": "30 - 60 minutes",
+        "costTitle": "Delivery Cost",
+        "freeDelivery": "Free delivery for orders over",
+        "paidDelivery": "For orders below this amount, a delivery fee of",
+        "paymentTitle": "Payment Methods",
+        "cardPayment": "Card Payment on Delivery.",
+        "cashPayment": "Cash Payment on Delivery."
+    },
+    "paymentDetails": {
+        "title": "Payment Details",
+        "cardTitle": "Card Payment on Delivery",
+        "cardText": "You can choose to pay for your order by card. The transaction will be carried out securely and confidentially, quickly and safely, through the online payment processor.",
+        "cashTitle": "Cash Payment",
+        "cashText": "In this option, the order will be paid in cash upon delivery. You will pay directly to the delivery agent when your products are delivered, and you will receive a receipt. Ordered products and delivery fee must be paid in full.",
+        "zonesText": "Pizzeria Clinceni offers home delivery in the areas",
+        "zones": "Clinceni, Domnești, Bragadiru, Țegheș and Ordoreanu.",
+        "freeDeliveryText": "To benefit from free delivery, the minimum order value must be 50 lei. For orders below this amount, a delivery fee of 8 lei applies. For more details or to place an order, you can contact us at the phone number",
+        "freeDeliveryText1": "or through email via"
+    },
+    "cookiePolicy": {
+        "title": "Cookie Policy",
+        "intro": "This cookie policy explains what cookies are and how we use them on our website. You should read this policy to understand what types of cookies we use, the information we collect through cookies, and how we use that information. You can give your consent to the use of cookies and withdraw it at any time by changing your browser settings, which allow you to accept or refuse all or certain types of cookies.",
+        "whatAreCookiesTitle": "What are cookies?",
+        "whatAreCookiesText": "Cookies are files that contain a small amount of data. They are stored in your browser or on the hard drive of your computer or device.",
+        "howWeUseTitle": "How do we use cookies?",
+        "howWeUseText": "We use cookies to distinguish you from other users of our website and to provide you with a personalized browsing experience. Cookies allow our site to remember what you've done during your visit, such as your login details. Cookies contain information that is transferred to your computer’s hard drive. These cookies store information such as when a visitor accessed the site, whether they have visited before, and what site referred them. You can delete or block these cookies, but doing so may cause some features of our website to not function as expected.",
+        "typesTitle": "What types of cookies do we use?",
+        "typesText": "Session cookies – these are temporarily stored in your browser's cookie folder and are deleted when you close the browser or leave the website (e.g., when you log in/out of an email or social media account). Persistent cookies – these are stored on your computer or device and generally depend on the pre-set lifespan of the cookie. Some cookies are used only during a single session and are not retained after you leave the site, while others are kept and reused each time you return. However, cookies can be deleted by the user at any time via browser settings. They will remain on your device until deleted or until they expire.",
+        "controlTitle": "How can you control cookies?",
+        "controlText": "We use cookies based on your consent. You can grant or withdraw consent for cookie usage by changing your browser settings, which allow you to accept or reject all or specific cookies. Make sure your computer settings reflect whether or not you agree to accept cookies. If you use different computers in different locations, you will need to ensure each browser is set to match your cookie preferences. You can set your browser to warn you before accepting cookies or set it to refuse them entirely—note that refusing cookies may affect your ability to use some features of this site. Use your browser’s 'help' button to learn how to do this. You can also control and/or delete cookies as you wish. You can delete all cookies that are already on your computer and configure most browsers to prevent them from being placed. However, doing so may require you to manually adjust preferences every time you visit our website, and some services or functionalities may not work properly.",
+        "amendmentsTitle": "Changes to the Cookie Policy",
+        "amendmentsText": "If we decide to modify this Cookie Policy, we will post the new version here, which will replace the current one."
+    },
+    "aboutPage": {
+        "title": "About",
+        "historyTitle": "Passion for Pizza Since 2016",
+        "historyText": "Pizzeria Clinceni was founded in 2016 in Clinceni, Ilfov, with the goal of offering the local community delicious dishes made from fresh, high-quality ingredients. Over the years, we’ve earned a reputation for our authentic pizza taste and fast delivery services.",
+        "differenceTitle": "What sets us apart?",
+        "differenceList": [
+            "Fresh and high-quality ingredients",
+            "Wood-fired oven",
+            "Fast delivery",
+            "Passion for flavor"
+        ],
+        "missionTitle": "Our Mission",
+        "missionText": "We aim to be the first choice for customers in Clinceni and the surrounding areas when it comes to pizza and authentic Italian dishes. Our mission is to maintain quality and always offer the most delicious meals at affordable prices."
+    },
+    "profile": {
+        "title": "Edit Your Profile",
+        "subtitle": "Skip entering your details every time you place an order.",
+        "successMessage": "Your profile has been successfully updated!",
+        "errors": {
+            "streetRequired": "Street is required",
+            "streetInvalid": "Invalid address (5–80 characters, must include letters and a number). Ex: \"12 Main Street, Apt. 3\"",
+            "saveError": "Error while saving"
+        },
+        "form": {
+            "userDetails": "User Details",
+            "firstName": "First Name",
+            "lastName": "Last Name",
+            "phone": "Phone",
+            "email": "Email",
+            "deliveryDetails": "Delivery Details",
+            "city": "City",
+            "street": "Street...",
+            "save": "Save",
+            "saving": "Saving..."
+        }
+    },
+    "finishOrder": {
+        "title": "Finish Order",
+        "backToMenu": "Back to menus",
+        "deliveryMethod": "Delivery method",
+        "atAddress": "Delivery",
+        "pickup": "Pickup",
+        "paymentRequired": "Please select a payment method",
+        "submitError": "Error submitting order",
+        "submitting": "Submitting...",
+        "customerDetails": {
+            "title": "Personal Information",
+            "lastName": "Last Name",
+            "firstName": "First Name",
+            "phone": "Phone",
+            "email": "Email",
+            "requiredLastName": "Last name is required",
+            "requiredFirstName": "First name is required",
+            "requiredPhone": "Phone number is required",
+            "invalidPhone": "Invalid phone number",
+            "requiredEmail": "Email is required",
+            "invalidEmail": "Invalid email address"
+        }
+    },
     "footer": {
         "contactTitle": "Contact",
         "address": "Contact address",

@@ -207,6 +207,106 @@
             ]
         }
     },
+    "deliveryDetails": {
+        "title": "Detalii Livrare",
+        "subtitle": "Cum livrăm comanda ta?",
+        "howWeDeliverText": "Pizzeria Clinceni iți oferă livrare rapidă și sigură, astfel încat să te bucuri de pizza proaspătă și delicioasă direct la tine acasă!",
+        "zoneTitle": "Zona de Livrare",
+        "weekdays": "Luni-Vineri:",
+        "timeTitle": "Timp Estimat de Livrare",
+        "timeText": "În funcție de locația ta și volumul comenzilor, timpul mediu de livrare este între",
+        "timeValue": "30 - 60 de minute",
+        "costTitle": "Costul Livrarii",
+        "freeDelivery": "Livrare gratuită pentru comenzile de peste",
+        "paidDelivery": "Pentru comenzile sub aceasta sumă, se aplică o taxă de livrare de",
+        "paymentTitle": "Modalități de Plată",
+        "cardPayment": "Plată Card la Livrare.",
+        "cashPayment": "Plată Numerar la Livrare."
+    },
+    "paymentDetails": {
+        "title": "Detalii Plată",
+        "cardTitle": "Plată card la livrare",
+        "cardText": "Poți opta pentru plata comenzii cu cardul bancar. Tranzacția va fi efectuată în condiții de siguranță și confidențialitate depline, sigur și rapid, prin intermediul procesorului de plăți online.",
+        "cashTitle": "Plată Numerar",
+        "cashText": "În această variantă, plata comenzii se va face în numerar la livrare. Vei plăti direct agentului de livrare în momentul în care îți sunt livrate produsele, iar acesta îți va emite o chitanță. Produsele comandate și taxa de transport trebuie achitate integral.",
+        "zonesText": "Pizzeria Clinceni oferă livrare la domiciliu în zonele",
+        "zones": "Clinceni, Domnești, Bragadiru, Țegheș și Ordoreanu.",
+        "freeDeliveryText": "Pentru a beneficia de livrare gratuită, este necesar ca valoarea minimă a comenzii să fie de 50 de lei. Pentru comenzile sub această sumă, se aplică o taxă de livrare de 8 lei. Pentru detalii suplimentare sau pentru a plasa o comandă, ne puteți contacta la numărul de telefon",
+        "freeDeliveryText1": "sau prin email la"
+    },
+    "cookiePolicy": {
+        "title": "Politica de cookie",
+        "intro": "Această politică de cookie-uri explică ce sunt cookie-urile și cum le folosim pe site-ul nostru. Trebuie să citești această politică pentru a înțelege ce tip de cookie-uri folosim, informațiile pe care le colectăm cu ajutorul modulelor cookie și modul în care sunt utilizate aceste informații. Poți să îți dai consimțământul pentru utilizarea cookie-urilor și poți să-l revoci modificând setările de pe browser-ul tău, care îți permite să accepți sau să refuzi setarea tuturor sau a anumitor cookie-uri.",
+        "whatAreCookiesTitle": "Ce sunt cookie-urile?",
+        "whatAreCookiesText": "Cookie-urile sunt fișiere care conțin un volum mic de informații. Cookie-urile sunt stocate pe browser sau pe hard disk-ul calculatorului sau al dispozitivului tău.",
+        "howWeUseTitle": "Cum putem folosi cookie-urile?",
+        "howWeUseText": "Utilizăm modulele cookie pentru a te distinge de alți utilizatori ai site-ului nostru și pentru a oferi o experiență de navigare unică pentru tine. Cookie-urile sunt folosite de noi pentru ca site-ul nostru să-și amintească ce ai făcut în timpul navigării, de exemplu, detaliile tale de logare. Cookie-urile conțin informații care sunt transferate pe hard disk-ul computerului tău. Aceste cookie-uri sunt folosite pentru a stoca informații, cum ar fi momentul în care vizitatorul a intrat pe site, dacă a mai fost pe site până acum și ce site a raportat pe pagina web. Poți șterge sau bloca aceste module cookie, dar dacă faci asta, e posibil ca unele funcționalități ale site-ului nostru să nu meargă conform așteptărilor.",
+        "typesTitle": "Ce tip de cookie-uri folosim?",
+        "typesText": "Cookie-urile temporare – acestea sunt stocate temporar în dosarul „cookie” al browser-ului web, care le memorează până când utilizatorul iese de pe site-ul respectiv sau închide fereastra browser-ului (de exemplu, când te conectezi/deconectezi de pe un cont de e-mail sau rețele de socializare). Cookie-urile persistente – acestea sunt stocate pe hard disk-ul unui computer sau alt dispozitiv (și, în general, depind de ciclul de viață presetat al modulelor cookie). Anumite cookie-uri sunt utilizate exclusiv în timpul unei singure sesiuni și nu sunt memorate după ce utilizatorul părăsește site-ul web, în timp ce altele sunt memorate și reutilizate de fiecare dată când utilizatorul revine pe site-ul respectiv. Cu toate acestea, cookie-urile pot fi șterse de utilizator în orice moment prin accesarea setărilor browser-ului. Acestea vor rămâne stocate pe computerul sau pe dispozitivul tău, până când vor fi șterse sau până când vor atinge data de expirare.",
+        "controlTitle": "Cum poți controla cookie-urile?",
+        "controlText": "Folosim cookie-urile în baza consimțământului tău. Consimțământul pentru utilizarea cookie-urilor se acordă și poate fi revocat prin modificarea setărilor de pe browser-ul tău, care îți permite să accepți sau să refuzi setarea tuturor sau a unor cookie-uri. Te rugăm să te asiguri că setările calculatorului tău reflectă faptul că ești/nu ești de acord să accepți cookie-urile. Reține că, dacă folosești computere diferite în locații diferite, va trebui să te asiguri că fiecare browser este ajustat astfel încât să se potrivească preferințelor tale privind cookie-urile. Poți seta browser-ul să te avertizeze înainte de a accepta cookie-urile sau poți să-l setezi să le refuze, deși este posibil să nu ai acces la toate funcțiile acestui site dacă faci acest lucru. Recurge la butonul „help” (ajutor) al browser-ului tău, pentru a afla cum poți face acest lucru. Poți să controlezi și/sau să ștergi cookie-urile, după cum dorești. Poți șterge toate modulele cookie care sunt deja pe computerul tău și poți seta cele mai multe browsere pentru a împiedica plasarea acestora. Totuși, dacă faci acest lucru, este posibil să fii nevoit să reglezi manual anumite preferințe de fiecare dată când vizitezi site-ul nostru web, iar unele servicii și funcționalități ar putea să nu funcționeze.",
+        "amendmentsTitle": "Amendamente la Politica de Cookies",
+        "amendmentsText": "În cazul în care hotărâm modificarea prezentei Politici de Cookies, vom publica noua versiune aici, iar aceasta va înlocui versiunea actuală."
+    },
+    "aboutPage": {
+        "title": "Despre",
+        "historyTitle": "Pasiune pentru pizza din 2016",
+        "historyText": "Pizzeria Clinceni a fost fondată în anul 2016, în Clinceni, Ilfov, din dorința de a oferi comunitații locale preparate delicioase, realizate din ingrediente proaspete și de calitate. De-a lungul anilor, ne-am câștigat reputația pentru gustul autentic al pizzei și serviciile noastre prompte de livrare.",
+        "differenceTitle": "Ce ne diferențiază?",
+        "differenceList": [
+            "Ingrediente proaspete și de calitate",
+            "Cuptor pe vatră",
+            "Livrare rapidă",
+            "Pasiune pentru gust"
+        ],
+        "missionTitle": "Misiunea noastră",
+        "missionText": "Ne dorim să fim prima alegere a clienților din Clinceni și împrejurimi atunci când vine vorba de pizza și preparate italiene autentice. Ne propunem să menținem calitatea și să oferim mereu cele mai gustoase preparate, la prețuri accesibile."
+    },
+    "profile": {
+        "title": "Editează-ți Profilul",
+        "subtitle": "Scapă de necesitatea de a completa datele la fiecare comandă.",
+        "successMessage": "Profilul a fost actualizat cu succes!",
+        "errors": {
+            "streetRequired": "Strada este obligatorie",
+            "streetInvalid": "Adresă invalidă (5–80 caractere, litere și număr). Ex: \"Str. Mihai Viteazul 12, Bl. B\"",
+            "saveError": "Eroare la salvare"
+        },
+        "form": {
+            "userDetails": "Detalii Utilizator",
+            "firstName": "Prenume",
+            "lastName": "Nume",
+            "phone": "Telefon",
+            "email": "Email",
+            "deliveryDetails": "Detalii Livrare",
+            "city": "Localitate",
+            "street": "Stradă...",
+            "save": "Salvează",
+            "saving": "Se salvează..."
+        }
+    },  
+    "finishOrder": {
+        "title": "Finalizare Comandă",
+        "backToMenu": "Înapoi la meniuri",
+        "deliveryMethod": "Metodă de livrare",
+        "atAddress": "La adresă",
+        "pickup": "Ridicare personală",
+        "paymentRequired": "Selectează o metodă de plată",
+        "submitError": "Eroare la trimiterea comenzii",
+        "submitting": "Se trimite...",
+        "customerDetails": {
+            "title": "Date personale",
+            "lastName": "Nume",
+            "firstName": "Prenume",
+            "phone": "Telefon",
+            "email": "Email",
+            "requiredLastName": "Numele este obligatoriu",
+            "requiredFirstName": "Prenumele este obligatoriu",
+            "requiredPhone": "Telefonul este obligatoriu",
+            "invalidPhone": "Telefon invalid",
+            "requiredEmail": "Emailul este obligatoriu",
+            "invalidEmail": "Email invalid"
+        }
+    },
     "footer": {
         "contactTitle": "Contact",
         "address": "Adresa de contact",

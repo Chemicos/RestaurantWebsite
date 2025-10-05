@@ -1,9 +1,11 @@
 import React, { useContext, useState } from 'react'
 import { AuthContext } from '../../contexts/AuthContext'
+import { useTranslation } from 'react-i18next'
 
 const API_URL = import.meta.env.VITE_API_URL
 
 export default function ProfileSaveChanges({value, onSaved, validate}) {
+  const {t} = useTranslation()
   const {user} = useContext(AuthContext)
   const [saving, setSaving] = useState(false)
   const [err, setErr] = useState('')
@@ -59,7 +61,7 @@ export default function ProfileSaveChanges({value, onSaved, validate}) {
         ${saving ? 'opacity-70 pointer-events-none' : ''}`}
         onClick={handleSave}
       >
-        {saving ? 'Se salveaza…' : 'Salveaza'}
+        {saving ? t('profile.form.saving') : t('profile.form.save')}
       </button>
     </div>
   )

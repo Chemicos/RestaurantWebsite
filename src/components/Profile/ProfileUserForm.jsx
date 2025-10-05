@@ -1,15 +1,17 @@
 import { MenuItem, TextField } from '@mui/material'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 
 export default function ProfileUserForm({value, onChange, errors = {}}) {
+    const {t} = useTranslation()
     const handle = (field) => (e) => onChange(prev => ({...prev, [field]: e.target.value}))
 
   return (
     <div className='flex flex-col gap-4'>
         <div className='flex flex-col gap-4'>
-            <h3 className='text-lg'>Detalii Utilizator</h3>
+            <h3 className='text-lg'>{t('profile.form.userDetails')}</h3>
             <TextField
-                label='Nume'
+                label={t('profile.form.lastName')}
                 variant='outlined'
                 fullWidth
                 value={value.nume}
@@ -20,7 +22,7 @@ export default function ProfileUserForm({value, onChange, errors = {}}) {
             />
 
             <TextField 
-                label='Prenume'
+                label={t('profile.form.firstName')}
                 variant='outlined'
                 fullWidth
                 value={value.prenume}
@@ -31,7 +33,7 @@ export default function ProfileUserForm({value, onChange, errors = {}}) {
             />
 
             <TextField 
-                label='Telefon'
+                label={t('profile.form.phone')}
                 variant='outlined'
                 fullWidth
                 value={value.telefon}
@@ -42,7 +44,7 @@ export default function ProfileUserForm({value, onChange, errors = {}}) {
             />
 
             <TextField 
-                label='Email'
+                label={t('profile.form.email')}
                 variant='outlined'
                 fullWidth
                 value={value.email}
@@ -54,12 +56,12 @@ export default function ProfileUserForm({value, onChange, errors = {}}) {
         </div>
 
         <div className='flex flex-col gap-4'>
-            <h3 className='text-lg'>Detalii Livrare</h3>
+            <h3 className='text-lg'>{t('profile.form.deliveryDetails')}</h3>
             
             <TextField
                 id='delivery-localitate'
                 select
-                label='Localitate'
+                label={t('profile.form.city')}
                 fullWidth
                 variant='outlined'
                 value={value.localitate}
@@ -85,30 +87,14 @@ export default function ProfileUserForm({value, onChange, errors = {}}) {
 
             <TextField
                 id='delivery-strada'
-                label='Stradă...'
+                label={t('profile.form.street')}
                 variant='outlined'
                 fullWidth
                 value={value.strada}
                 onChange={handle('strada')}
-                // error={!!value.strada && !isValidStrada(value.strada)}
-                // helperText={
-                //     !!value.strada && !isValidStrada(value.strada)
-                //     ? 'Adresă invalidă (5-80 caractere, litere si număr). Ex: "Str. Mihai Viteazul 12, Bl. B"'
-                //     : ''
-                // }
                 error={!!errors.strada}
                 helperText={errors.strada || ''}
             />
-
-            {/* <TextField
-                id='delivery-codPostal'
-                label='Cod Poștal'
-                variant='outlined'
-                fullWidth
-                value={value.codPostal}
-                onChange={handle('codPostal')}
-                slotProps={{htmlInput: {maxLength: 6, inputMode: 'numeric', pattern: '[0-9]*'}}}
-            /> */}
         </div>
     </div>
   )

@@ -3,6 +3,7 @@ import ProfileUserForm from './ProfileUserForm'
 import ProfileSaveChanges from './ProfileSaveChanges'
 import { useUserDetails } from '../MenusPage/hooks/useUserDetails'
 import { Alert, Snackbar } from '@mui/material'
+import { useTranslation } from 'react-i18next'
 
 const EMPTY = {
   nume: '', prenume: '', telefon: '', email: '',
@@ -14,6 +15,7 @@ const stradaAllowedRe = /^[A-Za-z0-9 .,'/-]+$/
 const stradaHasDigitRe = /\d/
 
 export default function ProfilePage() {
+  const {t} = useTranslation()
   const {userDetails, refreshUserDetails} = useUserDetails()
   const [form, setForm] = useState(EMPTY)
   const [errors, setErrors] = useState({})
@@ -36,9 +38,9 @@ export default function ProfilePage() {
     const errs = {}
 
     if (!form.strada?.trim()) {
-      errs.strada = 'Strada este obligatorie'
+      errs.strada = t('profile.errors.streetRequired')
     } else if (!isValidStrada(form.strada)) {
-      errs.strada = 'Adresă invalidă (5–80 caractere, litere și număr). Ex: "Str. Mihai Viteazul 12, Bl. B"'
+      errs.strada = t('profile.errors.streetInvalid')
     }
     setErrors(errs)
     return Object.keys(errs).length === 0
@@ -65,8 +67,8 @@ export default function ProfilePage() {
 
   return (
     <div className='flex flex-col gap-6 max-w-[680px] px-8 lg:px-4 my-36 mx-auto'>
-      <h1 className='text-2xl'>Editează-ți Profilul</h1>
-      <p className='text-custom-gray'>Scapă de necesitatea de a completa datele la fiecare comandă.</p>
+      <h1 className='text-2xl'>{t('profile.title')}</h1>
+      <p className='text-custom-gray'>{t('profile.subtitle')}</p>
 
       <ProfileUserForm
         value={form}
@@ -94,7 +96,7 @@ export default function ProfilePage() {
           variant='filled'
           sx={{width: '100%'}}
         >
-          Profilul a fost actualizat cu succes!
+          {t('profile.successMessage')}
         </Alert>
       </Snackbar>
     </div>

@@ -15,6 +15,7 @@ import { useOrders } from '../MenusPage/hooks/useOrders'
 import { useUserDetails } from '../MenusPage/hooks/useUserDetails'
 import ConfirmOrder from './FinishOrderComponents/ConfirmOrder'
 import { useCart } from '../../contexts/CartContext'
+import { useTranslation } from 'react-i18next'
 
 const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 const phoneRe = /^[0-9+\-\s]+$/
@@ -24,6 +25,7 @@ const stradaHasDigitRe = /\d/
 const codPostalRe = /^\d{6}$/
 
 export default function FinishOrderPage() {
+  const {t} = useTranslation()
   const navigate = useNavigate()
   const API_URL = import.meta.env.VITE_API_URL
   const {fetchCartItems, setCartItemCount} = useCart()
@@ -100,12 +102,12 @@ export default function FinishOrderPage() {
 
   const validate = () => {
     const custErr = {}
-    if (!customer.nume?.trim()) custErr.nume = 'Numele este obligatoriu'
-    if (!customer.prenume?.trim()) custErr.prenume = 'Prenumele este obligatoriu'
-    if (!customer.telefon?.trim()) custErr.telefon = 'Telefonul este obligatoriu'
-    else if (!phoneRe.test(customer.telefon)) custErr.telefon = 'Telefon invalid'
-    if (!customer.email?.trim()) custErr.email = 'Emailul este obligatoriu'
-    else if (!emailRe.test(customer.email)) custErr.email = 'Email invalid'
+    if (!customer.nume?.trim()) custErr.nume = t('finishOrder.customerDetails.requiredLastName')
+    if (!customer.prenume?.trim()) custErr.prenume = t('finishOrder.customerDetails.requiredFirstName')
+    if (!customer.telefon?.trim()) custErr.telefon = t('finishOrder.customerDetails.requiredPhone')
+    else if (!phoneRe.test(customer.telefon)) custErr.telefon = t('finishOrder.customerDetails.invalidPhone')
+    if (!customer.email?.trim()) custErr.email = t('finishOrder.customerDetails.requiredEmail')
+    else if (!emailRe.test(customer.email)) custErr.email = t('finishOrder.customerDetails.invalidEmail')
 
     const delErr = {}
     if (isDelivery) {
@@ -129,7 +131,7 @@ export default function FinishOrderPage() {
 
     let paymentErr = ''
     if (!['Card', 'Numerar'].includes(paymentMethod)) {
-      paymentErr = 'Selectează o metoda de plată'
+      paymentErr = t('finishOrder.paymentRequired')
     }
 
     setErrors({ customer: custErr, delivery: delErr, payment: paymentErr })
@@ -248,7 +250,7 @@ export default function FinishOrderPage() {
             >
               <ArrowUUpLeftIcon size={35} />
             </button>
-            <h1 className='text-2xl font-semibold'>Finalizare Comanda</h1>
+            <h1 className='text-2xl font-semibold'>{t('finishOrder.title')}</h1>
           </div>
           <OrderList />
         </div>
@@ -260,11 +262,11 @@ export default function FinishOrderPage() {
         />
 
         <div>
-          <h3 className='text-2xl font-semibold'>Metodă de livrare</h3>
+          <h3 className='text-2xl font-semibold'>{t('finishOrder.deliveryMethod')}</h3>
           <div>
-            <span className={isDelivery ? 'text-custom-red' : 'text-custom-gray'}>La adresă</span>
+            <span className={isDelivery ? 'text-custom-red' : 'text-custom-gray'}>{t('finishOrder.atAddress')}</span>
             <Switch checked={!isDelivery} onChange={(e) => setIsDelivery(!e.target.checked)} color='error' />
-            <span className={!isDelivery ? 'text-custom-red' : 'text-custom-gray'}>Ridicare personală</span>
+            <span className={!isDelivery ? 'text-custom-red' : 'text-custom-gray'}>{t('finishOrder.pickup')}</span>
           </div>
         </div>
 
