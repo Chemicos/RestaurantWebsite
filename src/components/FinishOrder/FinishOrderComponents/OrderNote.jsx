@@ -1,13 +1,16 @@
 // import React, { useState } from 'react'
 
+import { useTranslation } from "react-i18next"
+
 export default function OrderNote({noteValue, onChange}) {
+  const {t} = useTranslation()
   const maxLength = 350
 
   return (
     <div className='flex flex-col gap-4'>
       <div className='flex flex-row items-center'>
-        <h3 className='text-xl font-semibold'>Adaugă detalii despre comandă</h3>
-        <span className='ml-2 text-xs bg-[#FFD980] px-2 py-1 rounded-full'>opțional</span>
+        <h3 className='text-xl font-semibold'>{t('finishOrder.orderNote.title')}</h3>
+        <span className='ml-2 text-xs bg-[#FFD980] px-2 py-1 rounded-full'>{t('finishOrder.orderNote.optional')}</span>
       </div>
 
       <textarea rows={4} placeholder='' maxLength={maxLength} value={noteValue} onChange={(e) => onChange(e.target.value)}
@@ -15,7 +18,7 @@ export default function OrderNote({noteValue, onChange}) {
       />
 
       <div className='text-right text-xs text-gray-500'>
-        {maxLength - noteValue.length} caractere rămase
+        {t('finishOrder.orderNote.charactersLeft', {count: maxLength - noteValue.length})}
       </div>
     </div>
   )

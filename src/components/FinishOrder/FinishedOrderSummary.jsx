@@ -1,10 +1,12 @@
 import { CircularProgress } from '@mui/material'
 import { BasketIcon, WarningCircleIcon } from '@phosphor-icons/react'
 import React, { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 export default function FinishedOrderSummary({
   paymentMethod, isDelivery, onSubmit, totalProducts, deliveryTax, totalFinal, isSubmitting = false
 }) {
+  const {t} = useTranslation()
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
@@ -16,7 +18,7 @@ export default function FinishedOrderSummary({
   return (
     <div className='flex flex-col justify-between bg-transparent lg:bg-[#f9f9f9] lg:rounded-xl lg:p-6 lg:shadow-lg h-[400px] lg:h-auto w-full lg:w-[400px]'>
       <div className='flex justify-between items-center lg:mb-4'>
-        <h3 className='text-2xl font-semibold'>Rezumat comandă</h3>
+        <h3 className='text-2xl font-semibold'>{t('finishOrder.summary.title')}</h3>
         <BasketIcon size={35} color="#ff0000" weight='duotone' />
       </div>
 
@@ -30,22 +32,24 @@ export default function FinishedOrderSummary({
           <>
             <div className='flex flex-col gap-2'>
               <div className='flex justify-between'>
-                <span>Produse: </span>
+                <span>{t('finishOrder.summary.products')}: </span>
                 <span>{totalProducts.toFixed(2)} RON</span>
               </div>
               
               {isDelivery && (
                 <div className='flex justify-between'>
-                  <span>Livrare la adresă</span>
+                  <span>{t('finishOrder.summary.deliveryAtAddress')}</span>
                   <span>{deliveryTax} RON</span>
                 </div>
               )}
 
               <div className='flex justify-between'>
-                <span>Metodă de plată:</span>
-                <span>{
-                  paymentMethod === 'Card' ? 'Card' : 'Numerar'  
-                }</span>
+                <span>{t('finishOrder.summary.paymentMethod')}:</span>
+                <span>{t(
+                paymentMethod === 'Card'
+                  ? 'finishOrder.paymentMethod.card'
+                  : 'finishOrder.paymentMethod.cash'
+              )}</span>
               </div>
             </div>
 
@@ -53,13 +57,13 @@ export default function FinishedOrderSummary({
               <div className='flex gap-2 items-center bg-yellow-100 p-2 rounded mt-4 text-sm'>
                 <WarningCircleIcon size={20} color='#E7272C' weight='fill' />
                 <span>
-                  Comandă de minim <strong>50 RON</strong> pentru a beneficia de livrare gratuită.
+                  {t('finishOrder.summary.freeDeliveryThreshold', { amount: 50 })}
                 </span>
               </div>
             )}
 
             <div className='flex justify-between mt-6 text-xl font-bold'>
-              <span className='uppercase'>Total:</span>
+              <span className='uppercase'>{t('finishOrder.summary.total')}:</span>
               <span>{totalFinal.toFixed(2)} RON</span>
             </div>
           </> 
@@ -76,10 +80,14 @@ export default function FinishedOrderSummary({
         {isSubmitting ? (
           <span className='flex items-center justify-center gap-2'>
             <CircularProgress size={20} color='inherit' />
-            {paymentMethod === 'Card' ? 'Se deschide plata...' : 'Se trimite comanda...'}
+            {t(
+              paymentMethod === 'Card'
+                ? 'finishOrder.summary.submitCard'
+                : 'finishOrder.summary.submitCash'
+            )}
           </span>
         ): (
-          'Trimite Comanda'
+          t('finishOrder.summary.submitButton')
         )}
       </button>
     </div>

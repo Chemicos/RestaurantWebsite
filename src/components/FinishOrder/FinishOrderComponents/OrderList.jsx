@@ -2,14 +2,16 @@
 import { generateOrderDetailsText } from '../../MenusPage/utils/formatOrderDetails'
 // import { AuthContext } from '../../../contexts/AuthContext'
 import { useOrders } from '../../MenusPage/hooks/useOrders'
+import { useTranslation } from 'react-i18next'
 
 export default function OrderList() {
+  const {t} = useTranslation()
   const {orders} = useOrders()
   
   return (
     <div className='flex flex-col gap-6'>
       {orders.length === 0 ? (
-        <p className='text-custom-gray'>Nu ai meniuri adaugate.</p>
+        <p className='text-custom-gray'>{t('finishOrder.menusNotFound')}.</p>
       ) : (
         orders.map((order, index) => (
           <div 

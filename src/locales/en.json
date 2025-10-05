@@ -286,6 +286,7 @@
     },
     "finishOrder": {
         "title": "Finish Order",
+         "menusNotFound": "You haven't added a menu yet",
         "backToMenu": "Back to menus",
         "deliveryMethod": "Delivery method",
         "atAddress": "Delivery",
@@ -305,6 +306,46 @@
             "invalidPhone": "Invalid phone number",
             "requiredEmail": "Email is required",
             "invalidEmail": "Invalid email address"
+        },
+        "deliveryDetails": {
+            "title": "Delivery Address",
+            "city": "City",
+            "street": "Street...",
+            "postalCode": "Postal Code",
+            "anotherPerson": "Ordering for someone else",
+            "requiredCity": "Please select a city",
+            "requiredStreet": "Street is required",
+            "invalidStreet": "Invalid address (5–80 characters, letters and numbers). Ex: 'Str. Mihai Viteazul 12, Bl. B'",
+            "requiredPostalCode": "Postal code is required",
+            "invalidPostalCode": "Use exactly 6 digits",
+            "sixDigitsPostalCode": "Postal code must be exactly 6 digits."
+        },
+        "paymentMethod": {
+            "title": "Payment Method",
+            "selectLabel": "Choose a payment method",
+            "card": "Card",
+            "cash": "Cash"
+        },
+        "orderNote": {
+            "title": "Add order details",
+            "optional": "optional",
+            "charactersLeft": "{{count}} characters left"
+        },
+        "summary": {
+            "title": "Order Summary",
+            "products": "Products",
+            "deliveryAtAddress": "Delivery to address",
+            "paymentMethod": "Payment Method",
+            "freeDeliveryThreshold": "Order at least {{amount}} RON to get free delivery.",
+            "total": "Total",
+            "submitCard": "Opening payment...",
+            "submitCash": "Submitting order...",
+            "submitButton": "Submit Order"
+        },
+        "confirmOrder": {
+            "title": "Payment was successful!",
+            "message": "Thank you! We will contact you soon.",
+            "okButton": "Close"
         }
     },
     "footer": {

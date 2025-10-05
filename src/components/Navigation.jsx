@@ -240,7 +240,7 @@ export default function Navigation() {
                                     <UserIcon size={24} weight="bold" />
                                 </ListItemIcon>
                                 <ListItemText sx={{color: '#66635B'}}>
-                                    Profil
+                                    {t('nav.profile')}
                                 </ListItemText>
                             </MenuItem>
 
@@ -251,7 +251,7 @@ export default function Navigation() {
                                 <ListItemIcon>
                                     <Logout></Logout>
                                 </ListItemIcon>
-                                <ListItemText sx={{color: '#66635B'}}>Deconectare</ListItemText>
+                                <ListItemText sx={{color: '#66635B'}}>{t('nav.logout')}</ListItemText>
                             </MenuItem>
                         </Menu>    
                     </div>

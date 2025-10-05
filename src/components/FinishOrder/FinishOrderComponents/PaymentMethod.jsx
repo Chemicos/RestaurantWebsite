@@ -1,7 +1,9 @@
 import { MenuItem, TextField } from '@mui/material'
 import { CreditCardIcon, HandCoinsIcon } from '@phosphor-icons/react'
+import { useTranslation } from 'react-i18next'
 
 export default function PaymentMethod({value, onChange, error}) {
+  const {t} = useTranslation()
   const method = value || ''
 
   const handleChange = (event) => {
@@ -20,7 +22,7 @@ export default function PaymentMethod({value, onChange, error}) {
   }
   return (
     <div className='flex flex-col gap-4'>
-      <h3 className='text-xl font-semibold'>Metodă de plată</h3>
+      <h3 className='text-xl font-semibold'>{t('finishOrder.paymentMethod.title')}</h3>
 
       <div className='flex items-center gap-3'>
         {getIcon()}
@@ -29,7 +31,7 @@ export default function PaymentMethod({value, onChange, error}) {
           id='payment-method'
           select
           fullWidth
-          label='Alege o metodă de plată'
+          label={t('finishOrder.paymentMethod.selectLabel')}
           variant='standard'
           value={method}
           onChange={handleChange}
@@ -47,8 +49,8 @@ export default function PaymentMethod({value, onChange, error}) {
             }
           }}}
         >
-          <MenuItem sx={{borderRadius: '10px', marginBottom: '5px', paddingX: '10px', '&.Mui-selected, &.Mui-selected:hover': { backgroundColor: '#FFE2E2' }}} value='Card'>Card</MenuItem>
-          <MenuItem sx={{borderRadius: '10px', paddingX: '10px', '&.Mui-selected, &.Mui-selected:hover': { backgroundColor: '#FFE2E2' }}} value='Numerar'>Numerar</MenuItem>
+          <MenuItem sx={{borderRadius: '10px', marginBottom: '5px', paddingX: '10px', '&.Mui-selected, &.Mui-selected:hover': { backgroundColor: '#FFE2E2' }}} value='Card'>{t('finishOrder.paymentMethod.card')}</MenuItem>
+          <MenuItem sx={{borderRadius: '10px', paddingX: '10px', '&.Mui-selected, &.Mui-selected:hover': { backgroundColor: '#FFE2E2' }}} value='Numerar'>{t('finishOrder.paymentMethod.cash')}</MenuItem>
         </TextField>
       </div>
     </div>

@@ -1,6 +1,8 @@
 import { Checkbox, FormControlLabel, MenuItem, TextField } from '@mui/material'
+import { useTranslation } from 'react-i18next'
 
 export default function DeliveryDetails({value, onChange, errors = {}, validators = {}}) {
+  const {t} = useTranslation()
   const handle = (field) => (e) => onChange(prev => ({ ...prev, [field]: e.target.value }))
   const nonEmpty = (v) => !!v?.toString().trim()
 
@@ -14,12 +16,12 @@ export default function DeliveryDetails({value, onChange, errors = {}, validator
 
   return (
     <div className='flex flex-col gap-4'>
-      <h3 className='text-xl font-semibold'>Adresa de livrare</h3>
+      <h3 className='text-xl font-semibold'>{t('finishOrder.deliveryDetails.title')}</h3>
 
       <TextField
         id='delivery-localitate'
         select
-        label='Localitate'
+        label={t('finishOrder.deliveryDetails.city')}
         fullWidth
         variant='outlined'
         value={value.localitate}
@@ -47,7 +49,7 @@ export default function DeliveryDetails({value, onChange, errors = {}, validator
 
       <TextField
         id='delivery-strada'
-        label='Stradă...'
+        label={t('finishOrder.deliveryDetails.street')}
         variant='outlined'
         fullWidth
         value={value.strada}
@@ -62,7 +64,7 @@ export default function DeliveryDetails({value, onChange, errors = {}, validator
 
       <TextField
         id='delivery-codPostal'
-        label='Cod Poștal'
+        label={t('finishOrder.deliveryDetails.postalCode')}
         variant='outlined'
         fullWidth
         value={value.codPostal}
@@ -85,7 +87,7 @@ export default function DeliveryDetails({value, onChange, errors = {}, validator
             color: '#E7272C',
           }
         }} />}
-        label='Comand pentru o alta persoană'
+        label={t('finishOrder.deliveryDetails.anotherPerson')}
         sx={{ width: 'fit-content' }}
       />
     </div>

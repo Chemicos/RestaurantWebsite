@@ -111,21 +111,21 @@ export default function FinishOrderPage() {
 
     const delErr = {}
     if (isDelivery) {
-      if (!delivery.localitate) delErr.localitate = 'Selectează localitatea'
+      if (!delivery.localitate) delErr.localitate = t('finishOrder.deliveryDetails.requiredCity')
 
       if (!delivery.strada?.trim()) {
-        delErr.strada = 'Strada este obligatorie'
+        delErr.strada = t('finishOrder.deliveryDetails.requiredStreet')
       } else if (!isValidStrada(delivery.strada)) {
-        delErr.strada = 'Adresa invalida (5–80 caractere, litere și numar). Ex: "Str. Mihai Viteazul 12, Bl. B"'
+        delErr.strada = t('finishOrder.deliveryDetails.invalidStreet')
       }
 
       if (!delivery.codPostal?.trim()) {
-        delErr.codPostal = 'Codul poștal este obligatoriu'
+        delErr.codPostal = t('finishOrder.deliveryDetails.requiredPostalCode')
       } else if (!codPostalRe.test(delivery.codPostal)) {
         const onlyDigits = /^\d+$/.test(delivery.codPostal)
         delErr.codPostal = onlyDigits
-          ? 'Codul postal trebuie sa contina exact 6 cifre.'
-          : 'Foloseste doar cifre (exact 6).'
+          ? t('finishOrder.deliveryDetails.sixDigitsPostalCode')
+          : t('finishOrder.deliveryDetails.invalidPostalCode')
       }
     }
 

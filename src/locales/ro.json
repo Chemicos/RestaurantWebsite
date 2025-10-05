@@ -286,6 +286,7 @@
     },  
     "finishOrder": {
         "title": "Finalizare Comandă",
+        "menusNotFound": "Nu ai meniuri adăugate",
         "backToMenu": "Înapoi la meniuri",
         "deliveryMethod": "Metodă de livrare",
         "atAddress": "La adresă",
@@ -305,6 +306,46 @@
             "invalidPhone": "Telefon invalid",
             "requiredEmail": "Emailul este obligatoriu",
             "invalidEmail": "Email invalid"
+        },
+        "deliveryDetails": {
+            "title": "Adresa de livrare",
+            "city": "Localitate",
+            "street": "Stradă...",
+            "postalCode": "Cod Poștal",
+            "anotherPerson": "Comand pentru o altă persoană",
+            "requiredCity": "Selectează localitatea",
+            "requiredStreet": "Strada este obligatorie",
+            "invalidStreet": "Adresă invalidă (5–80 caractere, litere și număr). Ex: 'Str. Mihai Viteazul 12, Bl. B'",
+            "requiredPostalCode": "Codul poștal este obligatoriu",
+            "invalidPostalCode": "Folosește doar cifre (exact 6)",
+            "sixDigitsPostalCode": "Codul poștal trebuie să conțină exact 6 cifre."
+        },
+        "paymentMethod": {
+            "title": "Metodă de plată",
+            "selectLabel": "Alege o metodă de plată",
+            "card": "Card",
+            "cash": "Numerar"
+        },
+        "orderNote": {
+            "title": "Adaugă detalii despre comandă",
+            "optional": "opțional",
+            "charactersLeft": "{{count}} caractere rămase"
+        },
+        "summary": {
+            "title": "Rezumat comandă",
+            "products": "Produse",
+            "deliveryAtAddress": "Livrare la adresă",
+            "paymentMethod": "Metodă de plată",
+            "freeDeliveryThreshold": "Comandă de minim {{amount}} RON pentru a beneficia de livrare gratuită.",
+            "total": "Total",
+            "submitCard": "Se deschide plata...",
+            "submitCash": "Se trimite comanda...",
+            "submitButton": "Trimite Comanda"
+        },
+        "confirmOrder": {
+            "title": "Plata a fost efectuată!",
+            "message": "Îți mulțumim. Te vom contacta în curând.",
+            "okButton": "Închide"
         }
     },
     "footer": {
