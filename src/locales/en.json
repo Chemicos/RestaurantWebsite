@@ -7,6 +7,43 @@
         "profile": "Profile",
         "logout": "Logout"
     },
+    "login": {
+        "title": "My Account",
+        "email": "Email",
+        "password": "Password",
+        "submit": "Log in",
+        "noAccount": "Don't have an account?",
+        "invalidEmail": "Invalid email",
+        "fillAllFields": "Please fill in all fields",
+        "serverError": "Server error. Please try again.",
+        "success": "Successfully logged in!"
+    },
+    "register": {
+        "title": "Create Account",
+        "firstName": "First Name*",
+        "lastName": "Last Name*",
+        "email": "Email*",
+        "phone": "Phone",
+        "password": "Password*",
+        "confirmPassword": "Confirm Password*",
+        "submit": "Register",
+        "alreadyHaveAccount": "Already have an account?",
+        "invalidEmail": "Invalid email",
+        "fillAllFields": "Please fill in all required fields.",
+        "passwordCriteria": "Password does not meet all security requirements.",
+        "passwordMismatch": "Passwords do not match",
+        "serverError": "Server connection error.",
+        "success": "Account successfully created!",
+        "personType": {
+            "fizica": "Individual",
+            "juridica": "Company"
+        },
+        "passwordValidation": {
+            "minLength": "At least 6 characters",
+            "upperCase": "At least one uppercase letter",
+            "numberOrSpecial": "Numbers or special characters"
+        }
+    },
     "homeMain": {
         "welcome": "Welcome to",
         "title1": "Pizzeria Restaurant",

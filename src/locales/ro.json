@@ -7,6 +7,43 @@
         "profile": "Profil",
         "logout": "Deconectare"
     },
+    "login": {
+        "title": "Contul meu",
+        "email": "Email",
+        "password": "Parolă",
+        "submit": "Conectează-mă",
+        "noAccount": "Nu ai cont?",
+        "invalidEmail": "Email invalid",
+        "fillAllFields": "Completează toate câmpurile",
+        "serverError": "Eroare server. Încearcă din nou.",
+        "success": "Autentificare cu succes!"
+    },
+    "register": {
+        "title": "Înregistrare cont",
+        "firstName": "Prenume*",
+        "lastName": "Nume*",
+        "email": "Email*",
+        "phone": "Telefon",
+        "password": "Parolă*",
+        "confirmPassword": "Confirmă parola*",
+        "submit": "Înregistrează",
+        "alreadyHaveAccount": "Ai deja cont?",
+        "invalidEmail": "Email invalid",
+        "fillAllFields": "Completează toate câmpurile obligatorii.",
+        "passwordCriteria": "Parola nu respectă toate criteriile de securitate.",
+        "passwordMismatch": "Parolele nu coincid",
+        "serverError": "Eroare la conexiunea cu serverul.",
+        "success": "Cont creat cu succes!",
+        "personType": {
+            "fizica": "Fizică",
+            "juridica": "Juridică"
+        },
+        "passwordValidation": {
+            "minLength": "Minim 6 caractere",
+            "upperCase": "Minim o majusculă",
+            "numberOrSpecial": "Cifre sau caractere speciale"
+        }
+    },
     "homeMain": {
         "welcome": "Bine ai venit la",
         "title1": "Pizzeria Restaurant",

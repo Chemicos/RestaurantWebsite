@@ -5,8 +5,10 @@ import PassDifficulty from './PassDifficulty'
 import { SnackbarContext } from '../../contexts/SnackbarContext'
 import { AuthContext } from '../../contexts/AuthContext'
 import { XIcon } from '@phosphor-icons/react'
+import { useTranslation } from 'react-i18next'
 
 export default function Register({ setShowRegister, onClose }) {
+  const {t} = useTranslation()
   const ref = useRef()
   const [nume, setNume] = useState('')
   const [prenume, setPrenume] = useState('')
@@ -64,19 +66,19 @@ export default function Register({ setShowRegister, onClose }) {
         password: !password,
         confirmPass: !confirmPass
       })
-      setError(!isValidEmail(email) ? 'Email invalid' : 'Completează toate campurile obligatorii.')
+      setError(!isValidEmail(email) ? t('register.invalidEmail') : t('register.fillAllFields'))
       return
     }
 
     if(!isPasswordValid(password)) {
       setFieldErrors(prev => ({...prev, password: true}))
-      setError('Parola nu respectă toate criteriile de securitate.')
+      setError(t('register.passwordCriteria'))
       return
     }
     
     if(password !== confirmPass) {
       setFieldErrors(prev => ({...prev, confirmPass: true}))
-      setError('Parolele nu coincid')
+      setError(t('register.passwordMismatch'))
       return
     } 
 
@@ -106,7 +108,7 @@ export default function Register({ setShowRegister, onClose }) {
         
         sessionStorage.removeItem('session_id')
         setTimeout(() => {
-          triggerSnackbar('Cont creat cu succes!')
+          triggerSnackbar(t('register.success'))
           setIsLoading(false)
           setShowRegister(false)
           onClose()
@@ -117,7 +119,7 @@ export default function Register({ setShowRegister, onClose }) {
       }
     } catch (error) {
       console.error('Eroare fetch:', error)
-      setError('Eroare la conexiunea cu serverul.')
+      setError(t('register.serverError'))
       setIsLoading(false)
     }
   }
@@ -185,7 +187,7 @@ export default function Register({ setShowRegister, onClose }) {
       `}
     >
       <form className='flex flex-col gap-5'>
-        <h2 className='text-md font-semibold'>Inregistrare cont</h2>
+        <h2 className='text-md font-semibold'>{t('register.title')}</h2>
 
         <TextField
           InputProps={{
@@ -201,7 +203,7 @@ export default function Register({ setShowRegister, onClose }) {
           }}
           variant='outlined'
           value={nume}
-          label='Nume*'
+          label={t('register.firstName')}
           error={fieldErrors.nume}
           type='text'
           size='small'
@@ -227,7 +229,7 @@ export default function Register({ setShowRegister, onClose }) {
           }}
           variant='outlined'
           value={prenume}
-          label='Prenume*'
+          label={t('register.lastName')}
           error={fieldErrors.prenume}
           type='text'
           size='small'
@@ -253,7 +255,7 @@ export default function Register({ setShowRegister, onClose }) {
           }}
           variant='outlined'
           value={email}
-          label='Email*'
+          label={t('register.email')}
           error={fieldErrors.email}
           type='email'
           size='small'
@@ -279,7 +281,7 @@ export default function Register({ setShowRegister, onClose }) {
           }}
           variant='outlined'
           value={telefon}
-          label='Telefon'
+          label={t('register.phone')}
           type='text'
           size='small'
           onChange={(e) => setTelefon(e.target.value)}
@@ -287,7 +289,7 @@ export default function Register({ setShowRegister, onClose }) {
         />
 
         <TextField
-          label="Parolă*"
+          label={t('register.password')}
           error={fieldErrors.password}
           type={showPassword ? 'text' : 'password'}
           variant="outlined"
@@ -334,7 +336,7 @@ export default function Register({ setShowRegister, onClose }) {
           )}
 
         <TextField
-          label="Confirmă parola*"
+          label={t('register.confirmPassword')}
           type={showConfirmPassword ? 'text' : 'password'}
           variant="outlined"
           value={confirmPass}
@@ -348,7 +350,7 @@ export default function Register({ setShowRegister, onClose }) {
           onBlur={() => setActiveInput(null)}
           size="small"
           error={!passwordMatch || fieldErrors.confirmPass}
-          helperText={!passwordMatch ? 'Parolele nu coincid' : ''}
+          helperText={!passwordMatch ? t('register.passwordMismatch') : ''}
           InputProps={{
             sx: {
               py: 0.5,
@@ -375,7 +377,7 @@ export default function Register({ setShowRegister, onClose }) {
 
         <div className='flex items-center gap-2'>
           <span className={perJuridica ? "text-gray-500" : "text-red-600 font-semibold"}>
-            Fizică
+            {t('register.personType.fizica')}
           </span>
 
           <Switch
@@ -399,7 +401,7 @@ export default function Register({ setShowRegister, onClose }) {
           />
 
           <span className={perJuridica ? "text-red-600 font-bold" : "text-gray-500"}>
-            Juridică
+            {t('register.personType.juridica')}
           </span>
         </div>
 
@@ -418,7 +420,7 @@ export default function Register({ setShowRegister, onClose }) {
               <CircularProgress size={20} color='inherit' />
             </Box>
           ) : (
-            <span>Înregistrează</span>
+            <span>{t('register.submit')}</span>
           )}
         </button>
       </form>
@@ -431,7 +433,7 @@ export default function Register({ setShowRegister, onClose }) {
         }}
         className='text-sm mt-3 inline-block text-custom-gray hover:underline'
       >
-          Ai deja cont?
+          {t('register.alreadyHaveAccount')}
       </a>
 
       {isMobile && (
