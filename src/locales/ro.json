@@ -15,7 +15,7 @@
         "noAccount": "Nu ai cont?",
         "invalidEmail": "Email invalid",
         "fillAllFields": "Completează toate câmpurile",
-        "serverError": "Eroare server. Încearcă din nou.",
+        "serverError": "Eroare server. Încearcă din nou mai târziu.",
         "success": "Autentificare cu succes!"
     },
     "register": {
@@ -383,6 +383,11 @@
             "title": "Plata a fost efectuată!",
             "message": "Îți mulțumim. Te vom contacta în curând.",
             "okButton": "Închide"
+        },
+        "confirmOrderTransaction": {
+            "title": "Plata a fost efectuată!",
+            "message": "Comanda ta a fost înregistrată cu succes. Îți mulțumim! Te vom contacta în curând.",
+            "okText": "Închide"
         }
     },
     "footer": {

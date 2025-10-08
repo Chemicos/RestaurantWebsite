@@ -143,7 +143,7 @@ export default function MenuCustomizer({
       if (mode !== 'edit' && typeof onAdded === 'function') onAdded()
 
       onClose()
-      if (location.pathname !== "/meniuri") navigate("/meniuri")
+      if (location.pathname !== "/meniuri") navigate("/meniuri?added=1")
       await fetchCartItems()
 
     } catch (error) {

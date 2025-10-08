@@ -1,15 +1,17 @@
 import React, { useEffect } from 'react'
 // eslint-disable-next-line no-unused-vars
 import { AnimatePresence, motion } from 'framer-motion'
+import { useTranslation } from 'react-i18next'
 
 export default function ConfirmOrderTransaction({
     open,
     onClose,
-    onOk,
-    title = 'Plata a fost efectuată!',
-    message = 'Comanda ta a fost înregistrată cu succes. Îți mulțumim! Te vom contacta in curand.',
-    okText = 'Închide'
+    onOk
 }) {
+  const {t} = useTranslation()
+  const title = t('finishOrder.confirmOrderTransaction.title')
+  const message = t('finishOrder.confirmOrderTransaction.message')
+  const okText = t('finishOrder.confirmOrderTransaction.okText')
     useEffect(() => {
         if(!open) return
 

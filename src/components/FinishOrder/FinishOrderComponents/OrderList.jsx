@@ -18,7 +18,7 @@ export default function OrderList() {
             key={index}
             className='flex justify-between border-b border-black/10 pb-2 text-sm'
           >
-            <div className='w-[200px] md:w-fit'>
+            <div className='w-[200px] sm:w-[80%]'>
               <div className='flex gap-1 items-center'>
                 <span>X{order.quantity}</span>
                 <p className='font-medium text-md'>{order.name}</p>

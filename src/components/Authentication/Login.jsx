@@ -3,8 +3,10 @@ import React, { useContext, useEffect, useRef, useState } from 'react'
 import { SnackbarContext } from '../../contexts/SnackbarContext'
 import { XIcon } from '@phosphor-icons/react'
 import { useAuthWithCart } from '../MenusPage/hooks/useAuthWithCart'
+import { useTranslation } from 'react-i18next'
 
 export default function Login({ setShowRegister, onClose }) {
+  const {t} = useTranslation()
   const ref = useRef()
   const [isClosing, setIsClosing] = useState(false)
   const [email, setEmail] = useState('')
@@ -28,7 +30,7 @@ export default function Login({ setShowRegister, onClose }) {
     setError('')
     
      if (!email || !isValidEmail(email) || !password) {
-      setError(!isValidEmail(email) ? 'Email invalid' : 'Completeaza toate campurile')
+      setError(!isValidEmail(email) ? t('login.invalidEmail') : t('login.fillAllFields'))
       return
     }
 
@@ -46,7 +48,7 @@ export default function Login({ setShowRegister, onClose }) {
       if (res.ok) {
         await login() // Reapelează /api/me
         sessionStorage.removeItem('session_id')
-        triggerSnackbar('Autentificare cu succes!')
+        triggerSnackbar(t('login.success'))
         onClose()
       } else {
         const err = await res.json()
@@ -55,7 +57,7 @@ export default function Login({ setShowRegister, onClose }) {
       }
     } catch (error) {
       console.error('Eroare:', error)
-      setError('Eroare server. Incearca din nou.')
+      setError(t('login.serverError'))
       setIsLoading(false)
     }
   }
@@ -90,7 +92,7 @@ export default function Login({ setShowRegister, onClose }) {
       `}
     >
       <form className='flex flex-col gap-5' onSubmit={handleSubmit}>
-        <h2 className='text-md font-semibold'>Contul meu</h2>
+        <h2 className='text-md font-semibold'>{t('login.title')}</h2>
         <TextField
           InputProps={{
             sx: {
@@ -105,7 +107,7 @@ export default function Login({ setShowRegister, onClose }) {
           }}
           variant='outlined'
           value={email}
-          label='Email'
+          label={t('login.email')}
           error={error}
           type='email'
           size='small'
@@ -130,7 +132,7 @@ export default function Login({ setShowRegister, onClose }) {
           }}
           variant="outlined"
           value={password}
-          label="Parolă"
+          label={t('login.password')}
           error={error}
           type="password"
           size="small"
@@ -157,7 +159,7 @@ export default function Login({ setShowRegister, onClose }) {
               <CircularProgress size={20} color='inherit' />
             </Box>
           ) : (
-            <span>Conectează-ma</span>
+            <span>{t('login.submit')}</span>
           )}
         </button>
       </form>
@@ -170,7 +172,7 @@ export default function Login({ setShowRegister, onClose }) {
         }}
         className='text-sm mt-3 inline-block text-custom-gray hover:underline'
       >
-        Nu ai cont?
+        {t('login.noAccount')}
       </a>
 
       {isMobile && (

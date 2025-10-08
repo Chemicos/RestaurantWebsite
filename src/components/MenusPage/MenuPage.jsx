@@ -125,6 +125,7 @@ export default function MenuPage() {
   useEffect(() => {
     const params = new URLSearchParams(location.search)
     const result = params.get('plata')
+    const wasAdded = params.get('added')
 
     const finalizeAfterStripe = async () => {
       if (result !== 'success') return
@@ -161,10 +162,14 @@ export default function MenuPage() {
         navigate({ pathname: location.pathname, search: params.toString() }, { replace: true })
       }
     }
-
     finalizeAfterStripe()
+    
+    if(wasAdded === '1') {
+      setAddToastOpen(true)
+      params.delete('added')
+      navigate({ pathname: location.pathname, search: params.toString() }, { replace: true })
+    }
   }, [location.search])
-
 
   return (
     <div className='flex max-w-[1440px] my-36 mx-auto px-4 gap-12'>
