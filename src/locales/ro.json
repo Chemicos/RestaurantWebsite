@@ -227,10 +227,11 @@
                 "desc1": "În secțiunea de",
                 "desc2": "completezi câmpurile din",
                 "desc3": "(dacă nu ești autentificat),",
-                "desc4": "și selectezi metoda de livrare și cea de plată",
+                "desc4": "și selectezi metoda de livrare și cea de plată după care apeși pe",
                 "descExtra1": "Finalizare Comandă",
                 "descExtra2": "Date personale",
-                "descExtra3": "Adresa de livrare"
+                "descExtra3": "Adresa de livrare",
+                "descExtra4": "Trimite Comanda"
             }
         },
         "phone": {

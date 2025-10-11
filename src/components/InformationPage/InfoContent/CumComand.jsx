@@ -1,21 +1,38 @@
-import React, { useState } from 'react'
-
+import React, { useEffect, useState } from 'react'
 import {
     Accordion, 
     AccordionDetails, 
     AccordionSummary, 
     Typography
 } from '@mui/material'
+import { useTranslation } from 'react-i18next'
+// eslint-disable-next-line no-unused-vars
+import { AnimatePresence, motion } from 'framer-motion'
 
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import pas1 from '/assets/pasiComanda/pas1.jpeg'
-import pas2 from '/assets/pasiComanda/pas2.jpeg'
-import pas3 from '/assets/pasiComanda/pas3.jpeg'
-import { useTranslation } from 'react-i18next'
+import pas1_ro_desk from '/assets/pasiComanda/pas1_ro_desk.jpeg'
+import pas2_ro_desk from '/assets/pasiComanda/pas2_ro_desk.jpeg'
+import pas3_ro_desk from '/assets/pasiComanda/pas3_ro_desk.jpeg'
+import pas4_ro_desk from '/assets/pasiComanda/pas4_ro_desk.jpeg'
+
+import pas1_en_desk from '/assets/pasiComanda/pas1_en_desk.jpeg'
+import pas2_en_desk from '/assets/pasiComanda/pas2_en_desk.jpeg'
+import pas3_en_desk from '/assets/pasiComanda/pas3_en_desk.jpeg'
+import pas4_en_desk from '/assets/pasiComanda/pas4_en_desk.jpeg'
 
 export default function CumComand() {
-    const {t} = useTranslation()
+    const {t, i18n} = useTranslation()
     const [expandedPanels, setExpandedPanels] = useState(['pas1'])
+    const [modalOpen, setModalOpen] = useState(false)
+    const [activeImage, setActiveImage] = useState(null)
+    const imagesStyle = 'my-8 shadow-lg hover:shadow-xl rounded-lg mx-auto sm:h-[300px] lg:h-[400px] transition-all duration-200 hover:scale-105 cursor-pointer'
+
+    const images = {
+        pas1: i18n.language === 'ro' ? pas1_ro_desk : pas1_en_desk,
+        pas2: i18n.language === 'ro' ? pas2_ro_desk : pas2_en_desk,
+        pas3: i18n.language === 'ro' ? pas3_ro_desk : pas3_en_desk,
+        pas4: i18n.language === 'ro' ? pas4_ro_desk : pas4_en_desk
+    }
 
     const handleChange = (panel) => (event, isExpanded) => {
         setExpandedPanels(prev => {
@@ -26,6 +43,27 @@ export default function CumComand() {
             }
         })
     }
+
+    const handleImageClick = (image) => {
+        setActiveImage(image)
+        setModalOpen(true)
+    }
+
+    const closeModal = () => {
+        setModalOpen(false)
+        setActiveImage(null)
+    }
+
+    useEffect(() => {
+        if (modalOpen) {
+            document.body.style.overflow = 'hidden'
+        } else {
+            document.body.style.overflow = 'auto'
+        }
+        return () => {
+            document.body.style.overflow = 'auto'
+        }
+    }, [modalOpen])
 
     const isExpanded = (panel) => expandedPanels.includes(panel)
   return (
@@ -58,7 +96,12 @@ export default function CumComand() {
                 <p className='text-custom-gray'>
                     {t('howToOrder.online.step1.desc')} <span className='font-semibold'>{t('howToOrder.online.step1.descExtra')}</span>.
                 </p>
-                <img src={pas1} alt="Pasul 1" className='mt-3 shadow-lg rounded-lg mx-auto sm:h-[300px] lg:h-[400px]' />
+                <img 
+                    src={images.pas1} 
+                    alt="Pasul 1" 
+                    onClick={() => handleImageClick(images.pas1)}
+                    className={imagesStyle} 
+                />
             </AccordionDetails>
         </Accordion>
 
@@ -83,7 +126,12 @@ export default function CumComand() {
                 <p className='text-custom-gray'>
                     {t('howToOrder.online.step2.desc')} <span className='font-semibold'>{t('howToOrder.online.step2.descExtra')}</span>.
                 </p>
-                <img src={pas2} alt="Pasul 2" className='mt-3 shadow-lg rounded-lg mx-auto sm:h-[300px] lg:h-[400px]' />
+                <img 
+                    src={images.pas2} 
+                    alt="Pasul 2" 
+                    onClick={() => handleImageClick(images.pas2)}
+                    className={imagesStyle}
+                />
             </AccordionDetails>
         </Accordion>
 
@@ -111,7 +159,12 @@ export default function CumComand() {
                      {t('howToOrder.online.step3.desc2')}
                     <span className='font-bold'> {t('howToOrder.online.step3.descExtra2')}</span>.
                 </p>
-                <img src={pas3} alt="Pasul 3" className='mt-3 shadow-lg rounded-lg mx-auto sm:h-[300px] lg:h-[400px]' />
+                <img 
+                    src={images.pas3} 
+                    alt="Pasul 3" 
+                    onClick={() => handleImageClick(images.pas3)}
+                    className={imagesStyle} 
+                />
             </AccordionDetails>
         </Accordion>
 
@@ -138,8 +191,14 @@ export default function CumComand() {
                     <span className='font-semibold'> {t('howToOrder.online.step4.descExtra1')}
                     </span> {t('howToOrder.online.step4.desc2')} <span className='font-bold'>{t('howToOrder.online.step4.descExtra2')}</span> {t('howToOrder.online.step4.desc3')} 
                     <span className='font-bold'> {t('howToOrder.online.step4.descExtra3')} </span> 
-                    {t('howToOrder.online.step4.desc4')}. 
+                    {t('howToOrder.online.step4.desc4')}<span className='font-bold'> {t('howToOrder.online.step4.descExtra4')}</span>. 
                 </p>
+                <img 
+                    src={images.pas4} 
+                    alt="Pasul 4"
+                    onClick={() => handleImageClick(images.pas4)}
+                    className={imagesStyle} 
+                />
             </AccordionDetails>
         </Accordion>
 
@@ -171,6 +230,26 @@ export default function CumComand() {
                 </ul>
             </AccordionDetails>
         </Accordion>
+
+        <AnimatePresence>
+            {modalOpen && activeImage && (
+                <motion.div
+                    initial={{opacity: 0}}
+                    animate={{opacity: 1}}
+                    exit={{opacity: 0}}
+                    transition={{duration: 0.2}}
+                    onClick={closeModal}
+                    className='fixed inset-0 z-50 bg-black/60 flex items-center justify-center'
+                >
+                    <img 
+                        src={activeImage} 
+                        alt="zoomed image" 
+                        className='max-w-[80vw] max-h-[80vh] rounded-xl' 
+                    />
+                </motion.div>
+            )}
+        </AnimatePresence>
+        
     </div>
   )
 }

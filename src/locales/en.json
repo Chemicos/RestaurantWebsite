@@ -227,10 +227,11 @@
                 "desc1": "In the",
                 "desc2": "section, fill in your",
                 "desc3": "(if not logged in),",
-                "desc4": "and select the delivery and payment method",
+                "desc4": "and select the delivery and payment method and then click on",
                 "descExtra1": "Checkout",
                 "descExtra2": "Personal Data",
-                "descExtra3": "Delivery Address"
+                "descExtra3": "Delivery Address",
+                "descExtra4": "Submit Order"
             }
         },
         "phone": {
