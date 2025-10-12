@@ -13,9 +13,20 @@ const { Pool } = pkg;
 
 const app = express();
 app.use(cookieParser())
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://restaurant-website-three-orcin.vercel.app/'
+];
+
 app.use(cors({
-  origin: 'http://localhost:5173',
-  credentials: true
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
 }));
 app.use(express.json());
 
@@ -25,6 +36,7 @@ const pool = new Pool({
   database: process.env.DB_NAME,
   password: process.env.DB_PASS,
   port: 5432,
+  ssl: {rejectUnauthorized: false}
 });
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
