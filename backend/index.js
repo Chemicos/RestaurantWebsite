@@ -15,7 +15,7 @@ const app = express();
 app.use(cookieParser())
 const allowedOrigins = [
   'http://localhost:5173',
-  'https://restaurant-website-three-orcin.vercel.app/'
+  'https://restaurant-website-three-orcin.vercel.app'
 ];
 
 app.use(cors({
