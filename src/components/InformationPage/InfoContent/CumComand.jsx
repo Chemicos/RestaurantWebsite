@@ -3,7 +3,8 @@ import {
     Accordion, 
     AccordionDetails, 
     AccordionSummary, 
-    Typography
+    Typography,
+    useMediaQuery
 } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 // eslint-disable-next-line no-unused-vars
@@ -15,23 +16,42 @@ import pas2_ro_desk from '/assets/pasiComanda/pas2_ro_desk.jpeg'
 import pas3_ro_desk from '/assets/pasiComanda/pas3_ro_desk.jpeg'
 import pas4_ro_desk from '/assets/pasiComanda/pas4_ro_desk.jpeg'
 
+import pas1_ro_mobile from '/assets/pasiComanda/pas1_ro_mobile.jpeg'
+import pas2_ro_mobile from '/assets/pasiComanda/pas2_ro_mobile.jpeg'
+import pas3_ro_mobile from '/assets/pasiComanda/pas3_ro_mobile.jpeg'
+import pas4_ro_mobile from '/assets/pasiComanda/pas4_ro_mobile.jpeg'
+
 import pas1_en_desk from '/assets/pasiComanda/pas1_en_desk.jpeg'
 import pas2_en_desk from '/assets/pasiComanda/pas2_en_desk.jpeg'
 import pas3_en_desk from '/assets/pasiComanda/pas3_en_desk.jpeg'
 import pas4_en_desk from '/assets/pasiComanda/pas4_en_desk.jpeg'
+
+import pas1_en_mobile from '/assets/pasiComanda/pas1_en_mobile.jpeg'
+import pas2_en_mobile from '/assets/pasiComanda/pas2_en_mobile.jpeg'
+import pas3_en_mobile from '/assets/pasiComanda/pas3_en_mobile.jpeg'
+import pas4_en_mobile from '/assets/pasiComanda/pas4_en_mobile.jpeg'
 
 export default function CumComand() {
     const {t, i18n} = useTranslation()
     const [expandedPanels, setExpandedPanels] = useState(['pas1'])
     const [modalOpen, setModalOpen] = useState(false)
     const [activeImage, setActiveImage] = useState(null)
-    const imagesStyle = 'my-8 shadow-lg hover:shadow-xl rounded-lg mx-auto sm:h-[300px] lg:h-[400px] transition-all duration-200 hover:scale-105 cursor-pointer'
+    const imagesStyle = 'my-8 shadow-lg hover:shadow-xl rounded-lg mx-auto h-[400px] transition-all duration-200 hover:scale-105 cursor-pointer'
+    const isMobile = useMediaQuery('(max-width: 1024px)')
 
     const images = {
-        pas1: i18n.language === 'ro' ? pas1_ro_desk : pas1_en_desk,
-        pas2: i18n.language === 'ro' ? pas2_ro_desk : pas2_en_desk,
-        pas3: i18n.language === 'ro' ? pas3_ro_desk : pas3_en_desk,
-        pas4: i18n.language === 'ro' ? pas4_ro_desk : pas4_en_desk
+        pas1: i18n.language === 'ro' 
+            ? (isMobile ? pas1_ro_mobile : pas1_ro_desk)
+            : (isMobile ? pas1_en_mobile : pas1_en_desk),
+        pas2: i18n.language === 'ro'
+            ? (isMobile ? pas2_ro_mobile : pas2_ro_desk)
+            : (isMobile ? pas2_en_mobile : pas2_en_desk),
+        pas3: i18n.language === 'ro'
+            ? (isMobile ? pas3_ro_mobile : pas3_ro_desk)
+            : (isMobile ? pas3_en_mobile : pas3_en_desk),
+        pas4: i18n.language === 'ro'
+            ? (isMobile ? pas4_ro_mobile : pas4_ro_desk)
+            : (isMobile ? pas4_en_mobile : pas4_en_desk)
     }
 
     const handleChange = (panel) => (event, isExpanded) => {
@@ -154,9 +174,19 @@ export default function CumComand() {
             </AccordionSummary>
             <AccordionDetails>
                 <p className='text-custom-gray'>
-                    {t('howToOrder.online.step3.desc1')}
-                    <span className='font-semibold'> {t('howToOrder.online.step3.descExtra1')} </span>
-                     {t('howToOrder.online.step3.desc2')}
+                    {isMobile ? (
+                        t('howToOrder.online.step3.desc1Mobile')
+                     ) : (
+                        t('howToOrder.online.step3.desc1')
+                    )}
+                    <span className='font-semibold'>
+                        {isMobile ? (
+                            ''
+                        ): (
+                            t('howToOrder.online.step3.descExtra1')
+                        )}
+                    </span>
+                    {t('howToOrder.online.step3.desc2')}
                     <span className='font-bold'> {t('howToOrder.online.step3.descExtra2')}</span>.
                 </p>
                 <img 

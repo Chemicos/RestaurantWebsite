@@ -218,8 +218,9 @@
             "step3": {
                 "title": "Step 3",
                 "desc1": "After adding the menus, go to the right-hand side,",
-                "desc2": "and press",
-                "descExtra1": "to Your Order,",
+                "desc1Mobile": "After adding the menus, open the cart from the navigation bar",
+                "desc2": " and press",
+                "descExtra1": " to Your Order,",
                 "descExtra2": "Checkout"
             },
             "step4": {

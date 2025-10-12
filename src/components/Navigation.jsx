@@ -14,7 +14,11 @@ import { useTranslation } from "react-i18next"
 const theme = createTheme({
   breakpoints: {
     values: {
-      sm: 768
+       xs: 0,
+      sm: 768,
+      md: 1024,
+      lg: 1200,
+      xl: 1536
     }
   }
 })
@@ -158,14 +162,6 @@ export default function Navigation() {
 
 
             <div className="flex gap-6 items-center">  
-                <IconButton onClick={toggleLanguage} aria-label="change language">
-                    {i18n.language === 'ro' ? (
-                        <img src="/assets/romania.png" alt="ro" className="w-6 h-6" />
-                    ) : (
-                        <img src="/assets/united-kingdom.png" alt="en" className="w-6 h-6" />
-                    )}
-                </IconButton>
-            
                 <ThemeProvider theme={theme}>
                     <IconButton 
                         onClick={() => setOpenDrawer(true)}
@@ -292,6 +288,17 @@ export default function Navigation() {
         >
             {DrawerList}
         </Drawer>
+
+        <button
+            onClick={toggleLanguage}
+            className="fixed bottom-4 right-4 z-[1000] bg-white p-2 rounded-full shadow-md border transition-all active:scale-90 duration-200 ease-in-out border-gray-300"
+        >
+            {i18n.language === 'ro' ? (
+                <img src="/assets/romania.png" alt="ro" className="w-10 h-10" />
+            ) : (
+                <img src="/assets/united-kingdom.png" alt="en" className="w-10 h-10" />
+            )}
+        </button>
     </div>
   )
 }

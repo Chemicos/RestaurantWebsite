@@ -218,8 +218,9 @@
             "step3": {
                 "title": "Pasul 3",
                 "desc1": "După adăugarea meniurilor mergi în partea dreaptă, spre secțiunea",
-                "desc2": "și apeși",
-                "descExtra1": "Comanda ta",
+                "desc1Mobile": "După adăugarea meniurilor, deschizi coșul din bara de navigare",
+                "desc2": " și apeși",
+                "descExtra1": " Comanda ta",
                 "descExtra2": "Finalizează"
             },
             "step4": {

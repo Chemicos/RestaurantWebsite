@@ -25,8 +25,8 @@ export default function MainMenuList({menuItems, onCustomize}) {
             <div className='flex justify-between items-center mt-2'>
               <button
                 onClick={() => onCustomize({id, name, price, image_url, ingredients})} 
-                className='bg-custom-red text-white px-2 rounded text-2xl hover:bg-red-800
-                cursor-pointer transition-all'
+                className='bg-custom-red text-white px-2 rounded text-2xl hover:bg-red-800 active:bg-red-800 active:scale-90
+                cursor-pointer transition-all duration-100'
               >
               +
               </button>

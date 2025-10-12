@@ -180,7 +180,7 @@ export default function Register({ setShowRegister, onClose }) {
   return (
     <div 
       ref={ref}
-      className={`bg-custom-white shadow-xl z-50 
+      className={`bg-custom-white shadow-xl z-[1200]
         ${isClosing ? "animate-fade-out": "animate-fade-in"}
         ${isMobile ? 'fixed flex flex-col justify-center top-0 left-0 h-screen w-screen rounded-none p-6 overflow-y-auto' 
           : 'absolute right-8 top-16 w-80 rounded-xl p-6'}
