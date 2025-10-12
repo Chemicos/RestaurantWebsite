@@ -46,10 +46,10 @@
     },
     "homeMain": {
         "welcome": "Welcome to",
-        "title1": "Pizzeria Restaurant",
+        "title1": "Pizzeria Flama",
         "title2": "and Enjoy our",
         "highlight": "delights",
-        "subtitle": "At Pizzeria Restaurant, the passion for authentic taste comes alive in every slice. Whether you come for a crispy pizza, a generous portion of pasta, or just the warm and friendly vibe, we’re waiting for you with a meal you’ll love.",
+        "subtitle": "At Pizzeria Flama, the passion for authentic taste comes alive in every slice. Whether you come for a crispy pizza, a generous portion of pasta, or just the warm and friendly vibe, we’re waiting for you with a meal you’ll love.",
         "button": "Order Online",
         "schedule": {
         "weekdays": "Monday - Friday: 10:30 AM - 9:00 PM",
@@ -160,7 +160,7 @@
         "title": "Get in touch with us",
         "subtitle": "We’re here for you. You can easily contact us using the details below.",
         "address": "105 Main Street, Clinceni",
-        "phone": "+40 782 984 927"
+        "phone": "000000000"
     },
     "contactUs": {
         "title": "Contact us",
@@ -200,10 +200,10 @@
     },
     "howToOrder": {
         "title": "How to Order",
-        "subtitle": "How to order online/by phone from Pizzeria Clinceni",
+        "subtitle": "How to order online/by phone from Pizzeria Flama",
         "online": {
             "title": "1. Online Order",
-            "desc": "Pizzeria Clinceni gives you the option to order quickly and easily directly from our website. Here are the steps to place an order online",
+            "desc": "Pizzeria Flama gives you the option to order quickly and easily directly from our website. Here are the steps to place an order online",
             "descExtra": "(See bellow)",
             "step1": {
                 "title": "Step 1",
@@ -249,7 +249,7 @@
     "deliveryDetails": {
         "title": "Delivery Details",
         "subtitle": "How do we deliver your order?",
-        "howWeDeliverText": "Pizzeria Clinceni offers you fast and safe delivery so you can enjoy fresh and delicious pizza right at home!",
+        "howWeDeliverText": "Pizzeria Flama offers you fast and safe delivery so you can enjoy fresh and delicious pizza right at home!",
         "zoneTitle": "Delivery Area",
         "weekdays": "Monday-Friday:",
         "timeTitle": "Estimated Delivery Time",
@@ -268,7 +268,7 @@
         "cardText": "You can choose to pay for your order by card. The transaction will be carried out securely and confidentially, quickly and safely, through the online payment processor.",
         "cashTitle": "Cash Payment",
         "cashText": "In this option, the order will be paid in cash upon delivery. You will pay directly to the delivery agent when your products are delivered, and you will receive a receipt. Ordered products and delivery fee must be paid in full.",
-        "zonesText": "Pizzeria Clinceni offers home delivery in the areas",
+        "zonesText": "Pizzeria Flama offers home delivery in the areas",
         "zones": "Clinceni, Domnești, Bragadiru, Țegheș and Ordoreanu.",
         "freeDeliveryText": "To benefit from free delivery, the minimum order value must be 50 lei. For orders below this amount, a delivery fee of 8 lei applies. For more details or to place an order, you can contact us at the phone number",
         "freeDeliveryText1": "or through email via"
@@ -290,7 +290,7 @@
     "aboutPage": {
         "title": "About",
         "historyTitle": "Passion for Pizza Since 2016",
-        "historyText": "Pizzeria Clinceni was founded in 2016 in Clinceni, Ilfov, with the goal of offering the local community delicious dishes made from fresh, high-quality ingredients. Over the years, we’ve earned a reputation for our authentic pizza taste and fast delivery services.",
+        "historyText": "Pizzeria Flama was founded in 2016 in Clinceni, Ilfov, with the goal of offering the local community delicious dishes made from fresh, high-quality ingredients. Over the years, we’ve earned a reputation for our authentic pizza taste and fast delivery services.",
         "differenceTitle": "What sets us apart?",
         "differenceList": [
             "Fresh and high-quality ingredients",

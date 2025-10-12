@@ -46,10 +46,10 @@
     },
     "homeMain": {
         "welcome": "Bine ai venit la",
-        "title1": "Pizzeria Restaurant",
+        "title1": "Pizzeria Flama",
         "title2": "și Bucură-te de",
         "highlight": "delicii",
-        "subtitle": "La Pizzeria Restaurant, pasiunea pentru gust autentic prinde viață în fiecare felie. Fie că vii pentru o pizza crocantă, o porție generoasă de paste sau doar pentru vibe-ul cald și prietenos, te așteptăm cu drag la o masă pe gustul tău.",
+        "subtitle": "La Pizzeria Flama, pasiunea pentru gust autentic prinde viață în fiecare felie. Fie că vii pentru o pizza crocantă, o porție generoasă de paste sau doar pentru vibe-ul cald și prietenos, te așteptăm cu drag la o masă pe gustul tău.",
         "button": "Comandă Online",
         "schedule": {
             "weekdays": "Luni - Vineri: 10:30 - 21:00",
@@ -160,7 +160,7 @@
         "title": "Ia legătura cu noi",
         "subtitle": "Suntem aici pentru tine. Ne poți contacta ușor folosind datele de mai jos.",
         "address": "Strada Principală nr. 105, Clinceni",
-        "phone": "0782984927"
+        "phone": "000000000"
     },
     "contactUs": {
         "title": "Contactează-ne",
@@ -200,10 +200,10 @@
     },
     "howToOrder": {
         "title": "Cum Comand",
-        "subtitle": "Cum comanzi online/telefonic de la Pizzeria Clinceni",
+        "subtitle": "Cum comanzi online/telefonic de la Pizzeria Flama",
         "online": {
             "title": "1. Comandă Online",
-            "desc": "Pizzeria Clinceni îți oferă posibilitatea de a comanda rapid și simplu direct de pe site-ul nostru. Iată pașii pentru a plasa o comandă online",
+            "desc": "Pizzeria Flama îți oferă posibilitatea de a comanda rapid și simplu direct de pe site-ul nostru. Iată pașii pentru a plasa o comandă online",
             "descExtra": "(Vezi mai jos)",
             "step1": {
                 "title": "Pasul 1",
@@ -249,7 +249,7 @@
     "deliveryDetails": {
         "title": "Detalii Livrare",
         "subtitle": "Cum livrăm comanda ta?",
-        "howWeDeliverText": "Pizzeria Clinceni iți oferă livrare rapidă și sigură, astfel încat să te bucuri de pizza proaspătă și delicioasă direct la tine acasă!",
+        "howWeDeliverText": "Pizzeria Flama iți oferă livrare rapidă și sigură, astfel încat să te bucuri de pizza proaspătă și delicioasă direct la tine acasă!",
         "zoneTitle": "Zona de Livrare",
         "weekdays": "Luni-Vineri:",
         "timeTitle": "Timp Estimat de Livrare",
@@ -268,7 +268,7 @@
         "cardText": "Poți opta pentru plata comenzii cu cardul bancar. Tranzacția va fi efectuată în condiții de siguranță și confidențialitate depline, sigur și rapid, prin intermediul procesorului de plăți online.",
         "cashTitle": "Plată Numerar",
         "cashText": "În această variantă, plata comenzii se va face în numerar la livrare. Vei plăti direct agentului de livrare în momentul în care îți sunt livrate produsele, iar acesta îți va emite o chitanță. Produsele comandate și taxa de transport trebuie achitate integral.",
-        "zonesText": "Pizzeria Clinceni oferă livrare la domiciliu în zonele",
+        "zonesText": "Pizzeria Flama oferă livrare la domiciliu în zonele",
         "zones": "Clinceni, Domnești, Bragadiru, Țegheș și Ordoreanu.",
         "freeDeliveryText": "Pentru a beneficia de livrare gratuită, este necesar ca valoarea minimă a comenzii să fie de 50 de lei. Pentru comenzile sub această sumă, se aplică o taxă de livrare de 8 lei. Pentru detalii suplimentare sau pentru a plasa o comandă, ne puteți contacta la numărul de telefon",
         "freeDeliveryText1": "sau prin email la"
@@ -290,7 +290,7 @@
     "aboutPage": {
         "title": "Despre",
         "historyTitle": "Pasiune pentru pizza din 2016",
-        "historyText": "Pizzeria Clinceni a fost fondată în anul 2016, în Clinceni, Ilfov, din dorința de a oferi comunitații locale preparate delicioase, realizate din ingrediente proaspete și de calitate. De-a lungul anilor, ne-am câștigat reputația pentru gustul autentic al pizzei și serviciile noastre prompte de livrare.",
+        "historyText": "Pizzeria Flama a fost fondată în anul 2016, în Clinceni, Ilfov, din dorința de a oferi comunitații locale preparate delicioase, realizate din ingrediente proaspete și de calitate. De-a lungul anilor, ne-am câștigat reputația pentru gustul autentic al pizzei și serviciile noastre prompte de livrare.",
         "differenceTitle": "Ce ne diferențiază?",
         "differenceList": [
             "Ingrediente proaspete și de calitate",
