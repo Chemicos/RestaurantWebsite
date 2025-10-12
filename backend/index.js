@@ -447,8 +447,9 @@ app.post('/api/login', async (req, res) => {
 
     res.cookie('auth_token', token, {
       httpOnly: true,
-      secure: false, // setează `true` în producție cu HTTPS
-      sameSite: 'lax',
+      secure: true, // setează `true` în producție cu HTTPS
+      sameSite: 'none',
+      path: '/',
       maxAge: 24 * 60 * 60 * 1000
     })
 
