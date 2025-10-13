@@ -1,12 +1,12 @@
-# React + Vite
+<p align="center">
+  <img width="120" height="120" alt="logoPizzerie" src="https://github.com/user-attachments/assets/b03d0e9f-e66c-4837-a4a4-838635c80b02" />
+</p>
+<h1 align="center" font="bold">Flama Restaurant</h1>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<p align="center">
+  <em>A complete online restaurant ordering website, built with React, Express and PostgreSQL.</em>
+</p>
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+## 🖼️ Preview
+![Screenshot 2025-10-14 005320](https://github.com/user-attachments/assets/277f7ee4-709d-45c1-b924-5839be53a089)
