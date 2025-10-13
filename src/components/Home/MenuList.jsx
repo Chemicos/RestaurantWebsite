@@ -99,7 +99,7 @@ export default function MenuList({refreshOrders}) {
                 
                 <div className='flex gap-4'>
                     <button 
-                        className='text-custom-red lg:hover:bg-red-600 active:bg-red-600 active:text-white hover:text-white transition-all duration-500 cursor-pointer rounded-full p-2
+                        className='text-custom-red lg:hover:bg-red-600 active:bg-red-600 lg:active:text-white hover:text-white transition-all duration-500 cursor-pointer rounded-full p-2
                         disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-red-600 disabled:cursor-not-allowed'
                         onClick={handlePrev}
                         disabled={!canPrev}
@@ -108,7 +108,7 @@ export default function MenuList({refreshOrders}) {
                     </button>
 
                     <button
-                        className='text-custom-red lg:hover:bg-red-600 active:bg-red-600 active:text-white hover:text-white transition-all duration-500 cursor-pointer rounded-full p-2
+                        className='text-custom-red lg:hover:bg-red-600 active:bg-red-600 lg:active:text-white hover:text-white transition-all duration-500 cursor-pointer rounded-full p-2
                         disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-red-600 disabled:cursor-not-allowed'
                         onClick={handleNext}
                         disabled={!canNext}
