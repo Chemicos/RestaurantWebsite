@@ -7,47 +7,6 @@ import { useTranslation } from 'react-i18next'
 // import { useInView } from 'react-intersection-observer'
 
 const bakingPizza = '/assets/chefbakingpizza.jpg'
-// const features = [
-//     {
-//       key: 'produse',
-//       label: 'Produse',
-//       icon: <HamburgerIcon size={36} weight='duotone' className='text-custom-red'/>,
-//       title: "Produse Diversificate",
-//       desc: "Meniu gândit pentru toate gusturile: pizza clasică sau specială, paste cremoase, salate fresh și deserturi. " +
-//       "Combină opțiunile după preferințe și personalizează-ți ușor comanda."
-//     },
-//     {
-//       key: 'plata',
-//       label: 'Plată',
-//       icon: <CreditCardIcon size={36} weight='duotone' className='text-custom-red' />,
-//       title: "Plată Card",
-//       desc: "Plătești în siguranță, fără numerar. Acceptăm carduri la livrare și online prin sesiune de plată securizată. " +
-//       "Primești confirmarea tranzacției, simplu și rapid."
-//     },
-//     {
-//       key: 'comanda',
-//       label: 'Comandă',
-//       icon: <PhoneIcon size={36} weight='duotone' className='text-custom-red' />,
-//       title: "Comandă Telefonic",
-//       desc: "Preferi să discuți cu cineva? Sună-ne și te ajutăm să alegi meniul potrivit, " +
-//       "să personalizezi preparatele și să plasezi comanda în câteva minute."
-//     },
-//     {
-//       key: 'personalizare',
-//       label: 'Personalizare',
-//       icon: <PaletteIcon size={36} weight='duotone' className='text-custom-red' />,
-//       title: "Meniuri Personalizate",
-//       desc: "De la alegerea garniturii, la alegerea sucului, noi îți oferim posibilitatea de a personaliza meniul dorit."
-//     },
-//     {
-//       key: 'livrare',
-//       label: 'Livrare',
-//       icon: <TruckIcon size={36} weight='duotone' className='text-custom-red' />,
-//       title: "Livrare Rapidă",
-//       desc: "Ajungem prompt în Clinceni, Ordoreanu, Domnești și Bragadiru. " +
-//       "Ne organizăm pe rute scurte pentru ca mâncarea să fie fierbinte și delicioasă."
-//     }
-// ]
 
 const stack_offset = 10
 const card_height = 220
@@ -154,7 +113,7 @@ export default function WhyChooseUs() {
                   <button
                     key={t.key}
                     onClick={() => setActive(i)}
-                    className={`relative pb-1 text-[17px] font-medium transition-colors
+                    className={`relative pb-1 text-[17px] font-medium transition-colors cursor-pointer
                       ${isActive ? "text-black" : "text-[#66635B] hover:text-black"}`}
                     aria-current={isActive ? "page" : undefined}
                   >

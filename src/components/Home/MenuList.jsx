@@ -16,6 +16,8 @@ export default function MenuList({refreshOrders}) {
     const [isCustomizing, setIsCustomizing] = useState(false)
     const [selectedItem, setSelectedItem] = useState(null)
 
+    const [isLoading, setIsLoading] = useState(true)
+
     const fadeVariants = {
         hidden: { opacity: 0, y: 80 },
         fadeOut: {opacity: 0},
@@ -29,11 +31,28 @@ export default function MenuList({refreshOrders}) {
 
     const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.2 })
 
+    // useEffect(() => {
+    //     fetch(`${API_URL}/api/menus`)
+    //     .then(res => res.json())
+    //     .then(data => setMenuItems(data))
+    //     .catch(err => console.error('Error loading menu:', err))
+    // }, [])
+
     useEffect(() => {
-        fetch(`${API_URL}/api/menus`)
-        .then(res => res.json())
-        .then(data => setMenuItems(data))
-        .catch(err => console.error('Error loading menu:', err))
+        const fetchMenus = async () => {
+            try {
+                setIsLoading(true)
+
+                const res = await fetch(`${API_URL}/api/menus`)
+                const data = await res.json()
+                setMenuItems(data)
+            } catch (error) {
+                console.error('Error loading menu:', error)
+            } finally {
+                setTimeout(() => setIsLoading(false), 500)
+            }
+        }
+        fetchMenus()
     }, [])
 
     useEffect(() => {
@@ -80,7 +99,7 @@ export default function MenuList({refreshOrders}) {
                 
                 <div className='flex gap-4'>
                     <button 
-                        className='text-custom-red hover:bg-red-600 active:bg-red-600 active:text-white hover:text-white transition-all duration-500 cursor-pointer rounded-full p-2
+                        className='text-custom-red lg:hover:bg-red-600 active:bg-red-600 active:text-white hover:text-white transition-all duration-500 cursor-pointer rounded-full p-2
                         disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-red-600 disabled:cursor-not-allowed'
                         onClick={handlePrev}
                         disabled={!canPrev}
@@ -89,7 +108,7 @@ export default function MenuList({refreshOrders}) {
                     </button>
 
                     <button
-                        className='text-custom-red hover:bg-red-600 active:bg-red-600 active:text-white hover:text-white transition-all duration-500 cursor-pointer rounded-full p-2
+                        className='text-custom-red lg:hover:bg-red-600 active:bg-red-600 active:text-white hover:text-white transition-all duration-500 cursor-pointer rounded-full p-2
                         disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-red-600 disabled:cursor-not-allowed'
                         onClick={handleNext}
                         disabled={!canNext}
@@ -98,55 +117,62 @@ export default function MenuList({refreshOrders}) {
                     </button>
                 </div>
             </div>
-            <motion.div 
-                ref={ref}
-                variants={fadeVariants}
-                initial="hidden"
-                animate={inView ? (isFading ? "fadeOut" : "visible") : "hidden"}
-        
-                className={`h-full grid grid-cols-1 xl:grid-cols-4 w-ful xl:w-full gap-8 justify-items-center`}
-            >
-                {visibleItems.map(item => (
-                    <div key={item.id} className='max-w-[450px] flex flex-col items-center justify-between'>
-                        <img 
-                            src={item.image_url} 
-                            alt={item.name} 
-                            className='w-full h-52 object-cover rounded-xl' 
-                        />
 
-                        <div className='p-4 flex flex-col items-center space-y-2'>
-                            <h3 className='text-xl font-semibold text-center'>
-                                {item.name}
-                            </h3>
-                            <p className='text-custom-red text-lg font-bold'>
-                                {item.price} RON
-                            </p>
-                            <p className='text-sm text-center text-custom-gray'>
-                                {item.ingredients}
-                            </p>
+            {isLoading ? (
+                <div className='flex justify-center items-center min-h-[400px]'>
+                    <CircularProgress color='error' />
+                </div>
+            ) : (
+                <motion.div 
+                    ref={ref}
+                    variants={fadeVariants}
+                    initial="hidden"
+                    animate={inView ? (isFading ? "fadeOut" : "visible") : "hidden"}
+            
+                    className={`h-full grid grid-cols-1 xl:grid-cols-4 w-ful xl:w-full gap-8 justify-items-center`}
+                >
+                    {visibleItems.map(item => (
+                        <div key={item.id} className='max-w-[450px] flex flex-col items-center justify-between'>
+                            <img 
+                                src={item.image_url} 
+                                alt={item.name} 
+                                className='w-full h-52 object-cover rounded-xl' 
+                            />
 
-                            <button 
-                                onClick={() => {
-                                        setSelectedItem(item)
-                                        setIsCustomizing(true)
-                                    }}
-                                className='mt-4 px-4 py-2 text-md font-bold text-custom-red border border-custom-red cursor-pointer rounded-lg
-                            hover:text-white active:text-white hover:bg-red-600 active:bg-red-600 transition-colors duration-300'
-                            >
-                                {t('homeMenus.customize')}
-                            </button>              
+                            <div className='p-4 flex flex-col items-center space-y-2'>
+                                <h3 className='text-xl font-semibold text-center'>
+                                    {item.name}
+                                </h3>
+                                <p className='text-custom-red text-lg font-bold'>
+                                    {item.price} RON
+                                </p>
+                                <p className='text-sm text-center text-custom-gray'>
+                                    {item.ingredients}
+                                </p>
+
+                                <button 
+                                    onClick={() => {
+                                            setSelectedItem(item)
+                                            setIsCustomizing(true)
+                                        }}
+                                    className='mt-4 px-4 py-2 text-md font-bold text-custom-red border border-custom-red cursor-pointer rounded-lg
+                                hover:text-white active:text-white hover:bg-red-600 active:bg-red-600 transition-colors duration-300'
+                                >
+                                    {t('homeMenus.customize')}
+                                </button>              
+                            </div>
                         </div>
-                    </div>
-                ))}
+                    ))}
 
-                {isCustomizing && (
-                    <MenuCustomizer 
-                        onClose={() => setIsCustomizing(false)} 
-                        menu={selectedItem}
-                        refreshOrders={refreshOrders}
-                    />
-                )}
-            </motion.div>
+                    {isCustomizing && (
+                        <MenuCustomizer 
+                            onClose={() => setIsCustomizing(false)} 
+                            menu={selectedItem}
+                            refreshOrders={refreshOrders}
+                        />
+                    )}
+                </motion.div>
+            )}
         </div>
     </AnimatePresence>
   )

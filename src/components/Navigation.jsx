@@ -291,7 +291,7 @@ export default function Navigation() {
 
         <button
             onClick={toggleLanguage}
-            className="fixed bottom-4 right-4 z-[1000] bg-white p-2 rounded-full shadow-md border transition-all active:scale-90 duration-200 ease-in-out border-gray-300"
+            className="fixed bottom-4 right-4 z-[1000] cursor-pointer bg-white p-2 rounded-full shadow-md border transition-all active:scale-90 duration-200 ease-in-out border-gray-300"
         >
             {i18n.language === 'ro' ? (
                 <img src="/assets/romania.png" alt="ro" className="w-10 h-10" />
