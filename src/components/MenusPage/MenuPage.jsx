@@ -36,6 +36,7 @@ export default function MenuPage() {
   const [isCustomizerOpen, setIsCustomizerOpen] = useState(false)
   const [selectedItem, setSelectedItem] = useState(null) 
   const [isLoading, setIsLoading] = useState(true)
+  const [deleteLoading, setDeleteLoading] = useState(false)
 
   const API_URL = import.meta.env.VITE_API_URL
 
@@ -79,6 +80,7 @@ export default function MenuPage() {
     if (!cartId|| (!user_id && !session_id)) return
 
     try {
+      setDeleteLoading(true)
       await fetch(`${API_URL}/api/comenzi_temporare/${cartId}`, {
         method: 'DELETE',
         headers: {'Content-Type' : 'application/json'},
@@ -90,6 +92,8 @@ export default function MenuPage() {
       setDeleteToastOpen(true)
     } catch (error) {
       console.error('Eroare la stergerea comenzii', error)
+    } finally {
+      setDeleteLoading(false)
     }
   }
 
@@ -300,6 +304,7 @@ export default function MenuPage() {
           onCancel={() => setMenuToDelete(null)}
           onConfirm={() => handleDeleteOrder(menuToDelete?.id)}
           menuName={menuToDelete?.name}
+          deleteLoading={deleteLoading}
       />
       <ConfirmOrderTransaction
         open={showConfirmOrder}

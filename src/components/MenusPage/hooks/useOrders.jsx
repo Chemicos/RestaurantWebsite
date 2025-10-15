@@ -25,8 +25,6 @@ export const OrdersProvider = ({ children }) => {
       const res = await fetch(url, { credentials: "include" })
       const rows = await res.json() 
 
-      // const allItems = Array.isArray(data) ? data.map(entry => entry.items) : []
-
       const normalized = (Array.isArray(rows) ? rows : []).flatMap(row => {
         const raw = typeof row.items === "string" ? JSON.parse(row.items) : row.items
         const arr = Array.isArray(raw) ? raw : [raw]

@@ -27,6 +27,8 @@ export default function MenuCustomizer({
   const [selectedSosuri, setSelectedSosuri] = useState(initialSelection?.sosuri ?? [])
 
   const [isLoading, setIsLoading] = useState(true)
+  const [isAdding, setIsAdding] = useState(false)
+
   const [garnituri, setGarnituri] = useState([])
   const [salate, setSalate] = useState([])
   const [bauturi, setBauturi] = useState([])
@@ -125,6 +127,8 @@ export default function MenuCustomizer({
     sessionStorage.setItem("session_id", orderPayload.session_id)
 
     try {
+      setIsAdding(true)
+
       const url = mode === 'edit' 
         ? `${API_URL}/api/comenzi_temporare/${cartItemId}`
         : `${API_URL}/api/comenzi_temporare`
@@ -148,6 +152,8 @@ export default function MenuCustomizer({
 
     } catch (error) {
       console.error("Eroare la salvarea comenzii:", error)
+    } finally {
+      setIsAdding(false)
     }
   }
 
@@ -188,6 +194,7 @@ export default function MenuCustomizer({
                     totalPrice={totalPrice}
                     handleAddOrder={handleAddOrder}
                     isInvalidGarnitura={isInvalidGarnitura}
+                    isAdding={isAdding}
                   />
 
                   <MenuCustomizerForm
@@ -211,6 +218,7 @@ export default function MenuCustomizer({
                     handleAddOrder={handleAddOrder}
                     isEditing={mode === 'edit'}
                     isInvalidGarnitura={isInvalidGarnitura}
+                    isAdding={isAdding}
                   />
                 </div>
               </div>
@@ -246,6 +254,7 @@ export default function MenuCustomizer({
                     handleAddOrder={handleAddOrder}
                     isEditing={mode === 'edit'}
                     isInvalidGarnitura={isInvalidGarnitura}
+                    isAdding={isAdding}
                   />
                 </div>
               </>

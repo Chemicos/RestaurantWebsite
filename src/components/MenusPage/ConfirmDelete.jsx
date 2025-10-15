@@ -1,10 +1,11 @@
 /* eslint-disable no-unused-vars */
+import { CircularProgress } from '@mui/material'
 import { WarningCircleIcon } from '@phosphor-icons/react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-export default function ConfirmDelete({visible, onCancel, onConfirm, menuName}) {    
+export default function ConfirmDelete({visible, onCancel, onConfirm, menuName, deleteLoading}) {    
     const {t} = useTranslation()
 
     useEffect(() => {
@@ -69,7 +70,13 @@ export default function ConfirmDelete({visible, onCancel, onConfirm, menuName}) 
                         onClick={onConfirm}
                         className="w-full px-4 py-2 bg-custom-red text-white rounded-lg hover:bg-red-700 active:bg-red-700 active:scale-90 cursor-pointer transition-all"
                     >
-                        {t('confirmDelete.delete')}
+                        {deleteLoading ? (
+                            <div className='flex justify-center items-center gap-2'>
+                                <CircularProgress size={22} color='inherit' />
+                            </div>
+                        ) : (
+                            t('confirmDelete.delete')
+                        )}
                     </button>
                 </div>
             </motion.div>

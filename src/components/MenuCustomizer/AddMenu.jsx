@@ -1,3 +1,4 @@
+import { CircularProgress } from '@mui/material'
 import { MinusIcon, PlusIcon } from '@phosphor-icons/react'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
@@ -8,7 +9,8 @@ export default function AddMenu({
     totalPrice, 
     handleAddOrder,
     isEditing,
-    isInvalidGarnitura = false
+    isInvalidGarnitura = false,
+    isAdding = false
 }) {
     const {t} = useTranslation()
     return (
@@ -40,10 +42,15 @@ export default function AddMenu({
                 ${isInvalidGarnitura ? 'opacity-50 cursor-not-allowed' : 'hover:bg-red-700 active:scale-90'}
                 `}
             >
-                {isEditing 
-                    ? `${t('addMenu.save')} ${quantity} ${t('addMenu.for')} ${totalPrice.toFixed(2)} RON` 
-                    : `${t('addMenu.add')} ${quantity} ${t('addMenu.addFor')} ${totalPrice.toFixed(2)} RON `
-                }
+                {isAdding ? (
+                    <div className="flex justify-center items-center gap-2">
+                        <CircularProgress size={22} color="inherit" />
+                    </div>
+                ) : (
+                    isEditing 
+                        ? `${t('addMenu.save')} ${quantity} ${t('addMenu.for')} ${totalPrice.toFixed(2)} RON` 
+                        : `${t('addMenu.add')} ${quantity} ${t('addMenu.addFor')} ${totalPrice.toFixed(2)} RON `
+                )}
             </button>
         </div>
     )

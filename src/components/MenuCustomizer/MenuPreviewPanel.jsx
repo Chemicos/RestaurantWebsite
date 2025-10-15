@@ -17,7 +17,8 @@ export default function MenuPreviewPanel({
    totalPrice,
    handleAddOrder,
    isEditing = false,
-   isInvalidGarnitura = false
+   isInvalidGarnitura = false,
+   isAdding = false
   }) {
   const {t} = useTranslation()
   const isMobile = useMediaQuery('(max-width: 1024px)')
@@ -86,6 +87,7 @@ export default function MenuPreviewPanel({
           handleAddOrder={handleAddOrder}
           isEditing={isEditing}
           isInvalidGarnitura={isInvalidGarnitura}
+          isAdding={isAdding}
         />
       )}
     </div>
