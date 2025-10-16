@@ -1,13 +1,15 @@
 import { useMediaQuery } from '@mui/material'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 
 export default function PassDifficulty({ password, isVisible = true }) {
+    const {t} = useTranslation()
     const criteria = [
-        {id: 'minLength', text: 'Minim 6 caractere', isValid: password.length >= 6},
-        {id: 'upperCase', text: 'Minim o majusculă', isValid: /[A-Z]/.test(password)},
+        {id: 'minLength', text: t('register.passwordValidation.minLength'), isValid: password.length >= 6},
+        {id: 'upperCase', text: t('register.passwordValidation.upperCase'), isValid: /[A-Z]/.test(password)},
         {
             id: 'numberOrSpecial',
-            text: 'Cifre sau caractere speciale',
+            text: t('register.passwordValidation.numberOrSpecial'),
             isValid: /[0-9]/.test(password) || /[!@#$%^&*(),.?":{}|<>]/.test(password)
         }
     ]

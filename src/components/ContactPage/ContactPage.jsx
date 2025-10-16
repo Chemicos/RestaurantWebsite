@@ -16,8 +16,8 @@ export default function ContactPage() {
     telefon: ''
   }
   return (
-    <div className='max-w-[1280px] mx-auto'>
-      <div className='px-6 xl:px-0'>
+    <div className='max-w-[1280px] mx-auto mt-20 sm:mt-0'>
+      <div className='px-6 xl:px-0 mb-30 sm:mb-0'>
         <ContactDetails />
       </div>
 

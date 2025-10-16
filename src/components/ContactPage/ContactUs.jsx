@@ -107,7 +107,7 @@ export default function ContactUs({ prefill }) {
     }
   }
   return (
-    <div className='flex items-center justify-center min-h-[100svh] xl:min-h-screen'>
+    <div className='flex items-center justify-center min-h-[100svh] xl:min-h-screen mb-30 sm:mb-0'>
       <motion.div
         ref={ref}
         initial={{opacity: 0, y: 90}}

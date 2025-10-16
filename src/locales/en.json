@@ -270,7 +270,7 @@
         "cashText": "In this option, the order will be paid in cash upon delivery. You will pay directly to the delivery agent when your products are delivered, and you will receive a receipt. Ordered products and delivery fee must be paid in full.",
         "zonesText": "Pizzeria Flama offers home delivery in the areas",
         "zones": "Clinceni, Domnești, Bragadiru, Țegheș and Ordoreanu.",
-        "freeDeliveryText": "To benefit from free delivery, the minimum order value must be 50 lei. For orders below this amount, a delivery fee of 8 lei applies. For more details or to place an order, you can contact us at the phone number",
+        "freeDeliveryText": "To benefit from free delivery, the minimum order value must be 50 RON. For orders below this amount, a delivery fee of 8 RON applies. For more details or to place an order, you can contact us at the phone number",
         "freeDeliveryText1": "or through email via"
     },
     "cookiePolicy": {

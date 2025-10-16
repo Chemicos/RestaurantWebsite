@@ -127,7 +127,7 @@ export default function Navigation() {
     )
   return (
     <div className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${hasShadow ? 'shadow-lg bg-custom-yellow' : ''}`}>
-        <div className='flex p-4 justify-between items-center'>
+        <div className='flex flex-wrap p-3 sm:p-4 justify-between items-center'>
             <img 
                 src={`/assets/logoPizzerie.png`} 
                 alt="logo pizzerie" 
@@ -201,7 +201,13 @@ export default function Navigation() {
                             aria-haspopup="true"
                             aria-expanded={openMenu ? 'true' : undefined}
                         >
-                            <span className="text-[#66635B] capitalize">{user.prenume}</span>
+                            <span className="text-[#66635B] capitalize">
+                            {
+                                user.prenume?.length > 10
+                                ? user.prenume.slice(0, 10) + '...'
+                                : user.prenume
+                            }
+                            </span>
                             <ExpandMore />
                         </IconButton>
                         <Menu
