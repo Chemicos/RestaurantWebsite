@@ -32,7 +32,7 @@ Why not? 🙃
 |:------|:--------------|
 | **Frontend** | ⚛️ React (Vite), 🎨 Tailwind CSS, 🌍 React Router DOM, 🗣️ i18next (RO/EN localization) |
 | **Backend** | 🟢 Express.js, 🔐 JWT Auth with HTTP-only Cookies, 💳 Stripe API |
-| **Database** | 🐘 PostgreSQL (hosted via NeonDB) |
+| **Database** | 🐘 PostgreSQL (hosted via NeonDB), Supabase (for menu-images) |
 | **Hosting** | 🚀 Frontend on Vercel, ☁️ Backend on Render, Database on Neon |
 | **Other Tools** | 🔄 Framer Motion (animations), 📦 Context API (Cart & Auth), 🧩 REST API integration |
 
