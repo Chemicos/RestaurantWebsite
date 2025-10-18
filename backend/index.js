@@ -7,6 +7,7 @@ import bcrypt from 'bcrypt';
 import cookieParser from 'cookie-parser';
 import jwt from 'jsonwebtoken';
 import Stripe from 'stripe';
+import cron from 'node-cron';
 
 dotenv.config();
 const { Pool } = pkg;
@@ -17,6 +18,25 @@ const allowedOrigins = [
   'http://localhost:5173',
   'https://restaurant-website-three-orcin.vercel.app'
 ];
+
+const pool = new Pool({
+  user: process.env.DB_USER,
+  host: process.env.DB_HOST,
+  database: process.env.DB_NAME,
+  password: process.env.DB_PASS,
+  port: 5432,
+  ssl: {rejectUnauthorized: false}
+});
+
+cron.schedule("0 3 * * *", async () => {
+  console.log("Running daily cleanup job for expired users...")
+  try {
+    await pool.query("SELECT delete_expired_users()")
+    console.log("Expired users cleaned up successfully.")
+  } catch (error) {
+    console.errror("Error during cleanup job:", error.message)
+  }
+});
 
 app.use(cors({
   origin: function (origin, callback) {
@@ -29,15 +49,6 @@ app.use(cors({
   credentials: true,
 }));
 app.use(express.json());
-
-const pool = new Pool({
-  user: process.env.DB_USER,
-  host: process.env.DB_HOST,
-  database: process.env.DB_NAME,
-  password: process.env.DB_PASS,
-  port: 5432,
-  ssl: {rejectUnauthorized: false}
-});
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
 const CLIENT_URL = process.env.CLIENT_URL || 'http://localhost:5173'
