@@ -249,7 +249,7 @@ export default function CumComand() {
             <AccordionSummary expandIcon={<ExpandMoreIcon />} className='!p-0'>
                 <Typography sx={{color: '#66635B'}}>
                     {t('howToOrder.phone.summary')}
-                    <span className='font-bold'> 07284948491</span>
+                    <span className='font-bold'> 000000000000</span>
                 </Typography>
             </AccordionSummary>
             <AccordionDetails>

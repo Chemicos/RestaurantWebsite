@@ -41,7 +41,7 @@ export default function MenuPage() {
   const API_URL = import.meta.env.VITE_API_URL
 
   const {fetchCartItems, setCartItemCount} = useCart()
-  const {orders, refreshOrders, setOrders} = useOrders()
+  const {orders, refreshOrders, setOrders, ordersLoading} = useOrders()
   const {user} = useContext(AuthContext)
 
   useEffect(() => {
@@ -214,6 +214,7 @@ export default function MenuPage() {
         }>
           <OrderSummary
             orders={orders}
+            orderLoading={ordersLoading}
             onRequestDelete={(order) => setMenuToDelete({id: order._cartId, name: order.name})}
             onRequestEdit={(order) => {
               const base = menuItems.find(m => m.name === order.name)
@@ -269,6 +270,7 @@ export default function MenuPage() {
         <OrderSummaryMobileWrapper
           orders={orders}
           onRequestDelete={(order) => setMenuToDelete({id: order._cartId, name: order.name})}
+          orderLoading={ordersLoading}
           onClose={() => setShowOrderSummaryMobile(false)}
           onRequestEdit={(order) => {
             const base = menuItems.find(m => m.name === order.name)

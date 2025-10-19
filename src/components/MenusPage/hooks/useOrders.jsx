@@ -6,6 +6,7 @@ const OrdersContext = createContext()
 export const OrdersProvider = ({ children }) => {
   const { user } = useContext(AuthContext)
   const [orders, setOrders] = useState([])
+  const [ordersLoading, setOrdersLoading] = useState(false)
   const API_URL = import.meta.env.VITE_API_URL
 
   const refreshOrders = async () => {
@@ -22,6 +23,7 @@ export const OrdersProvider = ({ children }) => {
       : `${API_URL}/api/comenzi_temporare?session_id=${session_id}`
 
     try {
+      setOrdersLoading(true)
       const res = await fetch(url, { credentials: "include" })
       const rows = await res.json() 
 
@@ -39,6 +41,8 @@ export const OrdersProvider = ({ children }) => {
     } catch (err) {
       console.error("Eroare la preluarea comenzilor:", err)
       setOrders([])
+    } finally {
+      setOrdersLoading(false)
     }
   }
 
@@ -47,7 +51,7 @@ export const OrdersProvider = ({ children }) => {
   }, [user])
 
   return (
-    <OrdersContext.Provider value={{ orders, refreshOrders, setOrders }}>
+    <OrdersContext.Provider value={{ orders, refreshOrders, setOrders, ordersLoading }}>
       {children}
     </OrdersContext.Provider>
   )

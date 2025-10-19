@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import OrderSummary from './OrderSummary'
 import { XIcon } from '@phosphor-icons/react'
 
-export default function OrderSummaryMobileWrapper({orders, onRequestDelete, onRequestEdit, onClose}) {
+export default function OrderSummaryMobileWrapper({orders, onRequestDelete, orderLoading, onRequestEdit, onClose}) {
     const isMobile = useMediaQuery('(max-width: 1024px)')
     
     useEffect(() => {
@@ -34,6 +34,7 @@ export default function OrderSummaryMobileWrapper({orders, onRequestDelete, onRe
         orders={orders}
         onRequestDelete={onRequestDelete}
         onRequestEdit={handleEdit}
+        orderLoading={orderLoading}
       />
     </div>
   )

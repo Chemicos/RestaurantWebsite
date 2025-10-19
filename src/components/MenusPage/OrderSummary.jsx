@@ -1,9 +1,9 @@
 import { generateOrderDetailsText } from './utils/formatOrderDetails'
-import { useMediaQuery } from '@mui/material'
+import { CircularProgress, useMediaQuery } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 
-export default function OrderSummary({orders, onRequestDelete, onRequestEdit}) {
+export default function OrderSummary({orders, onRequestDelete, onRequestEdit, orderLoading}) {
   const totalPrice = orders.reduce((acc, order) => acc + Number(order.price), 0)
   const isMobile = useMediaQuery('(max-width: 1024px)')
   const navigate = useNavigate()
@@ -15,44 +15,51 @@ export default function OrderSummary({orders, onRequestDelete, onRequestEdit}) {
     `}>
       <h2 className='font-semibold lg:font-bold text-4xl lg:text-xl mb-6 text-center'>{t('orderSummary.title')}</h2>
 
-      {orders.length === 0 ? (
-        <p className='text-center text-custom-gray'>{t('orderSummary.emptyOrder')}</p>
+
+      {orderLoading ? (
+        <div className="flex justify-center items-center h-[200px]">
+          <CircularProgress color="error" />
+        </div>
       ) : (
-        <>
-          <div className={`${isMobile ? 'w-full h-full' : 'h-[400px] w-[300px]'} flex flex-col gap-4 overflow-y-auto pr-1`}>
-            {orders.map((order, index) => (
-              <div key={index} className='flex justify-between border-b border-black/20 pb-4'>
-                <div className='flex flex-col items-start w-[200px]'>
-                  <div className='flex gap-1'>
-                    <span>x{order.quantity}</span> 
-                    <p>{order.name}</p>
-                  </div>
-                  
-                  <p className='text-sm text-custom-gray leading-relaxed'>{generateOrderDetailsText(order)}</p>
-                  
+        orders.length === 0 ? (
+          <p className='text-center text-custom-gray'>{t('orderSummary.emptyOrder')}</p>
+        ) : (
+          <>
+            <div className={`${isMobile ? 'w-full h-full' : 'h-[400px] w-[300px]'} flex flex-col gap-4 overflow-y-auto pr-1`}>
+              {orders.map((order, index) => (
+                <div key={index} className='flex justify-between border-b border-black/20 pb-4'>
+                  <div className='flex flex-col items-start w-[200px]'>
+                    <div className='flex gap-1'>
+                      <span>x{order.quantity}</span> 
+                      <p>{order.name}</p>
+                    </div>
+                    
+                    <p className='text-sm text-custom-gray leading-relaxed'>{generateOrderDetailsText(order)}</p>
+                    
 
-                  <div className='flex gap-2'>
-                    <button 
-                    className='text-sm text-custom-red font-medium hover:underline cursor-pointer'
-                    onClick={() => onRequestDelete(order)}
-                    >
-                      {t('orderSummary.delete')}
-                    </button>
-
-                    <button
+                    <div className='flex gap-2'>
+                      <button 
                       className='text-sm text-custom-red font-medium hover:underline cursor-pointer'
-                      onClick={() => onRequestEdit(order)}
-                    >
-                      {t('orderSummary.edit')}
-                    </button>
+                      onClick={() => onRequestDelete(order)}
+                      >
+                        {t('orderSummary.delete')}
+                      </button>
+
+                      <button
+                        className='text-sm text-custom-red font-medium hover:underline cursor-pointer'
+                        onClick={() => onRequestEdit(order)}
+                      >
+                        {t('orderSummary.edit')}
+                      </button>
+                    </div>
                   </div>
+            
+                  <p className='text-md'>{Number(order.price).toFixed(2)} RON</p>
                 </div>
-          
-                <p className='text-md'>{Number(order.price).toFixed(2)} RON</p>
-              </div>
-            ))}
-          </div>
-        </>
+              ))}
+            </div>
+          </>
+        )
       )}
 
       {orders.length > 0 ? (
