@@ -57,6 +57,7 @@ app.get('/api/cleanup', async (req, res) => {
   try {
     await pool.query('SELECT delete_expired_users()')
     console.log('Cleanup triggered via external request.')
+    res.json({ success: true, message: 'Expired users deleted successfully.' })
   } catch (error) {
     console.error('Error during external cleanup:', error.message)
     res.status(500).json({error: error.message})
