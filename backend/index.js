@@ -34,7 +34,7 @@ cron.schedule("0 3 * * *", async () => {
     await pool.query("SELECT delete_expired_users()")
     console.log("Expired users cleaned up successfully.")
   } catch (error) {
-    console.errror("Error during cleanup job:", error.message)
+    console.error("Error during cleanup job:", error.message)
   }
 });
 
@@ -52,6 +52,16 @@ app.use(express.json());
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
 const CLIENT_URL = process.env.CLIENT_URL || 'http://localhost:5173'
+
+app.get('/api/cleanup', async (req, res) => {
+  try {
+    await pool.query('SELECT delete_expired_users()')
+    console.log('Cleanup triggered via external request.')
+  } catch (error) {
+    console.error('Error during external cleanup:', error.message)
+    res.status(500).json({error: error.message})
+  }
+})
 
 app.post('/api/stripe/checkout', async (req, res) => {
   try {
