@@ -25,7 +25,7 @@
 Why not? 🙃
 
 <em>It all started with a local restaurant I used to order from.</em> 
-<em>When I visited their website, I realized how much potential it had — so I decided to rebuild it with a modern, clean design and full ordering functionality.</em> 
+<em>When I visited their website, I realized how much potential it had — so I decided to rebuild it with a more suitable design and full ordering functionality.</em> 
 
 ## ⚙️ Tech Stack
 | Layer | Technologies |
